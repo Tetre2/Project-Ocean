@@ -1,4 +1,4 @@
-package main.ProjectOcean;
+package ProjectOcean;
 
 public class Main {
 
