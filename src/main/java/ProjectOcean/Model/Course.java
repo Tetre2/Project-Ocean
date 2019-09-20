@@ -16,4 +16,10 @@ public class Course {
     public List<Course> getAllCourses() {
         return null;
     }
+
+    public Course(String courseCode, String name, double hp) {
+        this.courseCode = courseCode;
+        this.name = name;
+        this.hp = hp;
+    }
 }
