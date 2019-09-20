@@ -19,4 +19,25 @@ public class Course {
         this.name = name;
         this.studyPoints = studyPoints;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", courseCode='" + courseCode + '\'' +
+                ", studyPoints=" + studyPoints +
+                '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public float getStudyPoints() {
+        return studyPoints;
+    }
 }
