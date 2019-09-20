@@ -10,10 +10,6 @@ public class Course {
 
     private float studyPoints;
 
-    public List<Course> getAllCourses() {
-        return null;
-    }
-
     public Course(String courseCode, String name, float studyPoints) {
         this.courseCode = courseCode;
         this.name = name;
