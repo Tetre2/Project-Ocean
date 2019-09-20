@@ -1,9 +1,11 @@
 package ProjectOcean.Model;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Course {
 
+    private UUID id;
     private String name;
 
     private String courseCode;
@@ -15,6 +17,7 @@ public class Course {
     }
 
     public Course(String courseCode, String name, float studyPoints) {
+        this.id = UUID.randomUUID();
         this.courseCode = courseCode;
         this.name = name;
         this.studyPoints = studyPoints;
@@ -27,6 +30,14 @@ public class Course {
                 ", courseCode='" + courseCode + '\'' +
                 ", studyPoints=" + studyPoints +
                 '}';
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
+    public String getIdToString() {
+        return this.id.toString();
     }
 
     public String getName() {
