@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainWindow" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -99,7 +98,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <content>
-                        <VBox />
+                        <VBox fx:id="searchResultVBox" />
                      </content>
                   </ScrollPane>
                </children>
