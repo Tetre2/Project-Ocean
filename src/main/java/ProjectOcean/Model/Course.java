@@ -8,10 +8,7 @@ public class Course {
 
     private String courseCode;
 
-    private double hp;
-
-    private List<Course> course;
-
+    private float studyPeriod;
 
     public List<Course> getAllCourses() {
         return null;
@@ -20,6 +17,6 @@ public class Course {
     public Course(String courseCode, String name, double hp) {
         this.courseCode = courseCode;
         this.name = name;
-        this.hp = hp;
+        this.studyPeriod = studyPeriod;
     }
 }
