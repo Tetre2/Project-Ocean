@@ -8,7 +8,7 @@ public class CourseInfo implements Info{
     private final List<Course> courses;
 
     public CourseInfo() {
-        courses = new ArrayList<>();
+        courses = new ArrayList<Course>();
         courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f));
         courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f));
         courses.add(new Course("MVE045","Matematisk Analys", 7.5f));
