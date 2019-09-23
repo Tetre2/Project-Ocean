@@ -1,8 +1,17 @@
 package ProjectOcean;
 
-public class Main {
+import ProjectOcean.Controller.ApplicationController;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Course Planning System");
+        ApplicationController root = new ApplicationController();
+        primaryStage.setScene(new Scene(root, 1200, 800));
+        primaryStage.show();
     }
 }
