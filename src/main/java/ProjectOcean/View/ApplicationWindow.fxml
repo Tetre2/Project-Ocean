@@ -34,7 +34,6 @@
           </Menu>
         </menus>
       </MenuBar>
-
       <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <children>
             <VBox alignment="TOP_CENTER" minHeight="550.0" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #61718c;">
@@ -100,7 +99,6 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <content>
-
                         <VBox />
                      </content>
                   </ScrollPane>
@@ -109,6 +107,5 @@
          </children>
       </HBox>
    </children>
-
 </fx:root>
 
