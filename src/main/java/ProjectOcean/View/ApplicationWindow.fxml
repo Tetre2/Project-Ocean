@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainWindow" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root minHeight="600.0" minWidth="1000.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -33,9 +34,10 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+
+      <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="TOP_CENTER" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #61718c;" HBox.hgrow="NEVER">
+            <VBox alignment="TOP_CENTER" minHeight="550.0" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #61718c;">
                <children>
                   <Button mnemonicParsing="false" prefHeight="82.0" prefWidth="122.0" text="Button">
                      <VBox.margin>
@@ -59,7 +61,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS">
+            <VBox minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS">
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" />
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #DEDEDE;">
@@ -86,7 +88,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox prefWidth="500.0" style="-fx-border-color: black;" HBox.hgrow="SOMETIMES">
+            <VBox minWidth="300.0" style="-fx-border-color: black;" HBox.hgrow="NEVER">
                <children>
                   <TextField prefHeight="70.0" promptText="Search in this field">
                      <VBox.margin>
@@ -98,7 +100,8 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <content>
-                        <VBox fx:id="searchResultVBox" />
+
+                        <VBox />
                      </content>
                   </ScrollPane>
                </children>
@@ -106,4 +109,6 @@
          </children>
       </HBox>
    </children>
-</VBox>
+
+</fx:root>
+
