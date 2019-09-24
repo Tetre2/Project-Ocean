@@ -1,9 +1,10 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class CoursePlanningSystem implements IModelCourseListIcon{
+public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchBrowse{
 
     private List<Course> courses;
 
@@ -43,4 +44,12 @@ public class CoursePlanningSystem implements IModelCourseListIcon{
         return "0";
     }
 
+    //IModelSearchBrowse implementation
+    public List<UUID> getAllCoursesIDs() {
+        List<UUID> idList = new ArrayList<UUID>();
+        for (Course c : courses) {
+            idList.add(c.getId());
+        }
+        return idList;
+    }
 }
