@@ -6,14 +6,12 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<fx:root minHeight="600.0" minWidth="1000.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600.0" minWidth="1000.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -87,25 +85,8 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox minWidth="300.0" style="-fx-border-color: black;" HBox.hgrow="NEVER">
-               <children>
-                  <TextField prefHeight="70.0" promptText="Search in this field">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </TextField>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <content>
-                        <VBox />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
+            <VBox fx:id="searchBrowseWindow" minWidth="300.0" style="-fx-border-color: black;" HBox.hgrow="NEVER" />
          </children>
       </HBox>
    </children>
 </fx:root>
-
