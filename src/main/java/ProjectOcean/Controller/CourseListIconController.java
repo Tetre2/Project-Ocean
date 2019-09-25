@@ -26,7 +26,6 @@ public class CourseListIconController {
     public CourseListIconController(UUID id, IModelCourseListIcon model) {
         this.model = model;
         this.id = id;
-        populateIcon();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/CourseView.fxml"));
@@ -38,6 +37,7 @@ public class CourseListIconController {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        populateIcon();
     }
 
     private void populateIcon() {
