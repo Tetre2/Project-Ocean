@@ -5,17 +5,20 @@ import java.io.IOException;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ApplicationController extends VBox {
 
-    private CoursePlanningSystem model;
+    private CoursePlanningSystem coursePlanningSystem;
+    private SearchBrowseController searchBrowseController;
 
     @FXML
     private VBox searchBrowseWindow;
 
     public ApplicationController() {
+        this.coursePlanningSystem = new CoursePlanningSystem();
+        this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -26,7 +29,8 @@ public class ApplicationController extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.searchBrowseWindow.getChildren().add(new SearchBrowseController(this.model));
+
+        searchBrowseWindow.getChildren().add(searchBrowseController.getSearchBrowseVBox());
     }
 
 }

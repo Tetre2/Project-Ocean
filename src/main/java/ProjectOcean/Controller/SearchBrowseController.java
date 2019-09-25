@@ -15,14 +15,16 @@ public class SearchBrowseController extends VBox{
     @FXML
     private VBox searchResultVBox;
 
+    @FXML
+    private VBox searchBrowseVBox;
+
     private IModelSearchBrowse model;
 
     public SearchBrowseController(IModelSearchBrowse model) {
-
+        this.model = model;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ProjectOcean/View/CourseView.fxml"));
-        fxmlLoader.setRoot(this);
+                "/SearchBrowseWindow.fxml"));
         fxmlLoader.setController(this);
 
         try {
@@ -30,14 +32,21 @@ public class SearchBrowseController extends VBox{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        displayAllCourses(model.getAllCoursesIDs());
+
+        //Displays all courses in CPS
+        List<UUID> idList = model.getAllCoursesIDs();
+        displayAllCourses(idList);
     }
 
     private void displayAllCourses(List<UUID> IDList) {
-        searchResultVBox.getChildren().remove(0, searchResultVBox.getChildren().size()-1);
+        //searchResultVBox.getChildren().remove(0, searchResultVBox.getChildren().size()-1);
         for(UUID id : IDList) {
-            searchResultVBox.getChildren().add(new CourseListIconController(id, (IModelCourseListIcon) model) );
+            searchResultVBox.getChildren().add((new CourseListIconController(id, (IModelCourseListIcon) model)).getCourseVBox());
         }
+    }
+
+    public VBox getSearchBrowseVBox() {
+        return searchBrowseVBox;
     }
 
 

@@ -3,14 +3,13 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.IModelCourseListIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.UUID;
 
-public class CourseListIconController extends AnchorPane {
+public class CourseListIconController extends VBox {
 
     @FXML
     private Text courseCodeText;
@@ -21,6 +20,9 @@ public class CourseListIconController extends AnchorPane {
     @FXML
     private Text studyPointsText;
 
+    @FXML
+    private VBox courseVBox;
+
     private static IModelCourseListIcon model;
 
     private UUID id;
@@ -30,8 +32,8 @@ public class CourseListIconController extends AnchorPane {
         this.id = id;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ProjectOcean/View/CourseView.fxml"));
-        fxmlLoader.setRoot(this);
+                "/CourseView.fxml"));
+
         fxmlLoader.setController(this);
 
         try {
@@ -46,5 +48,9 @@ public class CourseListIconController extends AnchorPane {
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.courseNameText.setText(this.model.getCourseName(this.id));
         this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id));
+    }
+
+    public VBox getCourseVBox() {
+        return this.courseVBox;
     }
 }
