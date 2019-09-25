@@ -1,18 +1,14 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 
-public class ApplicationController extends VBox {
+public class WorkspaceController extends Pane {
 
-    @FXML VBox contentWindow;
-
-    public ApplicationController() {
+    public WorkspaceController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ApplicationWindow.fxml"));
+                "/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -21,10 +17,6 @@ public class ApplicationController extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
-        WorkspaceController workspace = new WorkspaceController();
-
-        contentWindow.getChildren().add(0, workspace);
     }
 
 }
