@@ -20,9 +20,6 @@ public class CourseListIconController extends VBox {
     @FXML
     private Text studyPointsText;
 
-    @FXML
-    private VBox courseVBox;
-
     private static IModelCourseListIcon model;
 
     private UUID id;
@@ -33,7 +30,7 @@ public class CourseListIconController extends VBox {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
-
+        fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
         try {
@@ -48,9 +45,5 @@ public class CourseListIconController extends VBox {
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.courseNameText.setText(this.model.getCourseName(this.id));
         this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
-    }
-
-    public VBox getCourseVBox() {
-        return this.courseVBox;
     }
 }

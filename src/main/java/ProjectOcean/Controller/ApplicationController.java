@@ -30,7 +30,7 @@ public class ApplicationController extends VBox {
             throw new RuntimeException(exception);
         }
 
-        searchBrowseWindow.getChildren().add(searchBrowseController.getSearchBrowseVBox());
+        searchBrowseWindow.getChildren().add(searchBrowseController);
     }
 
 }

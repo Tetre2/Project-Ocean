@@ -15,9 +15,6 @@ public class SearchBrowseController extends VBox{
     @FXML
     private VBox searchResultVBox;
 
-    @FXML
-    private VBox searchBrowseVBox;
-
     private IModelSearchBrowse model;
 
     public SearchBrowseController(IModelSearchBrowse model) {
@@ -25,6 +22,7 @@ public class SearchBrowseController extends VBox{
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/SearchBrowseWindow.fxml"));
+        fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
         try {
@@ -41,14 +39,7 @@ public class SearchBrowseController extends VBox{
     private void displayAllCourses(List<UUID> IDList) {
         //searchResultVBox.getChildren().remove(0, searchResultVBox.getChildren().size()-1);
         for(UUID id : IDList) {
-            searchResultVBox.getChildren().add((new CourseListIconController(id, (IModelCourseListIcon) model)).getCourseVBox());
+            searchResultVBox.getChildren().add((new CourseListIconController(id, (IModelCourseListIcon) model)));
         }
     }
-
-    public VBox getSearchBrowseVBox() {
-        return searchBrowseVBox;
-    }
-
-
-
 }
