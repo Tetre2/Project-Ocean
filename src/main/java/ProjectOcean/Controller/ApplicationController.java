@@ -8,7 +8,7 @@ public class ApplicationController extends VBox {
 
     public ApplicationController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ProjectOcean/View/ApplicationWindow.fxml"));
+                "/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
