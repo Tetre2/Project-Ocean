@@ -1,4 +1,4 @@
 package ProjectOcean;
 
-public class DetailledControllerTest {
+public class DetailledControllerTests {
 }
