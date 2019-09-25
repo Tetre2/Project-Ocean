@@ -47,7 +47,7 @@ public class CourseListIconController extends VBox {
     private void populateIcon() {
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.courseNameText.setText(this.model.getCourseName(this.id));
-        this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id));
+        this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
     }
 
     public VBox getCourseVBox() {

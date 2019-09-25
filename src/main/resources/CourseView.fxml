@@ -41,7 +41,7 @@
             </GridPane>
             <Text fx:id="studyPointsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
                <font>
-                  <Font size="32.0" />
+                  <Font size="22.0" />
                </font>
             </Text>
          </children>
