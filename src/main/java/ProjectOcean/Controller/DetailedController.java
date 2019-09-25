@@ -1,17 +1,17 @@
 package ProjectOcean.Controller;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class DetailedController extends VBox {
 
     public DetailedController() {
-
+        ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/DetailedWindow.fxml"));
+                "/DetailedWindow.fxml"), bundle);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
