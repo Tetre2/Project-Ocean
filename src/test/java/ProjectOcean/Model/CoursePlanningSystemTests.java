@@ -9,7 +9,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void CoursePlanningSystemTest() {
-        CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem();
+        CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem(new CourseInfo());
         CourseInfo courseInfo = new CourseInfo();
 
         List<Course> coursePlanningSystemList = coursePlanningSystem.getAllCourses();

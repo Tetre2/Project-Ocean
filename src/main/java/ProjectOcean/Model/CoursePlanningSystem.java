@@ -9,8 +9,11 @@ public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchB
 
     private final List<Course> courses;
 
-    public CoursePlanningSystem() {
-        this.courses = new CourseInfo().getAllCourses();
+    private final InformationLoader infoLoader;
+
+    public CoursePlanningSystem(InformationLoader infoLoader) {
+        this.infoLoader = infoLoader;
+        this.courses = this.infoLoader.getAllCourses();
     }
 
     public List<Course> getAllCourses() {

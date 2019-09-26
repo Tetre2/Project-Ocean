@@ -2,7 +2,7 @@ package ProjectOcean.Model;
 
 import java.util.List;
 
-public interface Info {
+public interface InformationLoader {
 
     public List getAllCourses();
 

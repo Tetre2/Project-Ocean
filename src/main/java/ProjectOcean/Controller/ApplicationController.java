@@ -2,6 +2,7 @@ package ProjectOcean.Controller;
 
 import java.io.IOException;
 
+import ProjectOcean.Model.CourseInfo;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ public class ApplicationController extends VBox {
     private AnchorPane searchBrowseWindow;
 
     public ApplicationController() {
-        this.coursePlanningSystem = new CoursePlanningSystem();
+        this.coursePlanningSystem = new CoursePlanningSystem(new CourseInfo());
         this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
