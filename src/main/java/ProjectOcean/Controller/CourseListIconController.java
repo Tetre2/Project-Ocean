@@ -42,8 +42,13 @@ public class CourseListIconController extends VBox {
     }
 
     private void populateIcon() {
+        //TODO This method might not be the best way to trim course name in the case that its to long.
+        String courseName = this.model.getCourseName(this.id);
+        if (courseName.length() > 25) {
+            courseName = courseName.substring(0, 27) + "...";
+        }
+        this.courseNameText.setText(courseName);
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
-        this.courseNameText.setText(this.model.getCourseName(this.id));
         this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
     }
 }
