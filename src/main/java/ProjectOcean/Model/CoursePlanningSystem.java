@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchBrowse{
 
-    private List<Course> courses;
+    private final List<Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = new CourseInfo().getAllCourses();
