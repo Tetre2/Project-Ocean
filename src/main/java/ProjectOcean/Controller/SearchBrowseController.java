@@ -42,7 +42,8 @@ public class SearchBrowseController extends AnchorPane {
     private void displayAllCourses() {
         //searchResultVBox.getChildren().remove(0, searchResultVBox.getChildren().size()-1);
         for(UUID id : model.getAllCoursesIDs()) {
-            searchResultVBox.getChildren().add((new CourseListIconController(id, (IModelCourseListIcon) model)));
+            CourseListIconController iconController = new CourseListIconController(id, (IModelCourseListIcon) model);
+            searchResultVBox.getChildren().add(iconController);
         }
     }
 }
