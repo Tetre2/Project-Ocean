@@ -3,6 +3,7 @@ package ProjectOcean.Model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchBrowse{
 
@@ -13,7 +14,7 @@ public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchB
     }
 
     public List<Course> getAllCourses() {
-        return courses;
+        return new ArrayList<>(courses);
     }
 
     //Three methods that searches for course information based on UUID
