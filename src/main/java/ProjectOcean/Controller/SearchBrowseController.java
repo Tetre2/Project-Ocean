@@ -4,16 +4,20 @@ import ProjectOcean.Model.IModelCourseListIcon;
 import ProjectOcean.Model.IModelSearchBrowse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-public class SearchBrowseController extends VBox{
+public class SearchBrowseController extends AnchorPane {
 
     @FXML
     private VBox searchResultVBox;
+
+    @FXML
+    private AnchorPane searchBrowsePane;
 
     private IModelSearchBrowse model;
 

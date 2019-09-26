@@ -5,6 +5,7 @@ import java.io.IOException;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class ApplicationController extends VBox {
@@ -13,7 +14,7 @@ public class ApplicationController extends VBox {
     private SearchBrowseController searchBrowseController;
 
     @FXML
-    private VBox searchBrowseWindow;
+    private AnchorPane searchBrowseWindow;
 
     public ApplicationController() {
         this.coursePlanningSystem = new CoursePlanningSystem();
@@ -31,6 +32,7 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
+
     }
 
 }
