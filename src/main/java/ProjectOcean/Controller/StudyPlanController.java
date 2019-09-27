@@ -1,7 +1,34 @@
 package ProjectOcean.Controller;
 
-public class StudyPlanController {
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+
+/**
+ * Constructor loads a graphical representation of a study plan as a fxml-file and creates a instance of YearController.
+ */
+public class StudyPlanController extends VBox {
+
+    @FXML private VBox yearContentView;
 
     private IModelStudyPlan model;
+    private YearController yearController = new YearController();
+
+    public StudyPlanController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/ProjectOcean/View/StudyPlanWindow.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        yearContentView.getChildren().add(0, yearController);
+    }
 
 }
