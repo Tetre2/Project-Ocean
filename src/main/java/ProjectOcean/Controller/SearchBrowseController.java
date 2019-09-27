@@ -14,9 +14,6 @@ public class SearchBrowseController extends AnchorPane {
     @FXML
     private VBox searchResultVBox;
 
-    @FXML
-    private AnchorPane searchBrowsePane;
-
     private CoursePlanningSystem model;
 
     public SearchBrowseController(CoursePlanningSystem model) {
