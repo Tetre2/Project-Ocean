@@ -1,6 +1,6 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Model.IModelCourseListIcon;
+import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -20,11 +20,11 @@ public class CourseListIconController extends VBox {
     @FXML
     private Text studyPointsText;
 
-    private static IModelCourseListIcon model;
+    private static CoursePlanningSystem model;
 
     private UUID id;
 
-    public CourseListIconController(UUID id, IModelCourseListIcon model) {
+    public CourseListIconController(UUID id, CoursePlanningSystem model) {
         this.model = model;
         this.id = id;
 

@@ -5,19 +5,26 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchBrowse{
+public class CoursePlanningSystem {
 
     private final List<Course> courses;
 
-    private final InformationLoader infoLoader;
-
-    public CoursePlanningSystem(InformationLoader infoLoader) {
-        this.infoLoader = infoLoader;
-        this.courses = this.infoLoader.getAllCourses();
+    public CoursePlanningSystem() {
+        this.courses = generateCourses();
     }
 
     public List<Course> getAllCourses() {
         return new ArrayList<>(courses);
+    }
+
+    public List<Course> generateCourses() {
+        List<Course> courses = new ArrayList<Course>();
+        courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f));
+        courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f));
+        courses.add(new Course("MVE045","Matematisk Analys", 7.5f));
+        courses.add(new Course("TMV206","Linjär Algebra", 7.5f));
+        courses.add(new Course("TDA552","Objektorienterad Programmering och Design", 7.5f));
+        return courses;
     }
 
     //Three methods that searches for course information based on UUID
@@ -48,7 +55,6 @@ public class CoursePlanningSystem implements IModelCourseListIcon, IModelSearchB
         return "0";
     }
 
-    //IModelSearchBrowse implementation
     public List<UUID> getAllCoursesIDs() {
         List<UUID> idList = new ArrayList<UUID>();
         for (Course c : courses) {
