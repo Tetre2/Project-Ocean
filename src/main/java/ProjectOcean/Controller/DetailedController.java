@@ -55,7 +55,7 @@ public class DetailedController extends VBox {
         String header = model.getCourseCode(uuid) + model.getCourseName(uuid) + model.getStudyPoints(uuid);
         setHeader(header);
 
-        setStudyPeriod(String.valueOf(model.getStudyPeriod(uuid)));
+        setStudyPeriod(model.getStudyPeriod(uuid));
 
         setExaminator(model.getExaminator(uuid));
 

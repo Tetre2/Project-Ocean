@@ -11,14 +11,11 @@ import javafx.scene.layout.VBox;
 
 public class ApplicationController extends VBox {
 
+    @FXML private AnchorPane searchBrowseWindow;
+    @FXML private VBox contentWindow;
+
     private CoursePlanningSystem coursePlanningSystem;
     private SearchBrowseController searchBrowseController;
-
-    @FXML
-    private AnchorPane searchBrowseWindow;
-
-    @FXML
-    private VBox contentWindow;
 
     public ApplicationController(HostServices hostServices) {
         this.coursePlanningSystem = new CoursePlanningSystem();
@@ -36,7 +33,7 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        contentWindow.getChildren().add(new DetailedController(null, hostServices));
+        contentWindow.getChildren().add(new DetailedController(coursePlanningSystem, hostServices));
 
     }
 

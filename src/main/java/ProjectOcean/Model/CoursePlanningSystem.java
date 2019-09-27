@@ -61,4 +61,38 @@ public class CoursePlanningSystem {
         }
         return idList;
     }
+
+    public String getStudyPoints(UUID uuid){
+        return null;
+    }
+
+    public String getStudyPeriod(UUID uuid){
+        return null;
+    }
+
+    public String getExaminator(UUID uuid){
+        return null;
+    }
+
+    public String getExaminationMeans(UUID uuid){
+        return null;
+    }
+
+    public String getLanguage(UUID uuid){
+        return null;
+    }
+
+    public List<UUID> getRequiredCourses(UUID uuid){
+        return null;
+    }
+
+    public String getCoursePMLink(UUID uuid){
+        return null;
+    }
+
+    public String getCourseDescription(UUID uuid){
+        return null;
+    }
+
+
 }
