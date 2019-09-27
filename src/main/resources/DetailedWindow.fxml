@@ -50,7 +50,7 @@
                <VBox HBox.hgrow="ALWAYS">
                    <children>
                        <Label text="%courseDescription" />
-                  <TextArea prefHeight="200.0" prefWidth="200.0" text="f&#10;ff&#10;f&#10;f&#10;ff&#10;f&#10;f&#10;f&#10;f&#10;f&#10;f&#10;ff&#10;f&#10;&#10;&#10;ff&#10;f&#10;fffsdfds&#10;fds&#10;fs&#10;d&#10;fs&#10;df&#10;ds&#10;f&#10;d&#10;s&#10;fds&#10;f&#10;sd&#10;fs&#10;df&#10;&#10;fsd&#10;fs&#10;df&#10;sd&#10;f&#10;sd&#10;fs&#10;d&#10;fs&#10;df&#10;sd&#10;fds&#10;fds&#10;" VBox.vgrow="ALWAYS" />
+                  <TextArea fx:id="courseDescription" prefHeight="200.0" prefWidth="200.0" text="f&#10;ff&#10;f&#10;f&#10;ff&#10;f&#10;f&#10;f&#10;f&#10;f&#10;f&#10;ff&#10;f&#10;&#10;&#10;ff&#10;f&#10;fffsdfds&#10;fds&#10;fs&#10;d&#10;fs&#10;df&#10;ds&#10;f&#10;d&#10;s&#10;fds&#10;f&#10;sd&#10;fs&#10;df&#10;&#10;fsd&#10;fs&#10;df&#10;sd&#10;f&#10;sd&#10;fs&#10;d&#10;fs&#10;df&#10;sd&#10;fds&#10;fds&#10;" VBox.vgrow="ALWAYS" />
                    </children>
                </VBox>
            </children>

@@ -11,16 +11,16 @@ public class CoursePlanningSystem {
     }
 
     public Map<UUID, Course> getAllCourses() {
-        return new HashMap<>(courses);
+        return Collections.unmodifiableMap(courses);
     }
 
     public Map<UUID, Course> generateCourses() {
         Map courses = new HashMap<UUID, Course>();
 
-        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f);
+        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(), course);
 
-        course = new Course("EDA433","Grundläggande Datorteknik", 7.5f);
+        /*course = new Course("EDA433","Grundläggande Datorteknik", 7.5f);
         courses.put(course.getId(), course);
 
         course = new Course("MVE045","Matematisk Analys", 7.5f);
@@ -30,7 +30,7 @@ public class CoursePlanningSystem {
         courses.put(course.getId(), course);
 
         course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f);
-        courses.put(course.getId(),course);
+        courses.put(course.getId(),course);*/
 
         return courses;
     }
@@ -57,39 +57,45 @@ public class CoursePlanningSystem {
             idList.add((UUID) pair.getKey());
         }
 
-        return idList;
+        return Collections.unmodifiableList(idList);
     }
 
-    public String getStudyPoints(UUID uuid){
-        return null;
+    public String getStudyPoints(UUID id){
+        return courses.get(id).getStudyPoints();
     }
 
-    public String getStudyPeriod(UUID uuid){
-        return null;
+    public String getStudyPeriod(UUID id){
+        return courses.get(id).getStudyPoints();
     }
 
-    public String getExaminator(UUID uuid){
-        return null;
+    public String getExaminator(UUID id){
+        return courses.get(id).getExaminator();
     }
 
-    public String getExaminationMeans(UUID uuid){
-        return null;
+    public String getExaminationMeans(UUID id){
+        return courses.get(id).getExaminationMeans();
     }
 
-    public String getLanguage(UUID uuid){
-        return null;
+    public String getLanguage(UUID id){
+        return courses.get(id).getLanguage();
     }
 
-    public List<UUID> getRequiredCourses(UUID uuid){
-        return null;
+    public List<UUID> getRequiredCourses(UUID id){
+        Iterator<Course> iterator = courses.get(id).getRequiredCourses().iterator();
+        List<UUID> uuids = new ArrayList<>();
+
+        while(iterator.hasNext()) {
+            uuids.add(iterator.next().getId());
+        }
+        return uuids;
     }
 
-    public String getCoursePMLink(UUID uuid){
-        return null;
+    public String getCoursePMLink(UUID id){
+        return courses.get(id).getCoursePMLink();
     }
 
-    public String getCourseDescription(UUID uuid){
-        return null;
+    public String getCourseDescription(UUID id){
+        return courses.get(id).getCourseDescription();
     }
 
 

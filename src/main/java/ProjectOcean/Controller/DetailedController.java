@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -22,7 +23,7 @@ public class DetailedController extends VBox {
     @FXML private Label examinator;
     @FXML private Label examinationMeans;
     @FXML private Label language;
-    @FXML private Label courseDescription;
+    @FXML private TextArea courseDescription;
     @FXML private VBox requiredCourses;
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
@@ -48,6 +49,8 @@ public class DetailedController extends VBox {
 
         detailedViewRoot.setVgrow(this, Priority.ALWAYS);
 
+        setDetailedInfo(model.getAllCoursesIDs().get(0));
+
     }
 
     public void setDetailedInfo(UUID uuid){
@@ -68,8 +71,6 @@ public class DetailedController extends VBox {
         setCoursePMLink(model.getCoursePMLink(uuid));
 
         setCourseDescription(model.getCourseDescription(uuid));
-
-
     }
 
     private void setHeader(String header){

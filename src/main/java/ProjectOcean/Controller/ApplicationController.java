@@ -32,7 +32,11 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        contentWindow.getChildren().add(new DetailedController(coursePlanningSystem, hostServices));
+        DetailedController detailedController = new DetailedController(coursePlanningSystem, hostServices);
+        contentWindow.getChildren().add(detailedController);
+        //Just to show a course
+        detailedController.setDetailedInfo(coursePlanningSystem.getAllCoursesIDs().get(0));
+
 
     }
 
