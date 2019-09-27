@@ -21,12 +21,13 @@ public class CourseListIconController extends VBox {
     private Text studyPointsText;
 
     private static CoursePlanningSystem model;
-
     private UUID id;
+    private ApplicationController applicationController;
 
-    public CourseListIconController(UUID id, CoursePlanningSystem model) {
+    public CourseListIconController(UUID id, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.id = id;
+        this.applicationController = applicationController;
 
 
 
@@ -53,4 +54,11 @@ public class CourseListIconController extends VBox {
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
     }
+
+
+    @FXML
+    private void onMousedClicked(){
+        applicationController.showDetailedInformation(id);
+    }
+
 }

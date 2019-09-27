@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.application.HostServices;
@@ -15,10 +16,12 @@ public class ApplicationController extends VBox {
     @FXML private VBox contentWindow;
 
     private final static CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem();
+    private static DetailedController detailedController;
     private SearchBrowseController searchBrowseController;
 
     public ApplicationController(HostServices hostServices) {
-        this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem);
+        this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem, this);
+        detailedController = new DetailedController(coursePlanningSystem, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -32,12 +35,15 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        DetailedController detailedController = new DetailedController(coursePlanningSystem, hostServices);
         contentWindow.getChildren().add(detailedController);
-        //Just to show a course
-        detailedController.setDetailedInfo(coursePlanningSystem.getAllCoursesIDs().get(0));
+
 
 
     }
+
+    public void showDetailedInformation(UUID id){
+        detailedController.setDetailedInfo(id);
+    }
+
 
 }
