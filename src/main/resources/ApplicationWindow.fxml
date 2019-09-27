@@ -11,7 +11,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -91,23 +91,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox minWidth="300.0" style="-fx-border-color: black;" HBox.hgrow="NEVER">
-               <children>
-                  <TextField prefHeight="70.0" promptText="Search in this field">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </TextField>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <content>
-                        <VBox />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
+            <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" />
          </children>
       </HBox>
    </children>
