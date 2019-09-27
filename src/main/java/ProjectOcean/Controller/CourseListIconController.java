@@ -28,6 +28,8 @@ public class CourseListIconController extends VBox {
         this.model = model;
         this.id = id;
 
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
         fxmlLoader.setRoot(this);

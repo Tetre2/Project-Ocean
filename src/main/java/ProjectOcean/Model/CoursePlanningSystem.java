@@ -1,64 +1,62 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CoursePlanningSystem {
 
-    private final List<Course> courses;
+    private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
     }
 
-    public List<Course> getAllCourses() {
-        return new ArrayList<>(courses);
+    public Map<UUID, Course> getAllCourses() {
+        return new HashMap<>(courses);
     }
 
-    public List<Course> generateCourses() {
-        List<Course> courses = new ArrayList<Course>();
-        courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f));
-        courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f));
-        courses.add(new Course("MVE045","Matematisk Analys", 7.5f));
-        courses.add(new Course("TMV206","Linjär Algebra", 7.5f));
-        courses.add(new Course("TDA552","Objektorienterad Programmering och Design", 7.5f));
+    public Map<UUID, Course> generateCourses() {
+        Map courses = new HashMap<UUID, Course>();
+
+        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("EDA433","Grundläggande Datorteknik", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("MVE045","Matematisk Analys", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("TMV206","Linjär Algebra", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f);
+        courses.put(course.getId(),course);
+
         return courses;
     }
 
     //Three methods that searches for course information based on UUID
     public String getCourseCode(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getCourseCode();
-            }
-        }
-        return "000-000";
+        return courses.get(id).getCourseCode();
     }
 
     public String getCourseName(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getName();
-            }
-        }
-        return "No matching course id";
+        return courses.get(id).getCourseName();
     }
 
     public String getCourseStudyPoints(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getStudyPoints() + "";
-            }
-        }
-        return "0";
+        return courses.get(id).getStudyPoints();
     }
 
     public List<UUID> getAllCoursesIDs() {
-        List<UUID> idList = new ArrayList<UUID>();
-        for (Course c : courses) {
-            idList.add(c.getId());
+        List<UUID> idList = new ArrayList<>();
+
+        Iterator it = courses.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            idList.add((UUID) pair.getKey());
         }
+
         return idList;
     }
 

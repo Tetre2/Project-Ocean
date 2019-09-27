@@ -14,11 +14,10 @@ public class ApplicationController extends VBox {
     @FXML private AnchorPane searchBrowseWindow;
     @FXML private VBox contentWindow;
 
-    private CoursePlanningSystem coursePlanningSystem;
+    private final static CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem();
     private SearchBrowseController searchBrowseController;
 
     public ApplicationController(HostServices hostServices) {
-        this.coursePlanningSystem = new CoursePlanningSystem();
         this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(

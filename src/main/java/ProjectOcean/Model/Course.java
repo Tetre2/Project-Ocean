@@ -4,12 +4,12 @@ import java.util.UUID;
 
 public class Course {
 
-    private UUID id;
-    private String name;
+    private final UUID id;
+    private final String name;
 
-    private String courseCode;
+    private final String courseCode;
 
-    private float studyPoints;
+    private final float studyPoints;
 
     public Course(String courseCode, String name, float studyPoints) {
         this.id = UUID.randomUUID();
@@ -35,7 +35,7 @@ public class Course {
         return this.id.toString();
     }
 
-    public String getName() {
+    public String getCourseName() {
         return name;
     }
 
@@ -43,7 +43,7 @@ public class Course {
         return courseCode;
     }
 
-    public float getStudyPoints() {
-        return studyPoints;
+    public String getStudyPoints() {
+        return String.valueOf(studyPoints);
     }
 }
