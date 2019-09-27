@@ -24,13 +24,11 @@ public class ScheduleTests {
     public void removeCourseTest() {
         Schedule schedule = new Schedule();
         Course course = new Course();
-        schedule.tryAddCourse(year,studyPeriod,slot, course);
+        schedule.tryAddCourse(course, year,studyPeriod,slot);
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
         schedule.removeCourse(course, year, studyPeriod);
         Assert.assertTrue(course != schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1() || course != schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse2());
-
-
     }
 
     @Test
@@ -38,9 +36,31 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
         Course course = new Course();
 
-        schedule.tryAddCourse(year,studyPeriod,slot, course);
+        schedule.tryAddCourse(course, year,studyPeriod,slot);
 
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+
+    }
+
+    @Test
+    public void addYear() {
+        Schedule schedule = new Schedule();
+
+        schedule.addYear();
+        Assert.assertTrue(schedule.getYear(1) != null);
+
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeYearTest() {
+        Schedule schedule = new Schedule();
+
+        schedule.addYear();
+        Assert.assertTrue(schedule.getYear(1) != null);
+
+        schedule.removeYear(year);
+        Assert.assertTrue(schedule.getYear(1) == null);
+
 
     }
 

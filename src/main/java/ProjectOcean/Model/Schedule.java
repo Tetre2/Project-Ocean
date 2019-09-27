@@ -17,16 +17,27 @@ public class Schedule {
 
     public void removeCourse(Course course, int year, int studyPeriod) {
         years.get(year).getStudyPeriod(studyPeriod).removeCourse(course);
+        years.get(year).removeCourse(course, studyPeriod);
     }
 
 
-    public void tryAddCourse(int year, int studyPeriod, int slot, Course course) {
-        years.get(year).getStudyPeriod(studyPeriod).addCourse(course, slot);
+    public void tryAddCourse(Course course, int year, int studyPeriod, int slot) {
+
+        years.get(year).addCourse(course, studyPeriod, slot);
+
     }
 
 
     public Year getYear(int year){
         return years.get(year);
+    }
+
+    public void addYear(){
+        years.add(new Year());
+    }
+
+    public void removeYear(int year) {
+        years.remove(year);
     }
 
 }
