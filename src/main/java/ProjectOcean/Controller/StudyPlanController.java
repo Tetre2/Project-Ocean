@@ -5,18 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
+/**
+ * Constructor loads a graphical representation of a study plan as a fxml-file and creates a instance of YearController.
+ */
 public class StudyPlanController extends VBox {
 
-    @FXML
-    private VBox yearContentView;
+    @FXML private VBox yearContentView;
 
     private IModelStudyPlan model;
-    YearController yearController = new YearController();
+    private YearController yearController = new YearController();
 
     public StudyPlanController() {
-        //ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/StudyPlanWindow.fxml"));
         fxmlLoader.setRoot(this);

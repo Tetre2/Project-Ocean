@@ -1,21 +1,22 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
+/**
+ * Constructor loads a graphical representation of the application as a fxml-file.
+ * Creates an instance of class StudyPlanController.
+ */
 public class ApplicationController extends VBox {
 
-    @FXML
-    private VBox contentWindow;
+    @FXML private VBox contentWindow;
 
-    StudyPlanController studyPlanController = new StudyPlanController();
+    private StudyPlanController studyPlanController = new StudyPlanController();
 
     public ApplicationController() {
-        //ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
