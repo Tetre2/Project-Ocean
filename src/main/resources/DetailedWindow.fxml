@@ -9,7 +9,7 @@
 
 <fx:root fx:id="detailedViewRoot" alignment="TOP_CENTER" minHeight="300.0" minWidth="400.0" prefHeight="500.0" prefWidth="700.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Dat-275 Gruprog (7,5hp)" />
+      <Label fx:id="courseCodeNameStudyPoints" text="Dat-275 Gruprog (7,5hp)" />
        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
            <children>
                <VBox HBox.hgrow="ALWAYS">
@@ -44,7 +44,7 @@
                      </children>
                   </HBox>
                        <VBox fx:id="requiredCourses" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-                       <Hyperlink fx:id="coursePM" text="%coursePM" />
+                       <Hyperlink fx:id="coursePM" onMouseClicked="#setOnMouseClickedCoursePMLink" text="%coursePM" />
                    </children>
                </VBox>
                <VBox HBox.hgrow="ALWAYS">
