@@ -10,7 +10,7 @@ public class Workspace {
 
 
     public void addCourse(Course course){
-        if(existsInList(course))
+        if(courses.contains(course))
             return;
         else{
             courses.add(course);
@@ -18,22 +18,12 @@ public class Workspace {
     }
 
     public void removeCourse(Course course){
-        if(existsInList(course)){
+        if(courses.contains(course)){
             courses.remove(course);
         }
         else{
             return;
         }
-    }
-
-    private Boolean existsInList(Course course){
-        for (Object c : courses) {
-            if (c.equals(course)){
-                return true;
-            }
-        }
-        return false;
-
     }
 
     public void removeAllCourses(){
