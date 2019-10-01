@@ -61,4 +61,8 @@ public class CoursePlanningSystem {
         }
         return idList;
     }
+
+    public void executeSearch() {
+
+    }
 }

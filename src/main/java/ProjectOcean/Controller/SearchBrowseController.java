@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class SearchBrowseController extends AnchorPane {
@@ -50,6 +51,11 @@ public class SearchBrowseController extends AnchorPane {
 
     @FXML
     private void executeSearch() {
-        System.out.println("Search");
+        String[] searchTerms = searchField.getText().split("[+]");
+        for(int i = 0; i<searchTerms.length; i++) {
+            searchTerms[i] = searchTerms[i].trim();
+            searchTerms[i] = searchTerms[i].trim().replaceAll(" +", " ");
+        }
+        model.executeSearch();
     }
 }
