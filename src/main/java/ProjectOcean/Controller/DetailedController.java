@@ -131,6 +131,7 @@ public class DetailedController extends VBox {
         language.setText("");
         courseDescription.setText("");
         coursePM.setTooltip(new Tooltip(""));
+        coursePM.setVisited(false);
         courseCodeNameStudyPoints.setText("");
         requiredCourses.getChildren().clear();
     }
