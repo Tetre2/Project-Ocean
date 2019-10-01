@@ -28,12 +28,6 @@ public class CoursePlanningSystemTests {
 
     }
 
-
-    @Test
-    public void testCoursePlanningSystem() {
-
-    }
-
     @Test
     public void getAllCoursesTest() {
 
