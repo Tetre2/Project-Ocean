@@ -11,14 +11,9 @@ import java.util.UUID;
 
 public class CourseListIconController extends VBox {
 
-    @FXML
-    private Text courseCodeText;
-
-    @FXML
-    private Text courseNameText;
-
-    @FXML
-    private Text studyPointsText;
+    @FXML private Text courseCodeText;
+    @FXML private Text courseNameText;
+    @FXML private Text studyPointsText;
 
     private static CoursePlanningSystem model;
     private UUID id;
