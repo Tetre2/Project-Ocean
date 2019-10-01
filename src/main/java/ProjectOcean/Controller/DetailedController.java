@@ -66,7 +66,7 @@ public class DetailedController extends VBox {
      */
     public void setDetailedInfo(UUID uuid){
         clear();
-        String header = model.getCourseCode(uuid) + model.getCourseName(uuid) + model.getStudyPoints(uuid);
+        String header = model.getCourseCode(uuid) + " - " + model.getCourseName(uuid) + model.getStudyPoints(uuid);
         setHeader(header);
 
         setStudyPeriod(model.getStudyPeriod(uuid));
@@ -139,7 +139,7 @@ public class DetailedController extends VBox {
         examinationMeans.setText("");
         language.setText("");
         courseDescription.setText("");
-        coursePM.setText("");
+        coursePM.setTooltip(new Tooltip(""));
         courseCodeNameStudyPoints.setText("");
         requiredCourses.getChildren().clear();
     }
