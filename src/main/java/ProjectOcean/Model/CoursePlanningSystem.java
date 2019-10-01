@@ -1,67 +1,141 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+/**
+ * Represents the aggregate of the model
+ */
 public class CoursePlanningSystem {
 
-    private final List<Course> courses;
+    private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
     }
 
-    public List<Course> getAllCourses() {
-        return new ArrayList<>(courses);
+    /**
+     * @return returns all courses stored
+     */
+    public Map<UUID, Course> getAllCourses() {
+        return Collections.unmodifiableMap(courses);
     }
 
-    public List<Course> generateCourses() {
-        List<Course> courses = new ArrayList<Course>();
-        courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f, "Roger Johansson"));
-        courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f, "Jan Jonsson"));
-        courses.add(new Course("MVE045","Matematisk Analys", 7.5f, "Zoran Konkoli"));
-        courses.add(new Course("TMV206","Linjär Algebra", 7.5f, "Lukás Malý"));
-        courses.add(new Course("TDA552","Objektorienterad Programmering och Design", 7.5f, "Alex Gerdes"));
+    /**
+     * Creates a list of hard coded courses
+     * @return returns a list full of courses
+     */
+    public Map<UUID, Course> generateCourses() {
+        Map courses = new HashMap<UUID, Course>();
+
+        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        courses.put(course.getId(), course);
+
+        course = new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        courses.put(course.getId(), course);
+
+        /*course = new Course("MVE045","Matematisk Analys", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("TMV206","Linjär Algebra", 7.5f);
+        courses.put(course.getId(), course);
+
+        course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f);
+        courses.put(course.getId(),course);*/
         return courses;
     }
 
-    //Three methods that searches for course information based on UUID
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getCourseCode(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getCourseCode();
-            }
-        }
-        return "000-000";
+        return courses.get(id).getCourseCode();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseName for the specified UUID
+     */
     public String getCourseName(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getName();
-            }
-        }
-        return "No matching course id";
+        return courses.get(id).getCourseName();
     }
 
-    public String getCourseStudyPoints(UUID id) {
-        for(Course c:courses){
-            if(c.getId() == id) {
-                return c.getStudyPoints() + "";
-            }
-        }
-        return "0";
-    }
-
+    /**
+     * @return returns a List with all courses stored in CoursePlaningSystem
+     */
     public List<UUID> getAllCoursesIDs() {
-        List<UUID> idList = new ArrayList<UUID>();
-        for (Course c : courses) {
-            idList.add(c.getId());
+        List<UUID> idList = new ArrayList<>();
+
+        Iterator it = courses.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            idList.add((UUID) pair.getKey());
         }
-        return idList;
+
+        return Collections.unmodifiableList(idList);
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the StudyPoints for the specified UUID
+     */
+    public String getStudyPoints(UUID id){
+        return courses.get(id).getStudyPoints();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the StudyPeriod for the specified UUID
+     */
+    public String getStudyPeriod(UUID id){
+        return courses.get(id).getStudyPeriod();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the Examinaot for the specified UUID
+     */
+    public String getExaminator(UUID id){
+        return courses.get(id).getExaminator();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the ExaminationMeans for the specified UUID
+     */
+    public String getExaminationMeans(UUID id){
+        return courses.get(id).getExaminationMeans();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the Language for the specified UUID
+     */
+    public String getLanguage(UUID id){
+        return courses.get(id).getLanguage();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns a list of required courses for a specific course defined by a UUID
+     */
+    public List<UUID> getRequiredCourses(UUID id){
+        Iterator<Course> iterator = courses.get(id).getRequiredCourses().iterator();
+        List<UUID> uuids = new ArrayList<>();
+
+        while(iterator.hasNext()) {
+            uuids.add(iterator.next().getId());
+        }
+        return uuids;
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CoursePMLink for the specified UUID
+     */
+    public String getCoursePMLink(UUID id){
+        return courses.get(id).getCoursePMLink();
+    }
 
     public List<UUID> executeSearch(String[] searchTerms) {
         List<UUID> searchResult = new ArrayList<>();
@@ -73,8 +147,8 @@ public class CoursePlanningSystem {
 
     private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
         for(String s : searchTerms) {
-            for(Course c : courses) {
-                if(!(s.length()< 3) && c.getName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+            for(Course c : courses.values()) {
+                if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
                     searchResult.add(c.getId());
                 }
             }
@@ -83,7 +157,7 @@ public class CoursePlanningSystem {
 
     private void searchCourseCodes(String[] searchTerms, List<UUID> searchResult) {
         for(String s : searchTerms) {
-            for(Course c : courses) {
+            for(Course c : courses.values()) {
                 if(c.getCourseCode().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
                     searchResult.add(c.getId());
                 }
@@ -93,12 +167,20 @@ public class CoursePlanningSystem {
 
     private void searchExaminors(String[] searchTerms, List<UUID> searchResult) {
         for(String s : searchTerms) {
-            for(Course c : courses) {
-                if(c.getExaminor().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+            for(Course c : courses.values()) {
+                if(c.getExaminator().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
                     searchResult.add(c.getId());
                 }
             }
         }
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseDescription for the specified UUID
+     */
+    public String getCourseDescription(UUID id){
+        return courses.get(id).getCourseDescription();
     }
 
 }
