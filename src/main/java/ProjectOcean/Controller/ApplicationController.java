@@ -8,6 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the root visual object, only contains empty containers
+ */
 public class ApplicationController extends VBox {
 
     private CoursePlanningSystem coursePlanningSystem;

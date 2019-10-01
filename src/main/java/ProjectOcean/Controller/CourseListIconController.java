@@ -9,16 +9,15 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.UUID;
 
+
+/**
+ * Represents the visual component of a course
+ */
 public class CourseListIconController extends VBox {
 
-    @FXML
-    private Text courseCodeText;
-
-    @FXML
-    private Text courseNameText;
-
-    @FXML
-    private Text studyPointsText;
+    @FXML private Text courseCodeText;
+    @FXML private Text courseNameText;
+    @FXML private Text studyPointsText;
 
     private static CoursePlanningSystem model;
 
@@ -41,8 +40,10 @@ public class CourseListIconController extends VBox {
         populateIcon();
     }
 
+    /**
+     * Fills the texts withs strings
+     */
     private void populateIcon() {
-        //TODO This method might not be the best way to trim course name in the case that its to long.
         String courseName = this.model.getCourseName(this.id);
         if (courseName.length() > 25) {
             courseName = courseName.substring(0, 27) + "...";
