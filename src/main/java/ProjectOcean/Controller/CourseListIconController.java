@@ -52,7 +52,7 @@ public class CourseListIconController extends VBox {
         }
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
-        this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
+        this.studyPointsText.setText(this.model.getStudyPoints(this.id) + " hp");
     }
 
 

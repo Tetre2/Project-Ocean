@@ -59,14 +59,6 @@ public class CoursePlanningSystem {
     }
 
     /**
-     * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
-     */
-    public String getCourseStudyPoints(UUID id) {
-        return courses.get(id).getStudyPoints();
-    }
-
-    /**
      * @return returns a List with all courses stored in CoursePlaningSystem
      */
     public List<UUID> getAllCoursesIDs() {
@@ -83,7 +75,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the StudyPoints for the specified UUID
      */
     public String getStudyPoints(UUID id){
         return courses.get(id).getStudyPoints();
@@ -91,7 +83,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the StudyPeriod for the specified UUID
      */
     public String getStudyPeriod(UUID id){
         return courses.get(id).getStudyPeriod();
@@ -99,7 +91,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the Examinaot for the specified UUID
      */
     public String getExaminator(UUID id){
         return courses.get(id).getExaminator();
@@ -107,7 +99,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the ExaminationMeans for the specified UUID
      */
     public String getExaminationMeans(UUID id){
         return courses.get(id).getExaminationMeans();
@@ -115,7 +107,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the Language for the specified UUID
      */
     public String getLanguage(UUID id){
         return courses.get(id).getLanguage();
@@ -137,7 +129,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the CoursePMLink for the specified UUID
      */
     public String getCoursePMLink(UUID id){
         return courses.get(id).getCoursePMLink();
@@ -145,7 +137,7 @@ public class CoursePlanningSystem {
 
     /**
      * @param id is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
+     * @return returns the CourseDescription for the specified UUID
      */
     public String getCourseDescription(UUID id){
         return courses.get(id).getCourseDescription();
