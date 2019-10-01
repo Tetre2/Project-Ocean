@@ -62,7 +62,21 @@ public class CoursePlanningSystem {
         return idList;
     }
 
-    public void executeSearch(String[] searchTerms) {
-            
+
+    public List<UUID> executeSearch(String[] searchTerms) {
+        List<UUID> searchResult = new ArrayList<>();
+        searchCourseNames(searchTerms, searchResult);
+        return searchResult;
     }
+
+    private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
+        for(String s : searchTerms) {
+            for(Course c : courses) {
+                if(c.getName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+
 }

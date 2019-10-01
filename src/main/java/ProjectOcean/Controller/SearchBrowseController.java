@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class SearchBrowseController extends AnchorPane {
@@ -55,7 +56,16 @@ public class SearchBrowseController extends AnchorPane {
         for(int i = 0; i<searchTerms.length; i++) {
             searchTerms[i] = searchTerms[i].trim();
             searchTerms[i] = searchTerms[i].trim().replaceAll(" +", " ");
+            searchTerms[i] = searchTerms[i].toLowerCase();
         }
-        model.executeSearch(searchTerms);
+        displayCourses(model.executeSearch(searchTerms));
+    }
+
+    private void displayCourses(List<UUID> searchResult) {
+        searchResultVBox.getChildren().clear();
+        for(UUID id : searchResult) {
+            CourseListIconController iconController = new CourseListIconController(id, model);
+            searchResultVBox.getChildren().add(iconController);
+        }
     }
 }
