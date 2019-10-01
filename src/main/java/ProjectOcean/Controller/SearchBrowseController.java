@@ -47,4 +47,9 @@ public class SearchBrowseController extends AnchorPane {
             searchResultVBox.getChildren().add(iconController);
         }
     }
+
+    @FXML
+    private void executeSearch() {
+        System.out.println("Search");
+    }
 }

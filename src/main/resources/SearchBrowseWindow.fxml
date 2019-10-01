@@ -36,8 +36,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="searchField" prefHeight="70.0" promptText="Search in this field" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1">
+                  <TextField fx:id="searchField" onAction="#executeSearch" prefHeight="70.0" promptText="Search in this field" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#executeSearch" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
