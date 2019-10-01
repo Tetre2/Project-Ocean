@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.UUID;
 
-
 /**
  * Represents the visual component of a course
  */
@@ -20,12 +19,15 @@ public class CourseListIconController extends VBox {
     @FXML private Text studyPointsText;
 
     private static CoursePlanningSystem model;
-
     private UUID id;
+    private ApplicationController applicationController;
 
-    public CourseListIconController(UUID id, CoursePlanningSystem model) {
+    public CourseListIconController(UUID id, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.id = id;
+        this.applicationController = applicationController;
+
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -50,6 +52,13 @@ public class CourseListIconController extends VBox {
         }
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
-        this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
+        this.studyPointsText.setText(this.model.getStudyPoints(this.id) + " hp");
     }
+
+
+    @FXML
+    private void onMousedClicked(){
+        applicationController.showDetailedInformation(id);
+    }
+
 }

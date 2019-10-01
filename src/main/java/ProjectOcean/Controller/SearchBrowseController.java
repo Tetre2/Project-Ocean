@@ -17,9 +17,11 @@ public class SearchBrowseController extends AnchorPane {
     @FXML private VBox searchResultVBox;
 
     private CoursePlanningSystem model;
+    private ApplicationController applicationController;
 
-    public SearchBrowseController(CoursePlanningSystem model) {
+    public SearchBrowseController(CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
+        this.applicationController = applicationController;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/SearchBrowseWindow.fxml"));
@@ -38,7 +40,7 @@ public class SearchBrowseController extends AnchorPane {
 
     private void displayAllCourses() {
         for(UUID id : model.getAllCoursesIDs()) {
-            CourseListIconController iconController = new CourseListIconController(id, model);
+            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
             searchResultVBox.getChildren().add(iconController);
         }
     }

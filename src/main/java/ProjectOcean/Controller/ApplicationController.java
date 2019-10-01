@@ -1,8 +1,10 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -13,15 +15,18 @@ import javafx.scene.layout.VBox;
  */
 public class ApplicationController extends VBox {
 
-    private CoursePlanningSystem coursePlanningSystem;
+    @FXML private AnchorPane searchBrowseWindow;
+    @FXML private VBox contentWindow;
+
+    private final static CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem();
+    private static DetailedController detailedController;
     private SearchBrowseController searchBrowseController;
+    private HostServices hostServices;
 
-    @FXML
-    private AnchorPane searchBrowseWindow;
-
-    public ApplicationController() {
-        this.coursePlanningSystem = new CoursePlanningSystem();
-        this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem);
+    public ApplicationController(HostServices hostServices) {
+        this.hostServices = hostServices;
+        this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem, this);
+        detailedController = new DetailedController(coursePlanningSystem, this);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -38,4 +43,17 @@ public class ApplicationController extends VBox {
 
     }
 
+    public void showDetailedInformation(UUID id){
+        contentWindow.getChildren().clear();
+        detailedController.setDetailedInfo(id);
+        contentWindow.getChildren().add(detailedController);
+    }
+
+    public void showStudyPlanWorkspaceWindow(){
+        contentWindow.getChildren().clear();
+    }
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
 }
