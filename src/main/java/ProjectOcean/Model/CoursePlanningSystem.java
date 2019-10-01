@@ -62,7 +62,7 @@ public class CoursePlanningSystem {
         return idList;
     }
 
-    public void executeSearch() {
-
+    public void executeSearch(String[] searchTerms) {
+            
     }
 }

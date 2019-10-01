@@ -56,6 +56,6 @@ public class SearchBrowseController extends AnchorPane {
             searchTerms[i] = searchTerms[i].trim();
             searchTerms[i] = searchTerms[i].trim().replaceAll(" +", " ");
         }
-        model.executeSearch();
+        model.executeSearch(searchTerms);
     }
 }
