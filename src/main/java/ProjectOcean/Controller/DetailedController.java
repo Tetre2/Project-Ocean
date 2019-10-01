@@ -30,16 +30,17 @@ public class DetailedController extends VBox {
 
     private CoursePlanningSystem model;
     private HostServices hostServices;
-
+    private ApplicationController applicationController;
 
     /**
      * Creates the view for the detailed view without any info in it.
      * @param model is the model for the program
-     * @param hostServices is required for opening a web browser
+     * @param applicationController is needed inorder to get hostservice and switch from the detailed view
      */
-    public DetailedController(CoursePlanningSystem model, HostServices hostServices) {
+    public DetailedController(CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
-        this.hostServices = hostServices;
+        this.applicationController = applicationController;
+        this.hostServices = applicationController.getHostServices();
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -53,9 +54,8 @@ public class DetailedController extends VBox {
             throw new RuntimeException(exception);
         }
 
+        //sets the detailed view so it can grow verticaly in its parents
         detailedViewRoot.setVgrow(this, Priority.ALWAYS);
-
-        setDetailedInfo(model.getAllCoursesIDs().get(0));
 
     }
 
@@ -117,15 +117,6 @@ public class DetailedController extends VBox {
         coursePM.setTooltip(new Tooltip(coursePMLink));
     }
 
-    @FXML
-    /**
-     * Opens the course-PM in a web browser
-     */
-    private void setOnMouseClickedCoursePMLink(){
-        String s = coursePM.getTooltip().getText();
-        hostServices.showDocument(s);
-    }
-
     private void setCourseDescription(String courseDescription) {
         this.courseDescription.setText(courseDescription);
     }
@@ -143,5 +134,21 @@ public class DetailedController extends VBox {
         courseCodeNameStudyPoints.setText("");
         requiredCourses.getChildren().clear();
     }
+
+    @FXML
+    /**
+     * Opens the course-PM in a web browser
+     */
+    private void setOnMouseClickedCoursePMLink(){
+        String s = coursePM.getTooltip().getText();
+        hostServices.showDocument(s);
+    }
+
+    @FXML
+    private void setOnBackClicked(){
+        applicationController.showStudyPlanWorkspaceWindow();
+    }
+
+
 
 }

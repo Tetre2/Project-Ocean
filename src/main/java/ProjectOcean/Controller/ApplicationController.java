@@ -18,10 +18,12 @@ public class ApplicationController extends VBox {
     private final static CoursePlanningSystem coursePlanningSystem = new CoursePlanningSystem();
     private static DetailedController detailedController;
     private SearchBrowseController searchBrowseController;
+    private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
+        this.hostServices = hostServices;
         this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem, this);
-        detailedController = new DetailedController(coursePlanningSystem, hostServices);
+        detailedController = new DetailedController(coursePlanningSystem, this);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -35,15 +37,20 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        contentWindow.getChildren().add(detailedController);
-
-
 
     }
 
     public void showDetailedInformation(UUID id){
+        contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(id);
+        contentWindow.getChildren().add(detailedController);
     }
 
+    public void showStudyPlanWorkspaceWindow(){
+        contentWindow.getChildren().clear();
+    }
 
+    public HostServices getHostServices() {
+        return hostServices;
+    }
 }
