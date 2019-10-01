@@ -9,10 +9,12 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Represents the visual component of the search bar and list of courses
+ */
 public class SearchBrowseController extends AnchorPane {
 
-    @FXML
-    private VBox searchResultVBox;
+    @FXML private VBox searchResultVBox;
 
     private CoursePlanningSystem model;
 
@@ -35,7 +37,6 @@ public class SearchBrowseController extends AnchorPane {
     }
 
     private void displayAllCourses() {
-        //searchResultVBox.getChildren().remove(0, searchResultVBox.getChildren().size()-1);
         for(UUID id : model.getAllCoursesIDs()) {
             CourseListIconController iconController = new CourseListIconController(id, model);
             searchResultVBox.getChildren().add(iconController);

@@ -2,6 +2,9 @@ package ProjectOcean.Model;
 
 import java.util.UUID;
 
+/**
+ * Represents a course in the model
+ */
 public class Course {
 
     private UUID id;
