@@ -10,8 +10,8 @@ public class CourseTests {
     @Test
     public void courseUniqueIdTest() {
 
-        Course course1 = new Course("DAT017","Maskinorienterad programmering", 7.5f);
-        Course course2 = new Course("DAT017","Maskinorienterad programmering", 7.5f);
+        Course course1 = new Course("DAT017","Maskinorienterad programmering", 7.5f, "Roger Johansson");
+        Course course2 = new Course("DAT017","Maskinorienterad programmering", 7.5f, "Roger Johansson");
 
         //Checks that UUID references are different
         Assert.assertFalse(course1.getId()==course2.getId());

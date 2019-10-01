@@ -8,7 +8,7 @@ public class Course {
     private String name;
 
     private String courseCode;
-    private String Examinor;
+    private String examinor;
 
     private float studyPoints;
 
@@ -17,7 +17,7 @@ public class Course {
         this.courseCode = courseCode;
         this.name = name;
         this.studyPoints = studyPoints;
-        this.Examinor = examinor;
+        this.examinor = examinor;
     }
 
     @Override
@@ -47,5 +47,9 @@ public class Course {
 
     public float getStudyPoints() {
         return studyPoints;
+    }
+
+    public String getExaminor() {
+        return this.examinor;
     }
 }

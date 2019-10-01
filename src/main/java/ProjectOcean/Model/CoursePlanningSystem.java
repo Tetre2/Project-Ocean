@@ -66,13 +66,35 @@ public class CoursePlanningSystem {
     public List<UUID> executeSearch(String[] searchTerms) {
         List<UUID> searchResult = new ArrayList<>();
         searchCourseNames(searchTerms, searchResult);
+        searchCourseCodes(searchTerms, searchResult);
+        searchExaminors(searchTerms, searchResult);
         return searchResult;
     }
 
     private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
         for(String s : searchTerms) {
             for(Course c : courses) {
-                if(c.getName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                if(!(s.length()< 3) && c.getName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+
+    private void searchCourseCodes(String[] searchTerms, List<UUID> searchResult) {
+        for(String s : searchTerms) {
+            for(Course c : courses) {
+                if(c.getCourseCode().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+
+    private void searchExaminors(String[] searchTerms, List<UUID> searchResult) {
+        for(String s : searchTerms) {
+            for(Course c : courses) {
+                if(c.getExaminor().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
                     searchResult.add(c.getId());
                 }
             }

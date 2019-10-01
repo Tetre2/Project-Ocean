@@ -52,17 +52,21 @@ public class SearchBrowseController extends AnchorPane {
 
     @FXML
     private void executeSearch() {
-        String[] searchTerms = searchField.getText().split("[+]");
-        for(int i = 0; i<searchTerms.length; i++) {
-            searchTerms[i] = searchTerms[i].trim();
-            searchTerms[i] = searchTerms[i].trim().replaceAll(" +", " ");
-            searchTerms[i] = searchTerms[i].toLowerCase();
+        searchResultVBox.getChildren().clear();
+        if(searchField.getText().isEmpty()) {
+            displayAllCourses();
         }
-        displayCourses(model.executeSearch(searchTerms));
+        else {
+            String searchText = searchField.getText();
+            searchText = searchText.trim();
+            searchText = searchText.toLowerCase();
+            searchText = searchText.trim().replaceAll(" +", " ");
+            String[] searchTerms = searchText.split(" ");
+            displayCourses(model.executeSearch(searchTerms));
+        }
     }
 
     private void displayCourses(List<UUID> searchResult) {
-        searchResultVBox.getChildren().clear();
         for(UUID id : searchResult) {
             CourseListIconController iconController = new CourseListIconController(id, model);
             searchResultVBox.getChildren().add(iconController);
