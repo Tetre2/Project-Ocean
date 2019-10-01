@@ -2,6 +2,9 @@ package ProjectOcean.Model;
 
 import java.util.*;
 
+/**
+ * Represents the aggregate of the model
+ */
 public class CoursePlanningSystem {
 
     private final Map<UUID, Course> courses;

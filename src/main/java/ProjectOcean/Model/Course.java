@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Represents a course in the model
+ */
 public class Course {
 
     private final UUID id;
