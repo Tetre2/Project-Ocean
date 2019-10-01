@@ -8,14 +8,16 @@ public class Course {
     private String name;
 
     private String courseCode;
+    private String Examinor;
 
     private float studyPoints;
 
-    public Course(String courseCode, String name, float studyPoints) {
+    public Course(String courseCode, String name, float studyPoints, String examinor) {
         this.id = UUID.randomUUID();
         this.courseCode = courseCode;
         this.name = name;
         this.studyPoints = studyPoints;
+        this.Examinor = examinor;
     }
 
     @Override
