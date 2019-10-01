@@ -10,10 +10,17 @@ public class CoursePlanningSystem {
         this.courses = generateCourses();
     }
 
+    /**
+     * @return returns all courses stored
+     */
     public Map<UUID, Course> getAllCourses() {
         return Collections.unmodifiableMap(courses);
     }
 
+    /**
+     * Creates a list of hard coded courses
+     * @return returns a list full of courses
+     */
     public Map<UUID, Course> generateCourses() {
         Map courses = new HashMap<UUID, Course>();
 
@@ -35,19 +42,33 @@ public class CoursePlanningSystem {
         return courses;
     }
 
-    //Three methods that searches for course information based on UUID
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getCourseCode(UUID id) {
         return courses.get(id).getCourseCode();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseName for the specified UUID
+     */
     public String getCourseName(UUID id) {
         return courses.get(id).getCourseName();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getCourseStudyPoints(UUID id) {
         return courses.get(id).getStudyPoints();
     }
 
+    /**
+     * @return returns a List with all courses stored in CoursePlaningSystem
+     */
     public List<UUID> getAllCoursesIDs() {
         List<UUID> idList = new ArrayList<>();
 
@@ -60,26 +81,50 @@ public class CoursePlanningSystem {
         return Collections.unmodifiableList(idList);
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getStudyPoints(UUID id){
         return courses.get(id).getStudyPoints();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getStudyPeriod(UUID id){
-        return courses.get(id).getStudyPoints();
+        return courses.get(id).getStudyPeriod();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getExaminator(UUID id){
         return courses.get(id).getExaminator();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getExaminationMeans(UUID id){
         return courses.get(id).getExaminationMeans();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getLanguage(UUID id){
         return courses.get(id).getLanguage();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns a list of required courses for a specific course defined by a UUID
+     */
     public List<UUID> getRequiredCourses(UUID id){
         Iterator<Course> iterator = courses.get(id).getRequiredCourses().iterator();
         List<UUID> uuids = new ArrayList<>();
@@ -90,10 +135,18 @@ public class CoursePlanningSystem {
         return uuids;
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getCoursePMLink(UUID id){
         return courses.get(id).getCoursePMLink();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseCode for the specified UUID
+     */
     public String getCourseDescription(UUID id){
         return courses.get(id).getCourseDescription();
     }

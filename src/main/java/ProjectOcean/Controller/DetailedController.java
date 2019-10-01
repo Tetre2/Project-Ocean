@@ -31,6 +31,12 @@ public class DetailedController extends VBox {
     private CoursePlanningSystem model;
     private HostServices hostServices;
 
+
+    /**
+     * Creates the view for the detailed view without any info in it.
+     * @param model is the model for the program
+     * @param hostServices is required for opening a web browser
+     */
     public DetailedController(CoursePlanningSystem model, HostServices hostServices) {
         this.model = model;
         this.hostServices = hostServices;
@@ -53,6 +59,11 @@ public class DetailedController extends VBox {
 
     }
 
+
+    /**
+     * Sets all info a course has and show it in the detailed window
+     * @param uuid is the unique id for one specific course
+     */
     public void setDetailedInfo(UUID uuid){
         clear();
         String header = model.getCourseCode(uuid) + model.getCourseName(uuid) + model.getStudyPoints(uuid);
@@ -94,7 +105,7 @@ public class DetailedController extends VBox {
     }
 
     private void setRequiredCourses(List<UUID> courses) {
-
+        //Creates a new label for each required course and adds them to the VBox
         for (UUID uuid : courses) {
             Label courseName = new Label(model.getCourseCode(uuid));
             requiredCourses.getChildren().add(courseName);
@@ -107,6 +118,9 @@ public class DetailedController extends VBox {
     }
 
     @FXML
+    /**
+     * Opens the course-PM in a web browser
+     */
     private void setOnMouseClickedCoursePMLink(){
         String s = coursePM.getTooltip().getText();
         hostServices.showDocument(s);
@@ -116,6 +130,9 @@ public class DetailedController extends VBox {
         this.courseDescription.setText(courseDescription);
     }
 
+    /**
+     * clears all info
+     */
     private void clear(){
         studyPeriod.setText("");
         examinator.setText("");

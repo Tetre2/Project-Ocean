@@ -61,8 +61,8 @@ public class Course {
         return String.valueOf(studyPoints);
     }
 
-    public int getStudyPeriod() {
-        return studyPeriod;
+    public String getStudyPeriod() {
+        return String.valueOf(studyPeriod);
     }
 
     public String getExaminator() {
