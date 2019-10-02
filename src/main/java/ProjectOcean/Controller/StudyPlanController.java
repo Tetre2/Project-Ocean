@@ -1,5 +1,6 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -13,10 +14,16 @@ public class StudyPlanController extends VBox {
 
     @FXML private VBox yearContentView;
 
-    private IModelStudyPlan model;
-    private YearController yearController = new YearController();
+    //TODO: use this to add a year in model CPS
+    private CoursePlanningSystem model;
 
-    public StudyPlanController() {
+    //private IModelStudyPlan model;
+    private YearController yearController;
+
+    public StudyPlanController(CoursePlanningSystem model) {
+        this.model = model;
+         yearController = new YearController(model, 0);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/StudyPlanWindow.fxml"));
         fxmlLoader.setRoot(this);

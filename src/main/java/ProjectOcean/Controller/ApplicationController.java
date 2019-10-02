@@ -2,6 +2,7 @@ package ProjectOcean.Controller;
 
 import java.io.IOException;
 
+import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -14,9 +15,13 @@ public class ApplicationController extends VBox {
 
     @FXML private VBox contentWindow;
 
-    private StudyPlanController studyPlanController = new StudyPlanController();
+    private final CoursePlanningSystem model;
+    private final StudyPlanController studyPlanController;
 
     public ApplicationController() {
+        this.model = new CoursePlanningSystem();
+        this.studyPlanController = new StudyPlanController(model);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
