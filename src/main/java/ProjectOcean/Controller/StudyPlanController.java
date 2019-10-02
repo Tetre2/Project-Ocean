@@ -15,14 +15,14 @@ public class StudyPlanController extends VBox {
     @FXML private VBox yearContentView;
 
     //TODO: use this to add a year in model CPS
-    private CoursePlanningSystem model;
+    private final CoursePlanningSystem model;
 
     //private IModelStudyPlan model;
     private YearController yearController;
 
     public StudyPlanController(CoursePlanningSystem model) {
         this.model = model;
-         yearController = new YearController(model, 0);
+        yearController = new YearController(model, 0);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ProjectOcean/View/StudyPlanWindow.fxml"));

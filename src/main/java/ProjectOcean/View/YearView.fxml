@@ -26,15 +26,15 @@
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="161.0" text="SP2" />
                      </children>
                   </HBox>
-                  <GridPane fx:id="sp1sp2" gridLinesVisible="true" onDragExited="#handleDrop" onDragOver="#handleDragOver" prefHeight="125.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <GridPane fx:id="sp1sp2" gridLinesVisible="true" onDragDropped="#courseReleaseEvent" onDragOver="#courseDragOverEvent" prefHeight="125.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
                         <Label fx:id="kurs" alignment="CENTER" prefHeight="17.0" prefWidth="110.0" text="Kurs" textAlignment="CENTER" />
                      </children>
