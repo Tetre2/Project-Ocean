@@ -72,7 +72,7 @@ public class CoursePlanningSystem {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(UUID id, int year, int studyPeriod, int slot){
-
+        addCourse(getCourse(id), year, studyPeriod, slot);
     }
 
     /**
@@ -184,5 +184,9 @@ public class CoursePlanningSystem {
      */
     public String getCourseDescription(UUID id){
         return courses.get(id).getCourseDescription();
+    }
+
+    public Course getCourse(UUID id) {
+        return courses.get(id);
     }
 }
