@@ -1,9 +1,7 @@
 package ProjectOcean.Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Class representing a schedule held by a study plan

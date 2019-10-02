@@ -25,7 +25,7 @@ public class StudyPlanController extends VBox {
         yearController = new YearController(model, 0);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ProjectOcean/View/StudyPlanWindow.fxml"));
+                "/StudyPlanWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

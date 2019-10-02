@@ -29,7 +29,7 @@ public class YearController extends VBox {
         this.year = year;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ProjectOcean/View/YearView.fxml"));
+                "/YearView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -58,7 +58,7 @@ public class YearController extends VBox {
     private void courseReleaseEvent(DragEvent event) {
         int studyPeriod = calculateStudyPeriod(event.getX());
         int slot = calculateSlot(event.getY());
-        model.addCourse(new Course(), year, studyPeriod, slot);
+        //model.addCourse(new Course(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
         event.consume();
