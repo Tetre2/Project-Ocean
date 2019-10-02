@@ -137,12 +137,26 @@ public class CoursePlanningSystem {
         return courses.get(id).getCoursePMLink();
     }
 
-    public List<UUID> executeSearch(String[] searchTerms) {
+    /**
+     *
+     * @param searchText: A string of search terms seperated by blankspaces
+     * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
+     */
+    public List<UUID> executeSearch(String searchText) {
+        String[] searchTerms = trimString(searchText);
         List<UUID> searchResult = new ArrayList<>();
         searchCourseNames(searchTerms, searchResult);
         searchCourseCodes(searchTerms, searchResult);
         searchExaminors(searchTerms, searchResult);
         return searchResult;
+    }
+
+    private String[] trimString(String searchText) {
+        searchText = searchText.trim();
+        searchText = searchText.toLowerCase();
+        searchText = searchText.trim().replaceAll(" +", " ");
+        String[] searchTerms = searchText.split(" ");
+        return searchTerms;
     }
 
     private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){

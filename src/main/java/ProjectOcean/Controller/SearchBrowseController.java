@@ -61,12 +61,7 @@ public class SearchBrowseController extends AnchorPane {
             displayAllCourses();
         }
         else {
-            String searchText = searchField.getText();
-            searchText = searchText.trim();
-            searchText = searchText.toLowerCase();
-            searchText = searchText.trim().replaceAll(" +", " ");
-            String[] searchTerms = searchText.split(" ");
-            displayCourses(model.executeSearch(searchTerms));
+            displayCourses(model.executeSearch(searchField.getText()));
         }
     }
 
