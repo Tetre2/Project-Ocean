@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.UUID;
+
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
  */
@@ -27,6 +29,17 @@ public class CoursePlanningSystem {
      */
     public void addCourse(Course course, int year, int studyPeriod, int slot) {
         student.addCourse(course, year, studyPeriod,slot);
+    }
+
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(UUID id, int year, int studyPeriod, int slot){
+
     }
 
     /**
