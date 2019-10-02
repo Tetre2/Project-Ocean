@@ -41,6 +41,9 @@ public class CoursePlanningSystem {
 
         course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f, 2, "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(),course);
+
+        course = new Course("DAT096", "Konstruktionsprojekt i inbyggda elektroniksystem", 15f, 3, "Lena Peterson", "Projekt", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        courses.put(course.getId(),course);
         return courses;
     }
 

@@ -4,6 +4,7 @@ import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -24,9 +25,14 @@ public class SearchBrowseController extends AnchorPane {
     private TextField searchField;
     @FXML
     private Button searchButton;
+    @FXML
+    private CheckBox studyPointCheckBox15;
+    @FXML
+    private CheckBox studyPointCheckBox7_5;
 
     private CoursePlanningSystem model;
     private ApplicationController applicationController;
+    private List<UUID> currentSearchResult;
 
     public SearchBrowseController(CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
@@ -44,11 +50,11 @@ public class SearchBrowseController extends AnchorPane {
         }
 
         //Displays all courses in CPS
-        displayAllCourses();
+        executeSearch();
     }
 
     private void displayAllCourses() {
-        for(UUID id : model.getAllCoursesIDs()) {
+        for (UUID id : model.getAllCoursesIDs()) {
             CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
             searchResultVBox.getChildren().add(iconController);
         }
@@ -56,19 +62,29 @@ public class SearchBrowseController extends AnchorPane {
 
     @FXML
     private void executeSearch() {
-        searchResultVBox.getChildren().clear();
-        if(searchField.getText().isEmpty()) {
-            displayAllCourses();
+        if (searchField.getText().isEmpty()) {
+            currentSearchResult = model.getAllCoursesIDs();
+        } else {
+            currentSearchResult = model.executeSearch(searchField.getText());
         }
-        else {
-            displayCourses(model.executeSearch(searchField.getText()));
-        }
+        displayCourses();
     }
 
-    private void displayCourses(List<UUID> searchResult) {
-        for(UUID id : searchResult) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
+    @FXML
+    private void displayCourses() {
+        searchResultVBox.getChildren().clear();
+        for (UUID id : currentSearchResult) {
+            if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 7.5f) {
+                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+                searchResultVBox.getChildren().add(iconController);
+            } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 15f) {
+                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+                searchResultVBox.getChildren().add(iconController);
+            } else if(!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
+                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+                searchResultVBox.getChildren().add(iconController);
+            }
         }
+        System.out.println("Nu");
     }
 }
