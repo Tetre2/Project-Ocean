@@ -7,9 +7,11 @@ import java.util.UUID;
 public class CoursePlanningSystem {
 
     private final List<Course> courses;
+    private Workspace workspace;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
+        this.workspace = new Workspace();
     }
 
     public List<Course> getAllCourses() {
@@ -57,6 +59,22 @@ public class CoursePlanningSystem {
     public List<UUID> getAllCoursesIDs() {
         List<UUID> idList = new ArrayList<UUID>();
         for (Course c : courses) {
+            idList.add(c.getId());
+        }
+        return idList;
+    }
+
+    public void addCourseToWorkspace(UUID id){
+        for (Course c:courses){
+            if (c.getId() == id){
+                workspace.addCourse(c);
+            }
+        }
+    }
+
+    public List<UUID> getCoursesInWorkspaceIDs(){
+        List<UUID> idList = new ArrayList<UUID>();
+        for (Course c : workspace.getAllCourses()) {
             idList.add(c.getId());
         }
         return idList;

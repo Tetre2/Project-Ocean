@@ -3,6 +3,10 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -24,9 +28,12 @@ public class CourseListIconController extends VBox {
 
     private UUID id;
 
-    public CourseListIconController(UUID id, CoursePlanningSystem model) {
+    private ApplicationController app;
+
+    public CourseListIconController(UUID id, CoursePlanningSystem model, ApplicationController app) {
         this.model = model;
         this.id = id;
+        this.app = app;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -50,5 +57,40 @@ public class CourseListIconController extends VBox {
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
+    }
+
+    public void relocateToPoint(Point2D p) {
+
+
+        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
+
+        relocate(
+                (int) (localCoords.getX() -
+                        (getBoundsInLocal().getWidth() / 2)),
+                (int) (localCoords.getY() -
+                        (getBoundsInLocal().getHeight() / 2))
+        );
+    }
+
+    public UUID getUUID(){
+        return id;
+    }
+
+    @FXML
+    public void dragDetected(MouseEvent event) {
+
+        CourseListIconController icon = (CourseListIconController) event.getSource();
+
+        ClipboardContent content = new ClipboardContent();
+        content.putString(icon.toString());
+
+        icon = new CourseListIconController(icon.getUUID(), model, app);
+
+        app.addIconToScreen(icon);
+
+        icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
+        icon.setVisible(true);
+        icon.setMouseTransparent(true);
+        event.consume();
     }
 }
