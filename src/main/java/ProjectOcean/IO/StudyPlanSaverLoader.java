@@ -18,11 +18,14 @@ public class StudyPlanSaverLoader {
 
         JSONArray jsonStudyPlans = new JSONArray();
 
+        int i = 0;
+
         for (StudyPlan studyplan : studyPlans) {
 
             JSONObject jsonStudyplan = new JSONObject();
 
-            jsonStudyplan.put("test", "hej123");
+            jsonStudyplan.put("test", "hej - " + i);
+            i++;
 
             jsonStudyPlans.add(jsonStudyplan);
         }
@@ -42,11 +45,18 @@ public class StudyPlanSaverLoader {
         }
     }
 
-    public static void laodStudyPlans() {
+    public static List<StudyPlan> loadStudyPlans() throws IOException {
+        try {
 
+            return readFromFile();
+
+        } catch (ParseException e) {
+        }
+
+        throw new IOException();
     }
 
-    private static JSONArray readFromFile() throws IOException, ParseException {
+    private static List<StudyPlan> readFromFile() throws IOException, ParseException {
         File file = new File(getHomeDirPath(), getFileName());
 
         FileReader fileReader = new FileReader(file);

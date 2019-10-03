@@ -8,9 +8,11 @@ import java.util.*;
 public class CoursePlanningSystem {
 
     private final Map<UUID, Course> courses;
+    private Student student;
 
-    public CoursePlanningSystem() {
+    public CoursePlanningSystem(List<StudyPlan> studyPlans) {
         this.courses = generateCourses();
+        this.student = new Student(studyPlans);
     }
 
     /**
@@ -74,6 +76,45 @@ public class CoursePlanningSystem {
         }
 
         return Collections.unmodifiableList(idList);
+    }
+
+    /**
+     * @return the current student
+     */
+    public Student getStudent() {
+        return student;
+    }
+
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param course the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
+        student.addCourse(course, year, studyPeriod,slot);
+    }
+
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(UUID id, int year, int studyPeriod, int slot){
+        addCourse(getCourse(id), year, studyPeriod, slot);
+    }
+
+    /**
+     * Removes the given course in the given year and study period, for the current student
+     * @param course the course to be removed
+     * @param year the year to remove the course from
+     * @param studyPeriod the study period to remove the course from
+     */
+    public void removeCourse(Course course, int year, int studyPeriod) {
+        student.removeCourse(course, year, studyPeriod);
     }
 
     /**
@@ -146,5 +187,9 @@ public class CoursePlanningSystem {
         return courses.get(id).getCourseDescription();
     }
 
+
+    public Course getCourse(UUID id) {
+        return courses.get(id);
+    }
 
 }
