@@ -6,6 +6,7 @@ import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -43,7 +44,7 @@ public class ApplicationController extends AnchorPane {
     @FXML
     public void onDragOver(DragEvent event) {
 
-        CourseListIconController icon = (CourseListIconController) event.getGestureSource();
+        Movable icon = (Movable) event.getGestureSource();
         moveIconToCursor(icon, event);
 
         //Don't know whether this is necessary or not
@@ -54,18 +55,19 @@ public class ApplicationController extends AnchorPane {
     @FXML
     public void onDragDone(DragEvent event) {
 
-        CourseListIconController icon = (CourseListIconController) event.getGestureSource();
+        Movable icon = (Movable) event.getGestureSource();
         getChildren().remove(icon);
         event.consume();
 
     }
 
-    public void addIconToScreen(CourseListIconController icon){
-        dragFeature.getChildren().add(icon);
+    public void addIconToScreen(Movable icon){
+        //Kolla om det går att fixa en lösning där Movable interfacet direkt kräver att det är en Node.
+        dragFeature.getChildren().add((Node)icon);
     }
 
 
-    public void moveIconToCursor(CourseListIconController icon, DragEvent event){
+    public void moveIconToCursor(Movable icon, DragEvent event){
         icon.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
     }
 

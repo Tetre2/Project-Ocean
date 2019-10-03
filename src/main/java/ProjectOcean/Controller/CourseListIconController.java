@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.UUID;
 
-public class CourseListIconController extends VBox {
+public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private Text courseCodeText;

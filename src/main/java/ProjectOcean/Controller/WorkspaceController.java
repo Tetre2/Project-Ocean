@@ -38,7 +38,7 @@ public class WorkspaceController extends VBox {
     @FXML
     public void courseDragOverEvent(DragEvent event){
         event.acceptTransferModes(TransferMode.MOVE);
-        CourseListIconController icon = (CourseListIconController) event.getGestureSource();
+        Movable icon = (Movable) event.getGestureSource();
 
         app.moveIconToCursor(icon,event);
         event.consume();
@@ -47,7 +47,7 @@ public class WorkspaceController extends VBox {
     @FXML
     public void courseReleaseEvent(DragEvent event){
 
-        CourseListIconController course = (CourseListIconController) event.getGestureSource();
+        Movable course = (Movable) event.getGestureSource();
         model.addCourseToWorkspace(course.getUUID());
      //   System.out.println(model.getCoursesInWorkspaceIDs());
 
