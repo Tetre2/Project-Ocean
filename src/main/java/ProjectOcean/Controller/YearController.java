@@ -23,10 +23,13 @@ public class YearController extends VBox {
 
     private final CoursePlanningSystem model;
     private final int year;
+    private ScheduleCourseController course1;
+    //TODO: create 8 courses as instance of ScheduleCourseController and put them in the grid
 
     public YearController(CoursePlanningSystem model, int year) {
         this.model = model;
         this.year = year;
+        course1 = new ScheduleCourseController();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/YearView.fxml"));
@@ -38,6 +41,8 @@ public class YearController extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        sp1sp2.add(course1, 0, 0);
     }
 
     /**

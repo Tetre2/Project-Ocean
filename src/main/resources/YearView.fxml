@@ -35,9 +35,6 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
-                     <children>
-                        <Label fx:id="kurs" alignment="CENTER" prefHeight="17.0" prefWidth="110.0" text="Kurs" textAlignment="CENTER" />
-                     </children>
                   </GridPane>
                </children>
                <HBox.margin>
