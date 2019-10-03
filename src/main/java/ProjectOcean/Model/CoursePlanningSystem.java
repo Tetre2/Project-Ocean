@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Represents the aggregate of the model
  */
-public class CoursePlanningSystem {
+public class CoursePlanningSystem extends Observable {
 
 
     private Workspace workspace;
@@ -143,6 +143,8 @@ public class CoursePlanningSystem {
 
     public void addCourseToWorkspace(UUID id){
         workspace.addCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
     }
 
     public List<UUID> getCoursesInWorkspaceIDs(){
@@ -151,6 +153,12 @@ public class CoursePlanningSystem {
             idList.add(c.getId());
         }
         return idList;
+    }
+
+    public void removeCourseFromWorkspace(UUID id) {
+        workspace.removeCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
     }
 
     /**

@@ -1,6 +1,8 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
@@ -11,7 +13,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
-public class WorkspaceController extends VBox {
+public class WorkspaceController extends VBox implements Observer {
 
     @FXML
     FlowPane workspaceContainer;
@@ -33,6 +35,7 @@ public class WorkspaceController extends VBox {
 
         this.app = app;
         this.model = model;
+        model.addObserver(this);
     }
 
     @FXML
@@ -54,11 +57,8 @@ public class WorkspaceController extends VBox {
         displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
 
-        //TODO Använd före och efter för att göra tester.
-       // System.out.println("Före: "+ app.getChildren());
         app.getChildren().remove(course);
 
-      //  System.out.println("Efter" + app.getChildren());
         event.consume();
     }
 
@@ -70,4 +70,8 @@ public class WorkspaceController extends VBox {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        displayAllCoursesInWorkspace();
+    }
 }

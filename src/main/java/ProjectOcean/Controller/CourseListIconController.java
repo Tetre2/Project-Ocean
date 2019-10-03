@@ -90,8 +90,18 @@ public class CourseListIconController extends VBox implements Movable {
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
-        icon = new CourseListIconController(icon.getUUID(), model, applicationController);
 
+
+        //MUST be done before adding to application
+
+        switch (icon.getParent().getId()){
+            case "workspaceContainer":
+                model.removeCourseFromWorkspace(icon.getUUID());
+                break;
+            default:
+        }
+
+        icon = new CourseListIconController(icon.getUUID(), model, applicationController);
         applicationController.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
