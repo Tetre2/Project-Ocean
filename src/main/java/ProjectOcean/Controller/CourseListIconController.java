@@ -13,27 +13,25 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Represents the visual component of a course
+ */
+
 public class CourseListIconController extends VBox implements Movable {
 
-    @FXML
-    private Text courseCodeText;
-
-    @FXML
-    private Text courseNameText;
-
-    @FXML
-    private Text studyPointsText;
+    @FXML private Text courseCodeText;
+    @FXML private Text courseNameText;
+    @FXML private Text studyPointsText;
 
     private static CoursePlanningSystem model;
-
     private UUID id;
+    private ApplicationController applicationController;
 
-    private ApplicationController app;
 
-    public CourseListIconController(UUID id, CoursePlanningSystem model, ApplicationController app) {
+    public CourseListIconController(UUID id, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.id = id;
-        this.app = app;
+        this.applicationController = applicationController;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -48,15 +46,23 @@ public class CourseListIconController extends VBox implements Movable {
         populateIcon();
     }
 
+    /**
+     * Fills the texts withs strings
+     */
     private void populateIcon() {
-        //TODO This method might not be the best way to trim course name in the case that its to long.
         String courseName = this.model.getCourseName(this.id);
         if (courseName.length() > 25) {
             courseName = courseName.substring(0, 27) + "...";
         }
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
-        this.studyPointsText.setText(this.model.getCourseStudyPoints(this.id) + " hp");
+        this.studyPointsText.setText(this.model.getStudyPoints(this.id) + " hp");
+    }
+
+
+    @FXML
+    private void onMousedClicked(){
+        applicationController.showDetailedInformation(id);
     }
 
     public void relocateToPoint(Point2D p) {
@@ -84,9 +90,9 @@ public class CourseListIconController extends VBox implements Movable {
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
-        icon = new CourseListIconController(icon.getUUID(), model, app);
+        icon = new CourseListIconController(icon.getUUID(), model, applicationController);
 
-        app.addIconToScreen(icon);
+        applicationController.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
         icon.setVisible(true);

@@ -1,5 +1,8 @@
 package ProjectOcean.Model;
 
+/**
+ * Represents a StudyPeriod in the model
+ */
 public class StudyPeriod {
 
     private Course course1;

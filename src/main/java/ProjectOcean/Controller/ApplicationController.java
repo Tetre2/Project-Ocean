@@ -1,8 +1,10 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -11,6 +13,9 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the root visual object, only contains empty containers
+ */
 public class ApplicationController extends AnchorPane {
 
     @FXML private VBox contentWindow;
@@ -21,10 +26,15 @@ public class ApplicationController extends AnchorPane {
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
 
-    public ApplicationController() {
+    private static DetailedController detailedController;
+    private HostServices hostServices;
+
+    public ApplicationController(HostServices hostServices) {
+        this.hostServices = hostServices;
         this.coursePlanningSystem = new CoursePlanningSystem();
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
+        detailedController = new DetailedController(coursePlanningSystem, this);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -71,4 +81,18 @@ public class ApplicationController extends AnchorPane {
         icon.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
     }
 
+    public void showDetailedInformation(UUID id){
+        contentWindow.getChildren().clear();
+        detailedController.setDetailedInfo(id);
+        contentWindow.getChildren().add(detailedController);
+    }
+
+    public void showStudyPlanWorkspaceWindow(){
+        contentWindow.getChildren().clear();
+        contentWindow.getChildren().add(workspaceController);
+    }
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
 }
