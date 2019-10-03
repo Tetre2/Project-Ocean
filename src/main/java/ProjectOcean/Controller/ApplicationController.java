@@ -51,7 +51,7 @@ public class ApplicationController extends VBox {
         searchBrowseWindow.getChildren().add(searchBrowseController);
 
 
-        courseSaverLoader.saveCourses(coursePlanningSystem.getAllCourses());
+        courseSaverLoader.savePreMadeCourses();
 
     }
 

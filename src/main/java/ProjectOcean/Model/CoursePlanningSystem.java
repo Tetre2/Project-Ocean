@@ -24,31 +24,6 @@ public class CoursePlanningSystem {
     }
 
     /**
-     * Creates a list of hard coded courses
-     * @return returns a list full of courses
-     */
-    public Map<UUID, Course> generateCourses() {
-        Map courses = new HashMap<UUID, Course>();
-
-        /*Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-
-        course = new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-*/
-        /*course = new Course("MVE045","Matematisk Analys", 7.5f);
-        courses.put(course.getId(), course);
-
-        course = new Course("TMV206","Linjär Algebra", 7.5f);
-        courses.put(course.getId(), course);
-
-        course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f);
-        courses.put(course.getId(),course);*/
-
-        return courses;
-    }
-
-    /**
      * @param id is a UUID for a specific course
      * @return returns the CourseCode for the specified UUID
      */
