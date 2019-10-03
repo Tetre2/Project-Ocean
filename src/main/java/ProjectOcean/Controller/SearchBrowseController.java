@@ -29,6 +29,14 @@ public class SearchBrowseController extends AnchorPane {
     private CheckBox studyPointCheckBox15;
     @FXML
     private CheckBox studyPointCheckBox7_5;
+    @FXML
+    private CheckBox studyPeriodCheckbox1;
+    @FXML
+    private CheckBox studyPeriodCheckbox2;
+    @FXML
+    private CheckBox studyPeriodCheckbox3;
+    @FXML
+    private CheckBox studyPeriodCheckbox4;
 
     private CoursePlanningSystem model;
     private ApplicationController applicationController;
@@ -73,18 +81,35 @@ public class SearchBrowseController extends AnchorPane {
     @FXML
     private void displayCourses() {
         searchResultVBox.getChildren().clear();
+        filterAndAddCourses();
+    }
+
+    private void filterAndAddCourses() {
         for (UUID id : currentSearchResult) {
-            if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 7.5f) {
-                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-                searchResultVBox.getChildren().add(iconController);
-            } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 15f) {
-                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-                searchResultVBox.getChildren().add(iconController);
-            } else if(!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
-                CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-                searchResultVBox.getChildren().add(iconController);
+            if (studyPeriodCheckbox1.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 1) {
+                filterAndAddCourseBasedOnStudyPoint(id);
+            } else if (studyPeriodCheckbox2.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 2) {
+                filterAndAddCourseBasedOnStudyPoint(id);
+            } else if(studyPeriodCheckbox3.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 3) {
+                filterAndAddCourseBasedOnStudyPoint(id);
+            } else if(studyPeriodCheckbox4.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 4) {
+                filterAndAddCourseBasedOnStudyPoint(id);
+            } else if(!studyPeriodCheckbox1.isSelected() && !studyPeriodCheckbox2.isSelected() && !studyPeriodCheckbox3.isSelected() && !studyPeriodCheckbox4.isSelected()) {
+                filterAndAddCourseBasedOnStudyPoint(id);
             }
         }
-        System.out.println("Nu");
+    }
+
+    private void filterAndAddCourseBasedOnStudyPoint(UUID id) {
+        if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 7.5f) {
+            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+            searchResultVBox.getChildren().add(iconController);
+        } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 15f) {
+            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+            searchResultVBox.getChildren().add(iconController);
+        } else if (!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
+            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+            searchResultVBox.getChildren().add(iconController);
+        }
     }
 }
