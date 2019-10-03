@@ -10,8 +10,9 @@ public class CoursePlanningSystem {
     private final Map<UUID, Course> courses;
     private Student student;
 
-    public CoursePlanningSystem(List<StudyPlan> studyPlans) {
-        this.courses = generateCourses();
+    public CoursePlanningSystem(List<StudyPlan> studyPlans, Map<UUID, Course> courses) {
+        //this.courses = generateCourses();
+        this.courses = courses;
         this.student = new Student(studyPlans);
     }
 
@@ -29,12 +30,12 @@ public class CoursePlanningSystem {
     public Map<UUID, Course> generateCourses() {
         Map courses = new HashMap<UUID, Course>();
 
-        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        /*Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(), course);
 
         course = new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(), course);
-
+*/
         /*course = new Course("MVE045","Matematisk Analys", 7.5f);
         courses.put(course.getId(), course);
 
@@ -138,7 +139,7 @@ public class CoursePlanningSystem {
      * @return returns the Examinaot for the specified UUID
      */
     public String getExaminator(UUID id){
-        return courses.get(id).getExaminator();
+        return courses.get(id).getExaminer();
     }
 
     /**
@@ -161,14 +162,8 @@ public class CoursePlanningSystem {
      * @param id is a UUID for a specific course
      * @return returns a list of required courses for a specific course defined by a UUID
      */
-    public List<UUID> getRequiredCourses(UUID id){
-        Iterator<Course> iterator = courses.get(id).getRequiredCourses().iterator();
-        List<UUID> uuids = new ArrayList<>();
-
-        while(iterator.hasNext()) {
-            uuids.add(iterator.next().getId());
-        }
-        return uuids;
+    public List<String> getRequiredCourses(UUID id){
+        return courses.get(id).getRequiredCourses();
     }
 
     /**

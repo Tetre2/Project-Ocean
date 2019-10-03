@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  */
 public class Year {
 
-    private List<StudyPeriod> studyPeriods;
+    private List<StudyPeriod> studyPeriods = new ArrayList<>();
 
     public Year() {
         for (int i = 0; i < 4; i++) {

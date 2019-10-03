@@ -2,6 +2,7 @@ package ProjectOcean.Model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -12,22 +13,22 @@ public class Course {
     private final UUID id;
     private final String courseCode;
     private final String courseName;
-    private final float studyPoints;
-    private final int studyPeriod;
-    private final String examinator;
+    private final String studyPoints;
+    private final String studyPeriod;
+    private final String examiner;
     private final String examinationMeans;
     private final String language;
-    private final List<Course> requiredCourses;
+    private final List<String> requiredCourses;
     private final String coursePMLink;
     private final String courseDescription;
 
-    public Course(String courseCode, String courseName, float studyPoints, int studyPeriod, String examinator, String examinationMeans, String language, List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        this.id = UUID.randomUUID();
+    public Course(UUID uuid, String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription) {
+        this.id = uuid;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;
         this.studyPeriod = studyPeriod;
-        this.examinator = examinator;
+        this.examiner = examiner;
         this.examinationMeans = examinationMeans;
         this.language = language;
         this.requiredCourses = requiredCourses;
@@ -68,8 +69,8 @@ public class Course {
         return String.valueOf(studyPeriod);
     }
 
-    public String getExaminator() {
-        return examinator;
+    public String getExaminer() {
+        return examiner;
     }
 
     public String getExaminationMeans() {
@@ -80,7 +81,7 @@ public class Course {
         return language;
     }
 
-    public List<Course> getRequiredCourses() {
+    public List<String> getRequiredCourses() {
         return Collections.unmodifiableList(requiredCourses);
     }
 
@@ -90,5 +91,28 @@ public class Course {
 
     public String getCourseDescription() {
         return courseDescription;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(id, course.id) &&
+                Objects.equals(courseCode, course.courseCode) &&
+                Objects.equals(courseName, course.courseName) &&
+                Objects.equals(studyPoints, course.studyPoints) &&
+                Objects.equals(studyPeriod, course.studyPeriod) &&
+                Objects.equals(examiner, course.examiner) &&
+                Objects.equals(examinationMeans, course.examinationMeans) &&
+                Objects.equals(language, course.language) &&
+                Objects.equals(requiredCourses, course.requiredCourses) &&
+                Objects.equals(coursePMLink, course.coursePMLink) &&
+                Objects.equals(courseDescription, course.courseDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
     }
 }
