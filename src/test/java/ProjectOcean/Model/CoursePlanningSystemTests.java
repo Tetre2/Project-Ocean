@@ -15,8 +15,16 @@ public class CoursePlanningSystemTests {
 
     @Before
     public void init(){
-        coursePlanningSystem = new CoursePlanningSystem();
-        courses = coursePlanningSystem.getAllCourses();
+        List<StudyPlan> studyPlans = new ArrayList<>();
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlans.add(studyPlan);
+
+        Course course = new Course(UUID.randomUUID(), "DAT017","Maskinorienterad programmering", "7.5", "1", "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        courses.put(course.getId(), course);
+        course = new Course(UUID.randomUUID(), "EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        courses.put(course.getId(), course);
+
+        coursePlanningSystem = new CoursePlanningSystem(studyPlans, courses);
 
         List<UUID> IDs = new ArrayList<>();
         Iterator it = courses.entrySet().iterator();
@@ -103,7 +111,7 @@ public class CoursePlanningSystemTests {
 
         UUID courseID = allUUIDs.get(0);
 
-        String expected = courses.get(courseID).getExaminator();
+        String expected = courses.get(courseID).getExaminer();
         String actual = coursePlanningSystem.getExaminator(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -143,7 +151,7 @@ public class CoursePlanningSystemTests {
         }
 
 
-        List<UUID> actual = coursePlanningSystem.getRequiredCourses(courseID);
+        List<String> actual = coursePlanningSystem.getRequiredCourses(courseID);
 
         Assert.assertEquals(expected, actual);
     }

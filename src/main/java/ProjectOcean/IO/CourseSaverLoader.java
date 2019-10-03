@@ -127,7 +127,7 @@ public class CourseSaverLoader {
 
             //Creates a UUID from the loaded uuid string
             UUID id = UUID.fromString( (String) jsonObject.get("uuid"));
-            
+
             Course course = new Course(
                     id,
                     (String) jsonObject.get("courseCode"),

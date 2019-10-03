@@ -3,6 +3,7 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.UUID;
 
+import ProjectOcean.IO.CourseSaverLoader;
 import ProjectOcean.IO.StudyPlanSaverLoader;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.application.HostServices;
@@ -19,18 +20,19 @@ public class ApplicationController extends VBox {
     @FXML private AnchorPane searchBrowseWindow;
     @FXML private VBox contentWindow;
 
-    private static CoursePlanningSystem coursePlanningSystem;
+    private CoursePlanningSystem coursePlanningSystem;
     private static DetailedController detailedController;
     private SearchBrowseController searchBrowseController;
     private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
+        StudyPlanSaverLoader studyPlanSaverLoader = new StudyPlanSaverLoader();
+        CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
         try {
-            this.coursePlanningSystem = new CoursePlanningSystem(saverLoader.loadStudyPlans());
+            this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudyPlans(), courseSaverLoader.loadStudyPlans());
         } catch (IOException e) {
-            showStudyPlanNotFoudMessage();
+            e.printStackTrace();
         }
         this.searchBrowseController = new SearchBrowseController(this.coursePlanningSystem, this);
         detailedController = new DetailedController(coursePlanningSystem, this);
@@ -47,6 +49,9 @@ public class ApplicationController extends VBox {
         }
 
         searchBrowseWindow.getChildren().add(searchBrowseController);
+
+
+        courseSaverLoader.saveCourses(coursePlanningSystem.getAllCourses());
 
     }
 
