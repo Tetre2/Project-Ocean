@@ -1,8 +1,6 @@
 package ProjectOcean.Controller;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 
 import java.util.UUID;
 
