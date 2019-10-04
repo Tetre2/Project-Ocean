@@ -92,10 +92,18 @@ public class CourseSaverLoader {
         return courses;
     }
 
+    /**
+     *
+     * @return returns the users home directory
+     */
     public static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
+    /**
+     *
+     * @return returns the filename which holds courses
+     */
     public static String getFileName() {
         return fileName;
     }

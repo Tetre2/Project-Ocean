@@ -27,8 +27,6 @@ public class CourseListIconController extends VBox {
         this.id = id;
         this.applicationController = applicationController;
 
-
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
         fxmlLoader.setRoot(this);
