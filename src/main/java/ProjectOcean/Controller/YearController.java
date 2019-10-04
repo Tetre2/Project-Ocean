@@ -67,12 +67,14 @@ public class YearController extends VBox {
      */
     @FXML
     private void onDragRelease(DragEvent event) {
-        //int studyPeriod = calculateStudyPeriod(event.getX());
-        //int slot = calculateSlot(event.getY());
-        //model.addCourse(new Course(), year, studyPeriod, slot);
+        int studyPeriod = calculateStudyPeriod(event.getX());
+        int slot = calculateSlot(event.getY());
 
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
+
+        sp1sp2.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
+        model.addCourse(icon.getUUID(), year, calculateStudyPeriod(event.getSceneX()), calculateSlot(event.getSceneY()));
 
         event.setDropCompleted(true);
         applicationController.moveIconToCursor(icon, event);
