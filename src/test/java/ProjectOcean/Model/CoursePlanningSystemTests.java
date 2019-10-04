@@ -205,7 +205,7 @@ public class CoursePlanningSystemTests {
         //tests searching for course name
         searchText = "Maskin  matematisk";
         searchResult = coursePlanningSystem.executeSearch(searchText);
-        Assert.assertTrue(searchResult.isEmpty());
+        Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(UUID id : searchResult) {
                 Assert.assertTrue(coursePlanningSystem.getCourseName(id).toLowerCase().contains("maskin") || coursePlanningSystem.getCourseName(id).toLowerCase().contains("matematisk"));
