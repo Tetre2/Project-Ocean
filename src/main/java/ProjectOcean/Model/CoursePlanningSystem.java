@@ -90,8 +90,16 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-=======
->>>>>>> develop
+     * Removes the given course in the given year and study period, for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to remove the course from
+     * @param studyPeriod the study period to remove the course from
+     */
+    public void removeCourse(UUID id, int year, int studyPeriod){
+        removeCourse(getCourse(id), year, studyPeriod);
+    }
+
+    /**
      * @param id is a UUID for a specific course
      * @return returns the CourseCode for the specified UUID
      */
