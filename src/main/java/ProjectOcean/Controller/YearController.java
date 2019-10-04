@@ -1,6 +1,5 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,7 @@ public class YearController extends VBox {
     private final ApplicationController applicationController;
     private final int year;
     private ScheduleCourseController course1;
-    //TODO: create 8 courses as instance of ScheduleCourseController and put them in the grid
+
 
     public YearController(int year, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
@@ -73,8 +72,15 @@ public class YearController extends VBox {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        sp1sp2.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
-        model.addCourse(icon.getUUID(), year, calculateStudyPeriod(event.getSceneX()), calculateSlot(event.getSceneY()));
+
+        // Determines which term the course is dropped upon
+        if(((GridPane)(event.getGestureTarget())).getId().equals("sp1sp2")){
+            sp1sp2.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
+        } else {
+            sp3sp4.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
+        }
+
+        model.addCourse(icon.getUUID(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
         applicationController.moveIconToCursor(icon, event);

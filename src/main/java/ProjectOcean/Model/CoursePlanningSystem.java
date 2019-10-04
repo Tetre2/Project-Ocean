@@ -14,6 +14,7 @@ public class CoursePlanningSystem extends Observable {
     public CoursePlanningSystem() {
         this.courses = generateCourses();
         this.workspace = new Workspace();
+        this.student = new Student();
     }
 
     /**
