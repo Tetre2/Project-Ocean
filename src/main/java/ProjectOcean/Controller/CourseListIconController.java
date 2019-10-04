@@ -82,18 +82,17 @@ public class CourseListIconController extends VBox implements Movable {
         return id;
     }
 
-    @FXML
-    public void dragDetected(MouseEvent event) {
+     @FXML
+    private void dragDetected(MouseEvent event) {
 
+
+        //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
         CourseListIconController icon = (CourseListIconController) event.getSource();
-
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
 
-
-        //MUST be done before adding to application
-
+        //Check from which parent the object started in.
         switch (icon.getParent().getId()){
             case "workspaceContainer":
                 model.removeCourseFromWorkspace(icon.getUUID());
@@ -101,6 +100,7 @@ public class CourseListIconController extends VBox implements Movable {
             default:
         }
 
+         //MUST come after the above statement
         icon = new CourseListIconController(icon.getUUID(), model, applicationController);
         applicationController.addIconToScreen(icon);
 

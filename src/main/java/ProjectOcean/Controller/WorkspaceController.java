@@ -13,15 +13,18 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controls the workspace in the application
+ */
+
 public class WorkspaceController extends VBox implements Observer {
 
-    @FXML
-    FlowPane workspaceContainer;
+    @FXML FlowPane workspaceContainer;
 
-    private ApplicationController app;
+    private ApplicationController applicationController;
     private CoursePlanningSystem model;
 
-    public WorkspaceController(CoursePlanningSystem model, ApplicationController app) {
+    public WorkspaceController(CoursePlanningSystem model, ApplicationController applicationController) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -33,31 +36,30 @@ public class WorkspaceController extends VBox implements Observer {
             throw new RuntimeException(exception);
         }
 
-        this.app = app;
+        this.applicationController = applicationController;
         this.model = model;
         model.addObserver(this);
     }
 
     @FXML
-    public void onDragOver(DragEvent event){
+    private void onDragOver(DragEvent event){
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        app.moveIconToCursor(icon,event);
+        applicationController.moveIconToCursor(icon,event);
         event.consume();
     }
 
     @FXML
-    public void onDragReleased(DragEvent event){
+    private void onDragReleased(DragEvent event){
 
         Movable course = (Movable) event.getGestureSource();
         model.addCourseToWorkspace(course.getUUID());
-     //   System.out.println(model.getCoursesInWorkspaceIDs());
 
         displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
 
-        app.getChildren().remove(course);
+        applicationController.getChildren().remove(course);
 
         event.consume();
     }
@@ -65,11 +67,14 @@ public class WorkspaceController extends VBox implements Observer {
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
         for(UUID id : model.getCoursesInWorkspaceIDs()) {
-            CourseListIconController iconController = new CourseListIconController(id, model, app);
+            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
             workspaceContainer.getChildren().add(iconController);
         }
     }
 
+    /**
+     * Updates the view according to the model.
+     */
     @Override
     public void update(Observable o, Object arg) {
         displayAllCoursesInWorkspace();

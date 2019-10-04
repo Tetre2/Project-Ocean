@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface Movable {
 
-    public UUID getUUID();
+    UUID getUUID();
 
-    public void relocateToPoint(Point2D p);
+    void relocateToPoint(Point2D p);
 
-    public void dragDetected(MouseEvent event);
+  //  void dragDetected(MouseEvent event);
 }

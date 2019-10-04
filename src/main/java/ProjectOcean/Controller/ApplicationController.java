@@ -57,7 +57,6 @@ public class ApplicationController extends AnchorPane {
         Movable icon = (Movable) event.getGestureSource();
         moveIconToCursor(icon, event);
 
-        //Don't know whether this is necessary or not
         event.consume();
 
     }

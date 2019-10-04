@@ -141,12 +141,20 @@ public class CoursePlanningSystem extends Observable {
         return courses.get(id).getCoursePMLink();
     }
 
+    /**
+     * Adds a course to the workspace
+     * @param id is a UUID for a specific course
+     */
     public void addCourseToWorkspace(UUID id){
         workspace.addCourse(courses.get(id));
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Gets a list of all courses in the workspace by their id.
+     * @return a list of UUID:s för the courses in workspace.
+     */
     public List<UUID> getCoursesInWorkspaceIDs(){
         List<UUID> idList = new ArrayList<UUID>();
         for (Course c : workspace.getAllCourses()) {
@@ -155,6 +163,10 @@ public class CoursePlanningSystem extends Observable {
         return idList;
     }
 
+    /**
+     * Removes a course from the workspace
+     * @param id is a UUID for a specific course
+     */
     public void removeCourseFromWorkspace(UUID id) {
         workspace.removeCourse(courses.get(id));
         setChanged();
