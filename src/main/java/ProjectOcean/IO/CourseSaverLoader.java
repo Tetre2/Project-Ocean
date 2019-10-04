@@ -158,6 +158,10 @@ public class CourseSaverLoader {
         courses.add(new Course(UUID.fromString("72c83fcd-2dc0-473f-b817-29cf2db74c14"),"MVE045","Matematisk Analys", "7.5", "1", "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(new Course(UUID.fromString("ab1344d1-8b2f-4b67-8415-d90291c02569"),"TMV206","Linjär Algebra", "7.5", "3", "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(new Course(UUID.fromString("e74d95ea-dfb9-4aba-b2c1-28328728b50b"),"TDA552","Objektorienterad Programmering och Design", "7.5", "2", "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.randomUUID(), "BAT123", "Beroendespecifika paradigmer", "7.5","3","Anders Bölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
+        courses.add(new Course(UUID.randomUUID(), "CAT123", "Complex system", "7.5", "2", "Anders Fölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
+        courses.add(new Course(UUID.randomUUID(), "DAT321", "Datavetenskap", "7.5", "4", "Anders Bölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
+        courses.add(new Course(UUID.randomUUID(), "FAT321", "Fysik för ingenjörer", "7.5", "1", "Anders Brölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
 
         return courses;
     }

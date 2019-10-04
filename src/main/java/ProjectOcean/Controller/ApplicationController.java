@@ -57,6 +57,8 @@ public class ApplicationController extends AnchorPane {
 
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
+
+        courseSaverLoader.savePreMadeCourses();
     }
 
     @FXML
