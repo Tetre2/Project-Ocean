@@ -5,15 +5,17 @@ import java.util.*;
 /**
  * Represents the aggregate of the model
  */
-public class CoursePlanningSystem {
+public class CoursePlanningSystem extends Observable {
 
+
+    private Workspace workspace;
     private final Map<UUID, Course> courses;
     private Student student;
 
     public CoursePlanningSystem(List<StudyPlan> studyPlans, Map<UUID, Course> courses) {
-        //this.courses = generateCourses();
         this.courses = courses;
         this.student = new Student(studyPlans);
+        this.workspace = new Workspace();
     }
 
     /**
@@ -150,6 +152,96 @@ public class CoursePlanningSystem {
     }
 
     /**
+     *
+     * @param searchText: A string of search terms seperated by blankspaces
+     * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
+     */
+    public List<UUID> executeSearch(String searchText) {
+        String[] searchTerms = trimString(searchText);
+        List<UUID> searchResult = new ArrayList<>();
+        matchCourseNameAndAdd(searchTerms, searchResult);
+        matchCourseCodeAndAdd(searchTerms, searchResult);
+        matchExaminorAndAdd(searchTerms, searchResult);
+        return searchResult;
+    }
+
+    private String[] trimString(String searchText) {
+        //Trims away unnecessary blankspaces, makes them lowercase and splits the terms into a array.
+        searchText = searchText.trim();
+        searchText = searchText.toLowerCase();
+        searchText = searchText.trim().replaceAll(" +", " ");
+        return searchText.split(" ");
+    }
+
+    private void matchCourseNameAndAdd(String[] searchTerms, List<UUID> searchResult){
+        //For each search term, searches through each courses course name for matches and if found adds the course
+        // to search result.
+        for(String s : searchTerms) {
+            for(Course c : courses.values()) {
+                if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+
+    private void matchCourseCodeAndAdd(String[] searchTerms, List<UUID> searchResult) {
+        //For each search term, searches through each courses course code for matches and if found
+        // adds the course to search result.
+        for(String s : searchTerms) {
+            for(Course c : courses.values()) {
+                if(c.getCourseCode().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+
+    private void matchExaminorAndAdd(String[] searchTerms, List<UUID> searchResult) {
+        //For each search term, searches through each courses examinor for matches and
+        // if found adds the course to search result.
+        for(String s : searchTerms) {
+            for(Course c : courses.values()) {
+                if(c.getExaminer().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                    searchResult.add(c.getId());
+                }
+            }
+        }
+    }
+      
+     /**
+     * Adds a course to the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void addCourseToWorkspace(UUID id){
+        workspace.addCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Gets a list of all courses in the workspace by their id.
+     * @return a list of UUID:s för the courses in workspace.
+     */
+    public List<UUID> getCoursesInWorkspaceIDs(){
+        List<UUID> idList = new ArrayList<UUID>();
+        for (Course c : workspace.getAllCourses()) {
+            idList.add(c.getId());
+        }
+        return idList;
+    }
+
+    /**
+     * Removes a course from the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void removeCourseFromWorkspace(UUID id) {
+        workspace.removeCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
      * @param id is a UUID for a specific course
      * @return returns the CourseDescription for the specified UUID
      */
@@ -157,9 +249,7 @@ public class CoursePlanningSystem {
         return courses.get(id).getCourseDescription();
     }
 
-
     public Course getCourse(UUID id) {
         return courses.get(id);
     }
-
 }

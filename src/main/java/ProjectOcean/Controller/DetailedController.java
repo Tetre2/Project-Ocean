@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+/**
+ * Controller for the detailed view of a course
+ */
 public class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
