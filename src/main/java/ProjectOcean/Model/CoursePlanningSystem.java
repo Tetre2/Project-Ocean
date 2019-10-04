@@ -158,8 +158,7 @@ public class CoursePlanningSystem {
         searchText = searchText.trim();
         searchText = searchText.toLowerCase();
         searchText = searchText.trim().replaceAll(" +", " ");
-        String[] searchTerms = searchText.split(" ");
-        return searchTerms;
+        return searchText.split(" ");
     }
 
     private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
