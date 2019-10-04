@@ -23,14 +23,12 @@ public class YearController extends VBox {
     private final CoursePlanningSystem model;
     private final ApplicationController applicationController;
     private final int year;
-    private ScheduleCourseController course1;
 
 
     public YearController(int year, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.year = year;
         this.applicationController = applicationController;
-        course1 = new ScheduleCourseController();
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -44,7 +42,6 @@ public class YearController extends VBox {
             throw new RuntimeException(exception);
         }
 
-        sp1sp2.add(course1, 0, 0);
     }
 
     /**
@@ -73,11 +70,11 @@ public class YearController extends VBox {
         Movable icon = (Movable) event.getGestureSource();
 
 
-        // Determines which term the course is dropped upon
+        // Determines which term the course is dropped upon and adds a ScheduleCourseController accordingly
         if(((GridPane)(event.getGestureTarget())).getId().equals("sp1sp2")){
-            sp1sp2.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
+            sp1sp2.add(new ScheduleCourseController(model,icon.getUUID()), studyPeriod, slot);
         } else {
-            sp3sp4.add(new Label(model.getCourse(icon.getUUID()).getCourseCode()), studyPeriod, slot);
+            sp3sp4.add(new ScheduleCourseController(model,icon.getUUID()), studyPeriod, slot);
         }
 
         model.addCourse(icon.getUUID(), year, studyPeriod, slot);
