@@ -125,7 +125,17 @@ public class ApplicationController extends AnchorPane {
         return hostServices;
     }
 
+    @FXML
+    /**
+     * Method is called from the menubar in the view
+     */
+    public void onSaveClicked(){
+        saveStudent();
+    }
 
+    /**
+     * Method saves all properties of student in a json file
+     */
     public void saveStudent(){
         studyPlanSaverLoader.saveStudyplans(coursePlanningSystem.getStudent());
     }
