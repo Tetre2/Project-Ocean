@@ -8,9 +8,16 @@ import java.util.UUID;
 
 public interface Movable {
 
-    public UUID getUUID();
 
-    public void relocateToPoint(Point2D p);
+    /**
+     * @return the UUID of the Movable instance
+     */
+    UUID getUUID();
 
-    public void dragDetected(MouseEvent event);
+    /**
+     * Relocates the CourseListIconController instance according to the point parameter
+     * @param p the point representing the current mouse coordinates
+     */
+    void relocateToPoint(Point2D p);
+
 }
