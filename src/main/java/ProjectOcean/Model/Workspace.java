@@ -46,11 +46,4 @@ public class Workspace {
     public List<Course> getAllCourses(){
         return Collections.unmodifiableList(courses);
     }
-
-
-    //Eventuell metod att implementera i ett senare skede för att tydliggöra visuella markeringar.
-
-   /* public void findCourse(Course course){
-
-    }*/
 }

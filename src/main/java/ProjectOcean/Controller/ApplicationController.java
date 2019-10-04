@@ -52,7 +52,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     @FXML
-    public void onDragOver(DragEvent event) {
+    private void onDragOver(DragEvent event) {
 
         Movable icon = (Movable) event.getGestureSource();
         moveIconToCursor(icon, event);
@@ -62,7 +62,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     @FXML
-    public void onDragDone(DragEvent event) {
+    private void onDragDone(DragEvent event) {
 
         Movable icon = (Movable) event.getGestureSource();
         getChildren().remove(icon);
@@ -70,27 +70,44 @@ public class ApplicationController extends AnchorPane {
 
     }
 
+    /**
+     * Adds the icon to the drag surface
+     * @param icon the movable icon to be added
+     */
     public void addIconToScreen(Movable icon){
-        //Kolla om det går att fixa en lösning där Movable interfacet direkt kräver att det är en Node.
         dragFeature.getChildren().add((Node)icon);
     }
 
-
+    /**
+     * Moves the icon to the cursor position
+     * @param icon the icon to be moved
+     * @param event the event representing the mouse drag
+     */
     public void moveIconToCursor(Movable icon, DragEvent event){
         icon.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
     }
 
+    /**
+     * Clears and adds a detailedController to the contentWindow
+     * @param id the UUID representing the course from which the details will be taken from
+     */
     public void showDetailedInformation(UUID id){
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(id);
         contentWindow.getChildren().add(detailedController);
     }
 
+    /**
+     * Clears and adds the workspace component to the window
+     */
     public void showStudyPlanWorkspaceWindow(){
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
     }
 
+    /**
+     * @return the hostServices instance
+     */
     public HostServices getHostServices() {
         return hostServices;
     }

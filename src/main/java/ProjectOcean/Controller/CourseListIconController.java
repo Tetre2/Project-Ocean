@@ -65,6 +65,10 @@ public class CourseListIconController extends VBox implements Movable {
         applicationController.showDetailedInformation(id);
     }
 
+    /**
+     * Relocates the CourseListIconController instance according to the point parameter
+     * @param p the point representing the current mouse coordinates
+     */
     public void relocateToPoint(Point2D p) {
 
 
@@ -78,11 +82,15 @@ public class CourseListIconController extends VBox implements Movable {
         );
     }
 
+    /**
+     * @return the UUID of the Movable instance
+     */
     public UUID getUUID(){
         return id;
     }
 
-     @FXML
+
+    @FXML
     private void dragDetected(MouseEvent event) {
 
 
