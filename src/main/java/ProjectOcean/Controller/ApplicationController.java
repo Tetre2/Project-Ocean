@@ -37,6 +37,7 @@ public class ApplicationController extends AnchorPane {
         try {
             this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaverLoader.loadStudyPlans());
         } catch (IOException e) {
+            //file can't be found -> display error message + maybe create a new file
             e.printStackTrace();
         }
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);

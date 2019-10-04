@@ -25,7 +25,6 @@ public class StudyPlanSaverLoader {
      */
     public static void saveStudyplans(Student student) {
 
-
         JSONObject jsonStudent = new JSONObject();
 
         //jsonStudyplans contains all studyplans
@@ -72,7 +71,6 @@ public class StudyPlanSaverLoader {
             workspace.add(course.getId().toString());
         }
         jsonStudent.put("workspace", workspace);
-
 
         writeToFile(jsonStudent);
 
@@ -203,6 +201,5 @@ public class StudyPlanSaverLoader {
     public static String getFileName() {
         return fileName;
     }
-
-
+    
 }
