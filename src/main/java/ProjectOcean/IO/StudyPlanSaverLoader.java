@@ -7,12 +7,17 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class StudyPlanSaverLoader {
 
     private static String fileName = "studyplans.json";
     private static JSONParser parser = new JSONParser();
+    private static CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
+    private static List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
 
     /**
      * Saves the users studyplans and workspace to the userHomeDir
@@ -20,6 +25,10 @@ public class StudyPlanSaverLoader {
      */
     public static void saveStudyplans(Student student) {
 
+
+        JSONObject jsonStudent = new JSONObject();
+
+        //jsonStudyplans contains all studyplans
         JSONArray jsonStudyPlans = new JSONArray();
         List<StudyPlan> studyPlans = student.getAllStudyPlans();
 
@@ -51,24 +60,32 @@ public class StudyPlanSaverLoader {
             }
             jsonStudyplan.put("years", jsonYears);
 
-            //adds all courses in workspace to studyplan
-            JSONArray workspace = new JSONArray();
 
             jsonStudyPlans.add(jsonStudyplan);
         }
 
-        writeToFile(jsonStudyPlans);
+        jsonStudent.put("studyplans", jsonStudyPlans);
+
+        //adds all courses in workspace to studyplan
+        JSONArray workspace = new JSONArray();
+        for (Course course : student.getAllCoursesInWorkspace()) {
+            workspace.add(course.getId().toString());
+        }
+        jsonStudent.put("workspace", workspace);
+
+
+        writeToFile(jsonStudent);
 
     }
 
     /**
      * Creates the file and saves the jsonArray in it
-     * @param jsonArray is the jsonArray being saved
+     * @param jsonObject is the jsonArray being saved
      */
-    private static void writeToFile(JSONArray jsonArray) {
+    private static void writeToFile(JSONObject jsonObject) {
         try (FileWriter file = new FileWriter(new File(getHomeDirPath(), fileName))) {
 
-            file.write(jsonArray.toJSONString());
+            file.write(jsonObject.toJSONString());
             file.flush();
 
         } catch (IOException e) {
@@ -81,16 +98,79 @@ public class StudyPlanSaverLoader {
      * @return returns a list of the loaded studyplanes
      * @throws IOException
      */
-    public static List<StudyPlan> loadStudyPlans() throws IOException {
+    public static Student loadStudent() throws IOException {
+
         try {
-
-            return readFromFile();
-
+            return createStudent(readFromFile());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        throw new IOException();
+        return null;
+
+    }
+
+
+    private static Student createStudent(JSONObject jsonObject){
+
+        //adds courses to workspace
+        Workspace workspace = new Workspace();
+        JSONArray jsonWorkspace = (JSONArray) jsonObject.get("workspace");
+        for (Object object: jsonWorkspace) {
+            for (Course c: courses) {
+                if(c.getId().toString().equals((String) object))
+                    workspace.addCourse(c);
+            }
+        }
+
+        //adds studyplans
+        JSONArray jsonStudyplans = (JSONArray) jsonObject.get("studyplans");
+
+        List<StudyPlan> studyPlans = new ArrayList<>();
+
+        for (int year = 0; year < jsonStudyplans.size(); year++) {
+
+            StudyPlan studyPlan = new StudyPlan();
+
+            //If Schedule always starts with one year we dont need to add a year the first loop
+            studyPlan.addYear();
+
+            JSONObject jsonYears = (JSONObject) jsonStudyplans.get(year);
+
+            JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
+
+            for (int studyPeriod = 0; studyPeriod < jsonYearArr.size(); studyPeriod++) {
+
+                JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(studyPeriod);
+
+                for (int i = 0; i < jsonStudyPeriod.size(); i++) {
+
+                    JSONObject jsonStudyperiod = (JSONObject) jsonStudyPeriod.get(i);
+
+                    String course1 = (String) jsonStudyperiod.get("Course1");
+                    if( !course1.equals("null")) {
+                        for (Course c: courses) {
+                            if(c.getId().toString().equals(course1))
+                                studyPlan.addCourseToSchedule(c, year, studyPeriod, 0);
+                        }
+                    }
+
+                    String course2 = (String) jsonStudyperiod.get("Course2");
+                    if( !course1.equals("null")) {
+                        for (Course c: courses) {
+                            if(c.getId().toString().equals(course2))
+                                studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
+                        }
+                    }
+
+                }
+
+            }
+
+            studyPlans.add(studyPlan);
+        }
+
+      return new Student(studyPlans, workspace);
     }
 
     /**
@@ -99,15 +179,15 @@ public class StudyPlanSaverLoader {
      * @throws IOException
      * @throws ParseException
      */
-    private static List<StudyPlan> readFromFile() throws IOException, ParseException {
+    private static JSONObject readFromFile() throws IOException, ParseException {
         File file = new File(getHomeDirPath(), getFileName());
 
         FileReader fileReader = new FileReader(file);
         Object obj = parser.parse(fileReader);
-        JSONArray studyPlans = (JSONArray) obj;
+        JSONObject jsonObject = (JSONObject) obj;
 
 
-        return studyPlans;
+        return jsonObject;
     }
 
     /**

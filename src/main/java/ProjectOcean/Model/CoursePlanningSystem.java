@@ -11,9 +11,9 @@ public class CoursePlanningSystem extends Observable {
     private Student student;
     private final Map<UUID, Course> courses;
 
-    public CoursePlanningSystem(List<StudyPlan> studyPlans, Map<UUID, Course> courses) {
+    public CoursePlanningSystem(Student student, Map<UUID, Course> courses) {
         this.courses = courses;
-        this.student = new Student(studyPlans);
+        this.student = student;
     }
 
     /**

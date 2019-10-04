@@ -27,16 +27,15 @@ public class ApplicationController extends AnchorPane {
     private CoursePlanningSystem coursePlanningSystem;
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
-
+    private final static StudyPlanSaverLoader studyPlanSaverLoader = new StudyPlanSaverLoader();
+    private final static CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
     private static DetailedController detailedController;
     private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        StudyPlanSaverLoader studyPlanSaverLoader = new StudyPlanSaverLoader();
-        CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
         try {
-            this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudyPlans(), courseSaverLoader.loadStudyPlans());
+            this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaverLoader.loadStudyPlans());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,4 +124,10 @@ public class ApplicationController extends AnchorPane {
     public HostServices getHostServices() {
         return hostServices;
     }
+
+
+    public void saveStudent(){
+        studyPlanSaverLoader.saveStudyplans(coursePlanningSystem.getStudent());
+    }
+
 }

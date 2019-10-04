@@ -10,9 +10,10 @@ public class Student {
 
     private List<StudyPlan> studyPlans;
     private StudyPlan currentStudyPlan;
-    private Workspace workspace = new Workspace();
+    private Workspace workspace;
 
-    public Student(List<StudyPlan> studyPlans) {
+    public Student(List<StudyPlan> studyPlans, Workspace workspace) {
+        this.workspace = workspace;
         this.studyPlans = studyPlans;
         this.currentStudyPlan = new StudyPlan();
     }
