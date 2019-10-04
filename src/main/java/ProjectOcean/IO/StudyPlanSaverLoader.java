@@ -14,18 +14,19 @@ public class StudyPlanSaverLoader {
     private static String fileName = "studyplans.json";
     private static JSONParser parser = new JSONParser();
 
+    /**
+     * Saves the users studyplans to the userHomeDir
+     * @param studyPlans is the list of studyPlans being saved
+     */
     public static void saveStudyplans(List<StudyPlan> studyPlans) {
 
         JSONArray jsonStudyPlans = new JSONArray();
-
-        int i = 0;
 
         for (StudyPlan studyplan : studyPlans) {
 
             JSONObject jsonStudyplan = new JSONObject();
 
-            jsonStudyplan.put("test", "hej - " + i);
-            i++;
+            jsonStudyplan.put("test", "");
 
             jsonStudyPlans.add(jsonStudyplan);
         }
@@ -34,6 +35,10 @@ public class StudyPlanSaverLoader {
 
     }
 
+    /**
+     * Creates the file and saves the jsonArray in it
+     * @param jsonArray is the jsonArray being saved
+     */
     private static void writeToFile(JSONArray jsonArray) {
         try (FileWriter file = new FileWriter(new File(getHomeDirPath(), fileName))) {
 
@@ -45,6 +50,11 @@ public class StudyPlanSaverLoader {
         }
     }
 
+    /**
+     * Loads a List of studyplans from the users home dir
+     * @return returns a list of the loaded studyplanes
+     * @throws IOException
+     */
     public static List<StudyPlan> loadStudyPlans() throws IOException {
         try {
 
@@ -56,6 +66,12 @@ public class StudyPlanSaverLoader {
         throw new IOException();
     }
 
+    /**
+     * Reads the file in the users home dir and creates a list from that
+     * @return returns a list of studyplans
+     * @throws IOException
+     * @throws ParseException
+     */
     private static List<StudyPlan> readFromFile() throws IOException, ParseException {
         File file = new File(getHomeDirPath(), getFileName());
 
@@ -66,10 +82,16 @@ public class StudyPlanSaverLoader {
         return studyPlans;
     }
 
+    /**
+     * @return returns the path to the users home dir
+     */
     public static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
+    /**
+     * @return returns the json file name
+     */
     public static String getFileName() {
         return fileName;
     }
