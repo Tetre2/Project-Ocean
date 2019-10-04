@@ -8,16 +8,13 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 /**
- * Constructor loads a graphical representation of a study plan as a fxml-file and creates a instance of YearController.
+ * Represents a graphical component of a study plan.
  */
 public class StudyPlanController extends VBox {
 
     @FXML private VBox yearContentView;
 
-    //TODO: use this to add a year in model CPS
     private final CoursePlanningSystem model;
-
-    //private IModelStudyPlan model;
     private YearController yearController;
 
     public StudyPlanController(CoursePlanningSystem model) {
@@ -35,6 +32,7 @@ public class StudyPlanController extends VBox {
             throw new RuntimeException(exception);
         }
 
+        //Puts a first instance of a year into the study plan
         yearContentView.getChildren().add(0, yearController);
     }
 

@@ -7,6 +7,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Represents the visual graphic component of a course in study plan.
+ */
 public class ScheduleCourseController extends VBox {
 
     @FXML private Label courseCodeLabel;

@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 /**
- * Constructor loads a graphical representation of a year as a fxml-file.
+ * Represents the visual graphic component of a year.
  */
 public class YearController extends VBox {
 
@@ -56,7 +56,7 @@ public class YearController extends VBox {
     }
 
     /**
-     * Method taking care of dropping a course in corresponding box in years GridPane
+     * Method taking care of dropping a course in corresponding box in Years GridPane
      * @param event Release event in a GridPane
      */
     @FXML

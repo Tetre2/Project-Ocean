@@ -59,7 +59,6 @@ public class DetailedController extends VBox {
 
     }
 
-
     /**
      * Sets all info a course has and show it in the detailed window
      * @param uuid is the unique id for one specific course

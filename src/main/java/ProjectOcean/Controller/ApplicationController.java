@@ -43,16 +43,27 @@ public class ApplicationController extends VBox {
         searchBrowseWindow.getChildren().add(searchBrowseController);
     }
 
+    //TODO: what is this doing?
+    /**
+     *
+     * @param id is a UUID for a specific course
+     */
     public void showDetailedInformation(UUID id){
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(id);
         contentWindow.getChildren().add(detailedController);
     }
 
+    /**
+     * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
+     */
     public void showStudyPlanWorkspaceWindow(){
         contentWindow.getChildren().clear();
     }
 
+    /**
+     * @return returns hostServices
+     */
     public HostServices getHostServices() {
         return hostServices;
     }

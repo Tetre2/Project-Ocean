@@ -27,8 +27,6 @@ public class CourseListIconController extends VBox {
         this.id = id;
         this.applicationController = applicationController;
 
-
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
         fxmlLoader.setRoot(this);
@@ -54,7 +52,6 @@ public class CourseListIconController extends VBox {
         this.courseCodeText.setText(this.model.getCourseCode(this.id));
         this.studyPointsText.setText(this.model.getStudyPoints(this.id) + " hp");
     }
-
 
     @FXML
     private void onMousedClicked(){

@@ -186,6 +186,10 @@ public class CoursePlanningSystem {
         return courses.get(id).getCourseDescription();
     }
 
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the Course corresponding to the given UUID
+     */
     public Course getCourse(UUID id) {
         return courses.get(id);
     }
