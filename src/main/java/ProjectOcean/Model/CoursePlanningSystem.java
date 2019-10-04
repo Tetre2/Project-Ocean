@@ -8,14 +8,12 @@ import java.util.*;
 public class CoursePlanningSystem extends Observable {
 
 
-    private Workspace workspace;
-    private final Map<UUID, Course> courses;
     private Student student;
+    private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem(List<StudyPlan> studyPlans, Map<UUID, Course> courses) {
         this.courses = courses;
         this.student = new Student(studyPlans);
-        this.workspace = new Workspace();
     }
 
     /**
@@ -214,7 +212,7 @@ public class CoursePlanningSystem extends Observable {
      * @param id is a UUID for a specific course
      */
     public void addCourseToWorkspace(UUID id){
-        workspace.addCourse(courses.get(id));
+        student.addCourseToWorkspace(courses.get(id));
         setChanged();
         notifyObservers();
     }
@@ -225,7 +223,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<UUID> getCoursesInWorkspaceIDs(){
         List<UUID> idList = new ArrayList<UUID>();
-        for (Course c : workspace.getAllCourses()) {
+        for (Course c : student.getAllCoursesInWorkspace()) {
             idList.add(c.getId());
         }
         return idList;
@@ -236,7 +234,7 @@ public class CoursePlanningSystem extends Observable {
      * @param id is a UUID for a specific course
      */
     public void removeCourseFromWorkspace(UUID id) {
-        workspace.removeCourse(courses.get(id));
+        student.removeCourseFromWorkspace(courses.get(id));
         setChanged();
         notifyObservers();
     }

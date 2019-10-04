@@ -10,6 +10,7 @@ public class Student {
 
     private List<StudyPlan> studyPlans;
     private StudyPlan currentStudyPlan;
+    private Workspace workspace = new Workspace();
 
     public Student(List<StudyPlan> studyPlans) {
         this.studyPlans = studyPlans;
@@ -62,8 +63,32 @@ public class Student {
     /**
      * @return all studyplans
      */
-    public List<StudyPlan> getAllStudyPlans(){
+    public List<StudyPlan> getAllStudyPlans() {
         return Collections.unmodifiableList(studyPlans);
+    }
+
+    /**
+     * Returns a list of courses that exists currently in the workspace.
+     * @return
+     */
+    public List<Course> getAllCoursesInWorkspace(){
+        return workspace.getAllCourses();
+    }
+
+    /**
+     * Adds a course to the students workspace
+     * @param course is the course to be added
+     */
+    public void addCourseToWorkspace(Course course){
+        workspace.addCourse(course);
+    }
+
+    /**
+     * Removes a course from the workspace
+     * @param course is the course to be added
+     */
+    public void removeCourseFromWorkspace(Course course) {
+        workspace.removeCourse(course);
     }
 
 }
