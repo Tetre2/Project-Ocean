@@ -5,12 +5,15 @@ import java.util.*;
 /**
  * Represents the aggregate of the model
  */
-public class CoursePlanningSystem {
+public class CoursePlanningSystem extends Observable {
 
+
+    private Workspace workspace;
     private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
+        this.workspace = new Workspace();
     }
 
     /**
@@ -197,6 +200,38 @@ public class CoursePlanningSystem {
             }
         }
     }
+      
+     /**
+     * Adds a course to the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void addCourseToWorkspace(UUID id){
+        workspace.addCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Gets a list of all courses in the workspace by their id.
+     * @return a list of UUID:s för the courses in workspace.
+     */
+    public List<UUID> getCoursesInWorkspaceIDs(){
+        List<UUID> idList = new ArrayList<UUID>();
+        for (Course c : workspace.getAllCourses()) {
+            idList.add(c.getId());
+        }
+        return idList;
+    }
+
+    /**
+     * Removes a course from the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void removeCourseFromWorkspace(UUID id) {
+        workspace.removeCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
+    }
 
     /**
      * @param id is a UUID for a specific course
@@ -205,5 +240,4 @@ public class CoursePlanningSystem {
     public String getCourseDescription(UUID id){
         return courses.get(id).getCourseDescription();
     }
-
 }
