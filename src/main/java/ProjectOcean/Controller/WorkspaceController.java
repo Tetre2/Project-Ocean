@@ -39,6 +39,8 @@ public class WorkspaceController extends VBox implements Observer {
         this.applicationController = applicationController;
         this.model = model;
         model.addObserver(this);
+
+        displayAllCoursesInWorkspace();
     }
 
     @FXML
