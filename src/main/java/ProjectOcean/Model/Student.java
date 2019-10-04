@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,4 +58,12 @@ public class Student {
     public StudyPlan getCurrentStudyPlan() {
         return currentStudyPlan;
     }
+
+    /**
+     * @return all studyplans
+     */
+    public List<StudyPlan> getAllStudyPlans(){
+        return Collections.unmodifiableList(studyPlans);
+    }
+
 }

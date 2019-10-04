@@ -1,6 +1,7 @@
 package ProjectOcean.IO;
 
 import ProjectOcean.Model.Course;
+import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -24,12 +25,14 @@ public class StudyPlanSaverLoaderTests {
     private CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
     private JSONParser parser;
     private List<StudyPlan> studyPlans;
+    private Student student;
 
     @Before
     public void setup(){
         parser = new JSONParser();
         studyPlans = new ArrayList<>();
         StudyPlan studyPlan = new StudyPlan();
+        student = new Student(studyPlans);
 
         List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
 
@@ -44,7 +47,7 @@ public class StudyPlanSaverLoaderTests {
     @Test
     public void saveStudyplansTest(){
 
-        saverLoader.saveStudyplans(studyPlans);
+        saverLoader.saveStudyplans(student);
 
         try {
             System.out.println(saverLoader.loadStudyPlans());
@@ -57,7 +60,7 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void writeToFileTest(){
-        saverLoader.saveStudyplans(studyPlans);
+        saverLoader.saveStudyplans(student);
 
         File file = new File(saverLoader.getHomeDirPath(), saverLoader.getFileName());
 

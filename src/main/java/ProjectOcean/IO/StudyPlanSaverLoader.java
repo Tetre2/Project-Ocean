@@ -1,9 +1,6 @@
 package ProjectOcean.IO;
 
-import ProjectOcean.Model.Course;
-import ProjectOcean.Model.StudyPeriod;
-import ProjectOcean.Model.StudyPlan;
-import ProjectOcean.Model.Year;
+import ProjectOcean.Model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,12 +15,13 @@ public class StudyPlanSaverLoader {
     private static JSONParser parser = new JSONParser();
 
     /**
-     * Saves the users studyplans to the userHomeDir
-     * @param studyPlans is the list of studyPlans being saved
+     * Saves the users studyplans and workspace to the userHomeDir
+     * @param student contains a list of studyPlans that will being saved and
      */
-    public static void saveStudyplans(List<StudyPlan> studyPlans) {
+    public static void saveStudyplans(Student student) {
 
         JSONArray jsonStudyPlans = new JSONArray();
+        List<StudyPlan> studyPlans = student.getAllStudyPlans();
 
         for (StudyPlan studyplan : studyPlans) {
 
@@ -54,10 +52,7 @@ public class StudyPlanSaverLoader {
             jsonStudyplan.put("years", jsonYears);
 
             //adds all courses in workspace to studyplan
-            JSONArray workespace = new JSONArray();
-
-
-
+            JSONArray workspace = new JSONArray();
 
             jsonStudyPlans.add(jsonStudyplan);
         }
