@@ -1,7 +1,11 @@
 package ProjectOcean.Model;
 
 /**
+<<<<<<< HEAD
  * Class representing one of multiple study plans held by a student
+=======
+ * Represents a StudyPlan in the model
+>>>>>>> develop
  */
 public class StudyPlan {
 

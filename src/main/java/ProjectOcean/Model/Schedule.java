@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * Class representing a schedule held by a study plan
+=======
+ * Represents a Schedule in the model
+>>>>>>> develop
  */
 public class Schedule {
 

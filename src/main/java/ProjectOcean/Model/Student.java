@@ -3,7 +3,11 @@ package ProjectOcean.Model;
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * Class representing a student profile
+=======
+ * Represents a Student in the model
+>>>>>>> develop
  */
 public class Student {
 

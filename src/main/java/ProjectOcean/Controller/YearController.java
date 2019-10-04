@@ -22,14 +22,17 @@ public class YearController extends VBox {
     @FXML private Label yearLabel;
 
     private final CoursePlanningSystem model;
+    private final ApplicationController applicationController;
     private final int year;
     private ScheduleCourseController course1;
     //TODO: create 8 courses as instance of ScheduleCourseController and put them in the grid
 
-    public YearController(CoursePlanningSystem model, int year) {
+    public YearController(int year, CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.year = year;
+        this.applicationController = applicationController;
         course1 = new ScheduleCourseController();
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/YearView.fxml"));
@@ -50,8 +53,11 @@ public class YearController extends VBox {
      * @param event Move over GridPane event
      */
     @FXML
-    private void courseDragOverEvent(DragEvent event) {
+    private void onDragOver(DragEvent event) {
         event.acceptTransferModes(TransferMode.MOVE);
+        Movable icon = (Movable) event.getGestureSource();
+
+        applicationController.moveIconToCursor(icon, event);
         event.consume();
     }
 
@@ -60,12 +66,16 @@ public class YearController extends VBox {
      * @param event Release event in a GridPane
      */
     @FXML
-    private void courseReleaseEvent(DragEvent event) {
-        int studyPeriod = calculateStudyPeriod(event.getX());
-        int slot = calculateSlot(event.getY());
+    private void onDragRelease(DragEvent event) {
+        //int studyPeriod = calculateStudyPeriod(event.getX());
+        //int slot = calculateSlot(event.getY());
         //model.addCourse(new Course(), year, studyPeriod, slot);
 
+        event.acceptTransferModes(TransferMode.MOVE);
+        Movable icon = (Movable) event.getGestureSource();
+
         event.setDropCompleted(true);
+        applicationController.moveIconToCursor(icon, event);
         event.consume();
     }
 

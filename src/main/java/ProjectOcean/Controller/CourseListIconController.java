@@ -3,6 +3,10 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -12,7 +16,8 @@ import java.util.UUID;
 /**
  * Represents the visual component of a course
  */
-public class CourseListIconController extends VBox {
+
+public class CourseListIconController extends VBox implements Movable {
 
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;
@@ -58,4 +63,56 @@ public class CourseListIconController extends VBox {
         applicationController.showDetailedInformation(id);
     }
 
+    /**
+     * Relocates the CourseListIconController instance according to the point parameter
+     * @param p the point representing the current mouse coordinates
+     */
+    public void relocateToPoint(Point2D p) {
+
+
+        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
+
+        relocate(
+                (int) (localCoords.getX() -
+                        (getBoundsInLocal().getWidth() / 2)),
+                (int) (localCoords.getY() -
+                        (getBoundsInLocal().getHeight() / 2))
+        );
+    }
+
+    /**
+     * @return the UUID of the Movable instance
+     */
+    public UUID getUUID(){
+        return id;
+    }
+
+
+    @FXML
+    private void dragDetected(MouseEvent event) {
+
+
+        //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
+        CourseListIconController icon = (CourseListIconController) event.getSource();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(icon.toString());
+
+
+        //Check from which parent the object started in.
+        switch (icon.getParent().getId()){
+            case "workspaceContainer":
+                model.removeCourseFromWorkspace(icon.getUUID());
+                break;
+            default:
+        }
+
+         //MUST come after the above statement
+        icon = new CourseListIconController(icon.getUUID(), model, applicationController);
+        applicationController.addIconToScreen(icon);
+
+        icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
+        icon.setVisible(true);
+        icon.setMouseTransparent(true);
+        event.consume();
+    }
 }

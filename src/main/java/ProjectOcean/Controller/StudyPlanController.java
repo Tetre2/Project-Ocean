@@ -15,11 +15,13 @@ public class StudyPlanController extends VBox {
     @FXML private VBox yearContentView;
 
     private final CoursePlanningSystem model;
+    private final ApplicationController applicationController;
     private YearController yearController;
 
-    public StudyPlanController(CoursePlanningSystem model) {
+    public StudyPlanController(CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
-        yearController = new YearController(model, 0);
+        this.applicationController = applicationController;
+        yearController = new YearController(0, model, applicationController);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanWindow.fxml"));

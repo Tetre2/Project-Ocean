@@ -5,13 +5,15 @@ import java.util.*;
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
  */
-public class CoursePlanningSystem {
+public class CoursePlanningSystem extends Observable {
 
-    private final Map<UUID, Course> courses;
     private Student student;
+    private Workspace workspace;
+    private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
+        this.workspace = new Workspace();
     }
 
     /**
@@ -47,6 +49,7 @@ public class CoursePlanningSystem {
     }
 
     /**
+<<<<<<< HEAD
      * @return the current student
      */
     public Student getStudent() {
@@ -86,6 +89,8 @@ public class CoursePlanningSystem {
     }
 
     /**
+=======
+>>>>>>> develop
      * @param id is a UUID for a specific course
      * @return returns the CourseCode for the specified UUID
      */
@@ -192,5 +197,36 @@ public class CoursePlanningSystem {
      */
     public Course getCourse(UUID id) {
         return courses.get(id);
+    }
+    /**
+     * Adds a course to the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void addCourseToWorkspace(UUID id){
+        workspace.addCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Gets a list of all courses in the workspace by their id.
+     * @return a list of UUID:s för the courses in workspace.
+     */
+    public List<UUID> getCoursesInWorkspaceIDs(){
+        List<UUID> idList = new ArrayList<UUID>();
+        for (Course c : workspace.getAllCourses()) {
+            idList.add(c.getId());
+        }
+        return idList;
+    }
+
+    /**
+     * Removes a course from the workspace
+     * @param id is a UUID for a specific course
+     */
+    public void removeCourseFromWorkspace(UUID id) {
+        workspace.removeCourse(courses.get(id));
+        setChanged();
+        notifyObservers();
     }
 }

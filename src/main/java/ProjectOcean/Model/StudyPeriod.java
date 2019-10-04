@@ -1,7 +1,11 @@
 package ProjectOcean.Model;
 
 /**
+<<<<<<< HEAD
  * Class representing a single study period in a year
+=======
+ * Represents a StudyPeriod in the model
+>>>>>>> develop
  */
 public class StudyPeriod {
 
