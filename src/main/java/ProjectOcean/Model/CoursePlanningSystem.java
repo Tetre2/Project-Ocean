@@ -148,9 +148,9 @@ public class CoursePlanningSystem {
     public List<UUID> executeSearch(String searchText) {
         String[] searchTerms = trimString(searchText);
         List<UUID> searchResult = new ArrayList<>();
-        searchCourseNames(searchTerms, searchResult);
-        searchCourseCodes(searchTerms, searchResult);
-        searchExaminors(searchTerms, searchResult);
+        matchCourseNameAndAdd(searchTerms, searchResult);
+        matchCourseCodeAndAdd(searchTerms, searchResult);
+        matchExaminorAndAdd(searchTerms, searchResult);
         return searchResult;
     }
 
@@ -162,7 +162,7 @@ public class CoursePlanningSystem {
         return searchText.split(" ");
     }
 
-    private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
+    private void matchCourseNameAndAdd(String[] searchTerms, List<UUID> searchResult){
         //For each search term, searches through each courses course name for matches and if found adds the course
         // to search result.
         for(String s : searchTerms) {
@@ -174,7 +174,7 @@ public class CoursePlanningSystem {
         }
     }
 
-    private void searchCourseCodes(String[] searchTerms, List<UUID> searchResult) {
+    private void matchCourseCodeAndAdd(String[] searchTerms, List<UUID> searchResult) {
         //For each search term, searches through each courses course code for matches and if found
         // adds the course to search result.
         for(String s : searchTerms) {
@@ -186,7 +186,7 @@ public class CoursePlanningSystem {
         }
     }
 
-    private void searchExaminors(String[] searchTerms, List<UUID> searchResult) {
+    private void matchExaminorAndAdd(String[] searchTerms, List<UUID> searchResult) {
         //For each search term, searches through each courses examinor for matches and
         // if found adds the course to search result.
         for(String s : searchTerms) {

@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,24 +18,15 @@ import java.util.UUID;
  */
 public class SearchBrowseController extends AnchorPane {
 
-    @FXML
-    private VBox searchResultVBox;
-    @FXML
-    private TextField searchField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private CheckBox studyPointCheckBox15;
-    @FXML
-    private CheckBox studyPointCheckBox7_5;
-    @FXML
-    private CheckBox studyPeriodCheckbox1;
-    @FXML
-    private CheckBox studyPeriodCheckbox2;
-    @FXML
-    private CheckBox studyPeriodCheckbox3;
-    @FXML
-    private CheckBox studyPeriodCheckbox4;
+    @FXML private VBox searchResultVBox;
+    @FXML private TextField searchField;
+    @FXML private Button searchButton;
+    @FXML private CheckBox studyPointCheckBox15;
+    @FXML private CheckBox studyPointCheckBox7_5;
+    @FXML private CheckBox studyPeriodCheckbox1;
+    @FXML private CheckBox studyPeriodCheckbox2;
+    @FXML private CheckBox studyPeriodCheckbox3;
+    @FXML private CheckBox studyPeriodCheckbox4;
 
     private CoursePlanningSystem model;
     private ApplicationController applicationController;
@@ -82,7 +72,6 @@ public class SearchBrowseController extends AnchorPane {
         } else {
             currentSearchResult = model.executeSearch(searchField.getText());
         }
-        //Displays search result
         displayCourses();
     }
 
