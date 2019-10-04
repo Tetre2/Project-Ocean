@@ -1,6 +1,7 @@
 package ProjectOcean.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,4 +43,12 @@ public class Year {
     public StudyPeriod getStudyPeriod(int period) {
         return studyPeriods.get(period);
     }
+
+    /**
+     * @return returns all studyperiods
+     */
+    public List<StudyPeriod> getStudyPeriods() {
+        return Collections.unmodifiableList(studyPeriods);
+    }
+
 }

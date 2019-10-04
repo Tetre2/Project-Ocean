@@ -1,6 +1,9 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.Model.Course;
+import ProjectOcean.Model.StudyPeriod;
 import ProjectOcean.Model.StudyPlan;
+import ProjectOcean.Model.Year;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,9 +27,37 @@ public class StudyPlanSaverLoader {
 
         for (StudyPlan studyplan : studyPlans) {
 
+            //represents a studyplan
             JSONObject jsonStudyplan = new JSONObject();
 
-            jsonStudyplan.put("test", "");
+            //adds all years to jsonStudyplan
+            JSONArray jsonYears = new JSONArray();
+            for (Year year : studyplan.getSchedule().getYears()) {
+
+                //adds all studyperiods in a year to jsonYears
+                JSONArray jsonStudyperiods = new JSONArray();
+                for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
+
+                    //adds Course1 and Course2 to a studyperiod
+                    JSONObject jsonStudyPeriod = new JSONObject();
+                    String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+                    jsonStudyPeriod.put("Course1", course1);
+
+                    String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+                    jsonStudyPeriod.put("Course2", course2);
+
+                    jsonStudyperiods.add(jsonStudyPeriod);
+                }
+
+                jsonYears.add(jsonStudyperiods);
+            }
+            jsonStudyplan.put("years", jsonYears);
+
+            //adds all courses in workspace to studyplan
+            JSONArray workespace = new JSONArray();
+
+
+
 
             jsonStudyPlans.add(jsonStudyplan);
         }
@@ -61,6 +92,7 @@ public class StudyPlanSaverLoader {
             return readFromFile();
 
         } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         throw new IOException();
@@ -78,6 +110,7 @@ public class StudyPlanSaverLoader {
         FileReader fileReader = new FileReader(file);
         Object obj = parser.parse(fileReader);
         JSONArray studyPlans = (JSONArray) obj;
+
 
         return studyPlans;
     }

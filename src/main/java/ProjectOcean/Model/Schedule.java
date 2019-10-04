@@ -1,6 +1,7 @@
 package ProjectOcean.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,4 +61,12 @@ public class Schedule {
     public Year getYear(int year){
         return years.get(year);
     }
+
+    /**
+     * @return returns all years
+     */
+    public List<Year> getYears() {
+        return Collections.unmodifiableList(years);
+    }
+
 }

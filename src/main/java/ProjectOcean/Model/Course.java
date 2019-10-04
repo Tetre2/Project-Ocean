@@ -39,9 +39,17 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "name='" + courseName + '\'' +
+                "id=" + id +
                 ", courseCode='" + courseCode + '\'' +
-                ", studyPoints=" + studyPoints +
+                ", courseName='" + courseName + '\'' +
+                ", studyPoints='" + studyPoints + '\'' +
+                ", studyPeriod='" + studyPeriod + '\'' +
+                ", examiner='" + examiner + '\'' +
+                ", examinationMeans='" + examinationMeans + '\'' +
+                ", language='" + language + '\'' +
+                ", requiredCourses=" + requiredCourses +
+                ", coursePMLink='" + coursePMLink + '\'' +
+                ", courseDescription='" + courseDescription + '\'' +
                 '}';
     }
 

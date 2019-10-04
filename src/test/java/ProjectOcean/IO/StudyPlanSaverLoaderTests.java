@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.Model.Course;
 import ProjectOcean.Model.StudyPlan;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -14,10 +15,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
+    private CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
     private JSONParser parser;
     private List<StudyPlan> studyPlans;
 
@@ -25,9 +29,16 @@ public class StudyPlanSaverLoaderTests {
     public void setup(){
         parser = new JSONParser();
         studyPlans = new ArrayList<>();
-        studyPlans.add(new StudyPlan());
-        studyPlans.add(new StudyPlan());
-        studyPlans.add(new StudyPlan());
+        StudyPlan studyPlan = new StudyPlan();
+
+        List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
+
+        studyPlan.addCourseToSchedule(courses.get(0), 0, 0, 0);
+        studyPlan.addYear();
+        studyPlan.addCourseToSchedule(courses.get(1), 1, 0, 0);
+
+        studyPlans.add(studyPlan);
+
     }
 
     @Test
@@ -35,6 +46,13 @@ public class StudyPlanSaverLoaderTests {
 
         saverLoader.saveStudyplans(studyPlans);
 
+        try {
+            System.out.println(saverLoader.loadStudyPlans());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        writeToFileTest();
     }
 
     @Test
