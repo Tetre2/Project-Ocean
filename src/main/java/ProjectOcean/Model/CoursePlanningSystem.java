@@ -155,6 +155,7 @@ public class CoursePlanningSystem {
     }
 
     private String[] trimString(String searchText) {
+        //Trims away unnecessary blankspaces, makes them lowercase and splits the terms into a array.
         searchText = searchText.trim();
         searchText = searchText.toLowerCase();
         searchText = searchText.trim().replaceAll(" +", " ");
@@ -162,6 +163,8 @@ public class CoursePlanningSystem {
     }
 
     private void searchCourseNames(String[] searchTerms, List<UUID> searchResult){
+        //For each search term, searches through each courses course name for matches and if found adds the course
+        // to search result.
         for(String s : searchTerms) {
             for(Course c : courses.values()) {
                 if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
@@ -172,6 +175,8 @@ public class CoursePlanningSystem {
     }
 
     private void searchCourseCodes(String[] searchTerms, List<UUID> searchResult) {
+        //For each search term, searches through each courses course code for matches and if found
+        // adds the course to search result.
         for(String s : searchTerms) {
             for(Course c : courses.values()) {
                 if(c.getCourseCode().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
@@ -182,6 +187,8 @@ public class CoursePlanningSystem {
     }
 
     private void searchExaminors(String[] searchTerms, List<UUID> searchResult) {
+        //For each search term, searches through each courses examinor for matches and
+        // if found adds the course to search result.
         for(String s : searchTerms) {
             for(Course c : courses.values()) {
                 if(c.getExaminator().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {

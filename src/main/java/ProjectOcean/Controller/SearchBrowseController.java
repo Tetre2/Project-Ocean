@@ -42,6 +42,11 @@ public class SearchBrowseController extends AnchorPane {
     private ApplicationController applicationController;
     private List<UUID> currentSearchResult;
 
+    /**
+     *
+     * @param model: An instance of the course planning system
+     * @param applicationController: An instance of the main controller.
+     */
     public SearchBrowseController(CoursePlanningSystem model, ApplicationController applicationController) {
         this.model = model;
         this.applicationController = applicationController;
