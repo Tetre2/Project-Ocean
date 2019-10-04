@@ -115,7 +115,7 @@ public class CourseSaverLoader {
         //creates the "main" array which contains all courses
         JSONArray jsonCourses = new JSONArray();
 
-        List<Course> courses = generateCourses();
+        List<Course> courses = generatePreDefinedCourses();
 
         for (Course course: courses) {
 
@@ -150,14 +150,14 @@ public class CourseSaverLoader {
      * Creates courses a predefined list of courses
      * @return returns a list of courses
      */
-    private static List<Course> generateCourses(){
+    public static List<Course> generatePreDefinedCourses(){
         List<Course> courses = new ArrayList<>();
 
-        courses.add(new Course(UUID.randomUUID(),"DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(new Course(UUID.randomUUID(),"EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf snedspö", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(new Course(UUID.randomUUID(),"MVE045","Matematisk Analys", "7.5", "1", "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(new Course(UUID.randomUUID(),"TMV206","Linjär Algebra", "7.5", "3", "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(new Course(UUID.randomUUID(),"TDA552","Objektorienterad Programmering och Design", "7.5", "2", "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.fromString("749d6445-4c88-410e-9c44-b88e8cb3e094"),"DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.fromString("add797f2-1c82-45f1-9d25-cf24b46e29d8"),"EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf snedspö", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.fromString("72c83fcd-2dc0-473f-b817-29cf2db74c14"),"MVE045","Matematisk Analys", "7.5", "1", "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.fromString("ab1344d1-8b2f-4b67-8415-d90291c02569"),"TMV206","Linjär Algebra", "7.5", "3", "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(new Course(UUID.fromString("e74d95ea-dfb9-4aba-b2c1-28328728b50b"),"TDA552","Objektorienterad Programmering och Design", "7.5", "2", "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
 
         return courses;
     }

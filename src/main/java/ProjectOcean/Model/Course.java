@@ -98,17 +98,17 @@ public class Course {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return Objects.equals(id, course.id) &&
-                Objects.equals(courseCode, course.courseCode) &&
-                Objects.equals(courseName, course.courseName) &&
-                Objects.equals(studyPoints, course.studyPoints) &&
-                Objects.equals(studyPeriod, course.studyPeriod) &&
-                Objects.equals(examiner, course.examiner) &&
-                Objects.equals(examinationMeans, course.examinationMeans) &&
-                Objects.equals(language, course.language) &&
-                Objects.equals(requiredCourses, course.requiredCourses) &&
-                Objects.equals(coursePMLink, course.coursePMLink) &&
-                Objects.equals(courseDescription, course.courseDescription);
+        return id.toString().equals(course.id.toString()) &&
+                courseCode.equals(course.courseCode) &&
+                courseName.equals(course.courseName) &&
+                studyPoints.equals(course.studyPoints) &&
+                studyPeriod.equals(course.studyPeriod) &&
+                examiner.equals(course.examiner) &&
+                examinationMeans.equals(course.examinationMeans) &&
+                language.equals(course.language) &&
+                requiredCourses.equals(course.requiredCourses) &&
+                coursePMLink.equals(course.coursePMLink) &&
+                courseDescription.equals(course.courseDescription);
     }
 
     @Override
