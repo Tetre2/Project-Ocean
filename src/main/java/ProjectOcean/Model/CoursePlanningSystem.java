@@ -9,10 +9,10 @@ public class CoursePlanningSystem extends Observable {
 
 
     private Student student;
-    private final List<ICourse> courses = new ArrayList<>();
+    private final List<ICourse> courses;
 
     public CoursePlanningSystem() {
-        generateCourses();
+        courses = generateCourses();
         this.student = new Student();
     }
 
@@ -27,7 +27,10 @@ public class CoursePlanningSystem extends Observable {
      * Creates a list of hard coded courses
      * @return returns a list full of courses
      */
-    public void generateCourses() {
+    public List<ICourse> generateCourses() {
+
+        List<ICourse> courses = new ArrayList<>();
+
         courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
 
         courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
@@ -40,6 +43,7 @@ public class CoursePlanningSystem extends Observable {
 
         courses.add(new Course("DAT096", "Konstruktionsprojekt i inbyggda elektroniksystem", 15f, 3, "Lena Peterson", "Projekt", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
 
+        return courses;
     }
 
     /**
@@ -102,7 +106,7 @@ public class CoursePlanningSystem extends Observable {
      * @param course is a UUID for a specific course
      * @return returns a list of required courses for a specific course defined by a UUID
      */
-    public List<ICourse> getRequiredCourses(ICourse course){
+    public List<String> getRequiredCourses(ICourse course){
         return Collections.unmodifiableList(course.getRequiredCourses());
     }
 

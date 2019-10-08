@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -77,7 +78,13 @@ public class Course implements ICourse{
     }
 
     @Override
-    public List<Course> getRequiredCourses() {
+    public List<String> getRequiredCourses() {
+        List<String> requiredCourses = new ArrayList<>();
+
+        for (Course course : this.requiredCourses) {
+            requiredCourses.add(course.getCourseName());
+        }
+
         return Collections.unmodifiableList(requiredCourses);
     }
 

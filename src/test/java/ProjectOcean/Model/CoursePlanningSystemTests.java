@@ -10,38 +10,29 @@ public class CoursePlanningSystemTests {
 
 
     private CoursePlanningSystem coursePlanningSystem;
-    private Map<UUID, Course> courses;
-    private List<UUID> allUUIDs;
+    private List<ICourse> courses;
 
     @Before
     public void init(){
         coursePlanningSystem = new CoursePlanningSystem();
-        courses = coursePlanningSystem.getAllCourses();
-
-        List<UUID> IDs = new ArrayList<>();
-        Iterator it = courses.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            IDs.add((UUID) pair.getKey());
-        }
-        allUUIDs = IDs;
+        courses = coursePlanningSystem.generateCourses();
 
     }
 
     @Test
     public void getAllCoursesTest() {
 
-        Map<UUID, Course> expected = courses;
-        Map<UUID, Course> actual = coursePlanningSystem.getAllCourses();
+        List<ICourse> expected = courses;
+        List<ICourse> actual = coursePlanningSystem.getAllCourses();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getCourseCodeTest() {
-        UUID courseID = allUUIDs.get(0);
+        ICourse courseID = courses.get(0);
 
-        String expected = courses.get(courseID).getCourseCode();
+        String expected = courseID.getCourseCode();
         String actual = coursePlanningSystem.getCourseCode(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -49,9 +40,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getCourseNameTest() {
-        UUID courseID = allUUIDs.get(0);
+        ICourse courseID = courses.get(0);
 
-        String expected = courses.get(courseID).getCourseName();
+        String expected = courseID.getCourseName();
         String actual = coursePlanningSystem.getCourseName(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -59,29 +50,19 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getCourseStudyPointsTest() {
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getStudyPoints();
+        String expected = courseID.getStudyPoints();
         String actual = coursePlanningSystem.getStudyPoints(courseID);
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getAllCoursesIDsTest() {
-
-        List<UUID> expected = allUUIDs;
-        List<UUID> actual = coursePlanningSystem.getAllCoursesIDs();
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
     public void getStudyPointsTest(){
-        UUID courseID = allUUIDs.get(0);
+        ICourse courseID = courses.get(0);
 
-        String expected = courses.get(courseID).getStudyPoints();
+        String expected = courseID.getStudyPoints();
         String actual = coursePlanningSystem.getStudyPoints(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -89,10 +70,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getStudyPeriodTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getStudyPeriod());
+        String expected = String.valueOf(courseID.getStudyPeriod());
         String actual = coursePlanningSystem.getStudyPeriod(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -100,10 +80,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getExaminatorTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getExaminator();
+        String expected = courseID.getExaminator();
         String actual = coursePlanningSystem.getExaminator(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -111,10 +90,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getExaminationMeansTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getExaminationMeans();
+        String expected = courseID.getExaminationMeans();
         String actual = coursePlanningSystem.getExaminationMeans(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -122,10 +100,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getLanguageTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getLanguage();
+        String expected = courseID.getLanguage();
         String actual = coursePlanningSystem.getLanguage(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -133,27 +110,24 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getRequiredCoursesTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-        List<UUID> expected = new ArrayList<>();
-        Iterator iterator = courses.get(courseID).getRequiredCourses().iterator();
+        List<String> expected = new ArrayList<>();
 
-        while (iterator.hasNext()){
-            expected.add(((Course)iterator.next()).getId());
+        for (String string : courseID.getRequiredCourses()) {
+            expected.add(string);
         }
 
-
-        List<UUID> actual = coursePlanningSystem.getRequiredCourses(courseID);
+        List<String> actual = coursePlanningSystem.getRequiredCourses(courseID);
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getCoursePMLinkTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getCoursePMLink());
+        String expected = String.valueOf(courseID.getCoursePMLink());
         String actual = coursePlanningSystem.getCoursePMLink(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -161,10 +135,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getCourseDescriptionTest(){
+        ICourse courseID = courses.get(0);
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getCourseDescription());
+        String expected = String.valueOf(courseID.getCourseDescription());
         String actual = coursePlanningSystem.getCourseDescription(courseID);
 
         Assert.assertEquals(expected, actual);

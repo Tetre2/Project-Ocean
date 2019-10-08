@@ -19,7 +19,7 @@ public interface ICourse {
 
     public String getLanguage();
 
-    public List<Course> getRequiredCourses();
+    public List<String> getRequiredCourses();
 
     public String getCoursePMLink();
 
