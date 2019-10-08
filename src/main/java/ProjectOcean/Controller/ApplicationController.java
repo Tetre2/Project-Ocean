@@ -55,8 +55,8 @@ public class ApplicationController extends AnchorPane {
     @FXML
     private void onDragOver(DragEvent event) {
 
-        Movable icon = (Movable) event.getGestureSource();
-        moveIconToCursor(icon, event);
+        Movable draggedObject = (Movable) event.getGestureSource();
+        moveDraggedObjectToCursor(draggedObject, event);
 
         event.consume();
 
@@ -65,8 +65,8 @@ public class ApplicationController extends AnchorPane {
     @FXML
     private void onDragDone(DragEvent event) {
 
-        Movable icon = (Movable) event.getGestureSource();
-        getChildren().remove(icon);
+        Movable draggedObject = (Movable) event.getGestureSource();
+        getChildren().remove(draggedObject);
         event.consume();
 
     }
@@ -84,8 +84,9 @@ public class ApplicationController extends AnchorPane {
      * @param icon the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveIconToCursor(Movable icon, DragEvent event){
-        icon.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
+    public void moveDraggedObjectToCursor(Movable icon, DragEvent event){
+        Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
+        icon.relocateToPoint(mousePosition);
     }
 
     /**

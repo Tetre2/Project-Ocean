@@ -3,7 +3,6 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
@@ -47,7 +46,7 @@ public class WorkspaceController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveIconToCursor(icon,event);
+        applicationController.moveDraggedObjectToCursor(icon,event);
         event.consume();
     }
 
@@ -57,7 +56,6 @@ public class WorkspaceController extends VBox implements Observer {
         Movable course = (Movable) event.getGestureSource();
         model.addCourseToWorkspace(course.getICourse());
 
-        displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
 
         applicationController.getChildren().remove(course);
