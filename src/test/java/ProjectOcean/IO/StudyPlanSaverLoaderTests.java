@@ -24,28 +24,37 @@ public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
     private CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
-    private JSONParser parser;
     private List<StudyPlan> studyPlans;
     private Student student;
 
     @Before
     public void setup(){
-        parser = new JSONParser();
         studyPlans = new ArrayList<>();
-        StudyPlan studyPlan = new StudyPlan();
-        Workspace workspace = new Workspace();
-
         List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
 
-        studyPlan.addCourseToSchedule(courses.get(0), 0, 0, 0);
+        //---- studyPlan 1 ----
+        StudyPlan studyPlan = new StudyPlan();
+        Workspace workspace = new Workspace();
         studyPlan.addYear();
+        studyPlan.addCourseToSchedule(courses.get(0), 0, 0, 0);
+        /*studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(1), 1, 0, 0);
+        workspace.addCourse(courses.get(1));*/
 
-
-        workspace.addCourse(courses.get(1));
-        student = new Student(studyPlans, workspace);
+        //---- studyPlan 1 ----
+        StudyPlan studyPlan2 = new StudyPlan();
+        Workspace workspace2 = new Workspace();
+        studyPlan2.addYear();
+        studyPlan2.addCourseToSchedule(courses.get(0), 0, 0, 0);
+        /*studyPlan2.addYear();
+        studyPlan2.addCourseToSchedule(courses.get(1), 1, 0, 0);
+        workspace2.addCourse(courses.get(1));*/
 
         studyPlans.add(studyPlan);
+        //studyPlans.add(studyPlan2);
+
+        student = new Student(studyPlans, workspace);
+
 
     }
 
@@ -54,19 +63,20 @@ public class StudyPlanSaverLoaderTests {
 
         saverLoader.saveStudyplans(student);
 
-        try {
-            System.out.println(saverLoader.loadStudent());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        writeToFileTest();
     }
 
     @Test
-    public void writeToFileTest(){
-        //outdated
-        saverLoader.saveStudyplans(student);
+    public void loadStudent(){
+
+        Student student = null;
+        try {
+            student = saverLoader.loadStudent();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.assertTrue(false);
+        }
+
+        Assert.assertTrue(student.equals(this.student));
 
     }
 

@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.Objects;
+
 /**
  * Represents a StudyPlan in the model
  */
@@ -54,4 +56,24 @@ public class StudyPlan {
         return schedule;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudyPlan studyPlan = (StudyPlan) o;
+        return schedule.equals(studyPlan.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(schedule);
+    }
+
+    @Override
+    public String toString() {
+        return "StudyPlan{" +
+                "schedule=" + schedule +
+                '}';
+    }
 }

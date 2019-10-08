@@ -38,6 +38,7 @@ public class StudyPlanSaverLoader {
 
             //adds all years to jsonStudyplan
             JSONArray jsonYears = new JSONArray();
+
             for (Year year : studyplan.getSchedule().getYears()) {
 
                 //adds all studyperiods in a year to jsonYears
@@ -123,51 +124,48 @@ public class StudyPlanSaverLoader {
 
         //adds studyplans
         JSONArray jsonStudyplans = (JSONArray) jsonObject.get("studyplans");
-
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (int year = 0; year < jsonStudyplans.size(); year++) {
+        for (int studyplanIndex = 0; studyplanIndex < jsonStudyplans.size(); studyplanIndex++) {
 
             StudyPlan studyPlan = new StudyPlan();
 
-            //If Schedule always starts with one year we dont need to add a year the first loop
-            studyPlan.addYear();
-
-            JSONObject jsonYears = (JSONObject) jsonStudyplans.get(year);
-
+            JSONObject jsonYears = (JSONObject) jsonStudyplans.get(studyplanIndex);
             JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
 
-            for (int studyPeriod = 0; studyPeriod < jsonYearArr.size(); studyPeriod++) {
+            for (int year = 0; year < jsonYearArr.size(); year++) {
+                //If Schedule always starts with one year we dont need to add a year the first loop
+                studyPlan.addYear();
 
-                JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(studyPeriod);
+                JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year);
 
-                for (int i = 0; i < jsonStudyPeriod.size(); i++) {
+                for (int studyPeriod = 0; studyPeriod < jsonStudyPeriod.size(); studyPeriod++) {
 
-                    JSONObject jsonStudyperiod = (JSONObject) jsonStudyPeriod.get(i);
+                    JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod);
 
-                    String course1 = (String) jsonStudyperiod.get("Course1");
+                    String course1 = (String) jsonObjStudyPeriod.get("Course1");
                     if( !course1.equals("null")) {
                         for (Course c: courses) {
-                            if(c.getId().toString().equals(course1))
+                            if(c.getId().toString().equals(course1)) {
                                 studyPlan.addCourseToSchedule(c, year, studyPeriod, 0);
+                                break;
+                            }
                         }
                     }
 
-                    String course2 = (String) jsonStudyperiod.get("Course2");
-                    if( !course1.equals("null")) {
+                    String course2 = (String) jsonObjStudyPeriod.get("Course2");
+                    if( !course2.equals("null")) {
                         for (Course c: courses) {
-                            if(c.getId().toString().equals(course2))
-                                studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
+                            if(c.getId().toString().equals(course2)){
+                                studyPlan.addCourseToSchedule(c, studyplanIndex, year, 1);
+                                break;
+                            }
                         }
                     }
-
                 }
-
             }
-
             studyPlans.add(studyPlan);
         }
-
       return new Student(studyPlans, workspace);
     }
 

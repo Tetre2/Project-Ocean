@@ -39,6 +39,13 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
+                "courseCode='" + courseCode + '\'' +
+                '}';
+    }
+
+    /*@Override
+    public String toString() {
+        return "Course{" +
                 "id=" + id +
                 ", courseCode='" + courseCode + '\'' +
                 ", courseName='" + courseName + '\'' +
@@ -51,7 +58,7 @@ public class Course {
                 ", coursePMLink='" + coursePMLink + '\'' +
                 ", courseDescription='" + courseDescription + '\'' +
                 '}';
-    }
+    }*/
 
     public UUID getId() {
         return this.id;

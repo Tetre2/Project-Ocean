@@ -3,6 +3,7 @@ package ProjectOcean.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a Year in the model
@@ -51,4 +52,23 @@ public class Year {
         return Collections.unmodifiableList(studyPeriods);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Year year = (Year) o;
+        return studyPeriods.equals(year.studyPeriods);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studyPeriods);
+    }
+
+    @Override
+    public String toString() {
+        return "Year{" +
+                "studyPeriods=" + studyPeriods +
+                '}';
+    }
 }
