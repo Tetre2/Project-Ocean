@@ -108,10 +108,10 @@ public class DetailedController extends VBox {
         this.language.setText(language);
     }
 
-    private void setRequiredCourses(List<ICourse> courses) {
+    private void setRequiredCourses(List<String> courses) {
         //Creates a new label for each required course and adds them to the VBox
-        for (ICourse course : courses) {
-            Label courseName = new Label(model.getCourseCode(course));
+        for (String course : courses) {
+            Label courseName = new Label(course);
             requiredCourses.getChildren().add(courseName);
         }
 
