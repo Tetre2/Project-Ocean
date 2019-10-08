@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents the visual component of the search bar and list of courses
@@ -29,9 +28,8 @@ public class SearchBrowseController extends AnchorPane {
     @FXML private CheckBox studyPeriodCheckbox3;
     @FXML private CheckBox studyPeriodCheckbox4;
 
-    private CoursePlanningSystem model;
-
-    private ApplicationController applicationController;
+    private final CoursePlanningSystem model;
+    private final ApplicationController applicationController;
     private List<ICourse> currentSearchResult;
 
     /**
@@ -56,13 +54,6 @@ public class SearchBrowseController extends AnchorPane {
 
         //Displays all courses in CPS
         executeSearch();
-    }
-
-    private void displayAllCourses() {
-        for (ICourse course : model.getAllCourses()) {
-            CourseListIconController iconController = new CourseListIconController(course, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
-        }
     }
 
     @FXML

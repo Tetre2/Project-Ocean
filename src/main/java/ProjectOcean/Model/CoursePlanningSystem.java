@@ -1,6 +1,9 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
 
 /**
  * Represents the aggregate of the model
@@ -8,9 +11,13 @@ import java.util.*;
 public class CoursePlanningSystem extends Observable {
 
 
-    private Student student;
+    private final Student student;
     private final List<ICourse> courses;
 
+    /**
+     * Constructor call method generateCourses to instantiate a list of courses at startup of program.
+     * A student object is created.
+     */
     public CoursePlanningSystem() {
         courses = generateCourses();
         this.student = new Student();
@@ -31,17 +38,7 @@ public class CoursePlanningSystem extends Observable {
 
         List<ICourse> courses = new ArrayList<>();
 
-        courses.add(new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-
-        courses.add(new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-
-        courses.add(new Course("MVE045","Matematisk Analys", 7.5f, 1, "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-
-        courses.add(new Course("TMV206","Linjär Algebra", 7.5f, 3, "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-
-        courses.add(new Course("TDA552","Objektorienterad Programmering och Design", 7.5f, 2, "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-
-        courses.add(new Course("DAT096", "Konstruktionsprojekt i inbyggda elektroniksystem", 15f, 3, "Lena Peterson", "Projekt", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", 7.5f, 1, "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
 
         return courses;
     }

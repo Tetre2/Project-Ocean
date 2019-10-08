@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 /**
  * Controller for the detailed view of a course
@@ -32,9 +31,9 @@ public class DetailedController extends VBox {
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
 
-    private CoursePlanningSystem model;
-    private HostServices hostServices;
-    private ApplicationController applicationController;
+    private final CoursePlanningSystem model;
+    private final HostServices hostServices;
+    private final ApplicationController applicationController;
 
     /**
      * Creates the view for the detailed view without any info in it.

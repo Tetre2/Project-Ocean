@@ -1,8 +1,6 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Student in the model

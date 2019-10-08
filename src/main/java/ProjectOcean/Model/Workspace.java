@@ -1,6 +1,8 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represents a workspace where you can temporarily save courses for easy access.

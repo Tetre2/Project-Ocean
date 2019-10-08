@@ -1,7 +1,6 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
@@ -23,19 +22,19 @@ public class ApplicationController extends AnchorPane {
     @FXML private AnchorPane dragFeature;
     @FXML private AnchorPane searchBrowseWindow;
 
-    private CoursePlanningSystem coursePlanningSystem;
-    private SearchBrowseController searchBrowseController;
-    private WorkspaceController workspaceController;
+    private final CoursePlanningSystem model;
+    private final SearchBrowseController searchBrowseController;
+    private final WorkspaceController workspaceController;
 
     private static DetailedController detailedController;
-    private HostServices hostServices;
+    private final HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        this.coursePlanningSystem = new CoursePlanningSystem();
-        this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
-        this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
-        detailedController = new DetailedController(coursePlanningSystem, this);
+        this.model = new CoursePlanningSystem();
+        this.searchBrowseController = new SearchBrowseController(model, this);
+        this.workspaceController = new WorkspaceController(model, this);
+        detailedController = new DetailedController(model, this);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -48,8 +47,7 @@ public class ApplicationController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        contentWindow.getChildren().add(0, workspaceController);
-        searchBrowseWindow.getChildren().add(searchBrowseController);
+        instantiateChildControllers();
     }
 
     @FXML
@@ -71,6 +69,11 @@ public class ApplicationController extends AnchorPane {
 
     }
 
+    private void instantiateChildControllers() {
+        contentWindow.getChildren().add(0, workspaceController);
+        searchBrowseWindow.getChildren().add(searchBrowseController);
+    }
+
     /**
      * Adds the icon to the drag surface
      * @param icon the movable icon to be added
@@ -90,9 +93,9 @@ public class ApplicationController extends AnchorPane {
 
     /**
      * Clears and adds a detailedController to the contentWindow
-     * @param id the UUID representing the course from which the details will be taken from
+     * @param course the ICourse representing the course from which the details will be taken from
      */
-    public void showDetailedInformation(ICourse course) {
+    public void showDetailedInformationWindow(ICourse course) {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);

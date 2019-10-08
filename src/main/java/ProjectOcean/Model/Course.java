@@ -7,54 +7,23 @@ import java.util.List;
 /**
  * Represents a course in the model
  */
-public class Course implements ICourse{
+public class Course implements ICourse {
 
-    private final String courseCode;
-    private final String courseName;
-    private final float studyPoints;
     private final int studyPeriod;
-    private final String examinator;
-    private final String examinationMeans;
-    private final String language;
-    private final List<Course> requiredCourses;
-    private final String coursePMLink;
-    private final String courseDescription;
+    private final CourseDetails cDetails;
+    private final CourseInfo cInfo;
+    private final CourseAccessibility cAccessibility;
 
-    public Course(String courseCode, String courseName, float studyPoints, int studyPeriod, String examinator, String examinationMeans, String language, List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.studyPoints = studyPoints;
+    public Course(int studyPeriod, CourseDetails cDeatils, CourseInfo cInfo, CourseAccessibility cAccessibility) {
         this.studyPeriod = studyPeriod;
-        this.examinator = examinator;
-        this.examinationMeans = examinationMeans;
-        this.language = language;
-        this.requiredCourses = requiredCourses;
-        this.coursePMLink = coursePMLink;
-        this.courseDescription = courseDescription;
+        this.cDetails = cDeatils;
+        this.cInfo = cInfo;
+        this.cAccessibility = cAccessibility;
     }
 
     @Override
     public String toString() {
-        return "Course{" +
-                "name='" + courseName + '\'' +
-                ", courseCode='" + courseCode + '\'' +
-                ", studyPoints=" + studyPoints +
-                '}';
-    }
-
-    @Override
-    public String getCourseName() {
-        return courseName;
-    }
-
-    @Override
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-    @Override
-    public String getStudyPoints() {
-        return String.valueOf(studyPoints);
+        return cInfo.toString();
     }
 
     @Override
@@ -63,38 +32,48 @@ public class Course implements ICourse{
     }
 
     @Override
-    public String getExaminator() {
-        return examinator;
-    }
-
-    @Override
-    public String getExaminationMeans() {
-        return examinationMeans;
-    }
-
-    @Override
-    public String getLanguage() {
-        return language;
-    }
-
-    @Override
-    public List<String> getRequiredCourses() {
-        List<String> requiredCourses = new ArrayList<>();
-
-        for (Course course : this.requiredCourses) {
-            requiredCourses.add(course.getCourseName());
-        }
-
-        return Collections.unmodifiableList(requiredCourses);
-    }
-
-    @Override
     public String getCoursePMLink() {
-        return coursePMLink;
+        return cDetails.getCoursePMLink();
     }
 
     @Override
     public String getCourseDescription() {
-        return courseDescription;
+        return cDetails.getCourseDescription();
     }
+
+    @Override
+    public List<String> getRequiredCourses() {
+        return cDetails.getRequiredCourses();
+    }
+
+    @Override
+    public String getCourseName() {
+        return cInfo.getCourseName();
+    }
+
+    @Override
+    public String getCourseCode() {
+        return cInfo.getCourseCode();
+    }
+
+    @Override
+    public String getStudyPoints() {
+        return cInfo.getStudyPoints();
+    }
+
+    @Override
+    public String getExaminator() {
+        return cAccessibility.getExaminator();
+    }
+
+    @Override
+    public String getExaminationMeans() {
+        return cAccessibility.getExaminationMeans();
+    }
+
+    @Override
+    public String getLanguage() {
+        return cAccessibility.getLanguage();
+    }
+
 }

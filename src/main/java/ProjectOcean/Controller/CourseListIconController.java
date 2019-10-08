@@ -24,8 +24,8 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML private Text studyPointsText;
 
     private static CoursePlanningSystem model;
-    private ICourse course;
-    private ApplicationController applicationController;
+    private final ICourse course;
+    private final ApplicationController applicationController;
 
 
     public CourseListIconController(ICourse course, CoursePlanningSystem model, ApplicationController applicationController) {
@@ -62,7 +62,7 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void onMousedClicked(){
-        applicationController.showDetailedInformation(course);
+        applicationController.showDetailedInformationWindow(course);
     }
 
     @Override

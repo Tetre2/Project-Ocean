@@ -3,7 +3,6 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
@@ -20,12 +19,15 @@ import javafx.scene.layout.VBox;
 
 public class WorkspaceController extends VBox implements Observer {
 
-    @FXML FlowPane workspaceContainer;
+    @FXML private FlowPane workspaceContainer;
 
-    private ApplicationController applicationController;
-    private CoursePlanningSystem model;
+    private final ApplicationController applicationController;
+    private final CoursePlanningSystem model;
 
     public WorkspaceController(CoursePlanningSystem model, ApplicationController applicationController) {
+        this.applicationController = applicationController;
+        this.model = model;
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -37,8 +39,6 @@ public class WorkspaceController extends VBox implements Observer {
             throw new RuntimeException(exception);
         }
 
-        this.applicationController = applicationController;
-        this.model = model;
         model.addObserver(this);
     }
 
