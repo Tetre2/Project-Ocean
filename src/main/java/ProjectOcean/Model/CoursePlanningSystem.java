@@ -66,6 +66,8 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourse(Course course, int year, int studyPeriod, int slot) {
         student.addCourse(course, year, studyPeriod,slot);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -85,8 +87,10 @@ public class CoursePlanningSystem extends Observable {
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        student.removeCourse(course, year, studyPeriod);
+    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
+        student.removeCourse(course, year, studyPeriod, slot);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -95,8 +99,8 @@ public class CoursePlanningSystem extends Observable {
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(UUID id, int year, int studyPeriod){
-        removeCourse(getCourse(id), year, studyPeriod);
+    public void removeCourse(UUID id, int year, int studyPeriod, int slot){
+        removeCourse(getCourse(id), year, studyPeriod, slot);
     }
 
     /**

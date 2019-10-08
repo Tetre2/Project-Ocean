@@ -68,8 +68,6 @@ public class CourseListIconController extends VBox implements Movable {
      * @param p the point representing the current mouse coordinates
      */
     public void relocateToPoint(Point2D p) {
-
-
         Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
 
         relocate(
@@ -90,8 +88,6 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void dragDetected(MouseEvent event) {
-
-
         //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
         CourseListIconController icon = (CourseListIconController) event.getSource();
         ClipboardContent content = new ClipboardContent();
