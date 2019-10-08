@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.DragEvent;
@@ -54,7 +55,7 @@ public class WorkspaceController extends VBox implements Observer {
     private void onDragReleased(DragEvent event){
 
         Movable course = (Movable) event.getGestureSource();
-        model.addCourseToWorkspace(course.getUUID());
+        model.addCourseToWorkspace(course.getICourse());
 
         displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
@@ -66,8 +67,8 @@ public class WorkspaceController extends VBox implements Observer {
 
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
-        for(UUID id : model.getCoursesInWorkspaceIDs()) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+        for(ICourse course : model.getCoursesInWorkspaceIDs()) {
+            CourseListIconController iconController = new CourseListIconController(course, model, applicationController);
             workspaceContainer.getChildren().add(iconController);
         }
     }

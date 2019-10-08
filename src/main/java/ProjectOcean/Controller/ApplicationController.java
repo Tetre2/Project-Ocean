@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,9 +92,9 @@ public class ApplicationController extends AnchorPane {
      * Clears and adds a detailedController to the contentWindow
      * @param id the UUID representing the course from which the details will be taken from
      */
-    public void showDetailedInformation(UUID id){
+    public void showDetailedInformation(ICourse course) {
         contentWindow.getChildren().clear();
-        detailedController.setDetailedInfo(id);
+        detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
     }
 

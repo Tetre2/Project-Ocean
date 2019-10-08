@@ -2,14 +2,12 @@ package ProjectOcean.Model;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a course in the model
  */
-public class Course {
+public class Course implements ICourse{
 
-    private final UUID id;
     private final String courseCode;
     private final String courseName;
     private final float studyPoints;
@@ -22,7 +20,6 @@ public class Course {
     private final String courseDescription;
 
     public Course(String courseCode, String courseName, float studyPoints, int studyPeriod, String examinator, String examinationMeans, String language, List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        this.id = UUID.randomUUID();
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;
@@ -44,50 +41,52 @@ public class Course {
                 '}';
     }
 
-    public UUID getId() {
-        return this.id;
-    }
-
-    public String getIdToString() {
-        return this.id.toString();
-    }
-
+    @Override
     public String getCourseName() {
         return courseName;
     }
 
+    @Override
     public String getCourseCode() {
         return courseCode;
     }
 
+    @Override
     public String getStudyPoints() {
         return String.valueOf(studyPoints);
     }
 
+    @Override
     public String getStudyPeriod() {
         return String.valueOf(studyPeriod);
     }
 
+    @Override
     public String getExaminator() {
         return examinator;
     }
 
+    @Override
     public String getExaminationMeans() {
         return examinationMeans;
     }
 
+    @Override
     public String getLanguage() {
         return language;
     }
 
+    @Override
     public List<Course> getRequiredCourses() {
         return Collections.unmodifiableList(requiredCourses);
     }
 
+    @Override
     public String getCoursePMLink() {
         return coursePMLink;
     }
 
+    @Override
     public String getCourseDescription() {
         return courseDescription;
     }

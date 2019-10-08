@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,26 +66,26 @@ public class DetailedController extends VBox {
 
     /**
      * Sets all info a course has and show it in the detailed window
-     * @param uuid is the unique id for one specific course
+     * @param course is the unique id for one specific course
      */
-    public void setDetailedInfo(UUID uuid){
+    public void setDetailedInfo(ICourse course){
         clear();
-        String header = model.getCourseCode(uuid) + " - " + model.getCourseName(uuid) + model.getStudyPoints(uuid);
+        String header = model.getCourseCode(course) + " - " + model.getCourseName(course) + model.getStudyPoints(course);
         setHeader(header);
 
-        setStudyPeriod(model.getStudyPeriod(uuid));
+        setStudyPeriod(model.getStudyPeriod(course));
 
-        setExaminator(model.getExaminator(uuid));
+        setExaminator(model.getExaminator(course));
 
-        setExaminationMeans(model.getExaminationMeans(uuid));
+        setExaminationMeans(model.getExaminationMeans(course));
 
-        setLanguage(model.getLanguage(uuid));
+        setLanguage(model.getLanguage(course));
 
-        setRequiredCourses(model.getRequiredCourses(uuid));
+        setRequiredCourses(model.getRequiredCourses(course));
 
-        setCoursePMLink(model.getCoursePMLink(uuid));
+        setCoursePMLink(model.getCoursePMLink(course));
 
-        setCourseDescription(model.getCourseDescription(uuid));
+        setCourseDescription(model.getCourseDescription(course));
     }
 
     private void setHeader(String header){
@@ -107,10 +108,10 @@ public class DetailedController extends VBox {
         this.language.setText(language);
     }
 
-    private void setRequiredCourses(List<UUID> courses) {
+    private void setRequiredCourses(List<ICourse> courses) {
         //Creates a new label for each required course and adds them to the VBox
-        for (UUID uuid : courses) {
-            Label courseName = new Label(model.getCourseCode(uuid));
+        for (ICourse course : courses) {
+            Label courseName = new Label(model.getCourseCode(course));
             requiredCourses.getChildren().add(courseName);
         }
 
