@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +65,15 @@ public class SearchBrowseController extends AnchorPane {
     }
 
     @FXML
+    private void onActionSearchButton() {
+        executeSearch();
+    }
+
+    @FXML
+    private void onActionSearchField() {
+        executeSearch();
+    }
+
     private void executeSearch() {
         //If no search text, show all courses, else execute search through model method, and adds the id:s to currentSearchResult
         //list
@@ -78,6 +86,10 @@ public class SearchBrowseController extends AnchorPane {
     }
 
     @FXML
+    private void onActionCheckbox() {
+        filterAndDisplayCourses();
+    }
+
     private void filterAndDisplayCourses() {
         searchResultVBox.getChildren().clear();
 
