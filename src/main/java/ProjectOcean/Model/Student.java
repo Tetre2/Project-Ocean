@@ -35,8 +35,8 @@ public class Student {
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        currentStudyPlan.removeCourseFromSchedule(course, year, studyPeriod);
+    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
+        currentStudyPlan.removeCourseFromSchedule(course, year, studyPeriod, slot);
     }
 
     /**

@@ -29,8 +29,8 @@ public class StudyPeriod {
      * Removes the given course from the study period
      * @param course
      */
-    public void removeCourse(Course course) {
-        if(course.equals(course1))
+    public void removeCourse(Course course, int slot) {
+        if(slot == 0)
             course1 = null;
         else
             course2 = null;

@@ -1,8 +1,12 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.Year;
+import com.sun.deploy.uitoolkit.impl.awt.AWTWindowFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
@@ -10,14 +14,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Represents the visual graphic component of a year.
  */
-public class YearController extends VBox {
+public class YearController extends VBox implements Observer {
 
-    @FXML private GridPane sp1sp2;
-    @FXML private GridPane sp3sp4;
+    @FXML private GridPane yearGrid;
     @FXML private Label yearLabel;
 
     private final CoursePlanningSystem model;
@@ -41,6 +48,7 @@ public class YearController extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        model.addObserver(this);
 
     }
 
@@ -69,14 +77,6 @@ public class YearController extends VBox {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-
-        // Determines which term the course is dropped upon and adds a ScheduleCourseController accordingly
-        if(((GridPane)(event.getGestureTarget())).getId().equals("sp1sp2")){
-            sp1sp2.add(new ScheduleCourseController(model,icon.getUUID()), studyPeriod, slot);
-        } else {
-            sp3sp4.add(new ScheduleCourseController(model,icon.getUUID()), studyPeriod, slot);
-        }
-
         model.addCourse(icon.getUUID(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
@@ -90,11 +90,13 @@ public class YearController extends VBox {
      * @return index representing the study period
      */
     private int calculateStudyPeriod(double x) {
-        if (x < sp1sp2.getWidth() / 2) {
-            return 0;
-        } else {
-            return 1;
+        double yearGridFourth = yearGrid.getWidth()/4;
+        for (int i = 1; i <= 4; i++) {
+            if(x < (yearGridFourth * i)){
+                return i-1;
+            }
         }
+        return -1;
     }
 
     /**
@@ -103,11 +105,41 @@ public class YearController extends VBox {
      * @return index representing the slot
      */
     private int calculateSlot(double y) {
-        if (y < sp1sp2.getHeight() / 2) {
+        if (y < yearGrid.getHeight() / 2) {
             return 0;
         } else {
             return 1;
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        //Clears the gridpane
+        int nElements = yearGrid.getChildren().size() - 1;
+        for (int i = 0; i < nElements; i++) {
+            yearGrid.getChildren().remove(1);
+        }
+
+        Year y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
+
+        // For every study period
+        for (int studyPeriod = 0; studyPeriod < 4; studyPeriod++) {
+            // For every slot
+            for (int slot = 0; slot < 2; slot++) {
+                if(slot == 0){
+                    Course course = y.getStudyPeriod(studyPeriod).getCourse1();
+                    // Only add if there actually is a course in the slot in the model
+                    if(course != null) {
+                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod, slot), studyPeriod, slot);
+                    }
+                }else{
+                    Course course = y.getStudyPeriod(studyPeriod).getCourse2();
+                    // Only add if there actually is a course in the slot in the model
+                    if(course != null) {
+                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod , slot), studyPeriod, slot);
+                    }
+                }
+            }
+        }
+    }
 }

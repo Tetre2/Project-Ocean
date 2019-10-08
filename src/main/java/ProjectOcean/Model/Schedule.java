@@ -25,9 +25,9 @@ public class Schedule {
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        years.get(year).getStudyPeriod(studyPeriod).removeCourse(course);
-        years.get(year).removeCourse(course, studyPeriod);
+    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
+        //years.get(year).getStudyPeriod(studyPeriod).removeCourse(course);
+        years.get(year).removeCourse(course, studyPeriod, slot);
     }
 
     /**

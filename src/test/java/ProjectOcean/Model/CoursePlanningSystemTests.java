@@ -170,6 +170,4 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(expected, actual);
     }
 
-
-
 }
