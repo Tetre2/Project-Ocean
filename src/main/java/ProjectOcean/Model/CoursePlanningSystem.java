@@ -50,7 +50,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-<<<<<<< HEAD
      * @return the current student
      */
     public Student getStudent() {
@@ -69,7 +68,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
     /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param id the UUID of the course to be added
@@ -80,7 +78,6 @@ public class CoursePlanningSystem extends Observable {
     public void addCourse(UUID id, int year, int studyPeriod, int slot){
         addCourse(getCourse(id), year, studyPeriod, slot);
     }
-
     /**
      * Removes the given course in the given year and study period, for the current student
      * @param course the course to be removed
@@ -92,7 +89,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
     /**
      * Removes the given course in the given year and study period, for the current student
      * @param id the UUID of the course to be added
@@ -220,7 +216,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
     /**
      * Gets a list of all courses in the workspace by their id.
      * @return a list of UUID:s för the courses in workspace.

@@ -13,10 +13,18 @@ public class CoursePlanningSystemTests {
     private Map<UUID, Course> courses;
     private List<UUID> allUUIDs;
 
+    private int year;
+    private int studyPeriod;
+    private int slot;
+
     @Before
     public void init(){
         coursePlanningSystem = new CoursePlanningSystem();
         courses = coursePlanningSystem.getAllCourses();
+
+        year = 0;
+        studyPeriod = 0;
+        slot = 0;
 
         List<UUID> IDs = new ArrayList<>();
         Iterator it = courses.entrySet().iterator();
@@ -170,4 +178,74 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void addCourseTest() {
+        Course course1 = courses.get(allUUIDs.get(0));
+        Course course2 = courses.get(allUUIDs.get(1));
+        coursePlanningSystem.addCourse(course1, year, studyPeriod, slot);
+        coursePlanningSystem.addCourse(allUUIDs.get(1), year, studyPeriod, slot + 1);
+
+        Assert.assertEquals(course1, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+
+    }
+
+    @Test
+    public void removeCourseTest() {
+        Course course1 = courses.get(allUUIDs.get(0));
+        Course course2 = courses.get(allUUIDs.get(1));
+        coursePlanningSystem.addCourse(course1, year, studyPeriod, slot);
+        coursePlanningSystem.addCourse(allUUIDs.get(1), year, studyPeriod, slot + 1);
+
+        Assert.assertEquals(course1, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+
+        coursePlanningSystem.removeCourse(course1, year, studyPeriod, slot);
+        coursePlanningSystem.removeCourse(allUUIDs.get(1), year, studyPeriod, slot + 1);
+
+        Assert.assertNull(coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertNull(coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+
+    }
+
+    @Test
+    public void addCourseToWorkspaceTest() {
+        coursePlanningSystem.addCourseToWorkspace(allUUIDs.get(0));
+
+        Assert.assertEquals(courses.get(allUUIDs.get(0)), courses.get(coursePlanningSystem.getCoursesInWorkspaceIDs().get(0)));
+    }
+
+    @Test
+    public void getCoursesInWorkspaceIDsTest() {
+        Assert.assertTrue(coursePlanningSystem.getCoursesInWorkspaceIDs().size() == 0);
+
+        coursePlanningSystem.addCourseToWorkspace(allUUIDs.get(0));
+
+        Assert.assertTrue(coursePlanningSystem.getCoursesInWorkspaceIDs().size() == 1);
+
+    }
+
+    @Test
+    public void removeCourseFromWorkspaceTest() {
+        coursePlanningSystem.addCourseToWorkspace(allUUIDs.get(0));
+        Assert.assertEquals(courses.get(allUUIDs.get(0)), courses.get(coursePlanningSystem.getCoursesInWorkspaceIDs().get(0)));
+
+        coursePlanningSystem.removeCourseFromWorkspace(allUUIDs.get(0));
+        Assert.assertEquals(0, coursePlanningSystem.getCoursesInWorkspaceIDs().size());
+    }
+
+    @Test
+    public void getCourseTest() {
+        Course expected = courses.get(allUUIDs.get(0));
+        Course actual = coursePlanningSystem.getCourse(allUUIDs.get(0));
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getStudentTest() {
+        Student student = coursePlanningSystem.getStudent();
+
+        Assert.assertNotNull(student);
+    }
 }
