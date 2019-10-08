@@ -68,20 +68,20 @@
                                   <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <CheckBox fx:id="studyPeriodCheckbox1" mnemonicParsing="false" onAction="#displayCourses" text="1">
+                                    <CheckBox fx:id="studyPeriodCheckbox1" mnemonicParsing="false" onAction="#onActionCheckbox" text="1">
                                        <GridPane.margin>
                                           <Insets bottom="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </CheckBox>
-                                    <CheckBox fx:id="studyPeriodCheckbox2" mnemonicParsing="false" onAction="#displayCourses" text="2" GridPane.columnIndex="1">
+                                    <CheckBox fx:id="studyPeriodCheckbox2" mnemonicParsing="false" onAction="#onActionCheckbox" text="2" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets bottom="1.0" top="1.0" />
                                        </GridPane.margin></CheckBox>
-                                    <CheckBox fx:id="studyPeriodCheckbox3" mnemonicParsing="false" onAction="#displayCourses" text="3" GridPane.columnIndex="2">
+                                    <CheckBox fx:id="studyPeriodCheckbox3" mnemonicParsing="false" onAction="#onActionCheckbox" text="3" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets bottom="1.0" top="1.0" />
                                        </GridPane.margin></CheckBox>
-                                    <CheckBox fx:id="studyPeriodCheckbox4" mnemonicParsing="false" onAction="#displayCourses" text="4" GridPane.columnIndex="3">
+                                    <CheckBox fx:id="studyPeriodCheckbox4" mnemonicParsing="false" onAction="#onActionCheckbox" text="4" GridPane.columnIndex="3">
                                        <GridPane.margin>
                                           <Insets bottom="1.0" top="1.0" />
                                        </GridPane.margin></CheckBox>
@@ -109,11 +109,11 @@
                                     <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <CheckBox fx:id="studyPointCheckBox7_5" mnemonicParsing="false" onAction="#displayCourses" text="7,5">
+                                    <CheckBox fx:id="studyPointCheckBox7_5" mnemonicParsing="false" onAction="#onActionCheckbox" text="7,5">
                                        <padding>
                                           <Insets bottom="1.0" top="1.0" />
                                        </padding></CheckBox>
-                                    <CheckBox fx:id="studyPointCheckBox15" mnemonicParsing="false" onAction="#displayCourses" text="15" GridPane.columnIndex="1">
+                                    <CheckBox fx:id="studyPointCheckBox15" mnemonicParsing="false" onAction="#onActionCheckbox" text="15" GridPane.columnIndex="1">
                                        <padding>
                                           <Insets bottom="1.0" top="1.0" />
                                        </padding></CheckBox>
@@ -136,12 +136,12 @@
                       <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="searchField" maxHeight="30.0" minHeight="30.0" onAction="#executeSearch" prefHeight="30.0" promptText="Search here, seperate terms with blankspace">
+                        <TextField fx:id="searchField" maxHeight="30.0" minHeight="30.0" onAction="#onActionSearchField" prefHeight="30.0" promptText="Search here, seperate terms with blankspace">
                            <GridPane.margin>
                               <Insets bottom="2.0" left="2.0" right="1.0" top="2.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#executeSearch" prefHeight="30.0" prefWidth="30.0" GridPane.columnIndex="1">
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onActionSearchButton" prefHeight="30.0" prefWidth="30.0" GridPane.columnIndex="1">
                            <graphic>
                               <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

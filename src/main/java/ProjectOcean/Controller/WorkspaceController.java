@@ -47,7 +47,7 @@ public class WorkspaceController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveIconToCursor(icon,event);
+        applicationController.moveDraggedObjectToCursor(icon,event);
         event.consume();
     }
 
@@ -57,7 +57,6 @@ public class WorkspaceController extends VBox implements Observer {
         Movable course = (Movable) event.getGestureSource();
         model.addCourseToWorkspace(course.getICourse());
 
-        displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
 
         applicationController.getChildren().remove(course);

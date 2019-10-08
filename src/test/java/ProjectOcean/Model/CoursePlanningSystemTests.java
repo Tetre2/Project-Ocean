@@ -146,24 +146,11 @@ public class CoursePlanningSystemTests {
     @Test
     public void executeSearchTest() {
         //Test searching for examinor
-        String searchText = "Rolf";
-        List<UUID> searchResult = coursePlanningSystem.executeSearch(searchText);
-        Assert.assertTrue(searchResult.size()!=0);
-        if(searchResult.isEmpty()) {
-            for(UUID id : searchResult){
-                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("rolf"));
-            }
-
-        }
-        searchResult.clear();
-        searchText = "SöderSTröm Rolf";
+        String searchText = "SöderSTröm Rolf";
+        List<ICourse> searchResult = coursePlanningSystem.executeSearch(searchText);
         searchResult = coursePlanningSystem.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        if(!searchResult.isEmpty()) {
-            for(UUID id : searchResult){
-                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("söderström"));
-            }
-        }
+        Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("söderström"));
         searchResult.clear();
 
         //tests searching for course code
@@ -180,8 +167,8 @@ public class CoursePlanningSystemTests {
         searchResult = coursePlanningSystem.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
-            for(UUID id : searchResult) {
-                Assert.assertTrue(coursePlanningSystem.getCourseName(id).toLowerCase().contains("maskin") || coursePlanningSystem.getCourseName(id).toLowerCase().contains("matematisk"));
+            for(ICourse course : searchResult) {
+                Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
             }
         }
     }
