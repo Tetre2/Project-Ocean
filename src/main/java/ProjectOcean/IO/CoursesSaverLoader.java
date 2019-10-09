@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class CourseSaverLoader {
+public class CoursesSaverLoader {
 
 
     private static String fileName = "courses.json";
@@ -24,16 +24,15 @@ public class CourseSaverLoader {
      * @return returns a <code>Map<UUID, Course></code>
      * @throws IOException
      */
-    public static Map<UUID, Course> loadStudyPlans() throws IOException {
+    public static Map<UUID, Course> loadCourses() {
         try {
-
             return readFromFile();
-
         } catch (ParseException e) {
-            e.printStackTrace();
+            createNewDefaultCourseFile();
+        } catch (IOException e) {
+            createNewDefaultCourseFile();
         }
-
-        throw new IOException();
+        return loadCourses();
     }
 
     /**
@@ -106,6 +105,14 @@ public class CourseSaverLoader {
      */
     public static String getFileName() {
         return fileName;
+    }
+
+    /**
+     * Creates a file filled with all default courses
+     */
+    private static void createNewDefaultCourseFile(){
+        File file = new File(getHomeDirPath() + fileName);
+        savePreMadeCourses();
     }
 
     /**

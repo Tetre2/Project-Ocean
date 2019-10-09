@@ -1,22 +1,20 @@
 package ProjectOcean.IO;
 
 import ProjectOcean.Model.Course;
-import ProjectOcean.Model.StudyPlan;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.*;
 
 public class CourseSaverLoaderTest {
 
-    private CourseSaverLoader courseSaverLoader;
+    private CoursesSaverLoader courseSaverLoader;
     private Map<UUID, Course> courses;
 
     @Before
     public void init(){
-        courseSaverLoader = new CourseSaverLoader();
+        courseSaverLoader = new CoursesSaverLoader();
         courses = new HashMap<>();
 
         for (Course course : courseSaverLoader.generatePreDefinedCourses()) {
@@ -28,11 +26,7 @@ public class CourseSaverLoaderTest {
 
     @Test
     public void loadStudyPlansTest(){
-        try {
-            courseSaverLoader.loadStudyPlans();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        courseSaverLoader.loadCourses();
     }
 
 
@@ -47,12 +41,9 @@ public class CourseSaverLoaderTest {
 
         courseSaverLoader.savePreMadeCourses();
 
-        try {
-            Assert.assertTrue(courses.equals(courseSaverLoader.loadStudyPlans()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        courses = courseSaverLoader.loadCourses();
 
+        Assert.assertTrue(courses.equals(courseSaverLoader.loadCourses()));
 
     }
 
