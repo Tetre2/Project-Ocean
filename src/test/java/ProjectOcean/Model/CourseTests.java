@@ -10,8 +10,23 @@ public class CourseTests {
 
     @Test
     public void courseUniqueIdTest() {
-        ICourse course1 = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        ICourse course2 = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        CourseFactory.CreateCourse();
+
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        ICourse course1 = CourseFactory.CreateCourse();
+
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        ICourse course2 = CourseFactory.CreateCourse();
 
         //Checks that ICourse references are different
         Assert.assertFalse(course1 == course2);

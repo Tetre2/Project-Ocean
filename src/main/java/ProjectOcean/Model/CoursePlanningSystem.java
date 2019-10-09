@@ -38,8 +38,14 @@ public class CoursePlanningSystem extends Observable {
 
         List<ICourse> courses = new ArrayList<>();
 
-        courses.add(CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", 7.5f, 1, "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        ICourse course = CourseFactory.CreateCourse();
 
+        courses.add(course);
+        
         return courses;
     }
 

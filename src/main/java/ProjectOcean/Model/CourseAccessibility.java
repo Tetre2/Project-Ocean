@@ -1,5 +1,8 @@
 package ProjectOcean.Model;
 
+/**
+ * Class has responsible for accessibility of a course.
+ */
 public class CourseAccessibility {
 
     private final String examinator;
@@ -12,14 +15,23 @@ public class CourseAccessibility {
         this.language = language;
     }
 
+    /**
+     * @return this course's examinator
+     */
     public String getExaminator() {
         return examinator;
     }
 
+    /**
+     * @return this course's examination forms
+     */
     public String getExaminationMeans() {
         return examinationMeans;
     }
 
+    /**
+     * @return this course's language
+     */
     public String getLanguage() {
         return language;
     }

@@ -1,5 +1,8 @@
 package ProjectOcean.Model;
 
+/**
+ * Class has responsible for information of a course.
+ */
 public class CourseInfo {
 
     private final String courseCode;
@@ -12,14 +15,23 @@ public class CourseInfo {
         this.studyPoints = studyPoints;
     }
 
+    /**
+     * @return this course's name
+     */
     public String getCourseName() {
         return courseName;
     }
 
+    /**
+     * @return this course's code
+     */
     public String getCourseCode() {
         return courseCode;
     }
 
+    /**
+     * @return this course's study points
+     */
     public String getStudyPoints() {
         return String.valueOf(studyPoints);
     }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class has responsible for details of a course.
+ */
 public class CourseDetails {
 
     private final List<Course> requiredCourses;
@@ -16,14 +19,9 @@ public class CourseDetails {
         this.courseDescription = courseDescription;
     }
 
-    public String getCoursePMLink() {
-        return coursePMLink;
-    }
-
-    public String getCourseDescription() {
-        return courseDescription;
-    }
-
+    /**
+     * @return this course's required courses
+     */
     public List<String> getRequiredCourses() {
         List<String> requiredCourses = new ArrayList<>();
 
@@ -33,4 +31,19 @@ public class CourseDetails {
 
         return Collections.unmodifiableList(requiredCourses);
     }
+
+    /**
+     * @return this course's PM link
+     */
+    public String getCoursePMLink() {
+        return coursePMLink;
+    }
+
+    /**
+     * @return this course's description
+     */
+    public String getCourseDescription() {
+        return courseDescription;
+    }
+
 }
