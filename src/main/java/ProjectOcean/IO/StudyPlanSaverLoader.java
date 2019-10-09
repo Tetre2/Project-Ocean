@@ -167,7 +167,10 @@ public class StudyPlanSaverLoader {
     }
 
     private static void createNewStudent(){
-        File file = new File(getHomeDirPath(), fileName);
+        File directory = new File(getHomeDirPath());
+        File file = new File(directory, getFileName());
+        file = new File(file.getParentFile().getAbsolutePath());
+        if (!file.exists()) file.mkdirs();
         Student student = new Student(new ArrayList<>(), new Workspace());
         saveStudyplans(student);
     }
@@ -194,6 +197,10 @@ public class StudyPlanSaverLoader {
      */
     public static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
+    }
+
+    private static String getHomeDir() {
+        return System.getProperty("user.home") + File.separatorChar;
     }
 
     /**
