@@ -11,29 +11,11 @@ public class CourseFactory {
     private static CourseDetails cDetails;
     private static CourseInfo cInfo;
     private static CourseAccessibility cAccessibility;
-    /*private static String courseCode;
-    private static String courseName;
-    private static float studyPoints;
-    private static List<Course> requiredCourses;
-    private static String coursePMLink;
-    private static String courseDescription;
-    private static String examinator;
-    private static String examinationMeans;
-    private static String language;*/
 
     // Can't create instance
     private CourseFactory(){
 
-    };
-
-    /*static ICourse CreateCourse(String courseCode, String courseName, float studyPoints, int studyPeriod,
-                                       String examinator, String examinationMeans, String language,
-                                       List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        CourseDetails cDetails = createCourseDetails(requiredCourses, coursePMLink, courseDescription);
-        CourseInfo cInfo = createCourseInfo(courseCode, courseName, studyPoints);
-        CourseAccessibility cAccessibility = createCourseAccessibility(examinator, examinationMeans, language);
-        return new Course(studyPeriod, cDetails, cInfo, cAccessibility);
-    }*/
+    }
 
     /**
      * Create a course with the current variable state of this class.
@@ -76,11 +58,5 @@ public class CourseFactory {
     public static void SetCourseAccessibility(String examinator, String examinationMeans, String language) {
         CourseFactory.cAccessibility = new CourseAccessibility(examinator, examinationMeans, language);
     }
-
-    /*public static void CreateCourseDetails(List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        CourseFactory.requiredCourses = requiredCourses;
-        CourseFactory.coursePMLink = coursePMLink;
-        CourseFactory.courseDescription = courseDescription;
-    }*/
 
 }
