@@ -26,8 +26,7 @@ public class Schedule {
      * @param studyPeriod the study period to remove the course from
      */
     public void removeCourse(Course course, int year, int studyPeriod, int slot) {
-        //years.get(year).getStudyPeriod(studyPeriod).removeCourse(course);
-        years.get(year).removeCourse(course, studyPeriod, slot);
+        years.get(year - 1).removeCourse(course, studyPeriod, slot);
     }
 
     /**
@@ -38,7 +37,7 @@ public class Schedule {
      * @param slot the slot in which the course will be added
      */
     public void tryAddCourse(Course course, int year, int studyPeriod, int slot) {
-        years.get(year).addCourse(course, studyPeriod, slot);
+        years.get(year - 1).addCourse(course, studyPeriod, slot);
     }
 
     /**
@@ -53,7 +52,7 @@ public class Schedule {
      * @param year the year to be removed
      */
     public void removeYear(int year) {
-        years.remove(year);
+        years.remove(year - 1);
     }
 
     /**
@@ -62,7 +61,7 @@ public class Schedule {
      * @return the desired year
      */
     public Year getYear(int year){
-        return years.get(year);
+        return years.get(year - 1);
     }
 
 }

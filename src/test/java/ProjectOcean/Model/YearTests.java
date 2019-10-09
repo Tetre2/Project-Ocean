@@ -11,8 +11,8 @@ public class YearTests {
 
     @Before
     public void before() {
-        studyPeriod = 0;
-        slot = 0;
+        studyPeriod = 1;
+        slot = 1;
     }
 
     @Test

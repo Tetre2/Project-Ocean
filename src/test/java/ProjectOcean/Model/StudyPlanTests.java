@@ -11,9 +11,9 @@ public class StudyPlanTests {
 
     @Before
     public void before() {
-        studyPeriod = 0;
-        slot = 0;
-        year = 0;
+        studyPeriod = 1;
+        slot = 1;
+        year = 1;
     }
 
     @Test
@@ -57,10 +57,10 @@ public class StudyPlanTests {
         StudyPlan studyPlan = new StudyPlan();
         studyPlan.addYear();
 
-        Assert.assertTrue(studyPlan.getSchedule().getYear(1) != null);
+        Assert.assertTrue(studyPlan.getSchedule().getYear(2) != null);
 
         studyPlan.removeYear(1);
-        Assert.assertTrue(studyPlan.getSchedule().getYear(1) == null);
+        Assert.assertTrue(studyPlan.getSchedule().getYear(2) == null);
 
     }
 }

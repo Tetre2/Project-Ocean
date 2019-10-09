@@ -12,9 +12,9 @@ public class StudentTests {
 
     @Before
     public void before() {
-        studyPeriod = 0;
-        year = 0;
-        slot = 0;
+        studyPeriod = 1;
+        year = 1;
+        slot = 1;
     }
 
     @Test
@@ -53,11 +53,11 @@ public class StudentTests {
         Student student = new Student();
         student.addYear();
 
-        Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(1) != null);
+        Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(2) != null);
 
         student.removeYear(year);
 
-        Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(1) == null);
+        Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(2) == null);
     }
 
 }

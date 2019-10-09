@@ -12,9 +12,9 @@ public class ScheduleTests {
 
     @Before
     public void before() {
-        studyPeriod = 0;
-        slot = 0;
-        year = 0;
+        studyPeriod = 1;
+        slot = 1;
+        year = 1;
     }
 
     @Test
@@ -53,10 +53,10 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
 
         schedule.addYear();
-        Assert.assertTrue(schedule.getYear(1) != null);
+        Assert.assertTrue(schedule.getYear(2) != null);
 
         schedule.removeYear(year);
-        Assert.assertTrue(schedule.getYear(1) == null);
+        Assert.assertTrue(schedule.getYear(2) == null);
 
 
     }

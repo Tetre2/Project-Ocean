@@ -93,7 +93,7 @@ public class YearController extends VBox implements Observer {
         double yearGridFourth = yearGrid.getWidth()/4;
         for (int i = 1; i <= 4; i++) {
             if(x < (yearGridFourth * i)){
-                return i-1;
+                return i;
             }
         }
         return -1;
@@ -106,9 +106,9 @@ public class YearController extends VBox implements Observer {
      */
     private int calculateSlot(double y) {
         if (y < yearGrid.getHeight() / 2) {
-            return 0;
-        } else {
             return 1;
+        } else {
+            return 2;
         }
     }
 
@@ -123,20 +123,20 @@ public class YearController extends VBox implements Observer {
         Year y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
 
         // For every study period
-        for (int studyPeriod = 0; studyPeriod < 4; studyPeriod++) {
+        for (int studyPeriod = 1; studyPeriod <= 4; studyPeriod++) {
             // For every slot
-            for (int slot = 0; slot < 2; slot++) {
-                if(slot == 0){
+            for (int slot = 1; slot <= 2; slot++) {
+                if(slot == 1){
                     Course course = y.getStudyPeriod(studyPeriod).getCourse1();
                     // Only add if there actually is a course in the slot in the model
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod, slot), studyPeriod, slot);
+                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
                     }
                 }else{
                     Course course = y.getStudyPeriod(studyPeriod).getCourse2();
                     // Only add if there actually is a course in the slot in the model
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod , slot), studyPeriod, slot);
+                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
                     }
                 }
             }

@@ -1,11 +1,7 @@
 package ProjectOcean.Model;
 
 /**
-<<<<<<< HEAD
  * Class representing a single study period in a year
-=======
- * Represents a StudyPeriod in the model
->>>>>>> develop
  */
 public class StudyPeriod {
 
@@ -18,9 +14,9 @@ public class StudyPeriod {
      * @param slot the index representing which slot to add the course in
      */
     public void addCourse(Course course, int slot){
-        if(course1 == null && slot == 0)
+        if(course1 == null && slot == 1)
             course1 = course;
-        else if(course2 == null && slot == 1)
+        else if(course2 == null && slot == 2)
             course2 = course;
 
     }
@@ -30,7 +26,7 @@ public class StudyPeriod {
      * @param course
      */
     public void removeCourse(Course course, int slot) {
-        if(slot == 0)
+        if(slot == 1)
             course1 = null;
         else
             course2 = null;

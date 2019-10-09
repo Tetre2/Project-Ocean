@@ -7,8 +7,6 @@ import org.junit.Test;
 import java.util.*;
 
 public class CoursePlanningSystemTests {
-
-
     private CoursePlanningSystem coursePlanningSystem;
     private Map<UUID, Course> courses;
     private List<UUID> allUUIDs;
@@ -22,9 +20,9 @@ public class CoursePlanningSystemTests {
         coursePlanningSystem = new CoursePlanningSystem();
         courses = coursePlanningSystem.getAllCourses();
 
-        year = 0;
-        studyPeriod = 0;
-        slot = 0;
+        year = 1;
+        studyPeriod = 1;
+        slot = 1;
 
         List<UUID> IDs = new ArrayList<>();
         Iterator it = courses.entrySet().iterator();
