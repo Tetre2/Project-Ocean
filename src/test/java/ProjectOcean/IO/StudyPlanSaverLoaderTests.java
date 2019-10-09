@@ -37,21 +37,21 @@ public class StudyPlanSaverLoaderTests {
         Workspace workspace = new Workspace();
         studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(0), 0, 0, 0);
-        /*studyPlan.addYear();
+        studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(1), 1, 0, 0);
-        workspace.addCourse(courses.get(1));*/
+        workspace.addCourse(courses.get(1));
 
         //---- studyPlan 1 ----
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();
         studyPlan2.addCourseToSchedule(courses.get(0), 0, 0, 0);
-        /*studyPlan2.addYear();
+        studyPlan2.addYear();
         studyPlan2.addCourseToSchedule(courses.get(1), 1, 0, 0);
-        workspace2.addCourse(courses.get(1));*/
+        workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
-        //studyPlans.add(studyPlan2);
+        studyPlans.add(studyPlan2);
 
         student = new Student(studyPlans, workspace);
 
