@@ -9,14 +9,12 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class StudyPlanSaverLoader {
 
     private static String fileName = "studyplans.json";
     private static JSONParser parser = new JSONParser();
-    private static CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
+    private static CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private static List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
 
     /**
@@ -97,16 +95,15 @@ public class StudyPlanSaverLoader {
      * @return returns a list of the loaded studyplanes
      * @throws IOException
      */
-    public static Student loadStudent() throws IOException {
-
+    public static Student loadStudent(){
         try {
             return createStudent(readFromFile());
         } catch (ParseException e) {
-            e.printStackTrace();
+            createNewStudent();
+        } catch (IOException e) {
+            createNewStudent();
         }
-
-        return null;
-
+        return loadStudent();
     }
 
 
@@ -167,6 +164,12 @@ public class StudyPlanSaverLoader {
             studyPlans.add(studyPlan);
         }
       return new Student(studyPlans, workspace);
+    }
+
+    private static void createNewStudent(){
+        File file = new File(getHomeDirPath(), fileName);
+        Student student = new Student(new ArrayList<>(), new Workspace());
+        saveStudyplans(student);
     }
 
     /**

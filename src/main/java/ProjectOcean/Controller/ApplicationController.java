@@ -3,7 +3,7 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.UUID;
 
-import ProjectOcean.IO.CourseSaverLoader;
+import ProjectOcean.IO.CoursesSaverLoader;
 import ProjectOcean.IO.StudyPlanSaverLoader;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.application.HostServices;
@@ -28,18 +28,13 @@ public class ApplicationController extends AnchorPane {
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
     private final static StudyPlanSaverLoader studyPlanSaverLoader = new StudyPlanSaverLoader();
-    private final static CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
+    private final static CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private static DetailedController detailedController;
     private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        try {
-            this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaverLoader.loadStudyPlans());
-        } catch (IOException e) {
-            //file can't be found -> display error message + maybe create a new file
-            e.printStackTrace();
-        }
+        this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaverLoader.loadCourses());
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
         detailedController = new DetailedController(coursePlanningSystem, this);

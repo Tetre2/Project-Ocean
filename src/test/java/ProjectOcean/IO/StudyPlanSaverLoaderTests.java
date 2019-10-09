@@ -4,26 +4,18 @@ import ProjectOcean.Model.Course;
 import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;
 import ProjectOcean.Model.Workspace;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
-    private CourseSaverLoader courseSaverLoader = new CourseSaverLoader();
+    private CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private List<StudyPlan> studyPlans;
     private Student student;
 
@@ -67,21 +59,8 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void loadStudent(){
-
-        Student student = null;
-        try {
-            student = saverLoader.loadStudent();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Assert.assertTrue(false);
-        }
-
+        student = saverLoader.loadStudent();
         Assert.assertTrue(student.equals(this.student));
-
     }
-
-
-
-
 
 }
