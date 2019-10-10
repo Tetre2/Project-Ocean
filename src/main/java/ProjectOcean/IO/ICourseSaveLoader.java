@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface ICourseSaveLoader {
 
-    Map<UUID, Course> loadCourses();
+    Map<UUID, Course> tryToLoadCoursesFileIfNotCreateNewFile();
 
 }

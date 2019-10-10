@@ -24,22 +24,38 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
     public CoursesSaverLoader() {
     }
 
-
     /**
-     * Loaded a Map from "courses.json" in user hom dir
+     * Loads a Map from "courses.json" in user hom dir if it cant find the file it creates a new empty one
      *
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public Map<UUID, Course> loadCourses() {
+    public Map<UUID, Course> tryToLoadCoursesFileIfNotCreateNewFile(){
+
+        try {
+            return loadCourses();
+        } catch (CoursesNotFoundException e) {
+            createNewDefaultCourseFile();
+        }
+
+        try {
+            return loadCourses();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    private Map<UUID, Course> loadCourses() throws CoursesNotFoundException{
         try {
             return readFromFile();
         } catch (ParseException e) {
-            createNewDefaultCourseFile();
+            throw new CoursesNotFoundException();
         } catch (IOException e) {
-            createNewDefaultCourseFile();
+            throw new CoursesNotFoundException();
         }
-        return loadCourses();
     }
 
     /**
