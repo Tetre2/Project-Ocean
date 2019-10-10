@@ -98,7 +98,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * Loads a Student from the users home dir
      * @return returns a list of the loaded studyplanes + workspace
      */
-    public Student tryToLoadFileIfNotCreateNewFile(){
+    @Override
+    public Student tryToLoadStudentFileIfNotCreateNewFile(){
 
         try {
             return loadStudent();

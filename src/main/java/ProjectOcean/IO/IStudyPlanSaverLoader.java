@@ -6,7 +6,7 @@ public interface IStudyPlanSaverLoader {
 
     void saveStudyplans(Student student);
 
-    Student tryToLoadFileIfNotCreateNewFile();
+    Student tryToLoadStudentFileIfNotCreateNewFile();
 
 
 }
