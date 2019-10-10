@@ -94,23 +94,37 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         }
     }
 
-
     /**
-     * Loads a List of studyplans from the users home dir
-     * @return returns a list of the loaded studyplanes
-     * @throws IOException
+     * Loads a Student from the users home dir
+     * @return returns a list of the loaded studyplanes + workspace
      */
-    public Student loadStudent(){
+    public Student tryToLoadFileIfNotCreateNewFile(){
+
+        try {
+            return loadStudent();
+        } catch (StudyPlanNorFoundException e) {
+            createNewStudent();
+        }
+
+        try {
+            return loadStudent();
+        } catch (StudyPlanNorFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private Student loadStudent() throws StudyPlanNorFoundException {
         try {
             return createStudent(readFromFile());
         } catch (ParseException e) {
-            createNewStudent();
+            throw new StudyPlanNorFoundException();
         } catch (IOException e) {
-            createNewStudent();
+            throw new StudyPlanNorFoundException();
         }
-        return loadStudent();
-    }
 
+    }
 
     private static Student createStudent(JSONObject jsonObject){
 
