@@ -141,7 +141,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static Student createStudent(JSONObject jsonObject){
+      return new Student(createStudyPlansFromJSON(jsonObject), createWorkspaceFromJSON(jsonObject));
+    }
 
+    private static Workspace createWorkspaceFromJSON(JSONObject jsonObject){
         //adds courses to workspace
         Workspace workspace = new Workspace();
         JSONArray jsonWorkspace = (JSONArray) jsonObject.get("workspace");
@@ -151,13 +154,13 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
                     workspace.addCourse(c);
             }
         }
+        return workspace;
+    }
+
+    private static List<StudyPlan> createStudyPlansFromJSON(JSONObject jsonObject){
 
         JSONArray jsonStudyplans = (JSONArray) jsonObject.get("studyplans");
 
-      return new Student(createStudyPlansFromJSON(jsonStudyplans), workspace);
-    }
-
-    private static List<StudyPlan> createStudyPlansFromJSON(JSONArray jsonStudyplans){
         List<StudyPlan> studyPlans = new ArrayList<>();
 
         for (int studyplanIndex = 0; studyplanIndex < jsonStudyplans.size(); studyplanIndex++) {
