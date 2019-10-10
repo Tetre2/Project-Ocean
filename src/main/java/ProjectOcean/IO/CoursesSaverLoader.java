@@ -140,7 +140,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * Creates a file filled with all default courses
      */
     private static void createNewDefaultCourseFile(){
-        File file = new File(getHomeDirPath() + fileName);
+        new File(getHomeDirPath() + fileName);
         savePreMadeCourses();
     }
 
