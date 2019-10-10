@@ -57,9 +57,9 @@ public class CoursePlanningSystem extends Observable {
     public List<ICourse> executeSearch(String searchText) {
         String[] searchTerms = trimString(searchText);
         List<ICourse> searchResult = new ArrayList<>();
-        matchCourseNameAndAdd(searchTerms, searchResult);
-        matchCourseCodeAndAdd(searchTerms, searchResult);
-        matchExaminorAndAdd(searchTerms, searchResult);
+        matchCourseNameAndAddCourse(searchTerms, searchResult);
+        matchCourseCodeAndAddCourse(searchTerms, searchResult);
+        matchExaminorAndAddCourse(searchTerms, searchResult);
         return searchResult;
     }
 
@@ -71,7 +71,7 @@ public class CoursePlanningSystem extends Observable {
         return searchText.split(" ");
     }
 
-    private void matchCourseNameAndAdd(String[] searchTerms, List<ICourse> searchResult){
+    private void matchCourseNameAndAddCourse(String[] searchTerms, List<ICourse> searchResult){
         //For each search term, searches through each courses course name for matches and if found adds the course
         // to search result.
         for(String s : searchTerms) {
@@ -83,7 +83,7 @@ public class CoursePlanningSystem extends Observable {
         }
     }
 
-    private void matchCourseCodeAndAdd(String[] searchTerms, List<ICourse> searchResult) {
+    private void matchCourseCodeAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
         //For each search term, searches through each courses course code for matches and if found
         // adds the course to search result.
         for(String s : searchTerms) {
@@ -95,7 +95,7 @@ public class CoursePlanningSystem extends Observable {
         }
     }
 
-    private void matchExaminorAndAdd(String[] searchTerms, List<ICourse> searchResult) {
+    private void matchExaminorAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
         //For each search term, searches through each courses examinor for matches and
         // if found adds the course to search result.
         for(String s : searchTerms) {

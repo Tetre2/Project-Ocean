@@ -8,7 +8,7 @@ import java.util.List;
 public class Student {
 
     private Workspace workspace = new Workspace();
-    private List<ProjectOcean.Model.StudyPlan> studyPlans;
+    private List<StudyPlan> studyPlans;
 
     /**
      * Returns a list of courses that exists currently in the workspace.
