@@ -19,7 +19,7 @@ public class CoursePlanningSystem extends Observable {
 
     public static CoursePlanningSystem getInstance(){
         if(model == null){
-            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadFileIfNotCreateNewFile(), courseSaveLoader.loadCourses());
+            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), courseSaveLoader.tryToLoadCoursesFileIfNotCreateNewFile());
         }
         return model;
     }
