@@ -27,14 +27,12 @@ public class ApplicationController extends AnchorPane {
     private CoursePlanningSystem coursePlanningSystem;
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
-    private final static StudyPlanSaverLoader studyPlanSaverLoader = new StudyPlanSaverLoader();
-    private final static CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private static DetailedController detailedController;
     private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        this.coursePlanningSystem = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaverLoader.loadCourses());
+        this.coursePlanningSystem = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
         detailedController = new DetailedController(coursePlanningSystem, this);
@@ -53,7 +51,6 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
 
-        courseSaverLoader.savePreMadeCourses();
     }
 
     @FXML
@@ -133,7 +130,7 @@ public class ApplicationController extends AnchorPane {
      * Method saves all properties of student in a json file
      */
     public void saveStudent(){
-        studyPlanSaverLoader.saveStudyplans(coursePlanningSystem.getStudent());
+        coursePlanningSystem.saveStudentToJSON();
     }
 
 }

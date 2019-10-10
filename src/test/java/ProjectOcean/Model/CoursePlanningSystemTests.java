@@ -24,7 +24,7 @@ public class CoursePlanningSystemTests {
         course = new Course(UUID.randomUUID(), "EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(), course);
 
-        coursePlanningSystem = new CoursePlanningSystem(new Student(studyPlans, new Workspace()), courses);
+        coursePlanningSystem = CoursePlanningSystem.getInstance();
 
         List<UUID> IDs = new ArrayList<>();
         Iterator it = courses.entrySet().iterator();
