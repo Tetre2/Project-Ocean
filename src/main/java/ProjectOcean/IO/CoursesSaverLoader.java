@@ -81,37 +81,43 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         //loops through all "courses"
         for (Object object : studyPlans) {
 
-            //casts the "course" to a jsonObject to be able to access the info
-            JSONObject jsonObject = (JSONObject) object;
+            Course course = createCourseFronJSONObject(object);
+            courses.put(course.getId(), course);
 
-            //loops through all required courses inorder to add them to the course in the constructor
-            JSONArray jArr = (JSONArray) jsonObject.get("requiredCourses");
-            List<String> requiredCourses = new ArrayList<>();
-            for (Object obj : jArr) {
-                requiredCourses.add((String) obj);
-            }
-
-            //Creates a UUID from the loaded uuid string
-            UUID id = UUID.fromString((String) jsonObject.get("uuid"));
-
-            Course course = new Course(
-                    id,
-                    (String) jsonObject.get("courseCode"),
-                    (String) jsonObject.get("courseName"),
-                    (String) jsonObject.get("studyPoints"),
-                    (String) jsonObject.get("studyPeriod"),
-                    (String) jsonObject.get("examiner"),
-                    (String) jsonObject.get("examinationMeans"),
-                    (String) jsonObject.get("language"),
-                    requiredCourses,
-                    (String) jsonObject.get("coursePMLink"),
-                    (String) jsonObject.get("courseDescription")
-            );
-
-            courses.put(id, course);
         }
 
         return courses;
+    }
+
+    private static Course createCourseFronJSONObject(Object object){
+        //casts the "course" to a jsonObject to be able to access the info
+        JSONObject jsonObject = (JSONObject) object;
+
+        //loops through all required courses inorder to add them to the course in the constructor
+        JSONArray jArr = (JSONArray) jsonObject.get("requiredCourses");
+        List<String> requiredCourses = new ArrayList<>();
+        for (Object obj : jArr) {
+            requiredCourses.add((String) obj);
+        }
+
+        //Creates a UUID from the loaded uuid string
+        UUID id = UUID.fromString((String) jsonObject.get("uuid"));
+
+        Course course = new Course(
+                id,
+                (String) jsonObject.get("courseCode"),
+                (String) jsonObject.get("courseName"),
+                (String) jsonObject.get("studyPoints"),
+                (String) jsonObject.get("studyPeriod"),
+                (String) jsonObject.get("examiner"),
+                (String) jsonObject.get("examinationMeans"),
+                (String) jsonObject.get("language"),
+                requiredCourses,
+                (String) jsonObject.get("coursePMLink"),
+                (String) jsonObject.get("courseDescription")
+        );
+
+        return course;
     }
 
     /**
