@@ -173,30 +173,37 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
                     JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod);
 
-                    String course1 = (String) jsonObjStudyPeriod.get("Course1");
-                    if( !course1.equals("null")) {
-                        for (Course c: courses) {
-                            if(c.getId().toString().equals(course1)) {
-                                studyPlan.addCourseToSchedule(c, year, studyPeriod, 0);
-                                break;
-                            }
-                        }
-                    }
+                    addJSONCourseToStudyPeriodInStudyPlan(studyPlan, jsonObjStudyPeriod, year, studyPeriod);
 
-                    String course2 = (String) jsonObjStudyPeriod.get("Course2");
-                    if( !course2.equals("null")) {
-                        for (Course c: courses) {
-                            if(c.getId().toString().equals(course2)){
-                                studyPlan.addCourseToSchedule(c, studyplanIndex, year, 1);
-                                break;
-                            }
-                        }
-                    }
                 }
             }
             studyPlans.add(studyPlan);
         }
       return new Student(studyPlans, workspace);
+    }
+
+
+    private static void addJSONCourseToStudyPeriodInStudyPlan(StudyPlan studyPlan, JSONObject jsonObjStudyPeriod, int year, int studyPeriod){
+
+        String course1 = (String) jsonObjStudyPeriod.get("Course1");
+        if( !course1.equals("null")) {
+            for (Course c: courses) {
+                if(c.getId().toString().equals(course1)) {
+                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 0);
+                    break;
+                }
+            }
+        }
+
+        String course2 = (String) jsonObjStudyPeriod.get("Course2");
+        if( !course2.equals("null")) {
+            for (Course c: courses) {
+                if(c.getId().toString().equals(course2)){
+                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
+                    break;
+                }
+            }
+        }
     }
 
     private void createNewStudent(){
