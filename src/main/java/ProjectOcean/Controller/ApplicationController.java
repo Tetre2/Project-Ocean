@@ -106,10 +106,7 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
     }
-
-    private void showStudyPlanNotFoudMessage(){
-
-    }
+    
 
     /**
      * @return the hostServices instance
