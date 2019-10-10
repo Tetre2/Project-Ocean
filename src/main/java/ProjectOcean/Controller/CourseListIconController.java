@@ -50,13 +50,13 @@ public class CourseListIconController extends VBox implements Movable {
      * Fills the texts withs strings
      */
     private void populateIcon() {
-        String courseName = model.getCourseName(course);
+        String courseName = course.getCourseName();
         if (courseName.length() > 25) {
             courseName = courseName.substring(0, 27) + "...";
         }
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(course.getCourseCode());
-        this.studyPointsText.setText((course.getStudyPoints()) + " hp");
+        this.studyPointsText.setText(course.getStudyPoints() + " hp");
     }
 
 
