@@ -54,6 +54,14 @@ public class StudyPeriod {
         if (o == null || getClass() != o.getClass()) return false;
         StudyPeriod that = (StudyPeriod) o;
 
+        //true = both course1 == that.course1 and course2 == that.course2
+        //otherwise return false
+
+        if(course1 == null && that.course1 != null){
+            return false;
+        }else if(course2 == null && that.course2 != null){
+            return false;
+        }
 
         if(course1 == null && that.course1 == null && course2 == null && that.course2 == null){
             return true;

@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CourseSaverLoaderTest;
+import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import java.util.*;
 
 public class CoursePlanningSystemTests {
     private CoursePlanningSystem coursePlanningSystem;
+    private CoursesSaverLoader coursesSaverLoader;
     private Map<UUID, Course> courses;
     private List<UUID> allUUIDs;
 
@@ -18,13 +21,14 @@ public class CoursePlanningSystemTests {
     @Before
     public void init(){
         List<StudyPlan> studyPlans = new ArrayList<>();
+        courses = new HashMap<>();
+
+        for (Course course : coursesSaverLoader.generatePreDefinedCourses()) {
+            courses.put(course.getId(), course);
+        }
+
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
-
-        Course course = new Course(UUID.randomUUID(), "DAT017","Maskinorienterad programmering", "7.5", "1", "Joakim hacht", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-        course = new Course(UUID.randomUUID(), "EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
 
         coursePlanningSystem = CoursePlanningSystem.getInstance();
 

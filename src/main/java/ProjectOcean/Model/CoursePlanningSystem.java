@@ -245,7 +245,7 @@ public class CoursePlanningSystem extends Observable {
      * @return a list of UUID:s för the courses in workspace.
      */
     public List<UUID> getCoursesInWorkspaceIDs(){
-        List<UUID> idList = new ArrayList<UUID>();
+        List<UUID> idList = new ArrayList<>();
         for (Course c : student.getAllCoursesInWorkspace()) {
             idList.add(c.getId());
         }

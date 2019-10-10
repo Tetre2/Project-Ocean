@@ -186,7 +186,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * Creates courses a predefined list of courses
      * @return returns a list of courses
      */
-    static List<Course> generatePreDefinedCourses(){
+    public static List<Course> generatePreDefinedCourses(){
         List<Course> courses = new ArrayList<>();
 
         courses.add(new Course(UUID.fromString("749d6445-4c88-410e-9c44-b88e8cb3e094"),"DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
