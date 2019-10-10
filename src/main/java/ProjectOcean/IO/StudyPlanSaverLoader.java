@@ -47,15 +47,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
                 JSONArray jsonStudyperiods = new JSONArray();
                 for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
 
-                    //adds Course1 and Course2 to a studyperiod
-                    JSONObject jsonStudyPeriod = new JSONObject();
-                    String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
-                    jsonStudyPeriod.put("Course1", course1);
-
-                    String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
-                    jsonStudyPeriod.put("Course2", course2);
-
-                    jsonStudyperiods.add(jsonStudyPeriod);
+                    jsonStudyperiods.add(createJSONStudyPeriodObject(studyPeriod));
                 }
 
                 jsonYears.add(jsonStudyperiods);
@@ -77,6 +69,19 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         writeToFile(jsonStudent);
 
+    }
+
+    private static JSONObject createJSONStudyPeriodObject(StudyPeriod studyPeriod){
+        //adds Course1 and Course2 to a studyperiod
+        JSONObject jsonStudyPeriod = new JSONObject();
+
+        String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+        jsonStudyPeriod.put("Course1", course1);
+
+        String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+        jsonStudyPeriod.put("Course2", course2);
+
+        return jsonStudyPeriod;
     }
 
     /**
