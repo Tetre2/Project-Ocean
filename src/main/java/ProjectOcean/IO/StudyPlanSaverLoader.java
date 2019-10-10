@@ -102,26 +102,26 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         try {
             return loadStudent();
-        } catch (StudyPlanNorFoundException e) {
+        } catch (StudyPlanNotFoundException e) {
             createNewStudent();
         }
 
         try {
             return loadStudent();
-        } catch (StudyPlanNorFoundException e) {
+        } catch (StudyPlanNotFoundException e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    private Student loadStudent() throws StudyPlanNorFoundException {
+    private Student loadStudent() throws StudyPlanNotFoundException {
         try {
             return createStudent(readFromFile());
         } catch (ParseException e) {
-            throw new StudyPlanNorFoundException();
+            throw new StudyPlanNotFoundException();
         } catch (IOException e) {
-            throw new StudyPlanNorFoundException();
+            throw new StudyPlanNotFoundException();
         }
 
     }

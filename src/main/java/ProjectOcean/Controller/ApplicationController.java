@@ -106,7 +106,6 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
     }
-    
 
     /**
      * @return the hostServices instance
