@@ -18,7 +18,6 @@ public class Student {
         this.workspace = new Workspace();
         this.studyPlans = new ArrayList<>();
         this.currentStudyPlan = new StudyPlan();
-        studyPlans.add(currentStudyPlan);
     }
 
     /**
@@ -35,6 +34,14 @@ public class Student {
      */
     public void setWorkspace(Workspace workspace) {
         this.workspace = workspace;
+    }
+
+    /**
+     * Sets the currentStudyPlan
+     * @param currentStudyPlan the
+     */
+    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+        this.currentStudyPlan = currentStudyPlan;
     }
 
     /**

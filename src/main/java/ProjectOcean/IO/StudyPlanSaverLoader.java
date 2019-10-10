@@ -27,47 +27,51 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      */
     public void saveStudyplans(Student student) {
 
-        System.out.println(student.toString());
-
         JSONObject jsonStudent = new JSONObject();
 
-        //jsonStudyplans contains all studyplans
-        JSONArray jsonStudyPlans = new JSONArray();
-        List<StudyPlan> studyPlans = student.getAllStudyPlans();
+        jsonStudent.put("studyplans", createJSONStudyplans(student));
 
-        for (StudyPlan studyplan : studyPlans) {
+        jsonStudent.put("workspace", createJSONWorkspace(student));
 
-            //represents a studyplan
-            JSONObject jsonStudyplan = new JSONObject();
-
-            jsonStudyplan.put("years", createJSONYearArray(studyplan));
-
-            jsonStudyPlans.add(jsonStudyplan);
-        }
-
-        jsonStudent.put("studyplans", jsonStudyPlans);
-
-        //adds all courses in workspace to studyplan
-        JSONArray workspace = new JSONArray();
-        for (Course course : student.getAllCoursesInWorkspace()) {
-            workspace.add(course.getId().toString());
-        }
-        jsonStudent.put("workspace", workspace);
+        jsonStudent.put("currentStudyPlan", createJSONCurrentStudyPlan(student));
 
         writeToFile(jsonStudent);
 
     }
 
-    private static JSONArray createJSONYearArray(StudyPlan studyPlan){
+    private static JSONArray createJSONStudyplans(Student student){
+        //jsonStudyplans contains all studyplans
+        JSONArray jsonStudyPlans = new JSONArray();
+        List<StudyPlan> studyPlans = student.getAllStudyPlans();
 
+        for (StudyPlan studyplan : studyPlans) {
+            //represents a studyplan
+            JSONObject jsonStudyplan = new JSONObject();
+            jsonStudyplan.put("years", createJSONYearArray(studyplan));
+            jsonStudyPlans.add(jsonStudyplan);
+        }
+        return jsonStudyPlans;
+    }
+
+    private static JSONArray createJSONWorkspace(Student student){
+        //adds all courses in workspace to studyplan
+        JSONArray workspace = new JSONArray();
+        for (Course course : student.getAllCoursesInWorkspace()) {
+            workspace.add(course.getId().toString());
+        }
+        return workspace;
+    }
+
+    private static JSONArray createJSONCurrentStudyPlan(Student student){
+        return createJSONYearArray(student.getCurrentStudyPlan());
+    }
+
+    private static JSONArray createJSONYearArray(StudyPlan studyPlan){
         //adds all years to jsonStudyplan
         JSONArray jsonYears = new JSONArray();
-
         for (Year year : studyPlan.getSchedule().getYears()) {
-
             jsonYears.add(createJSONStudyPeriodArray(year));
         }
-
         return jsonYears;
     }
 
@@ -75,7 +79,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         //adds all studyperiods in a year to jsonYears
         JSONArray jsonStudyperiods = new JSONArray();
         for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
-
             jsonStudyperiods.add(createJSONStudyPeriodObject(studyPeriod));
         }
         return jsonStudyperiods;
@@ -88,7 +91,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
         jsonStudyPeriod.put("Course1", course1);
 
-        String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+        String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse2().getId().toString());
         jsonStudyPeriod.put("Course2", course2);
 
         return jsonStudyPeriod;
@@ -139,14 +142,21 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         } catch (IOException e) {
             throw new StudyPlanNotFoundException();
         }
-
     }
 
     private static Student createStudent(JSONObject jsonObject){
         Student student = new Student();
         student.setStudyPlans(createStudyPlansFromJSON(jsonObject));
         student.setWorkspace(createWorkspaceFromJSON(jsonObject));
+        student.setCurrentStudyPlan(createCurrentStudyPlanFromJSON(jsonObject));
       return student;
+    }
+
+    private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject){
+        StudyPlan studyPlan = new StudyPlan();
+        JSONArray jsonStudyplan = (JSONArray) jsonObject.get("currentStudyPlan");
+        addJSONYearToStudyPlan(studyPlan, jsonStudyplan);
+        return studyPlan;
     }
 
     private static Workspace createWorkspaceFromJSON(JSONObject jsonObject){
@@ -165,7 +175,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static List<StudyPlan> createStudyPlansFromJSON(JSONObject jsonObject){
 
         JSONArray jsonStudyplans = (JSONArray) jsonObject.get("studyplans");
-
         List<StudyPlan> studyPlans = new ArrayList<>();
 
         for (int studyplanIndex = 1; studyplanIndex <= jsonStudyplans.size(); studyplanIndex++) {
@@ -185,13 +194,16 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         for (int year = 1; year <= jsonYearArr.size(); year++) {
             JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year-1);
             addJSONStudyPeriodToYearInStudyPlan(studyPlan, jsonStudyPeriod, year);
+
+            if(jsonYearArr.size()>year){
+                //Schedule cant starts with one year because then every time we open the program it will add a new empty year
+                studyPlan.addYear();
+            }
+
         }
     }
 
     private static void addJSONStudyPeriodToYearInStudyPlan(StudyPlan studyPlan, JSONArray jsonStudyPeriod, int year){
-
-        //If Schedule always starts with one year we dont need to add a year the first loop
-        studyPlan.addYear();
 
         for (int studyPeriod = 1; studyPeriod <= jsonStudyPeriod.size(); studyPeriod++) {
 
