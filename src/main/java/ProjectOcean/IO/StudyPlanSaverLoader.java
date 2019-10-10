@@ -164,24 +164,31 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
 
             for (int year = 0; year < jsonYearArr.size(); year++) {
-                //If Schedule always starts with one year we dont need to add a year the first loop
-                studyPlan.addYear();
 
                 JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year);
 
-                for (int studyPeriod = 0; studyPeriod < jsonStudyPeriod.size(); studyPeriod++) {
+                addJSONStudyPeriodToYearInStudyplan(studyPlan, jsonStudyPeriod, year);
 
-                    JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod);
-
-                    addJSONCourseToStudyPeriodInStudyPlan(studyPlan, jsonObjStudyPeriod, year, studyPeriod);
-
-                }
             }
             studyPlans.add(studyPlan);
         }
       return new Student(studyPlans, workspace);
     }
 
+    private static void addJSONStudyPeriodToYearInStudyplan(StudyPlan studyPlan, JSONArray jsonStudyPeriod, int year){
+
+        //If Schedule always starts with one year we dont need to add a year the first loop
+        studyPlan.addYear();
+
+        for (int studyPeriod = 0; studyPeriod < jsonStudyPeriod.size(); studyPeriod++) {
+
+            JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod);
+
+            addJSONCourseToStudyPeriodInStudyPlan(studyPlan, jsonObjStudyPeriod, year, studyPeriod);
+
+        }
+
+    }
 
     private static void addJSONCourseToStudyPeriodInStudyPlan(StudyPlan studyPlan, JSONObject jsonObjStudyPeriod, int year, int studyPeriod){
 
