@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a Student in the model
+ * Class representing a student profile
  */
 public class Student {
 
@@ -18,6 +18,7 @@ public class Student {
         this.workspace = new Workspace();
         this.studyPlans = new ArrayList<>();
         this.currentStudyPlan = new StudyPlan();
+        studyPlans.add(currentStudyPlan);
     }
 
     /**
@@ -49,12 +50,11 @@ public class Student {
 
     /**
      * Removes the given course in the given year and study period, in the study plan
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        currentStudyPlan.removeCourseFromSchedule(course, year, studyPeriod);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        currentStudyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
     }
 
     /**

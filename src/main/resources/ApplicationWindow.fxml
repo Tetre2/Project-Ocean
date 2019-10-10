@@ -61,36 +61,11 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #DEDEDE;">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </padding>
-                           <content>
-                              <VBox style="-fx-border-radius: 50; -fx-border-color: green;">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
-                                       <font>
-                                          <Font size="40.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </VBox>
+      
+                  <VBox fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS" />
                   <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" />
                </children>
             </HBox>
-
          </children>
       </VBox>
    </children>

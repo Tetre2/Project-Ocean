@@ -18,7 +18,6 @@ public class Main extends Application {
         root = new ApplicationController(getHostServices());
         primaryStage.setScene(new Scene(root, 1200, 800));
         primaryStage.show();
-
     }
 
     @Override

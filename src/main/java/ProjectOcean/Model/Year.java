@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a Year in the model
+ * Class representing a year-row in a student's study plan
  */
 public class Year {
 
-    private List<StudyPeriod> studyPeriods = new ArrayList<>();
+    private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
     public Year() {
         for (int i = 0; i < 4; i++) {
@@ -25,16 +25,15 @@ public class Year {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(Course course, int studyPeriod, int slot) {
-        studyPeriods.get(studyPeriod).addCourse(course, slot);
+        studyPeriods.get(studyPeriod - 1).addCourse(course, slot);
     }
 
     /**
      * Removes a course from the given study period
-     * @param course the course to be removed
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int studyPeriod) {
-        studyPeriods.get(studyPeriod).removeCourse(course);
+    public void removeCourse(int studyPeriod, int slot) {
+        studyPeriods.get(studyPeriod - 1).removeCourse(slot);
     }
 
     /**
@@ -42,7 +41,7 @@ public class Year {
      * @return the desired study period
      */
     public StudyPeriod getStudyPeriod(int period) {
-        return studyPeriods.get(period);
+        return studyPeriods.get(period - 1);
     }
 
     /**

@@ -3,11 +3,17 @@ package ProjectOcean.Model;
 import ProjectOcean.IO.ICourseSaveLoader;
 import ProjectOcean.IO.IStudyPlanSaverLoader;
 import ProjectOcean.IO.SaveloaderFactory;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Observable;
+import java.util.UUID;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Represents the aggregate of the model
+ * The model's main aggregate class acting like an interface for the views and controllers
  */
 public class CoursePlanningSystem extends Observable {
 
@@ -36,6 +42,13 @@ public class CoursePlanningSystem extends Observable {
      */
     public Map<UUID, Course> getAllCourses() {
         return Collections.unmodifiableMap(courses);
+    }
+
+    /**
+     * @return the current student
+     */
+    public Student getStudent() {
+        return student;
     }
 
     /**
@@ -70,13 +83,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @return the current student
-     */
-    public Student getStudent() {
-        return student;
-    }
-
-    /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param course the course to be added
      * @param year the year to add the course to
@@ -85,6 +91,8 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourse(Course course, int year, int studyPeriod, int slot) {
         student.addCourse(course, year, studyPeriod,slot);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -100,12 +108,13 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      * Removes the given course in the given year and study period, for the current student
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        student.removeCourse(course, year, studyPeriod);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        student.removeCourse(year, studyPeriod, slot);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -231,7 +240,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
     /**
      * Gets a list of all courses in the workspace by their id.
      * @return a list of UUID:s för the courses in workspace.

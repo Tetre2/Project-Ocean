@@ -27,6 +27,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      */
     public void saveStudyplans(Student student) {
 
+        System.out.println(student.toString());
+
         JSONObject jsonStudent = new JSONObject();
 
         //jsonStudyplans contains all studyplans
@@ -166,11 +168,11 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (int studyplanIndex = 0; studyplanIndex < jsonStudyplans.size(); studyplanIndex++) {
+        for (int studyplanIndex = 1; studyplanIndex <= jsonStudyplans.size(); studyplanIndex++) {
 
             StudyPlan studyPlan = new StudyPlan();
 
-            JSONObject jsonYears = (JSONObject) jsonStudyplans.get(studyplanIndex);
+            JSONObject jsonYears = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
             JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
             addJSONYearToStudyPlan(studyPlan, jsonYearArr);
 
@@ -180,8 +182,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static void addJSONYearToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
-        for (int year = 0; year < jsonYearArr.size(); year++) {
-            JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year);
+        for (int year = 1; year <= jsonYearArr.size(); year++) {
+            JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year-1);
             addJSONStudyPeriodToYearInStudyPlan(studyPlan, jsonStudyPeriod, year);
         }
     }
@@ -191,9 +193,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         //If Schedule always starts with one year we dont need to add a year the first loop
         studyPlan.addYear();
 
-        for (int studyPeriod = 0; studyPeriod < jsonStudyPeriod.size(); studyPeriod++) {
+        for (int studyPeriod = 1; studyPeriod <= jsonStudyPeriod.size(); studyPeriod++) {
 
-            JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod);
+            JSONObject jsonObjStudyPeriod = (JSONObject) jsonStudyPeriod.get(studyPeriod-1);
 
             addJSONCourseToStudyPeriodInStudyPlan(studyPlan, jsonObjStudyPeriod, year, studyPeriod);
 
@@ -207,7 +209,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course1.equals("null")) {
             for (Course c: courses) {
                 if(c.getId().toString().equals(course1)) {
-                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 0);
+                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
                     break;
                 }
             }
@@ -217,7 +219,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course2.equals("null")) {
             for (Course c: courses) {
                 if(c.getId().toString().equals(course2)){
-                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
+                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 2);
                     break;
                 }
             }
@@ -267,5 +269,5 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     static String getFileName() {
         return fileName;
     }
-    
+
 }

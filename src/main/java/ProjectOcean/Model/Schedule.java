@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a Schedule in the model
+ * Class representing a schedule held by a study plan
  */
 public class Schedule {
 
@@ -14,17 +14,19 @@ public class Schedule {
 
     public Schedule() {
         years = new ArrayList<>();
+        if(years.size()< 1){
+            years.add(new Year());
+        }
+        //TODO möjligt ställe koden dör
     }
 
     /**
      * Removes the given course in the given year and study period
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod) {
-        years.get(year).getStudyPeriod(studyPeriod).removeCourse(course);
-        years.get(year).removeCourse(course, studyPeriod);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        years.get(year - 1).removeCourse(studyPeriod, slot);
     }
 
     /**
@@ -34,8 +36,8 @@ public class Schedule {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void tryAddCourse(Course course, int year, int studyPeriod, int slot) {
-        years.get(year).addCourse(course, studyPeriod, slot);
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
+        years.get(year - 1).addCourse(course, studyPeriod, slot);
     }
 
     /**
@@ -50,7 +52,7 @@ public class Schedule {
      * @param year the year to be removed
      */
     public void removeYear(int year) {
-        years.remove(year);
+        years.remove(year - 1);
     }
 
     /**
@@ -59,7 +61,7 @@ public class Schedule {
      * @return the desired year
      */
     public Year getYear(int year){
-        return years.get(year);
+        return years.get(year-1);
     }
 
     /**

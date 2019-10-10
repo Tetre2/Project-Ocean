@@ -57,11 +57,10 @@ public class DetailedController extends VBox {
             throw new RuntimeException(exception);
         }
 
-        //sets the detailed view so it can grow verticaly in its parents
+        //sets the detailed view so it can grow vertically in its parents
         detailedViewRoot.setVgrow(this, Priority.ALWAYS);
 
     }
-
 
     /**
      * Sets all info a course has and show it in the detailed window

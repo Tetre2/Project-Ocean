@@ -3,7 +3,7 @@ package ProjectOcean.Model;
 import java.util.Objects;
 
 /**
- * Represents a StudyPlan in the model
+ * Class representing one of multiple study plans held by a student
  */
 public class StudyPlan {
 
@@ -21,17 +21,16 @@ public class StudyPlan {
      * @param slot the slot in which the course will be added
      */
     public void addCourseToSchedule(Course course, int year, int studyPeriod, int slot) {
-        schedule.tryAddCourse(course, year, studyPeriod, slot);
+        schedule.addCourse(course, year, studyPeriod, slot);
     }
 
     /**
      * Removes the given course in the given year and study period, in the schedule
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourseFromSchedule(Course course, int year, int studyPeriod){
-        schedule.removeCourse(course, year, studyPeriod);
+    public void removeCourseFromSchedule(int year, int studyPeriod, int slot){
+        schedule.removeCourse(year, studyPeriod, slot);
     }
 
     /**
@@ -55,7 +54,6 @@ public class StudyPlan {
     public Schedule getSchedule() {
         return schedule;
     }
-
 
     @Override
     public boolean equals(Object o) {

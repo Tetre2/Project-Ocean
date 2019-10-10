@@ -3,7 +3,7 @@ package ProjectOcean.Model;
 import java.util.Objects;
 
 /**
- * Represents a StudyPeriod in the model
+ * Class representing a single study period in a year
  */
 public class StudyPeriod {
 
@@ -16,19 +16,18 @@ public class StudyPeriod {
      * @param slot the index representing which slot to add the course in
      */
     public void addCourse(Course course, int slot){
-        if(course1 == null && slot == 0)
+        if(course1 == null && slot == 1)
             course1 = course;
-        else if(course2 == null && slot == 1)
+        else if(course2 == null && slot == 2)
             course2 = course;
 
     }
 
     /**
      * Removes the given course from the study period
-     * @param course
      */
-    public void removeCourse(Course course) {
-        if(course.equals(course1))
+    public void removeCourse(int slot) {
+        if(slot == 1)
             course1 = null;
         else
             course2 = null;

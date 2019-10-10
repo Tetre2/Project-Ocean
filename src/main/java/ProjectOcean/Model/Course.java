@@ -39,13 +39,6 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "courseCode='" + courseCode + '\'' +
-                '}';
-    }
-
-    /*@Override
-    public String toString() {
-        return "Course{" +
                 "id=" + id +
                 ", courseCode='" + courseCode + '\'' +
                 ", courseName='" + courseName + '\'' +
@@ -58,52 +51,90 @@ public class Course {
                 ", coursePMLink='" + coursePMLink + '\'' +
                 ", courseDescription='" + courseDescription + '\'' +
                 '}';
-    }*/
+    }
 
+    /**
+     * @return this course UUID
+     */
     public UUID getId() {
         return this.id;
     }
 
+    /**
+     * @return the course UUID as a String
+     */
     public String getIdToString() {
         return this.id.toString();
     }
 
+    /**
+     * @return this course's name
+     */
     public String getCourseName() {
         return courseName;
     }
 
+    /**
+     * @return this course's code
+     */
     public String getCourseCode() {
         return courseCode;
     }
 
+    /**
+     * @return this course's study points
+     */
     public String getStudyPoints() {
         return String.valueOf(studyPoints);
     }
 
+    /**
+     * @return this course's study period
+     */
     public String getStudyPeriod() {
         return String.valueOf(studyPeriod);
     }
 
+    /**
+     * @return this course's examinator
+     */
     public String getExaminer() {
         return examiner;
+
     }
 
+    /**
+     * @return this course's examination forms
+     */
     public String getExaminationMeans() {
         return examinationMeans;
     }
 
+    /**
+     * @return this course's language
+     */
     public String getLanguage() {
         return language;
     }
 
+
+    /**
+     * @return this course's required courses
+     */
     public List<String> getRequiredCourses() {
         return Collections.unmodifiableList(requiredCourses);
     }
 
+    /**
+     * @return this course's PM link
+     */
     public String getCoursePMLink() {
         return coursePMLink;
     }
 
+    /**
+     * @return this course's description
+     */
     public String getCourseDescription() {
         return courseDescription;
     }
