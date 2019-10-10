@@ -141,7 +141,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static Student createStudent(JSONObject jsonObject){
-      return new Student(createStudyPlansFromJSON(jsonObject), createWorkspaceFromJSON(jsonObject));
+        Student student = new Student();
+        student.setStudyPlans(createStudyPlansFromJSON(jsonObject));
+        student.setWorkspace(createWorkspaceFromJSON(jsonObject));
+      return student;
     }
 
     private static Workspace createWorkspaceFromJSON(JSONObject jsonObject){
@@ -226,7 +229,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
         if (!file.exists()) file.mkdirs();
-        Student student = new Student(new ArrayList<>(), new Workspace());
+        Student student = new Student();
         saveStudyplans(student);
     }
 

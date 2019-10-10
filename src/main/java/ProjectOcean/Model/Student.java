@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +14,26 @@ public class Student {
     private StudyPlan currentStudyPlan;
     private Workspace workspace;
 
-    public Student(List<StudyPlan> studyPlans, Workspace workspace) {
-        this.workspace = workspace;
-        this.studyPlans = studyPlans;
+    public Student() {
+        this.workspace = new Workspace();
+        this.studyPlans = new ArrayList<>();
         this.currentStudyPlan = new StudyPlan();
+    }
+
+    /**
+     * Sets the students studyplans
+     * @param studyPlans the list of studyplans being set
+     */
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        this.studyPlans = studyPlans;
+    }
+
+    /**
+     * Sets the students workspace
+     * @param workspace the workspace being set
+     */
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     /**

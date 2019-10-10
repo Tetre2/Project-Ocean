@@ -45,7 +45,9 @@ public class StudyPlanSaverLoaderTests {
         studyPlans.add(studyPlan);
         studyPlans.add(studyPlan2);
 
-        student = new Student(studyPlans, workspace);
+        student = new Student();
+        student.setStudyPlans(studyPlans);
+        student.setWorkspace(workspace);
 
 
     }
