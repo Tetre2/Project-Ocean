@@ -246,4 +246,47 @@ public class CoursePlanningSystemTests {
 
         Assert.assertNotNull(student);
     }
+
+    @Test
+    public void executeSearchTest() {
+        //Test searching for examinor
+        String searchText = "Rolf";
+        List<UUID> searchResult = coursePlanningSystem.executeSearch(searchText);
+        Assert.assertTrue(searchResult.size()!=0);
+        if(searchResult.isEmpty()) {
+            for(UUID id : searchResult){
+                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("rolf"));
+            }
+
+        }
+        searchResult.clear();
+        searchText = "SöderSTröm Rolf";
+        searchResult = coursePlanningSystem.executeSearch(searchText);
+        Assert.assertTrue(searchResult.size()!=0);
+        if(!searchResult.isEmpty()) {
+            for(UUID id : searchResult){
+                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("söderström"));
+            }
+        }
+        searchResult.clear();
+
+        //tests searching for course code
+        searchText = "Eda433";
+        searchResult = coursePlanningSystem.executeSearch(searchText);
+        Assert.assertTrue(searchResult.size() == 1);
+        if(!searchResult.isEmpty()) {
+            Assert.assertTrue(coursePlanningSystem.getCourseCode(searchResult.get(0)).toLowerCase().equals("eda433"));
+        }
+        searchResult.clear();
+
+        //tests searching for course name
+        searchText = "Maskin  matematisk";
+        searchResult = coursePlanningSystem.executeSearch(searchText);
+        Assert.assertFalse(searchResult.isEmpty());
+        if(!searchResult.isEmpty()) {
+            for(UUID id : searchResult) {
+                Assert.assertTrue(coursePlanningSystem.getCourseName(id).toLowerCase().contains("maskin") || coursePlanningSystem.getCourseName(id).toLowerCase().contains("matematisk"));
+            }
+        }
+    }
 }
