@@ -50,70 +50,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @param course is a UUID for a specific course
-     * @return returns the CourseName for the specified UUID
-     */
-    public String getCourseName(ICourse course) {
-        return course.getCourseName();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the StudyPoints for the specified UUID
-     */
-    public String getStudyPoints(ICourse course){
-        return course.getStudyPoints();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the StudyPeriod for the specified UUID
-     */
-    public String getStudyPeriod(ICourse course){
-        return course.getStudyPeriod();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the Examinaot for the specified UUID
-     */
-    public String getExaminator(ICourse course){
-        return course.getExaminator();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the ExaminationMeans for the specified UUID
-     */
-    public String getExaminationMeans(ICourse course){
-        return course.getExaminationMeans();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the Language for the specified UUID
-     */
-    public String getLanguage(ICourse course){
-        return course.getLanguage();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns a list of required courses for a specific course defined by a UUID
-     */
-    public List<String> getRequiredCourses(ICourse course){
-        return Collections.unmodifiableList(course.getRequiredCourses());
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the CoursePMLink for the specified UUID
-     */
-    public String getCoursePMLink(ICourse course){
-        return course.getCoursePMLink();
-    }
-
-    /**
      *
      * @param searchText: A string of search terms seperated by blankspaces
      * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
@@ -201,13 +137,5 @@ public class CoursePlanningSystem extends Observable {
         student.removeCourseFromWorkspace((Course) course);
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
-     * @return returns the CourseDescription for the specified UUID
-     */
-    public String getCourseDescription(ICourse course){
-        return course.getCourseDescription();
     }
 }

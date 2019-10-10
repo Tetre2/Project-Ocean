@@ -69,22 +69,22 @@ public class DetailedController extends VBox {
      */
     public void setDetailedInfo(ICourse course){
         clear();
-        String header = course.getCourseCode() + " - " + model.getCourseName(course) + model.getStudyPoints(course);
+        String header = course.getCourseCode() + " - " + course.getCourseName() + course.getStudyPoints();
         setHeader(header);
 
-        setStudyPeriod(model.getStudyPeriod(course));
+        setStudyPeriod(course.getStudyPeriod());
 
-        setExaminator(model.getExaminator(course));
+        setExaminator(course.getExaminator());
 
-        setExaminationMeans(model.getExaminationMeans(course));
+        setExaminationMeans(course.getExaminationMeans());
 
-        setLanguage(model.getLanguage(course));
+        setLanguage(course.getLanguage());
 
-        setRequiredCourses(model.getRequiredCourses(course));
+        setRequiredCourses(course.getRequiredCourses());
 
-        setCoursePMLink(model.getCoursePMLink(course));
+        setCoursePMLink(course.getCoursePMLink());
 
-        setCourseDescription(model.getCourseDescription(course));
+        setCourseDescription(course.getCourseDescription());
     }
 
     private void setHeader(String header){

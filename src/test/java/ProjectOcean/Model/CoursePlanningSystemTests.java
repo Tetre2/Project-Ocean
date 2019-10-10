@@ -9,13 +9,13 @@ import java.util.*;
 public class CoursePlanningSystemTests {
 
 
-    private CoursePlanningSystem coursePlanningSystem;
+    private CoursePlanningSystem model;
     private List<ICourse> courses;
 
     @Before
     public void init(){
-        coursePlanningSystem = new CoursePlanningSystem();
-        courses = coursePlanningSystem.generateCourses();
+        model = new CoursePlanningSystem();
+        courses = model.generateCourses();
 
     }
 
@@ -23,7 +23,7 @@ public class CoursePlanningSystemTests {
     public void getAllCoursesTest() {
 
         List<ICourse> expected = courses;
-        List<ICourse> actual = coursePlanningSystem.getAllCourses();
+        List<ICourse> actual = model.getAllCourses();
 
         Assert.assertEquals(expected, actual);
     }
@@ -32,15 +32,15 @@ public class CoursePlanningSystemTests {
     public void executeSearchTest() {
         //Test searching for examinor
         String searchText = "SöderSTröm Rolf";
-        List<ICourse> searchResult = coursePlanningSystem.executeSearch(searchText);
-        searchResult = coursePlanningSystem.executeSearch(searchText);
+        List<ICourse> searchResult = model.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("söderström"));
+        Assert.assertTrue(searchResult.get(0).getExaminator().toLowerCase().contains("söderström"));
         searchResult.clear();
 
         //tests searching for course code
         searchText = "Eda433";
-        searchResult = coursePlanningSystem.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size() == 1);
         if(!searchResult.isEmpty()) {
             Assert.assertTrue(searchResult.get(0).getCourseCode().toLowerCase().equals("eda433"));
@@ -49,7 +49,7 @@ public class CoursePlanningSystemTests {
 
         //tests searching for course name
         searchText = "Maskin  matematisk";
-        searchResult = coursePlanningSystem.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(ICourse course : searchResult) {

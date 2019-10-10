@@ -34,7 +34,7 @@ public class SearchBrowseController extends AnchorPane {
     private List<ICourse> currentSearchResult;
 
     /**
-     * @param model:                 An instance of the course planning system
+     * @param model: An instance of the course planning system
      * @param applicationController: An instance of the main controller.
      */
     public SearchBrowseController(CoursePlanningSystem model, ApplicationController applicationController) {
@@ -102,13 +102,13 @@ public class SearchBrowseController extends AnchorPane {
         List<ICourse> preFilterSearchResult = new ArrayList<>(filteredSearchResult);
         filteredSearchResult.clear();
         for (ICourse course : preFilterSearchResult) {
-            if (studyPeriodCheckbox1.isSelected() && Integer.parseInt(model.getStudyPeriod(course)) == 1) {
+            if (studyPeriodCheckbox1.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 1) {
                 filteredSearchResult.add(course);
-            } else if (studyPeriodCheckbox2.isSelected() && Integer.parseInt(model.getStudyPeriod(course)) == 2) {
+            } else if (studyPeriodCheckbox2.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 2) {
                 filteredSearchResult.add(course);
-            } else if (studyPeriodCheckbox3.isSelected() && Integer.parseInt(model.getStudyPeriod(course)) == 3) {
+            } else if (studyPeriodCheckbox3.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 3) {
                 filteredSearchResult.add(course);
-            } else if (studyPeriodCheckbox4.isSelected() && Integer.parseInt(model.getStudyPeriod(course)) == 4) {
+            } else if (studyPeriodCheckbox4.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 4) {
                 filteredSearchResult.add(course);
             } else if (!studyPeriodCheckbox1.isSelected() && !studyPeriodCheckbox2.isSelected() && !studyPeriodCheckbox3.isSelected() && !studyPeriodCheckbox4.isSelected()) {
                 filteredSearchResult.add(course);
@@ -123,9 +123,9 @@ public class SearchBrowseController extends AnchorPane {
         List<ICourse> preFilterSearchResult = new ArrayList<>(filteredSearchResult);
         filteredSearchResult.clear();
         for (ICourse course : preFilterSearchResult) {
-            if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(model.getStudyPoints(course)) == 7.5f) {
+            if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(course.getStudyPoints()) == 7.5f) {
                 filteredSearchResult.add(course);
-            } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(model.getStudyPoints(course)) == 15f) {
+            } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(course.getStudyPoints()) == 15f) {
                 filteredSearchResult.add(course);
             } else if (!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
                 filteredSearchResult.add(course);
