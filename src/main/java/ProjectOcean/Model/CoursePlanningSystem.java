@@ -1,18 +1,26 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Observable;
+import java.util.UUID;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Represents the aggregate of the model
+ * The model's main aggregate class acting like an interface for the views and controllers
  */
 public class CoursePlanningSystem extends Observable {
 
-
     private Student student;
+    private Workspace workspace;
     private final Map<UUID, Course> courses;
 
     public CoursePlanningSystem() {
         this.courses = generateCourses();
+        this.workspace = new Workspace();
         this.student = new Student();
     }
 
@@ -48,6 +56,56 @@ public class CoursePlanningSystem extends Observable {
         course = new Course("DAT096", "Konstruktionsprojekt i inbyggda elektroniksystem", 15f, 3, "Lena Peterson", "Projekt", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         courses.put(course.getId(),course);
         return courses;
+    }
+
+    /**
+     * @return the current student
+     */
+    public Student getStudent() {
+        return student;
+    }
+
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param course the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
+        student.addCourse(course, year, studyPeriod,slot);
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(UUID id, int year, int studyPeriod, int slot){
+        addCourse(getCourse(id), year, studyPeriod, slot);
+    }
+    /**
+     * Removes the given course in the given year and study period, for the current student
+     * @param course the course to be removed
+     * @param year the year to remove the course from
+     * @param studyPeriod the study period to remove the course from
+     */
+    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
+        student.removeCourse(course, year, studyPeriod, slot);
+        setChanged();
+        notifyObservers();
+    }
+    /**
+     * Removes the given course in the given year and study period, for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to remove the course from
+     * @param studyPeriod the study period to remove the course from
+     */
+    public void removeCourse(UUID id, int year, int studyPeriod, int slot){
+        removeCourse(getCourse(id), year, studyPeriod, slot);
     }
 
     /**
@@ -144,6 +202,21 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseDescription for the specified UUID
+     */
+    public String getCourseDescription(UUID id){
+        return courses.get(id).getCourseDescription();
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the Course corresponding to the given UUID
+     */
+    public Course getCourse(UUID id) {
+        return courses.get(id);
+    }
+    /**
      *
      * @param searchText: A string of search terms seperated by blankspaces
      * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
@@ -210,7 +283,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
     /**
      * Gets a list of all courses in the workspace by their id.
      * @return a list of UUID:s för the courses in workspace.
@@ -231,13 +303,5 @@ public class CoursePlanningSystem extends Observable {
         student.removeCourseFromWorkspace(courses.get(id));
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * @param id is a UUID for a specific course
-     * @return returns the CourseDescription for the specified UUID
-     */
-    public String getCourseDescription(UUID id){
-        return courses.get(id).getCourseDescription();
     }
 }

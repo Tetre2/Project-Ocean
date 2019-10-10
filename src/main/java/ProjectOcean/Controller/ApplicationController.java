@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents the root visual object, only contains empty containers
  */
+
 public class ApplicationController extends AnchorPane {
 
     @FXML private VBox contentWindow;
@@ -25,6 +26,8 @@ public class ApplicationController extends AnchorPane {
     private CoursePlanningSystem coursePlanningSystem;
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
+    private StudyPlanController studyPlanController;
+
 
     private static DetailedController detailedController;
     private HostServices hostServices;
@@ -34,6 +37,7 @@ public class ApplicationController extends AnchorPane {
         this.coursePlanningSystem = new CoursePlanningSystem();
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
+        this.studyPlanController = new StudyPlanController(coursePlanningSystem, this);
         detailedController = new DetailedController(coursePlanningSystem, this);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -48,8 +52,21 @@ public class ApplicationController extends AnchorPane {
         }
 
         contentWindow.getChildren().add(0, workspaceController);
+        contentWindow.getChildren().add(1, studyPlanController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
     }
+
+
+
+    /**
+     * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
+     */
+    public void showStudyPlanWorkspaceWindow(){
+        contentWindow.getChildren().clear();
+        contentWindow.getChildren().add(workspaceController);
+        contentWindow.getChildren().add(studyPlanController);
+    }
+
 
     @FXML
     private void onDragOver(DragEvent event) {
@@ -95,14 +112,6 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(id);
         contentWindow.getChildren().add(detailedController);
-    }
-
-    /**
-     * Clears and adds the workspace component to the window
-     */
-    public void showStudyPlanWorkspaceWindow(){
-        contentWindow.getChildren().clear();
-        contentWindow.getChildren().add(workspaceController);
     }
 
     /**

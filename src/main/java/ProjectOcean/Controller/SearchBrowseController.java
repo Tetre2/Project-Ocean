@@ -29,7 +29,6 @@ public class SearchBrowseController extends AnchorPane {
     @FXML private CheckBox studyPeriodCheckbox4;
 
     private CoursePlanningSystem model;
-
     private ApplicationController applicationController;
     private List<UUID> currentSearchResult;
 
