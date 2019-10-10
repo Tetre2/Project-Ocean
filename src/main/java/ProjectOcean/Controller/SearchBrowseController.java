@@ -88,7 +88,6 @@ public class SearchBrowseController extends AnchorPane {
         List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
         filterBasedOnStudyPeriod(filteredSearchResult);
         filterBasedOnStudyPoints(filteredSearchResult);
-        System.out.println(filteredSearchResult.size());
         //Displays filtered result
         for(ICourse course : filteredSearchResult) {
             CourseListIconController courseListIcon = new CourseListIconController(course, model, applicationController);
