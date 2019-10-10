@@ -30,9 +30,6 @@ public class CourseTests {
 
         //Checks that ICourse references are different
         Assert.assertFalse(course1 == course2);
-
-        //Checks that ICourse values are different
-        Assert.assertFalse(course1.equals(course2));
     }
 
     //These tests come from CPS test, but where removed because the methods where removed from CPS.
