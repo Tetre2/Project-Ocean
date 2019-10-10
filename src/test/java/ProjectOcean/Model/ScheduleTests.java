@@ -29,7 +29,7 @@ public class ScheduleTests {
     }
 
     @Test
-    public void tryCourseTest() {
+    public void addCourseTest() {
         Schedule schedule = new Schedule();
         Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
 
