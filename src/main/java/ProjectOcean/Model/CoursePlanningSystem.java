@@ -1,5 +1,9 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.ICourseSaveLoader;
+import ProjectOcean.IO.IStudyPlanSaverLoader;
+import ProjectOcean.IO.SaveloaderFactory;
+
 import java.util.*;
 
 /**
@@ -7,13 +11,24 @@ import java.util.*;
  */
 public class CoursePlanningSystem extends Observable {
 
-
     private Student student;
     private final Map<UUID, Course> courses;
+    private static CoursePlanningSystem model;
+    private static ICourseSaveLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
 
-    public CoursePlanningSystem(Student student, Map<UUID, Course> courses) {
+    public static CoursePlanningSystem getInstance(){
+        if(model == null){
+            return model = new CoursePlanningSystem(studyPlanSaverLoader.loadStudent(), courseSaveLoader.loadCourses());
+        }
+        return model;
+    }
+
+    private CoursePlanningSystem(Student student, Map<UUID, Course> courses) {
         this.courses = courses;
         this.student = student;
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -250,4 +265,12 @@ public class CoursePlanningSystem extends Observable {
     public Course getCourse(UUID id) {
         return courses.get(id);
     }
+
+    /**
+     * Saves the student and its contents
+     */
+    public void saveStudentToJSON(){
+        studyPlanSaverLoader.saveStudyplans(student);
+    }
+
 }

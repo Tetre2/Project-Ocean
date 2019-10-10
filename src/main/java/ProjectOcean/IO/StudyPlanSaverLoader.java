@@ -10,18 +10,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyPlanSaverLoader {
+public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     private static String fileName = "studyplans.json";
     private static JSONParser parser = new JSONParser();
     private static CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private static List<Course> courses = courseSaverLoader.generatePreDefinedCourses();
 
+    public StudyPlanSaverLoader() {
+    }
+
+    @Override
     /**
      * Saves the users studyplans and workspace to the userHomeDir
      * @param student contains a list of studyPlans that will being saved and
      */
-    public static void saveStudyplans(Student student) {
+    public void saveStudyplans(Student student) {
 
         JSONObject jsonStudent = new JSONObject();
 
@@ -90,12 +94,13 @@ public class StudyPlanSaverLoader {
         }
     }
 
+
     /**
      * Loads a List of studyplans from the users home dir
      * @return returns a list of the loaded studyplanes
      * @throws IOException
      */
-    public static Student loadStudent(){
+    public Student loadStudent(){
         try {
             return createStudent(readFromFile());
         } catch (ParseException e) {
@@ -166,7 +171,7 @@ public class StudyPlanSaverLoader {
       return new Student(studyPlans, workspace);
     }
 
-    private static void createNewStudent(){
+    private void createNewStudent(){
         File directory = new File(getHomeDirPath());
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
@@ -195,7 +200,7 @@ public class StudyPlanSaverLoader {
     /**
      * @return returns the path to the users home dir
      */
-    public static String getHomeDirPath() {
+    static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
@@ -206,7 +211,7 @@ public class StudyPlanSaverLoader {
     /**
      * @return returns the json file name
      */
-    public static String getFileName() {
+    static String getFileName() {
         return fileName;
     }
     

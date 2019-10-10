@@ -12,19 +12,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class CoursesSaverLoader {
-
+public class CoursesSaverLoader implements ICourseSaveLoader{
 
     private static String fileName = "courses.json";
     private static JSONParser parser = new JSONParser();
+
+    public CoursesSaverLoader() {
+    }
+
 
     /**
      * Loaded a Map from "courses.json" in user hom dir
      *
      * @return returns a <code>Map<UUID, Course></code>
-     * @throws IOException
      */
-    public static Map<UUID, Course> loadCourses() {
+    @Override
+    public Map<UUID, Course> loadCourses() {
         try {
             return readFromFile();
         } catch (ParseException e) {
@@ -95,7 +98,7 @@ public class CoursesSaverLoader {
      *
      * @return returns the users home directory
      */
-    public static String getHomeDirPath() {
+    static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
@@ -103,7 +106,7 @@ public class CoursesSaverLoader {
      *
      * @return returns the filename which holds courses
      */
-    public static String getFileName() {
+    static String getFileName() {
         return fileName;
     }
 
@@ -118,7 +121,7 @@ public class CoursesSaverLoader {
     /**
      * Saves a list of courses to a "courses.json" file in the user home dir.
      */
-    public static void savePreMadeCourses() {
+    static void savePreMadeCourses() {
         //creates the "main" array which contains all courses
         JSONArray jsonCourses = new JSONArray();
 
@@ -157,7 +160,7 @@ public class CoursesSaverLoader {
      * Creates courses a predefined list of courses
      * @return returns a list of courses
      */
-    public static List<Course> generatePreDefinedCourses(){
+    static List<Course> generatePreDefinedCourses(){
         List<Course> courses = new ArrayList<>();
 
         courses.add(new Course(UUID.fromString("749d6445-4c88-410e-9c44-b88e8cb3e094"),"DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
