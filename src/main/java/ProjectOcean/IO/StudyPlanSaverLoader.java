@@ -38,22 +38,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             //represents a studyplan
             JSONObject jsonStudyplan = new JSONObject();
 
-            //adds all years to jsonStudyplan
-            JSONArray jsonYears = new JSONArray();
-
-            for (Year year : studyplan.getSchedule().getYears()) {
-
-                //adds all studyperiods in a year to jsonYears
-                JSONArray jsonStudyperiods = new JSONArray();
-                for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
-
-                    jsonStudyperiods.add(createJSONStudyPeriodObject(studyPeriod));
-                }
-
-                jsonYears.add(jsonStudyperiods);
-            }
-            jsonStudyplan.put("years", jsonYears);
-
+            jsonStudyplan.put("years", createJSONYearArray(studyplan));
 
             jsonStudyPlans.add(jsonStudyplan);
         }
@@ -69,6 +54,29 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         writeToFile(jsonStudent);
 
+    }
+
+    private static JSONArray createJSONYearArray(StudyPlan studyPlan){
+
+        //adds all years to jsonStudyplan
+        JSONArray jsonYears = new JSONArray();
+
+        for (Year year : studyPlan.getSchedule().getYears()) {
+
+            jsonYears.add(createJSONStudyPeriodArray(year));
+        }
+
+        return jsonYears;
+    }
+
+    private static JSONArray createJSONStudyPeriodArray(Year year){
+        //adds all studyperiods in a year to jsonYears
+        JSONArray jsonStudyperiods = new JSONArray();
+        for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
+
+            jsonStudyperiods.add(createJSONStudyPeriodObject(studyPeriod));
+        }
+        return jsonStudyperiods;
     }
 
     private static JSONObject createJSONStudyPeriodObject(StudyPeriod studyPeriod){
