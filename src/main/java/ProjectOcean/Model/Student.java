@@ -2,7 +2,6 @@ package ProjectOcean.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class representing a student profile
@@ -15,6 +14,8 @@ public class Student {
 
     public Student() {
         this.currentStudyPlan = new StudyPlan();
+        studyPlans = new ArrayList<>();
+        studyPlans.add(this.currentStudyPlan);
     }
 
     /**

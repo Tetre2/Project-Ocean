@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
  * Class representing a schedule held by a study plan
-=======
- * Represents a Schedule in the model
->>>>>>> develop
  */
 public class Schedule {
 
@@ -36,7 +32,7 @@ public class Schedule {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void tryAddCourse(Course course, int year, int studyPeriod, int slot) {
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
         years.get(year - 1).addCourse(course, studyPeriod, slot);
     }
 

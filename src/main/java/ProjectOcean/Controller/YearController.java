@@ -3,19 +3,14 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.Year;
-import com.sun.deploy.uitoolkit.impl.awt.AWTWindowFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,7 +20,6 @@ import java.util.Observer;
 public class YearController extends VBox implements Observer {
 
     @FXML private GridPane yearGrid;
-    @FXML private Label yearLabel;
 
     private final CoursePlanningSystem model;
     private final ApplicationController applicationController;
@@ -48,6 +42,7 @@ public class YearController extends VBox implements Observer {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
         model.addObserver(this);
 
     }
@@ -90,9 +85,9 @@ public class YearController extends VBox implements Observer {
      * @return index representing the study period
      */
     private int calculateStudyPeriod(double x) {
-        double yearGridFourth = yearGrid.getWidth()/4;
+        double slotWidth = yearGrid.getWidth()/4;
         for (int i = 1; i <= 4; i++) {
-            if(x < (yearGridFourth * i)){
+            if(x < (slotWidth * i)){
                 return i;
             }
         }

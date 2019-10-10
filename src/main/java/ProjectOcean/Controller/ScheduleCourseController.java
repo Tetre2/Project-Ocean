@@ -1,7 +1,6 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
-import ProjectOcean.Model.Schedule;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -51,11 +50,18 @@ public class ScheduleCourseController extends VBox implements Movable{
         this.courseCodeLabel.setText(model.getCourse(id).getCourseCode());
     }
 
+    /**
+     * @return the UUID of the Movable instance
+     */
     @Override
     public UUID getUUID() {
         return id;
     }
 
+    /**
+     * Relocates the CourseListIconController instance according to the point parameter
+     * @param p the point representing the current mouse coordinates
+     */
     @Override
     public void relocateToPoint(Point2D p) {
         Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );

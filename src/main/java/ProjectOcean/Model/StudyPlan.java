@@ -1,11 +1,7 @@
 package ProjectOcean.Model;
 
 /**
-<<<<<<< HEAD
  * Class representing one of multiple study plans held by a student
-=======
- * Represents a StudyPlan in the model
->>>>>>> develop
  */
 public class StudyPlan {
 
@@ -23,7 +19,7 @@ public class StudyPlan {
      * @param slot the slot in which the course will be added
      */
     public void addCourseToSchedule(Course course, int year, int studyPeriod, int slot) {
-        schedule.tryAddCourse(course, year, studyPeriod, slot);
+        schedule.addCourse(course, year, studyPeriod, slot);
     }
 
     /**

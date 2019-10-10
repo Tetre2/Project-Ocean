@@ -1,6 +1,13 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Observable;
+import java.util.UUID;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -195,7 +202,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-<<<<<<< HEAD
      * @param id is a UUID for a specific course
      * @return returns the CourseDescription for the specified UUID
      */
@@ -211,7 +217,6 @@ public class CoursePlanningSystem extends Observable {
         return courses.get(id);
     }
     /**
-=======
      *
      * @param searchText: A string of search terms seperated by blankspaces
      * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
@@ -270,7 +275,6 @@ public class CoursePlanningSystem extends Observable {
     }
       
      /**
->>>>>>> develop
      * Adds a course to the workspace
      * @param id is a UUID for a specific course
      */

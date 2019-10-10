@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a graphical component of a study plan.
@@ -16,14 +14,9 @@ public class StudyPlanController extends VBox {
 
     @FXML private VBox yearContentView;
 
-    private final CoursePlanningSystem model;
-    private final ApplicationController applicationController;
     private YearController yearController;
 
     public StudyPlanController(CoursePlanningSystem model, ApplicationController applicationController) {
-        this.model = model;
-        this.applicationController = applicationController;
-
         yearController = new YearController(1, model, applicationController);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(

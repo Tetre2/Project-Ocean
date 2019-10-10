@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
  * Class representing a year-row in a student's study plan
-=======
- * Represents a Year in the model
->>>>>>> develop
  */
 public class Year {
 

@@ -21,7 +21,7 @@ public class ScheduleTests {
     public void removeCourseTest() {
         Schedule schedule = new Schedule();
         Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
-        schedule.tryAddCourse(course, year,studyPeriod,slot);
+        schedule.addCourse(course, year,studyPeriod,slot);
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
         schedule.removeCourse(course, year, studyPeriod, slot);
@@ -29,18 +29,18 @@ public class ScheduleTests {
     }
 
     @Test
-    public void tryAddCourse() {
+    public void tryCourseTest() {
         Schedule schedule = new Schedule();
         Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
 
-        schedule.tryAddCourse(course, year,studyPeriod,slot);
+        schedule.addCourse(course, year,studyPeriod,slot);
 
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
     }
 
     @Test
-    public void addYear() {
+    public void addYearTest() {
         Schedule schedule = new Schedule();
 
         schedule.addYear();
