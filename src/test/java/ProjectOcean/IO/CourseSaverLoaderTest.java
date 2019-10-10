@@ -26,7 +26,7 @@ public class CourseSaverLoaderTest {
 
     @Test
     public void loadStudyPlansTest(){
-        courseSaverLoader.loadCourses();
+        courseSaverLoader.tryToLoadCoursesFileIfNotCreateNewFile();
     }
 
 
@@ -41,9 +41,9 @@ public class CourseSaverLoaderTest {
 
         courseSaverLoader.savePreMadeCourses();
 
-        courses = courseSaverLoader.loadCourses();
+        courses = courseSaverLoader.tryToLoadCoursesFileIfNotCreateNewFile();
 
-        Assert.assertTrue(courses.equals(courseSaverLoader.loadCourses()));
+        Assert.assertTrue(courses.equals(courseSaverLoader.tryToLoadCoursesFileIfNotCreateNewFile()));
 
     }
 

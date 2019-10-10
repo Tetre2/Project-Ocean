@@ -59,7 +59,7 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void loadStudent(){
-        student = saverLoader.loadStudent();
+        student = saverLoader.tryToLoadStudentFileIfNotCreateNewFile();
         Assert.assertTrue(student.equals(this.student));
     }
 
