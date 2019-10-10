@@ -55,8 +55,8 @@ public class CourseListIconController extends VBox implements Movable {
             courseName = courseName.substring(0, 27) + "...";
         }
         this.courseNameText.setText(courseName);
-        this.courseCodeText.setText(this.model.getCourseCode(course));
-        this.studyPointsText.setText(this.model.getStudyPoints(course) + " hp");
+        this.courseCodeText.setText(course.getCourseCode());
+        this.studyPointsText.setText((course.getStudyPoints()) + " hp");
     }
 
 

@@ -51,14 +51,6 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      * @param course is a UUID for a specific course
-     * @return returns the CourseCode for the specified UUID
-     */
-    public String getCourseCode(ICourse course) {
-        return course.getCourseCode();
-    }
-
-    /**
-     * @param course is a UUID for a specific course
      * @return returns the CourseName for the specified UUID
      */
     public String getCourseName(ICourse course) {
