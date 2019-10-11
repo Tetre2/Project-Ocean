@@ -127,11 +127,11 @@ public class CoursePlanningSystemTests {
     @Test
     public void executeSearchTest() {
         //Test searching for examinor
-        String searchText = "SöderSTröm Rolf";
+        String searchText = "SnEdSpö Rolf";
         List<ICourse> searchResult = model.executeSearch(searchText);
         searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("söderström"));
+        Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("snedspö"));
         searchResult.clear();
 
         //tests searching for course code
