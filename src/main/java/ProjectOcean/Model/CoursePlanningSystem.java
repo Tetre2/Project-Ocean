@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CoursesNotFoundException;
 import ProjectOcean.IO.ICourseSaveLoader;
 import ProjectOcean.IO.IStudyPlanSaverLoader;
 import ProjectOcean.IO.SaveloaderFactory;
@@ -24,7 +25,8 @@ public class CoursePlanningSystem extends Observable {
 
     public static CoursePlanningSystem getInstance(){
         if(model == null){
-            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), courseSaveLoader.loadCoursesFile());
+
+            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), getCoursesFromCoursLoader());
         }
         return model;
     }
@@ -259,6 +261,22 @@ public class CoursePlanningSystem extends Observable {
         student.removeCourseFromWorkspace(courses.get(id));
         setChanged();
         notifyObservers();
+    }
+
+    private static Map<UUID, Course> getCoursesFromCoursLoader(){
+        Map<UUID, Course> courses = null;
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            courseSaveLoader.createCoursesFile();
+        }
+
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+        return courses;
     }
 
     /**
