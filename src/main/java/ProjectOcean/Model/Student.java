@@ -15,33 +15,21 @@ public class Student {
     private Workspace workspace;
 
     public Student() {
-        this.workspace = new Workspace();
-        this.studyPlans = new ArrayList<>();
-        this.currentStudyPlan = new StudyPlan();
+        this(new ArrayList<>(), new Workspace(), new StudyPlan());
     }
 
-    /**
-     * Sets the students studyplans
-     * @param studyPlans the list of studyplans being set
-     */
-    public void setStudyPlans(List<StudyPlan> studyPlans) {
+    public Student(List<StudyPlan> studyPlans){
+        this(studyPlans, new Workspace(), new StudyPlan());
+    }
+
+    public Student(List<StudyPlan> studyPlans, Workspace workspace){
+        this(studyPlans, workspace, new StudyPlan());
+    }
+
+    public Student(List<StudyPlan> studyPlans, Workspace workspace, StudyPlan currentStudyPlan) {
         this.studyPlans = studyPlans;
-    }
-
-    /**
-     * Sets the students workspace
-     * @param workspace the workspace being set
-     */
-    public void setWorkspace(Workspace workspace) {
-        this.workspace = workspace;
-    }
-
-    /**
-     * Sets the currentStudyPlan
-     * @param currentStudyPlan the
-     */
-    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
         this.currentStudyPlan = currentStudyPlan;
+        this.workspace = workspace;
     }
 
     /**
