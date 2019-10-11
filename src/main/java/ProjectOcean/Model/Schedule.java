@@ -17,7 +17,6 @@ public class Schedule {
         if(years.size()< 1){
             years.add(new Year());
         }
-        //TODO möjligt ställe koden dör
     }
 
     /**
