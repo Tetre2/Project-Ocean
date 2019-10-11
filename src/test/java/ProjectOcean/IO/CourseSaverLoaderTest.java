@@ -53,6 +53,13 @@ public class CourseSaverLoaderTest {
             Assert.assertFalse(true);
         }
 
+        System.out.println(courses.toString());
+        try {
+            System.out.println(courseSaverLoader.loadCoursesFile().toString());
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+
         try {
             Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
         } catch (CoursesNotFoundException e) {
