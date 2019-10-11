@@ -23,10 +23,10 @@ public class Course implements ICourse {
     @Override
     public String toString() {
         return "Course{" +
-                "studyPeriod=" + studyPeriod +
-                ", cDetails=" + cDetails +
-                ", cInfo=" + cInfo +
-                ", cAccessibility=" + cAccessibility +
+                "studyPeriod='" + studyPeriod + '\'' +
+                ", " + cInfo +
+                ", " + cAccessibility +
+                ", " + cDetails +
                 '}';
     }
 

@@ -48,6 +48,13 @@ public class CourseDetails {
     }
 
     @Override
+    public String toString() {
+        return "requiredCourses=" + requiredCourses +
+                ", coursePMLink='" + coursePMLink + '\'' +
+                ", courseDescription='" + courseDescription + '\'';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

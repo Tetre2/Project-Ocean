@@ -161,10 +161,10 @@ public class CourseTests {
 
         String actual = course1.toString();
         String expected = "Course{" +
+                "studyPeriod='" + course1.getStudyPeriod() + '\'' +
                 ", courseCode='" + course1.getCourseCode() + '\'' +
                 ", courseName='" + course1.getCourseName() + '\'' +
                 ", studyPoints='" + course1.getStudyPoints()+ '\'' +
-                ", studyPeriod='" + course1.getStudyPeriod()+ '\'' +
                 ", examiner='" + course1.getExaminer()+ '\'' +
                 ", examinationMeans='" + course1.getExaminationMeans()+ '\'' +
                 ", language='" + course1.getLanguage()+ '\'' +
