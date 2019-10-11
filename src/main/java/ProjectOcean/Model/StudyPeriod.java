@@ -54,26 +54,15 @@ public class StudyPeriod {
         if (o == null || getClass() != o.getClass()) return false;
         StudyPeriod that = (StudyPeriod) o;
 
-        //true = both course1 == that.course1 and course2 == that.course2
-        //otherwise return false
+        boolean isEqual = true;
 
-        if(course1 == null && that.course1 != null){
-            return false;
-        }else if(course2 == null && that.course2 != null){
-            return false;
+        if(!((course1 != null && course1.equals(that.course1)) || (course1 == null && that.course1 == null))){
+            isEqual = false;
         }
-
-        if(course1 == null && that.course1 == null && course2 == null && that.course2 == null){
-            return true;
-        }else if(course1 == null && that.course1 == null && course2.equals(that.course2)){
-            return true;
-        }else if(course2 == null && that.course2 == null && course1.equals(that.course1)){
-            return true;
-        }else {
-            return false;
+        if(!((course2 != null && course2.equals(that.course2)) || ((course2 == null && that.course2 == null)))){
+            isEqual = false;
         }
-
-        //return (((course1 == null && that.course1 == null) && (course2 == null && course2 == null)) || ((course1 == null && that.course1 == null) && (course2.equals(that.course2))) || ((course1.equals(that.course1)) && (course2 == null && that.course2 == null)));
+        return isEqual;
     }
 
     @Override
