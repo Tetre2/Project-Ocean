@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -25,9 +26,9 @@ public class ScheduleCourseController extends VBox implements Movable{
     private int year;
     private int studyPeriod;
     private int slot;
-    private final UUID id;
+    private final ICourse course;
 
-    public ScheduleCourseController(CoursePlanningSystem model, UUID id, ApplicationController applicationController, int year, int studyPeriod, int slot) {
+    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, ApplicationController applicationController, int year, int studyPeriod, int slot) {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -44,18 +45,18 @@ public class ScheduleCourseController extends VBox implements Movable{
         this.model = model;
         this.slot = slot;
         this.applicationController = applicationController;
-        this.id = id;
+        this.course = course;
         this.year = year;
         this. studyPeriod = studyPeriod;
-        this.courseCodeLabel.setText(model.getCourse(id).getCourseCode());
+        this.courseCodeLabel.setText(model.getCourse(course).getCourseCode());
     }
 
     /**
      * @return the UUID of the Movable instance
      */
     @Override
-    public UUID getUUID() {
-        return id;
+    public ICourse getICourse() {
+        return course;
     }
 
     /**
@@ -82,10 +83,10 @@ public class ScheduleCourseController extends VBox implements Movable{
         content.putString(icon.toString());
 
         
-        model.removeCourse(icon.getUUID(), year, studyPeriod, slot);
+        model.removeCourse(course, year, studyPeriod, slot);
 
         //MUST come after the above statement
-        icon = new ScheduleCourseController(model ,icon.getUUID(), applicationController, year, studyPeriod, slot);
+        icon = new ScheduleCourseController(model ,course, applicationController, year, studyPeriod, slot);
         applicationController.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);

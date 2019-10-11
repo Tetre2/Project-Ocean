@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class StudyPlanTests {
     private int studyPeriod;
     private int slot;
@@ -19,8 +21,11 @@ public class StudyPlanTests {
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
-
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        Course course = CourseFactory.CreateCourse();
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 
@@ -32,8 +37,11 @@ public class StudyPlanTests {
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
-
+        CourseFactory.SetStudyPeriod(1);
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        Course course = CourseFactory.CreateCourse();
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 

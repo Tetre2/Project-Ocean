@@ -22,7 +22,7 @@ public class Year {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(Course course, int studyPeriod, int slot) {
+    public void addCourse(ICourse course, int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).addCourse(course, slot);
     }
 
@@ -31,7 +31,7 @@ public class Year {
      * @param course the course to be removed
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int studyPeriod, int slot) {
+    public void removeCourse(ICourse course, int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).removeCourse(course, slot);
     }
 

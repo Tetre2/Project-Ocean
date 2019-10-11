@@ -21,7 +21,7 @@ public class CourseFactory {
      * Create a course with the current variable state of this class.
      * @return A freshly created course of type ICourse
      */
-    public static ICourse CreateCourse() {
+    public static Course CreateCourse() {
         return new Course(studyPeriod, cDetails, cInfo, cAccessibility);
     }
 
