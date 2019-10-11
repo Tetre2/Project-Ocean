@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.Objects;
+
 /**
  * Class has responsible for information of a course.
  */
@@ -43,5 +45,20 @@ public class CourseInfo {
                 ", courseCode='" + courseCode + '\'' +
                 ", studyPoints=" + studyPoints +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseInfo that = (CourseInfo) o;
+        return courseCode.equals(that.courseCode) &&
+                courseName.equals(that.courseName) &&
+                studyPoints.equals(that.studyPoints);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseCode, courseName, studyPoints);
     }
 }

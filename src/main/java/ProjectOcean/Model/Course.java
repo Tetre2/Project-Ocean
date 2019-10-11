@@ -115,9 +115,9 @@ public class Course implements ICourse {
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
         return studyPeriod == course.studyPeriod &&
-                Objects.equals(cDetails, course.cDetails) &&
-                Objects.equals(cInfo, course.cInfo) &&
-                Objects.equals(cAccessibility, course.cAccessibility);
+                cDetails.equals(course.cDetails) &&
+                cInfo.equals(course.cInfo) &&
+                cAccessibility.equals(course.cAccessibility);
     }
 
     @Override

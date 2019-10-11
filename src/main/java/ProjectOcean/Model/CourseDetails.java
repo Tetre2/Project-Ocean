@@ -3,6 +3,7 @@ package ProjectOcean.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class has responsible for details of a course.
@@ -46,4 +47,18 @@ public class CourseDetails {
         return courseDescription;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseDetails that = (CourseDetails) o;
+        return requiredCourses.equals(that.requiredCourses) &&
+                coursePMLink.equals(that.coursePMLink) &&
+                courseDescription.equals(that.courseDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requiredCourses, coursePMLink, courseDescription);
+    }
 }

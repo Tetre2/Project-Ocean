@@ -21,6 +21,7 @@ public class CoursePlanningSystemTests {
     @Before
     public void init(){
         model = CoursePlanningSystem.getInstance();
+        courses = new ArrayList<>();
         List<StudyPlan> studyPlans = new ArrayList<>();
 
         for (Course course : coursesSaverLoader.generatePreDefinedCourses()) {
