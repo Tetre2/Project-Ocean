@@ -143,7 +143,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         //if the current studyplan cant be found in the list of studyplans create a student with current studyplan as the first element in studyplans
         //if studyplans is empty create a new create a new current studyplan
         if(studyPlans.size() == 0){
-            return new Student(studyPlans, createWorkspaceFromJSON(jsonObject));
+            StudyPlan studyPlan = new StudyPlan();
+            studyPlans.add(studyPlan);
+            return new Student(studyPlans, createWorkspaceFromJSON(jsonObject), studyPlan);
         }
         return new Student(studyPlans, createWorkspaceFromJSON(jsonObject), studyPlans.get(0));
 
