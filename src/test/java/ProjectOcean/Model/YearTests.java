@@ -20,8 +20,8 @@ public class YearTests {
     @Test
     public void addCourseTest() {
         Year year = new Year();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
@@ -34,8 +34,8 @@ public class YearTests {
     @Test
     public void removeCourseTest() {
         Year year = new Year();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
@@ -43,7 +43,7 @@ public class YearTests {
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());
 
-        year.removeCourse(course, studyPeriod, slot);
+        year.removeCourse(studyPeriod, slot);
 
         Assert.assertTrue(year.getStudyPeriod(studyPeriod).getCourse1() == null);
 

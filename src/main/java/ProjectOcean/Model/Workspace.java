@@ -3,6 +3,7 @@ package ProjectOcean.Model;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a workspace where you can temporarily save courses for easy access.
@@ -47,5 +48,25 @@ public class Workspace {
      */
     public List<Course> getAllCourses(){
         return Collections.unmodifiableList(courses);
+    }
+
+    @Override
+    public String toString() {
+        return "Workspace{" +
+                "courses=" + courses +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Workspace workspace = (Workspace) o;
+        return courses.equals(workspace.courses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courses);
     }
 }

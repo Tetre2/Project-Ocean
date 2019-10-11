@@ -1,9 +1,10 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.*;
+
 import java.util.Collections;
 import java.util.Observable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,16 +12,25 @@ import java.util.List;
  */
 public class CoursePlanningSystem extends Observable {
 
-    private final Student student;
-    private final List<ICourse> courses;
+    private List<Course> courses;
+    private Student student;
+    private static CoursePlanningSystem model;
+    private static ICourseSaveLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
 
-    /**
-     * Constructor call method generateCourses to instantiate a list of courses at startup of program.
-     * A student object is created.
-     */
-    public CoursePlanningSystem() {
-        this.courses = generateCourses();
-        this.student = new Student();
+    public static CoursePlanningSystem getInstance(){
+        if(model == null){
+
+            return model = new CoursePlanningSystem(getStudyPlanFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
+        }
+        return model;
+    }
+
+    private CoursePlanningSystem(Student student, List<Course> courses) {
+        this.courses = courses;
+        this.student = student;
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -28,25 +38,6 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<ICourse> getAllCourses() {
         return Collections.unmodifiableList(courses);
-    }
-
-    /**
-     * Creates a list of hard coded courses
-     * @return returns a list full of courses
-     */
-    public List<ICourse> generateCourses() {
-
-        List<ICourse> courses = new ArrayList<>();
-
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        ICourse course = CourseFactory.CreateCourse();
-
-        courses.add(course);
-        
-        return courses;
     }
 
     /**
@@ -70,17 +61,25 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(int year, int studyPeriod, int slot){
+        addCourse(year, studyPeriod, slot);
+    }
+
+    /**
      * Removes the given course in the given year and study period, for the current student
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(ICourse course, int year, int studyPeriod, int slot) {
-        student.removeCourse(course, year, studyPeriod, slot);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        student.removeCourse(year, studyPeriod, slot);
         setChanged();
         notifyObservers();
     }
-
 
     /**
      * @param course is a Icourse for a specific course
@@ -141,7 +140,7 @@ public class CoursePlanningSystem extends Observable {
         // if found adds the course to search result.
         for(String s : searchTerms) {
             for(ICourse c : courses) {
-                if(c.getExaminator().toLowerCase().contains(s) && !searchResult.contains(c)) {
+                if(c.getExaminer().toLowerCase().contains(s) && !searchResult.contains(c)) {
                     searchResult.add(c);
                 }
             }
@@ -162,7 +161,7 @@ public class CoursePlanningSystem extends Observable {
      * @return a list of UUID:s för the courses in workspace.
      */
     public List<ICourse> getCoursesInWorkspaceIDs(){
-        List<ICourse> idList = new ArrayList<ICourse>();
+        List<ICourse> idList = new ArrayList<>();
         for (Course c : student.getAllCoursesInWorkspace()) {
             idList.add(c);
         }
@@ -178,4 +177,46 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    private static List<Course> getCoursesFromCourseLoader(){
+        List<Course> courses = null;
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            courseSaveLoader.createCoursesFile();
+        }
+
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
+    private static Student getStudyPlanFromStudyPlanSaverLoader(){
+        Student student = null;
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            studyPlanSaverLoader.createNewStudentFile();
+        }
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return student;
+    }
+
+    /**
+     * Saves the student and its contents
+     */
+    public void saveStudentToJSON(){
+        studyPlanSaverLoader.saveStudyplans(student);
+    }
+
 }

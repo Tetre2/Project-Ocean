@@ -82,8 +82,8 @@ public class ScheduleCourseController extends VBox implements Movable{
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
-        
-        model.removeCourse(course, year, studyPeriod, slot);
+
+        model.removeCourse(year, studyPeriod, slot);
 
         //MUST come after the above statement
         icon = new ScheduleCourseController(model ,course, applicationController, year, studyPeriod, slot);

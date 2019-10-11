@@ -4,25 +4,26 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class CourseTests {
 
     @Test
     public void courseUniqueIdTest() {
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         CourseFactory.CreateCourse();
 
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         ICourse course1 = CourseFactory.CreateCourse();
 
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         ICourse course2 = CourseFactory.CreateCourse();
@@ -152,18 +153,24 @@ public class CourseTests {
 
     @Test
     public void toStringTest() {
-
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course1 = CourseFactory.CreateCourse();
 
         String actual = course1.toString();
         String expected = "Course{" +
-                "name='" + course1.getCourseName() + '\'' +
                 ", courseCode='" + course1.getCourseCode() + '\'' +
-                ", studyPoints=" + course1.getStudyPoints() +
+                ", courseName='" + course1.getCourseName() + '\'' +
+                ", studyPoints='" + course1.getStudyPoints()+ '\'' +
+                ", studyPeriod='" + course1.getStudyPeriod()+ '\'' +
+                ", examiner='" + course1.getExaminer()+ '\'' +
+                ", examinationMeans='" + course1.getExaminationMeans()+ '\'' +
+                ", language='" + course1.getLanguage()+ '\'' +
+                ", requiredCourses=" + course1.getRequiredCourses()+
+                ", coursePMLink='" + course1.getCoursePMLink()+ '\'' +
+                ", courseDescription='" + course1.getCourseDescription()+ '\'' +
                 '}';
 
         Assert.assertEquals(expected, actual);

@@ -1,7 +1,6 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -27,17 +26,16 @@ public class ApplicationController extends AnchorPane {
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
     private final StudyPlanController studyPlanController;
-
     private static DetailedController detailedController;
     private final HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        this.model = new CoursePlanningSystem();
+        this.model = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(model, this);
         this.workspaceController = new WorkspaceController(model, this);
         this.studyPlanController = new StudyPlanController(model, this);
-        detailedController = new DetailedController(model, this);
+        detailedController = new DetailedController(model, this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -124,4 +122,21 @@ public class ApplicationController extends AnchorPane {
     public HostServices getHostServices() {
         return hostServices;
     }
+
+
+    /**
+     * Method is called from the menubar in the view
+     */
+    @FXML
+    public void onSaveClicked(){
+        saveStudent();
+    }
+
+    /**
+     * Method saves all properties of student in a json file
+     */
+    public void saveStudent(){
+        model.saveStudentToJSON();
+    }
+
 }

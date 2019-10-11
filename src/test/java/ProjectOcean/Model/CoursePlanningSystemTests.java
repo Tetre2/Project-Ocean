@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CourseSaverLoaderTest;
+import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,15 +9,10 @@ import org.junit.Test;
 import java.util.*;
 
 public class CoursePlanningSystemTests {
-/*<<<<<<< HEAD
-    private CoursePlanningSystem coursePlanningSystem;
-    private Map<UUID, Course> courses;
-    private List<UUID> allUUIDs;
-=======*/
-
 
     private CoursePlanningSystem model;
     private List<ICourse> courses;
+    private CoursesSaverLoader coursesSaverLoader;
 
     private int year;
     private int studyPeriod;
@@ -23,8 +20,16 @@ public class CoursePlanningSystemTests {
 
     @Before
     public void init(){
-        model = new CoursePlanningSystem();
-        courses = model.generateCourses();
+        model = CoursePlanningSystem.getInstance();
+        List<StudyPlan> studyPlans = new ArrayList<>();
+
+        for (Course course : coursesSaverLoader.generatePreDefinedCourses()) {
+            courses.add(course);
+        }
+
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlans.add(studyPlan);
+
 
         year = 1;
         studyPeriod = 1;
@@ -63,8 +68,8 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
 
-        model.removeCourse(course1, year, studyPeriod, slot);
-        model.removeCourse(course2, year, studyPeriod, slot + 1);
+        model.removeCourse(year, studyPeriod, slot);
+        model.removeCourse(year, studyPeriod, slot + 1);
 
         Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
@@ -125,7 +130,7 @@ public class CoursePlanningSystemTests {
         List<ICourse> searchResult = model.executeSearch(searchText);
         searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        Assert.assertTrue(searchResult.get(0).getExaminator().toLowerCase().contains("söderström"));
+        Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("söderström"));
         searchResult.clear();
 
         //tests searching for course code

@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class CourseDetails {
 
-    private final List<Course> requiredCourses;
+    private final List<String> requiredCourses;
     private final String coursePMLink;
     private final String courseDescription;
 
-    public CourseDetails(List<Course> requiredCourses, String coursePMLink, String courseDescription) {
+    public CourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription) {
         this.requiredCourses = requiredCourses;
         this.coursePMLink = coursePMLink;
         this.courseDescription = courseDescription;
@@ -25,8 +25,8 @@ public class CourseDetails {
     public List<String> getRequiredCourses() {
         List<String> requiredCourses = new ArrayList<>();
 
-        for (Course course : this.requiredCourses) {
-            requiredCourses.add(course.getCourseName());
+        for (String string : this.requiredCourses) {
+            requiredCourses.add(string);
         }
 
         return Collections.unmodifiableList(requiredCourses);

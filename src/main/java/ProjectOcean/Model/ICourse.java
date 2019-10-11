@@ -13,7 +13,7 @@ public interface ICourse {
 
     public String getStudyPeriod();
 
-    public String getExaminator();
+    public String getExaminer();
 
     public String getExaminationMeans();
 

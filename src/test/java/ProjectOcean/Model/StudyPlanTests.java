@@ -21,8 +21,8 @@ public class StudyPlanTests {
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
@@ -37,8 +37,8 @@ public class StudyPlanTests {
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
@@ -47,7 +47,7 @@ public class StudyPlanTests {
 
         Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
-        studyPlan.removeCourseFromSchedule(course, year, studyPeriod, slot);
+        studyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
 
         Assert.assertTrue(studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1() == null);
     }

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class CourseFactory {
 
-    private static int studyPeriod;
+    private static String studyPeriod;
     private static CourseDetails cDetails;
     private static CourseInfo cInfo;
     private static CourseAccessibility cAccessibility;
@@ -28,7 +28,7 @@ public class CourseFactory {
     /**
      * @param studyPeriod Set a course's study period
      */
-    public static void SetStudyPeriod(int studyPeriod) {
+    public static void SetStudyPeriod(String studyPeriod) {
         CourseFactory.studyPeriod = studyPeriod;
     }
 
@@ -37,7 +37,7 @@ public class CourseFactory {
      * @param coursePMLink Set a link to a course's PM
      * @param courseDescription Set a course's description
      */
-    public static void SetCourseDetails(List<Course> requiredCourses, String coursePMLink, String courseDescription) {
+    public static void SetCourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription) {
         CourseFactory.cDetails = new CourseDetails(requiredCourses, coursePMLink, courseDescription);
     }
 
@@ -46,7 +46,7 @@ public class CourseFactory {
      * @param courseName Set a course's name
      * @param studyPoints Set a course's study points
      */
-    public static void SetCourseInfo(String courseCode, String courseName, float studyPoints) {
+    public static void SetCourseInfo(String courseCode, String courseName, String studyPoints) {
         CourseFactory.cInfo = new CourseInfo(courseCode, courseName, studyPoints);
     }
 

@@ -1,20 +1,19 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a course in the model
  */
 public class Course implements ICourse {
 
-    private final int studyPeriod;
+    private final String studyPeriod;
     private final CourseDetails cDetails;
     private final CourseInfo cInfo;
     private final CourseAccessibility cAccessibility;
 
-    public Course(int studyPeriod, CourseDetails cDeatils, CourseInfo cInfo, CourseAccessibility cAccessibility) {
+    public Course(String studyPeriod, CourseDetails cDeatils, CourseInfo cInfo, CourseAccessibility cAccessibility) {
         this.studyPeriod = studyPeriod;
         this.cDetails = cDeatils;
         this.cInfo = cInfo;
@@ -23,7 +22,12 @@ public class Course implements ICourse {
 
     @Override
     public String toString() {
-        return cInfo.toString();
+        return "Course{" +
+                "studyPeriod=" + studyPeriod +
+                ", cDetails=" + cDetails +
+                ", cInfo=" + cInfo +
+                ", cAccessibility=" + cAccessibility +
+                '}';
     }
 
     /**
@@ -85,7 +89,7 @@ public class Course implements ICourse {
      * @return this course's examinator
      */
     @Override
-    public String getExaminator() {
+    public String getExaminer() {
         return cAccessibility.getExaminator();
     }
 
@@ -104,4 +108,22 @@ public class Course implements ICourse {
     public String getLanguage() {
         return cAccessibility.getLanguage();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return studyPeriod == course.studyPeriod &&
+                Objects.equals(cDetails, course.cDetails) &&
+                Objects.equals(cInfo, course.cInfo) &&
+                Objects.equals(cAccessibility, course.cAccessibility);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studyPeriod, cDetails, cInfo, cAccessibility);
+    }
 }
+
+

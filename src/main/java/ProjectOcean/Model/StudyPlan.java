@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.Objects;
+
 /**
  * Class representing one of multiple study plans held by a student
  */
@@ -24,12 +26,11 @@ public class StudyPlan {
 
     /**
      * Removes the given course in the given year and study period, in the schedule
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourseFromSchedule(ICourse course, int year, int studyPeriod, int slot){
-        schedule.removeCourse(course, year, studyPeriod, slot);
+    public void removeCourseFromSchedule(int year, int studyPeriod, int slot){
+        schedule.removeCourse(year, studyPeriod, slot);
     }
 
     /**
@@ -52,5 +53,25 @@ public class StudyPlan {
      */
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudyPlan studyPlan = (StudyPlan) o;
+        return schedule.equals(studyPlan.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(schedule);
+    }
+
+    @Override
+    public String toString() {
+        return "StudyPlan{" +
+                "schedule=" + schedule +
+                '}';
     }
 }

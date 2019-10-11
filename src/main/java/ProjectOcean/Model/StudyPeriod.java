@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.Objects;
+
 /**
  * Class representing a single study period in a year
  */
@@ -23,9 +25,8 @@ public class StudyPeriod {
 
     /**
      * Removes the given course from the study period
-     * @param course
      */
-    public void removeCourse(ICourse course, int slot) {
+    public void removeCourse(int slot) {
         if(slot == 1)
             course1 = null;
         else
@@ -44,5 +45,36 @@ public class StudyPeriod {
      */
     public ICourse getCourse2() {
         return course2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudyPeriod that = (StudyPeriod) o;
+
+        boolean isEqual = true;
+
+        if(!((course1 != null && course1.equals(that.course1)) || (course1 == null && that.course1 == null))){
+            isEqual = false;
+        }
+        if(!((course2 != null && course2.equals(that.course2)) || ((course2 == null && that.course2 == null)))){
+            isEqual = false;
+        }
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(course1, course2);
+    }
+
+    @Override
+    public String toString() {
+        return "StudyPeriod{" +
+                "course1=" + course1 +
+                ", course2=" + course2 +
+                '}';
     }
 }

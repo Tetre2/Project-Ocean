@@ -22,12 +22,11 @@ public class StudentTests {
     @Test
     public void addCourseTest() {
         Student student = new Student();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
-
         student.addCourse(course, year, studyPeriod, slot);
 
         Assert.assertEquals(course, student.getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
@@ -36,8 +35,8 @@ public class StudentTests {
     @Test
     public void removeCourseTest() {
         Student student = new Student();
-        CourseFactory.SetStudyPeriod(1);
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", 7.5f);
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
         CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
@@ -45,7 +44,7 @@ public class StudentTests {
 
         Assert.assertEquals(course, student.getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
-        student.removeCourse(course, year, studyPeriod, slot);
+        student.removeCourse(year, studyPeriod, slot);
         Assert.assertEquals(null, student.getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
     }
 

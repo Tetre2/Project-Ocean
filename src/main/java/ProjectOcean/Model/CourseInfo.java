@@ -7,9 +7,9 @@ public class CourseInfo {
 
     private final String courseCode;
     private final String courseName;
-    private final float studyPoints;
+    private final String studyPoints;
 
-    public CourseInfo(String courseCode, String courseName, float studyPoints) {
+    public CourseInfo(String courseCode, String courseName, String studyPoints) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;
