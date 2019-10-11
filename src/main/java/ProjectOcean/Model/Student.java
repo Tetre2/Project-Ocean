@@ -9,7 +9,8 @@ import java.util.List;
 public class Student {
 
     private Workspace workspace = new Workspace();
-    private List<ProjectOcean.Model.StudyPlan> studyPlans;
+
+    private List<StudyPlan> studyPlans;
     private StudyPlan currentStudyPlan;
 
     public Student() {
@@ -25,7 +26,7 @@ public class Student {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(Course course, int year, int studyPeriod, int slot) {
+    public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
         currentStudyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
     }
 
@@ -35,7 +36,7 @@ public class Student {
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
+    public void removeCourse(ICourse course, int year, int studyPeriod, int slot) {
         currentStudyPlan.removeCourseFromSchedule(course, year, studyPeriod, slot);
     }
 

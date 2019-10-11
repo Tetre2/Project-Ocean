@@ -1,20 +1,22 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represents a workspace where you can temporarily save courses for easy access.
  */
 public class Workspace {
 
-    private final List courses = new LinkedList<Course>();
+    private final List courses = new LinkedList<ICourse>();
 
 
     /**
      * Adds a specific course to the workspace
      * @param course the course instance to be added
      */
-    public void addCourse(Course course){
+    public void addCourse(ICourse course){
         if(!courses.contains(course)){
             courses.add(course);
         }
@@ -24,7 +26,7 @@ public class Workspace {
      * Remove a specific course to the workspace
      * @param course the course instance to be removed
      */
-    public void removeCourse(Course course){
+    public void removeCourse(ICourse course){
         if(courses.contains(course)){
             courses.remove(course);
         }

@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 /**
  * Controller for the detailed view of a course
@@ -31,9 +31,9 @@ public class DetailedController extends VBox {
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
 
-    private CoursePlanningSystem model;
-    private HostServices hostServices;
-    private ApplicationController applicationController;
+    private final CoursePlanningSystem model;
+    private final HostServices hostServices;
+    private final ApplicationController applicationController;
 
     /**
      * Creates the view for the detailed view without any info in it.
@@ -64,26 +64,26 @@ public class DetailedController extends VBox {
 
     /**
      * Sets all info a course has and show it in the detailed window
-     * @param uuid is the unique id for one specific course
+     * @param course is the unique id for one specific course
      */
-    public void setDetailedInfo(UUID uuid){
+    public void setDetailedInfo(ICourse course){
         clear();
-        String header = model.getCourseCode(uuid) + " - " + model.getCourseName(uuid) + model.getStudyPoints(uuid);
+        String header = course.getCourseCode() + " - " + course.getCourseName() + course.getStudyPoints();
         setHeader(header);
 
-        setStudyPeriod(model.getStudyPeriod(uuid));
+        setStudyPeriod(course.getStudyPeriod());
 
-        setExaminator(model.getExaminator(uuid));
+        setExaminator(course.getExaminator());
 
-        setExaminationMeans(model.getExaminationMeans(uuid));
+        setExaminationMeans(course.getExaminationMeans());
 
-        setLanguage(model.getLanguage(uuid));
+        setLanguage(course.getLanguage());
 
-        setRequiredCourses(model.getRequiredCourses(uuid));
+        setRequiredCourses(course.getRequiredCourses());
 
-        setCoursePMLink(model.getCoursePMLink(uuid));
+        setCoursePMLink(course.getCoursePMLink());
 
-        setCourseDescription(model.getCourseDescription(uuid));
+        setCourseDescription(course.getCourseDescription());
     }
 
     private void setHeader(String header){
@@ -106,10 +106,10 @@ public class DetailedController extends VBox {
         this.language.setText(language);
     }
 
-    private void setRequiredCourses(List<UUID> courses) {
+    private void setRequiredCourses(List<String> courses) {
         //Creates a new label for each required course and adds them to the VBox
-        for (UUID uuid : courses) {
-            Label courseName = new Label(model.getCourseCode(uuid));
+        for (String course : courses) {
+            Label courseName = new Label(course);
             requiredCourses.getChildren().add(courseName);
         }
 
