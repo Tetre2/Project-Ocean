@@ -45,7 +45,7 @@ public class YearController extends VBox implements Observer {
 
         model.addObserver(this);
 
-        George();
+        displayAllCoursesInStudyPlan();
 
     }
 
@@ -111,7 +111,7 @@ public class YearController extends VBox implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        George();
+        displayAllCoursesInStudyPlan();
     }
 
 
@@ -119,7 +119,7 @@ public class YearController extends VBox implements Observer {
      * Felix ville inte hjälpa till att komma på en bra namn till funktionen så nu heter den george!
      * Har ni problem med det ta upp det med felix!
      */
-    private void George(){
+    private void displayAllCoursesInStudyPlan(){
         //Clears the gridpane
         int nElements = yearGrid.getChildren().size() - 1;
         for (int i = 0; i < nElements; i++) {
