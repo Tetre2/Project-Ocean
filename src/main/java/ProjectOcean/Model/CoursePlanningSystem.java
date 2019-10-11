@@ -1,9 +1,7 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CoursesNotFoundException;
-import ProjectOcean.IO.ICourseSaveLoader;
-import ProjectOcean.IO.IStudyPlanSaverLoader;
-import ProjectOcean.IO.SaveloaderFactory;
+import ProjectOcean.IO.*;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Observable;
@@ -26,7 +24,7 @@ public class CoursePlanningSystem extends Observable {
     public static CoursePlanningSystem getInstance(){
         if(model == null){
 
-            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), getCoursesFromCoursLoader());
+            return model = new CoursePlanningSystem(getStudyPlanFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
         }
         return model;
     }
@@ -263,7 +261,7 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
 
-    private static Map<UUID, Course> getCoursesFromCoursLoader(){
+    private static Map<UUID, Course> getCoursesFromCourseLoader(){
         Map<UUID, Course> courses = null;
         try {
             courses = courseSaveLoader.loadCoursesFile();
@@ -277,6 +275,24 @@ public class CoursePlanningSystem extends Observable {
             e.printStackTrace();
         }
         return courses;
+    }
+
+    private static Student getStudyPlanFromStudyPlanSaverLoader(){
+        Student student = null;
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            studyPlanSaverLoader.createNewStudentFile();
+        }
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return student;
     }
 
     /**

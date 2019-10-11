@@ -20,11 +20,12 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     public StudyPlanSaverLoader() {
     }
 
-    @Override
+
     /**
      * Saves the users studyplans and workspace to the userHomeDir
      * @param student contains a list of studyPlans that will being saved and
      */
+    @Override
     public void saveStudyplans(Student student) {
 
         JSONObject jsonStudent = new JSONObject();
@@ -117,24 +118,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @return returns a list of the loaded studyplanes + workspace
      */
     @Override
-    public Student tryToLoadStudentFileIfNotCreateNewFile(){
-
-        try {
-            return loadStudent();
-        } catch (StudyPlanNotFoundException e) {
-            createNewStudent();
-        }
-
-        try {
-            return loadStudent();
-        } catch (StudyPlanNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private Student loadStudent() throws StudyPlanNotFoundException {
+    public Student loadStudent() throws StudyPlanNotFoundException {
         try {
             return createStudent(readFromFile());
         } catch (ParseException e) {
@@ -238,7 +222,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         }
     }
 
-    private void createNewStudent(){
+    @Override
+    public void createNewStudentFile(){
         File directory = new File(getHomeDirPath());
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
