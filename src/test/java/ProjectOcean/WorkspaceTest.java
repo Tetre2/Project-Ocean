@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -154,7 +155,7 @@ public class WorkspaceTest {
 
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("HAT123", "Hierarkiska strukturer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!");
         CourseFactory.SetCourseAccessibility( "Anders Bölinge", "Tenta","Turkish");
         ICourse courseTemp = CourseFactory.CreateCourse();
 
