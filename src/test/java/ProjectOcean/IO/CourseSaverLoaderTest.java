@@ -26,7 +26,11 @@ public class CourseSaverLoaderTest {
 
     @Test
     public void loadStudyPlansTest(){
-        courseSaverLoader.loadCoursesFile();
+        try {
+            courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            Assert.assertFalse(true);
+        }
     }
 
 
@@ -41,9 +45,17 @@ public class CourseSaverLoaderTest {
 
         courseSaverLoader.savePreMadeCourses();
 
-        courses = courseSaverLoader.loadCoursesFile();
+        try {
+            courses = courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            Assert.assertFalse(true);
+        }
 
-        Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
+        try {
+            Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
+        } catch (CoursesNotFoundException e) {
+            Assert.assertFalse(true);
+        }
 
     }
 

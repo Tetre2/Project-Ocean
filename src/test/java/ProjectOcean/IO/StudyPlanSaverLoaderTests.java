@@ -46,9 +46,7 @@ public class StudyPlanSaverLoaderTests {
         studyPlans.add(studyPlan);
         //studyPlans.add(studyPlan2);
 
-        student = new Student();
-        student.setStudyPlans(studyPlans);
-        student.setWorkspace(workspace);
+        student = new Student(studyPlans, workspace);
 
 
     }
@@ -62,18 +60,20 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void loadStudent(){
-        student = saverLoader.tryToLoadStudentFileIfNotCreateNewFile();
+        try {
+            student = saverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        }
         Assert.assertTrue(student.equals(this.student));
 
         //tests so that two different students are not the same
-        Student studentTest = new Student();
-        studentTest.setWorkspace(new Workspace());
         ArrayList arr = new ArrayList();
         StudyPlan studyPlanTest = new StudyPlan();
         studyPlanTest.addYear();
-        studentTest.addCourse(courses.get(1), 1, 1, 1);
         arr.add(studyPlanTest);
-        studentTest.setStudyPlans(arr);
+        Student studentTest = new Student(arr);
+        studentTest.addCourse(courses.get(1), 1, 1, 1);
         Assert.assertFalse(studentTest.equals(student));
 
 

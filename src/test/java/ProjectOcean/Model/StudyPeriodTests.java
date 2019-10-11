@@ -1,9 +1,11 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.UUID;
 
 public class StudyPeriodTests {
@@ -41,8 +43,25 @@ public class StudyPeriodTests {
         studyPeriod.removeCourse(slot);
 
         Assert.assertTrue(course2 != studyPeriod.getCourse2());
+    }
+
+    @Test
+    public void eqaulsTest(){
+        StudyPeriod studyPeriod1 = new StudyPeriod();
+        StudyPeriod studyPeriod2 = new StudyPeriod();
+        List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();
+
+        studyPeriod1.addCourse(courses.get(0), 1);
+        studyPeriod2.addCourse(courses.get(0), 1);
+
+        Assert.assertTrue(studyPeriod1.equals(studyPeriod2));
+
+        //----
+        studyPeriod1.addCourse(courses.get(2), 2);
+        Assert.assertFalse(studyPeriod1.equals(studyPeriod2));
 
 
 
     }
+
 }

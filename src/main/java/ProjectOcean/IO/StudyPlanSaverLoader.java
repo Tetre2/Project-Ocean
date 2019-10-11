@@ -129,11 +129,24 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static Student createStudent(JSONObject jsonObject){
-        Student student = new Student();
-        student.setStudyPlans(createStudyPlansFromJSON(jsonObject));
-        student.setWorkspace(createWorkspaceFromJSON(jsonObject));
-        student.setCurrentStudyPlan(createCurrentStudyPlanFromJSON(jsonObject));
-      return student;
+
+        List<StudyPlan> studyPlans = createStudyPlansFromJSON(jsonObject);
+        StudyPlan currentStudyPlan = createCurrentStudyPlanFromJSON(jsonObject);
+
+        //sets the current studyplan as a referens to a studyplan in the list of studyplans insted of having it be two seperate objects
+        for (StudyPlan studyplan : studyPlans) {
+            if(studyplan.equals(currentStudyPlan)){
+                return new Student(studyPlans, createWorkspaceFromJSON(jsonObject), studyplan);
+            }
+        }
+
+        //if the current studyplan cant be found in the list of studyplans create a student with current studyplan as the first element in studyplans
+        //if studyplans is empty create a new create a new current studyplan
+        if(studyPlans.size() == 0){
+            return new Student(studyPlans, createWorkspaceFromJSON(jsonObject));
+        }
+        return new Student(studyPlans, createWorkspaceFromJSON(jsonObject), studyPlans.get(0));
+
     }
 
     private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject){
