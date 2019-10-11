@@ -30,25 +30,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public Map<UUID, Course> tryToLoadCoursesFileIfNotCreateNewFile(){
-
-        try {
-            return loadCourses();
-        } catch (CoursesNotFoundException e) {
-            createNewDefaultCourseFile();
-        }
-
-        try {
-            return loadCourses();
-        } catch (CoursesNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-    private Map<UUID, Course> loadCourses() throws CoursesNotFoundException{
+    public Map<UUID, Course> loadCoursesFile() throws CoursesNotFoundException{
         try {
             return readFromFile();
         } catch (ParseException e) {
@@ -56,6 +38,15 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         } catch (IOException e) {
             throw new CoursesNotFoundException();
         }
+    }
+
+    /**
+     * Creates a file filled with all default courses
+     */
+    @Override
+    public void createCoursesFile() {
+        new File(getHomeDirPath() + fileName);
+        savePreMadeCourses();
     }
 
     /**
@@ -134,14 +125,6 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      */
     static String getFileName() {
         return fileName;
-    }
-
-    /**
-     * Creates a file filled with all default courses
-     */
-    private static void createNewDefaultCourseFile(){
-        new File(getHomeDirPath() + fileName);
-        savePreMadeCourses();
     }
 
     /**

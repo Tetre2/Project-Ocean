@@ -34,7 +34,7 @@ public class StudyPlanSaverLoaderTests {
         studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
         workspace.addCourse(courses.get(1));
 
-        //---- studyPlan 1 ----
+        //---- studyPlan 2 ----
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();

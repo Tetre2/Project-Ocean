@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +24,7 @@ public class CoursePlanningSystem extends Observable {
 
     public static CoursePlanningSystem getInstance(){
         if(model == null){
-            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), courseSaveLoader.tryToLoadCoursesFileIfNotCreateNewFile());
+            return model = new CoursePlanningSystem(studyPlanSaverLoader.tryToLoadStudentFileIfNotCreateNewFile(), courseSaveLoader.loadCoursesFile());
         }
         return model;
     }
