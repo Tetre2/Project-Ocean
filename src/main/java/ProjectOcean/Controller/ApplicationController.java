@@ -119,10 +119,11 @@ public class ApplicationController extends AnchorPane {
         return hostServices;
     }
 
-    @FXML
+
     /**
      * Method is called from the menubar in the view
      */
+    @FXML
     public void onSaveClicked(){
         saveStudent();
     }
