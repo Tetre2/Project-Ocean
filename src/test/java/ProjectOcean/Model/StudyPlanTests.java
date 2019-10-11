@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class StudyPlanTests {
     private int studyPeriod;
     private int slot;
@@ -19,7 +21,7 @@ public class StudyPlanTests {
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
+        Course course = new Course(UUID.randomUUID(), "EDA433", "Grundläggande Datorteknik", "7.5", "0", "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
 
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
@@ -32,14 +34,14 @@ public class StudyPlanTests {
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        Course course = new Course("EDA433", "Grundläggande Datorteknik", 7.5F, 0, "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
+        Course course = new Course(UUID.randomUUID(), "EDA433", "Grundläggande Datorteknik", "7.5", "0", "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
 
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 
         Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
-        studyPlan.removeCourseFromSchedule(course, year, studyPeriod, slot);
+        studyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
 
         Assert.assertTrue(studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1() == null);
     }

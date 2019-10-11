@@ -1,5 +1,7 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CourseSaverLoaderTest;
+import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import java.util.*;
 
 public class CoursePlanningSystemTests {
     private CoursePlanningSystem coursePlanningSystem;
+    private CoursesSaverLoader coursesSaverLoader;
     private Map<UUID, Course> courses;
     private List<UUID> allUUIDs;
 
@@ -17,8 +20,17 @@ public class CoursePlanningSystemTests {
 
     @Before
     public void init(){
-        coursePlanningSystem = new CoursePlanningSystem();
-        courses = coursePlanningSystem.getAllCourses();
+        List<StudyPlan> studyPlans = new ArrayList<>();
+        courses = new HashMap<>();
+
+        for (Course course : coursesSaverLoader.generatePreDefinedCourses()) {
+            courses.put(course.getId(), course);
+        }
+
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlans.add(studyPlan);
+
+        coursePlanningSystem = CoursePlanningSystem.getInstance();
 
         year = 1;
         studyPeriod = 1;
@@ -109,7 +121,7 @@ public class CoursePlanningSystemTests {
 
         UUID courseID = allUUIDs.get(0);
 
-        String expected = courses.get(courseID).getExaminator();
+        String expected = courses.get(courseID).getExaminer();
         String actual = coursePlanningSystem.getExaminator(courseID);
 
         Assert.assertEquals(expected, actual);
@@ -149,7 +161,7 @@ public class CoursePlanningSystemTests {
         }
 
 
-        List<UUID> actual = coursePlanningSystem.getRequiredCourses(courseID);
+        List<String> actual = coursePlanningSystem.getRequiredCourses(courseID);
 
         Assert.assertEquals(expected, actual);
     }
@@ -198,8 +210,8 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(course1, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertEquals(course2, coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
 
-        coursePlanningSystem.removeCourse(course1, year, studyPeriod, slot);
-        coursePlanningSystem.removeCourse(allUUIDs.get(1), year, studyPeriod, slot + 1);
+        coursePlanningSystem.removeCourse(year, studyPeriod, slot);
+        coursePlanningSystem.removeCourse(year, studyPeriod, slot + 1);
 
         Assert.assertNull(coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertNull(coursePlanningSystem.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());

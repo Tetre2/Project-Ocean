@@ -32,6 +32,7 @@ public class StudyPlanController extends VBox {
 
         //Puts a first instance of a year into the study plan
         yearContentView.getChildren().add(0, yearController);
+
     }
 
 }

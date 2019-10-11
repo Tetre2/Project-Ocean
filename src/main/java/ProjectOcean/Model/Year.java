@@ -1,7 +1,9 @@
 package ProjectOcean.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class representing a year-row in a student's study plan
@@ -28,11 +30,10 @@ public class Year {
 
     /**
      * Removes a course from the given study period
-     * @param course the course to be removed
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int studyPeriod, int slot) {
-        studyPeriods.get(studyPeriod - 1).removeCourse(course, slot);
+    public void removeCourse(int studyPeriod, int slot) {
+        studyPeriods.get(studyPeriod - 1).removeCourse(slot);
     }
 
     /**
@@ -43,4 +44,30 @@ public class Year {
         return studyPeriods.get(period - 1);
     }
 
+    /**
+     * @return returns all studyperiods
+     */
+    public List<StudyPeriod> getStudyPeriods() {
+        return Collections.unmodifiableList(studyPeriods);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Year year = (Year) o;
+        return studyPeriods.equals(year.studyPeriods);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studyPeriods);
+    }
+
+    @Override
+    public String toString() {
+        return "Year{" +
+                "studyPeriods=" + studyPeriods +
+                '}';
+    }
 }

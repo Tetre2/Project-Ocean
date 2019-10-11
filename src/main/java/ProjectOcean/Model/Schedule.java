@@ -1,28 +1,31 @@
 package ProjectOcean.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class representing a schedule held by a study plan
  */
 public class Schedule {
 
-    private final List<Year> years = new ArrayList<>();
-
+    private List<Year> years;
 
     public Schedule() {
-        years.add(new Year());
+        years = new ArrayList<>();
+        if(years.size()< 1){
+            years.add(new Year());
+        }
     }
 
     /**
      * Removes the given course in the given year and study period
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
-        years.get(year - 1).removeCourse(course, studyPeriod, slot);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        years.get(year - 1).removeCourse(studyPeriod, slot);
     }
 
     /**
@@ -57,7 +60,34 @@ public class Schedule {
      * @return the desired year
      */
     public Year getYear(int year){
-        return years.get(year - 1);
+        return years.get(year-1);
     }
 
+    /**
+     * @return returns all years
+     */
+    public List<Year> getYears() {
+        return Collections.unmodifiableList(years);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return years.equals(schedule.years);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(years);
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "years=" + years +
+                '}';
+    }
 }

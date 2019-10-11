@@ -2,7 +2,6 @@ package ProjectOcean.Controller;
 
 import java.io.IOException;
 import java.util.UUID;
-
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -27,18 +26,16 @@ public class ApplicationController extends AnchorPane {
     private SearchBrowseController searchBrowseController;
     private WorkspaceController workspaceController;
     private StudyPlanController studyPlanController;
-
-
     private static DetailedController detailedController;
     private HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        this.coursePlanningSystem = new CoursePlanningSystem();
+        this.coursePlanningSystem = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
         this.studyPlanController = new StudyPlanController(coursePlanningSystem, this);
-        detailedController = new DetailedController(coursePlanningSystem, this);
+        detailedController = new DetailedController(coursePlanningSystem, this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -54,6 +51,7 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().add(0, workspaceController);
         contentWindow.getChildren().add(1, studyPlanController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
+
     }
 
 
@@ -120,4 +118,21 @@ public class ApplicationController extends AnchorPane {
     public HostServices getHostServices() {
         return hostServices;
     }
+
+
+    /**
+     * Method is called from the menubar in the view
+     */
+    @FXML
+    public void onSaveClicked(){
+        saveStudent();
+    }
+
+    /**
+     * Method saves all properties of student in a json file
+     */
+    public void saveStudent(){
+        coursePlanningSystem.saveStudentToJSON();
+    }
+
 }

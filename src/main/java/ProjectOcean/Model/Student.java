@@ -1,21 +1,35 @@
 package ProjectOcean.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class representing a student profile
  */
 public class Student {
 
-    private Workspace workspace = new Workspace();
-    private List<ProjectOcean.Model.StudyPlan> studyPlans;
+    private List<StudyPlan> studyPlans;
     private StudyPlan currentStudyPlan;
+    private Workspace workspace;
 
     public Student() {
-        this.currentStudyPlan = new StudyPlan();
-        studyPlans = new ArrayList<>();
-        studyPlans.add(this.currentStudyPlan);
+        this(new ArrayList<>(), new Workspace(), new StudyPlan());
+    }
+
+    public Student(List<StudyPlan> studyPlans){
+        this(studyPlans, new Workspace(), new StudyPlan());
+    }
+
+    public Student(List<StudyPlan> studyPlans, Workspace workspace){
+        this(studyPlans, workspace, new StudyPlan());
+    }
+
+    public Student(List<StudyPlan> studyPlans, Workspace workspace, StudyPlan currentStudyPlan) {
+        this.studyPlans = studyPlans;
+        this.currentStudyPlan = currentStudyPlan;
+        this.workspace = workspace;
     }
 
     /**
@@ -31,12 +45,11 @@ public class Student {
 
     /**
      * Removes the given course in the given year and study period, in the study plan
-     * @param course the course to be removed
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
-        currentStudyPlan.removeCourseFromSchedule(course, year, studyPeriod, slot);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        currentStudyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
     }
 
     /**
@@ -59,6 +72,13 @@ public class Student {
      */
     public StudyPlan getCurrentStudyPlan() {
         return currentStudyPlan;
+    }
+
+    /**
+     * @return all studyplans
+     */
+    public List<StudyPlan> getAllStudyPlans() {
+        return Collections.unmodifiableList(studyPlans);
     }
 
     /**
@@ -85,4 +105,28 @@ public class Student {
         workspace.removeCourse(course);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return studyPlans.equals(student.studyPlans) &&
+                currentStudyPlan.equals(student.currentStudyPlan) &&
+                workspace.equals(student.workspace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studyPlans, currentStudyPlan, workspace);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studyPlans=" + studyPlans +
+                ", currentStudyPlan=" + currentStudyPlan +
+                ", workspace=" + workspace +
+                '}';
+    }
 }

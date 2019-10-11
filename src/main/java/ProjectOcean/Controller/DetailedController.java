@@ -23,7 +23,7 @@ public class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
     @FXML private Label studyPeriod;
-    @FXML private Label examinator;
+    @FXML private Label examiner;
     @FXML private Label examinationMeans;
     @FXML private Label language;
     @FXML private TextArea courseDescription;
@@ -33,17 +33,16 @@ public class DetailedController extends VBox {
 
     private CoursePlanningSystem model;
     private HostServices hostServices;
-    private ApplicationController applicationController;
+    private GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.
      * @param model is the model for the program
-     * @param applicationController is needed inorder to get hostservice and switch from the detailed view
      */
-    public DetailedController(CoursePlanningSystem model, ApplicationController applicationController) {
+    public DetailedController(CoursePlanningSystem model, GoBackToMainContent goBack, HostServices hostServices) {
         this.model = model;
-        this.applicationController = applicationController;
-        this.hostServices = applicationController.getHostServices();
+        this.goBack = goBack;
+        this.hostServices = hostServices;
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -73,7 +72,7 @@ public class DetailedController extends VBox {
 
         setStudyPeriod(model.getStudyPeriod(uuid));
 
-        setExaminator(model.getExaminator(uuid));
+        setExaminer(model.getExaminator(uuid));
 
         setExaminationMeans(model.getExaminationMeans(uuid));
 
@@ -94,8 +93,8 @@ public class DetailedController extends VBox {
         this.studyPeriod.setText(studyPeriod);
     }
 
-    private void setExaminator(String examinator) {
-        this.examinator.setText(examinator);
+    private void setExaminer(String examiner) {
+        this.examiner.setText(examiner);
     }
 
     private void setExaminationMeans(String examinationMeans) {
@@ -106,10 +105,10 @@ public class DetailedController extends VBox {
         this.language.setText(language);
     }
 
-    private void setRequiredCourses(List<UUID> courses) {
+    private void setRequiredCourses(List<String> courses) {
         //Creates a new label for each required course and adds them to the VBox
-        for (UUID uuid : courses) {
-            Label courseName = new Label(model.getCourseCode(uuid));
+        for (String string: courses) {
+            Label courseName = new Label(string);
             requiredCourses.getChildren().add(courseName);
         }
 
@@ -128,7 +127,7 @@ public class DetailedController extends VBox {
      */
     private void clear(){
         studyPeriod.setText("");
-        examinator.setText("");
+        examiner.setText("");
         examinationMeans.setText("");
         language.setText("");
         courseDescription.setText("");
@@ -149,7 +148,8 @@ public class DetailedController extends VBox {
 
     @FXML
     private void setOnBackClicked(){
-        applicationController.showStudyPlanWorkspaceWindow();
+        goBack.goBack();
+        //applicationController.showStudyPlanWorkspaceWindow();
     }
 
 

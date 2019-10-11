@@ -1,10 +1,11 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.*;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Observable;
 import java.util.UUID;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,13 +16,24 @@ import java.util.List;
 public class CoursePlanningSystem extends Observable {
 
     private Student student;
-    private Workspace workspace;
     private final Map<UUID, Course> courses;
+    private static CoursePlanningSystem model;
+    private static ICourseSaveLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
 
-    public CoursePlanningSystem() {
-        this.courses = generateCourses();
-        this.workspace = new Workspace();
-        this.student = new Student();
+    public static CoursePlanningSystem getInstance(){
+        if(model == null){
+
+            return model = new CoursePlanningSystem(getStudyPlanFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
+        }
+        return model;
+    }
+
+    private CoursePlanningSystem(Student student, Map<UUID, Course> courses) {
+        this.courses = courses;
+        this.student = student;
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -32,80 +44,10 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * Creates a list of hard coded courses
-     * @return returns a list full of courses
-     */
-    public Map<UUID, Course> generateCourses() {
-        Map courses = new HashMap<UUID, Course>();
-
-        Course course = new Course("DAT017","Maskinorienterad programmering", 7.5f, 1, "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-
-        course = new Course("EDA433","Grundläggande Datorteknik", 7.5f, 2, "Rolf Söderström", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-
-        course = new Course("MVE045","Matematisk Analys", 7.5f, 1, "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-
-        course = new Course("TMV206","Linjär Algebra", 7.5f, 3, "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(), course);
-
-        course = new Course("TDA552","Objektorienterad Programmering och Design", 7.5f, 2, "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(),course);
-
-        course = new Course("DAT096", "Konstruktionsprojekt i inbyggda elektroniksystem", 15f, 3, "Lena Peterson", "Projekt", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        courses.put(course.getId(),course);
-        return courses;
-    }
-
-    /**
      * @return the current student
      */
     public Student getStudent() {
         return student;
-    }
-
-    /**
-     * Attempts to add the given course to the given year, study period and slot for the current student
-     * @param course the course to be added
-     * @param year the year to add the course to
-     * @param studyPeriod the study period to add the course to
-     * @param slot the slot in which the course will be added
-     */
-    public void addCourse(Course course, int year, int studyPeriod, int slot) {
-        student.addCourse(course, year, studyPeriod,slot);
-        setChanged();
-        notifyObservers();
-    }
-    /**
-     * Attempts to add the given course to the given year, study period and slot for the current student
-     * @param id the UUID of the course to be added
-     * @param year the year to add the course to
-     * @param studyPeriod the study period to add the course to
-     * @param slot the slot in which the course will be added
-     */
-    public void addCourse(UUID id, int year, int studyPeriod, int slot){
-        addCourse(getCourse(id), year, studyPeriod, slot);
-    }
-    /**
-     * Removes the given course in the given year and study period, for the current student
-     * @param course the course to be removed
-     * @param year the year to remove the course from
-     * @param studyPeriod the study period to remove the course from
-     */
-    public void removeCourse(Course course, int year, int studyPeriod, int slot) {
-        student.removeCourse(course, year, studyPeriod, slot);
-        setChanged();
-        notifyObservers();
-    }
-    /**
-     * Removes the given course in the given year and study period, for the current student
-     * @param id the UUID of the course to be added
-     * @param year the year to remove the course from
-     * @param studyPeriod the study period to remove the course from
-     */
-    public void removeCourse(UUID id, int year, int studyPeriod, int slot){
-        removeCourse(getCourse(id), year, studyPeriod, slot);
     }
 
     /**
@@ -140,6 +82,41 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param course the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
+        student.addCourse(course, year, studyPeriod,slot);
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Attempts to add the given course to the given year, study period and slot for the current student
+     * @param id the UUID of the course to be added
+     * @param year the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
+     */
+    public void addCourse(UUID id, int year, int studyPeriod, int slot){
+        addCourse(getCourse(id), year, studyPeriod, slot);
+    }
+
+    /**
+     * Removes the given course in the given year and study period, for the current student
+     * @param year the year to remove the course from
+     * @param studyPeriod the study period to remove the course from
+     */
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        student.removeCourse(year, studyPeriod, slot);
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
      * @param id is a UUID for a specific course
      * @return returns the StudyPoints for the specified UUID
      */
@@ -160,7 +137,7 @@ public class CoursePlanningSystem extends Observable {
      * @return returns the Examinaot for the specified UUID
      */
     public String getExaminator(UUID id){
-        return courses.get(id).getExaminator();
+        return courses.get(id).getExaminer();
     }
 
     /**
@@ -183,14 +160,8 @@ public class CoursePlanningSystem extends Observable {
      * @param id is a UUID for a specific course
      * @return returns a list of required courses for a specific course defined by a UUID
      */
-    public List<UUID> getRequiredCourses(UUID id){
-        Iterator<Course> iterator = courses.get(id).getRequiredCourses().iterator();
-        List<UUID> uuids = new ArrayList<>();
-
-        while(iterator.hasNext()) {
-            uuids.add(iterator.next().getId());
-        }
-        return uuids;
+    public List<String> getRequiredCourses(UUID id){
+        return courses.get(id).getRequiredCourses();
     }
 
     /**
@@ -201,21 +172,6 @@ public class CoursePlanningSystem extends Observable {
         return courses.get(id).getCoursePMLink();
     }
 
-    /**
-     * @param id is a UUID for a specific course
-     * @return returns the CourseDescription for the specified UUID
-     */
-    public String getCourseDescription(UUID id){
-        return courses.get(id).getCourseDescription();
-    }
-
-    /**
-     * @param id is a UUID for a specific course
-     * @return returns the Course corresponding to the given UUID
-     */
-    public Course getCourse(UUID id) {
-        return courses.get(id);
-    }
     /**
      *
      * @param searchText: A string of search terms seperated by blankspaces
@@ -267,7 +223,7 @@ public class CoursePlanningSystem extends Observable {
         // if found adds the course to search result.
         for(String s : searchTerms) {
             for(Course c : courses.values()) {
-                if(c.getExaminator().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
+                if(c.getExaminer().toLowerCase().contains(s) && !searchResult.contains(c.getId())) {
                     searchResult.add(c.getId());
                 }
             }
@@ -288,7 +244,7 @@ public class CoursePlanningSystem extends Observable {
      * @return a list of UUID:s för the courses in workspace.
      */
     public List<UUID> getCoursesInWorkspaceIDs(){
-        List<UUID> idList = new ArrayList<UUID>();
+        List<UUID> idList = new ArrayList<>();
         for (Course c : student.getAllCoursesInWorkspace()) {
             idList.add(c.getId());
         }
@@ -304,4 +260,58 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    private static Map<UUID, Course> getCoursesFromCourseLoader(){
+        Map<UUID, Course> courses = null;
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            courseSaveLoader.createCoursesFile();
+        }
+
+        try {
+            courses = courseSaveLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
+    private static Student getStudyPlanFromStudyPlanSaverLoader(){
+        Student student = null;
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            studyPlanSaverLoader.createNewStudentFile();
+        }
+
+        try {
+            student = studyPlanSaverLoader.loadStudent();
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return student;
+    }
+
+    /**
+     * @param id is a UUID for a specific course
+     * @return returns the CourseDescription for the specified UUID
+     */
+    public String getCourseDescription(UUID id){
+        return courses.get(id).getCourseDescription();
+    }
+
+    public Course getCourse(UUID id) {
+        return courses.get(id);
+    }
+
+    /**
+     * Saves the student and its contents
+     */
+    public void saveStudentToJSON(){
+        studyPlanSaverLoader.saveStudyplans(student);
+    }
+
 }
