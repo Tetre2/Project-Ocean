@@ -2,9 +2,6 @@ package ProjectOcean.Controller;
 
 import java.io.IOException;
 import java.util.UUID;
-
-import ProjectOcean.IO.CoursesSaverLoader;
-import ProjectOcean.IO.StudyPlanSaverLoader;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -38,7 +35,7 @@ public class ApplicationController extends AnchorPane {
         this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
         this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
         this.studyPlanController = new StudyPlanController(coursePlanningSystem, this);
-        detailedController = new DetailedController(coursePlanningSystem, this);
+        detailedController = new DetailedController(coursePlanningSystem, this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));

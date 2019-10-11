@@ -33,17 +33,16 @@ public class DetailedController extends VBox {
 
     private CoursePlanningSystem model;
     private HostServices hostServices;
-    private ApplicationController applicationController;
+    private GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.
      * @param model is the model for the program
-     * @param applicationController is needed inorder to get hostservice and switch from the detailed view
      */
-    public DetailedController(CoursePlanningSystem model, ApplicationController applicationController) {
+    public DetailedController(CoursePlanningSystem model, GoBackToMainContent goBack, HostServices hostServices) {
         this.model = model;
-        this.applicationController = applicationController;
-        this.hostServices = applicationController.getHostServices();
+        this.goBack = goBack;
+        this.hostServices = hostServices;
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -149,7 +148,8 @@ public class DetailedController extends VBox {
 
     @FXML
     private void setOnBackClicked(){
-        applicationController.showStudyPlanWorkspaceWindow();
+        goBack.goBack();
+        //applicationController.showStudyPlanWorkspaceWindow();
     }
 
 
