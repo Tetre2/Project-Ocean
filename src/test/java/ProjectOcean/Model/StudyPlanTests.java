@@ -30,8 +30,6 @@ public class StudyPlanTests {
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 
         Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-
-
     }
 
     @Test
