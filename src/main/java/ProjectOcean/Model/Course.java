@@ -90,7 +90,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getExaminer() {
-        return cAccessibility.getExaminator();
+        return cAccessibility.getExaminer();
     }
 
     /**

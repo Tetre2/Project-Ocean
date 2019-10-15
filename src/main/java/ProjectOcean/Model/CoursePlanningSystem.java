@@ -99,7 +99,7 @@ public class CoursePlanningSystem extends Observable {
         List<ICourse> searchResult = new ArrayList<>();
         matchCourseNameAndAddCourse(searchTerms, searchResult);
         matchCourseCodeAndAddCourse(searchTerms, searchResult);
-        matchExaminorAndAddCourse(searchTerms, searchResult);
+        matchExaminerAndAddCourse(searchTerms, searchResult);
         return searchResult;
     }
 
@@ -135,7 +135,7 @@ public class CoursePlanningSystem extends Observable {
         }
     }
 
-    private void matchExaminorAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
+    private void matchExaminerAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
         //For each search term, searches through each courses examinor for matches and
         // if found adds the course to search result.
         for(String s : searchTerms) {

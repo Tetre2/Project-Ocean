@@ -31,7 +31,6 @@ public class DetailedController extends VBox {
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
 
-    private CoursePlanningSystem model;
     private HostServices hostServices;
     private GoBackToMainContent goBack;
 
@@ -39,8 +38,7 @@ public class DetailedController extends VBox {
      * Creates the view for the detailed view without any info in it.
      * @param model is the model for the program
      */
-    public DetailedController(CoursePlanningSystem model, GoBackToMainContent goBack, HostServices hostServices) {
-        this.model = model;
+    public DetailedController(GoBackToMainContent goBack, HostServices hostServices) {
         this.goBack = goBack;
         this.hostServices = hostServices;
 

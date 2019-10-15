@@ -11,16 +11,16 @@ public class CourseAccessibility {
     private final String examinationMeans;
     private final String language;
 
-    public CourseAccessibility(String examinator, String examinationMeans, String language) {
-        this.examiner = examinator;
+    public CourseAccessibility(String examiner, String examinationMeans, String language) {
+        this.examiner = examiner;
         this.examinationMeans = examinationMeans;
         this.language = language;
     }
 
     /**
-     * @return this course's examinator
+     * @return this course's examiner
      */
-    public String getExaminator() {
+    public String getExaminer() {
         return examiner;
     }
 
