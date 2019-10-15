@@ -210,7 +210,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static void addJSONCourseToStudyPeriodInStudyPlan(StudyPlan studyPlan, JSONObject jsonObjStudyPeriod, int year, int studyPeriod){
-
         String course1 = (String) jsonObjStudyPeriod.get("Course1");
         if( !course1.equals("null")) {
             for (Course c: courses) {

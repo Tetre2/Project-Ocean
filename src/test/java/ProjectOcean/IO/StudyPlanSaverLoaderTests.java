@@ -24,11 +24,11 @@ public class StudyPlanSaverLoaderTests {
     public void setup(){
         studyPlans = new ArrayList<>();
         courses = courseSaverLoader.generatePreDefinedCourses();
+        saverLoader.createNewStudentFile();
 
         //---- studyPlan 1 ----
         StudyPlan studyPlan = new StudyPlan();
         Workspace workspace = new Workspace();
-        studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(0), 1, 1, 1);
         studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
