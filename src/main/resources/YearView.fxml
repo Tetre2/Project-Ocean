@@ -57,8 +57,6 @@
             <VBox prefHeight="142.0" prefWidth="65.0" HBox.hgrow="SOMETIMES">
                <children>
                   <Label prefHeight="17.0" prefWidth="107.0" text="Label" visible="false" />
-                  <Label alignment="CENTER" prefHeight="68.0" prefWidth="100.0" text="Course 1" />
-                  <Label alignment="CENTER" prefHeight="70.0" prefWidth="100.0" text="Course 2" />
                </children>
             </VBox>
          </children>
