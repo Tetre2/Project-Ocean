@@ -47,6 +47,11 @@ public class StudyPeriod {
         return course2;
     }
 
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
     @Override
     public boolean equals(Object o) {
 
