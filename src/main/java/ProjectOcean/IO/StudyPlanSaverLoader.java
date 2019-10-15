@@ -265,10 +265,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
-    private static String getHomeDir() {
-        return System.getProperty("user.home") + File.separatorChar;
-    }
-
     /**
      * @return returns the json file name
      */
