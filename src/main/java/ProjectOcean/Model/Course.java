@@ -114,10 +114,11 @@ public class Course implements ICourse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return studyPeriod == course.studyPeriod &&
+        boolean b = studyPeriod.equals(course.studyPeriod) &&
                 cDetails.equals(course.cDetails) &&
                 cInfo.equals(course.cInfo) &&
                 cAccessibility.equals(course.cAccessibility);
+        return b;
     }
 
     @Override
