@@ -154,7 +154,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject){
         StudyPlan studyPlan = new StudyPlan();
         JSONArray jsonStudyplan = (JSONArray) jsonObject.get("currentStudyPlan");
-        addJSONYearToStudyPlan(studyPlan, jsonStudyplan);
+        addJSONYearsToStudyPlan(studyPlan, jsonStudyplan);
         return studyPlan;
     }
 
@@ -182,23 +182,18 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
             JSONObject jsonYears = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
             JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
-            addJSONYearToStudyPlan(studyPlan, jsonYearArr);
+
+            addJSONYearsToStudyPlan(studyPlan, jsonYearArr);
 
             studyPlans.add(studyPlan);
         }
         return studyPlans;
     }
 
-    private static void addJSONYearToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
+    private static void addJSONYearsToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
         for (int year = 1; year <= jsonYearArr.size(); year++) {
             JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year-1);
             addJSONStudyPeriodToYearInStudyPlan(studyPlan, jsonStudyPeriod, year);
-
-            if(jsonYearArr.size()>year){
-                //Schedule cant starts with one year because then every time we open the program it will add a new empty year
-                studyPlan.addYear();
-            }
-
         }
     }
 

@@ -21,7 +21,7 @@ public class CoursePlanningSystem extends Observable {
     public static CoursePlanningSystem getInstance(){
         if(model == null){
 
-            return model = new CoursePlanningSystem(getStudyPlanFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
+            return model = new CoursePlanningSystem(getStudentFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
         }
         return model;
     }
@@ -194,7 +194,7 @@ public class CoursePlanningSystem extends Observable {
         return courses;
     }
 
-    private static Student getStudyPlanFromStudyPlanSaverLoader(){
+    private static Student getStudentFromStudyPlanSaverLoader(){
         Student student = null;
 
         try {
