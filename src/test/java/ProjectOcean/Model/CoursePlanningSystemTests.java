@@ -1,6 +1,5 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CourseSaverLoaderTest;
 import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
@@ -79,42 +78,43 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void addCourseToWorkspaceTest() {
-        /*model.addCourseToWorkspace(allUUIDs.get(0));
+        model.removeAllCoursesInWorkscpace();
+        model.addCourseToWorkspace(courses.get(0));
 
-        Assert.assertEquals(courses.get(allUUIDs.get(0)), courses.get(model.getCoursesInWorkspaceIDs().get(0)));
-        */
+        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
     }
 
     @Test
-    public void getCoursesInWorkspaceIDsTest() {
-        /*
-        Assert.assertTrue(coursePlanningSystem.getCoursesInWorkspaceIDs().size() == 0);
+    public void getCoursesInWorkspaceTest() {
+        model.removeAllCoursesInWorkscpace();
 
-        coursePlanningSystem.addCourseToWorkspace(allUUIDs.get(0));
+        Assert.assertTrue(model.getCoursesInWorkspace().size() == 0);
 
-        Assert.assertTrue(coursePlanningSystem.getCoursesInWorkspaceIDs().size() == 1);
-*/
+        model.addCourseToWorkspace(courses.get(0));
+
+        Assert.assertTrue(model.getCoursesInWorkspace().size() == 1);
+
     }
 
     @Test
     public void removeCourseFromWorkspaceTest() {
-        /*
-        coursePlanningSystem.addCourseToWorkspace(allUUIDs.get(0));
-        Assert.assertEquals(courses.get(allUUIDs.get(0)), courses.get(coursePlanningSystem.getCoursesInWorkspaceIDs().get(0)));
+        model.removeAllCoursesInWorkscpace();
+        model.addCourseToWorkspace(courses.get(0));
+        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
 
-        coursePlanningSystem.removeCourseFromWorkspace(allUUIDs.get(0));
-        Assert.assertEquals(0, coursePlanningSystem.getCoursesInWorkspaceIDs().size());
-        */
+        model.removeCourseFromWorkspace(courses.get(0));
+        Assert.assertEquals(0, model.getCoursesInWorkspace().size());
+
     }
 
     @Test
     public void getCourseTest() {
-        /*
-        Course expected = courses.get(allUUIDs.get(0));
-        Course actual = coursePlanningSystem.getCourse(allUUIDs.get(0));
+
+        ICourse expected = courses.get(0);
+        ICourse actual = model.getCourse(courses.get(0));
 
         Assert.assertEquals(expected, actual);
-        */
+
     }
 
     @Test

@@ -106,6 +106,13 @@ public class Student {
     }
 
     /**
+     * Removes all courses
+     */
+    public void removeAllCoursesInWorkscpace(){
+        workspace.removeAllCourses();
+    }
+
+    /**
      * checks if this and an other object is the same
      * @param o is the object being checked against this object
      * @return true if the this object is the same as o
