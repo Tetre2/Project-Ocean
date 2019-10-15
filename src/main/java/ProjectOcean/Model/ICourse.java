@@ -1,29 +1,28 @@
 package ProjectOcean.Model;
 
-import java.util.Collections;
 import java.util.List;
 
 public interface ICourse {
 
-    public String getCourseName();
+    String getCourseName();
 
-    public String getCourseCode();
+    String getCourseCode();
 
-    public String getStudyPoints();
+    String getStudyPoints();
 
-    public String getStudyPeriod();
+    String getStudyPeriod();
 
-    public String getExaminer();
+    String getExaminer();
 
-    public String getExaminationMeans();
+    String getExaminationMeans();
 
-    public String getLanguage();
+    String getLanguage();
 
-    public List<String> getRequiredCourses();
+    List<String> getRequiredCourses();
 
-    public String getCoursePMLink();
+    String getCoursePMLink();
 
-    public String getCourseDescription();
+    String getCourseDescription();
 
 
 }

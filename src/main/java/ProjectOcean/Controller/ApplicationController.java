@@ -35,7 +35,7 @@ public class ApplicationController extends AnchorPane {
         this.searchBrowseController = new SearchBrowseController(model, this);
         this.workspaceController = new WorkspaceController(model, this);
         this.studyPlanController = new StudyPlanController(model, this);
-        detailedController = new DetailedController(model, this::showStudyPlanWorkspaceWindow, hostServices);
+        detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));

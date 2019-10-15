@@ -12,7 +12,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * Represents the visual graphic component of a course in study plan.
