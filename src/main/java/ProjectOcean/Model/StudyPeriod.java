@@ -70,6 +70,9 @@ public class StudyPeriod {
         return isEqual;
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(course1, course2);

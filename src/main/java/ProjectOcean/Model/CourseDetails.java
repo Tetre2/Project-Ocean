@@ -69,6 +69,9 @@ public class CourseDetails {
                 courseDescription.equals(that.courseDescription);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(requiredCourses, coursePMLink, courseDescription);

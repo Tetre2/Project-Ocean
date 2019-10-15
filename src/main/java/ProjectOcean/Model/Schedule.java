@@ -84,6 +84,9 @@ public class Schedule {
         return years.equals(schedule.years);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(years);

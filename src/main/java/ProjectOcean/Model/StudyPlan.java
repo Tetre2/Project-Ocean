@@ -68,6 +68,9 @@ public class StudyPlan {
         return schedule.equals(studyPlan.schedule);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(schedule);

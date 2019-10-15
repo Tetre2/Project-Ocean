@@ -60,6 +60,9 @@ public class CourseAccessibility {
                 language.equals(that.language);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(examiner, examinationMeans, language);

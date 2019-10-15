@@ -120,6 +120,9 @@ public class Student {
                 workspace.equals(student.workspace);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(studyPlans, currentStudyPlan, workspace);

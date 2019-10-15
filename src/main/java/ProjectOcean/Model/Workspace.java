@@ -70,6 +70,9 @@ public class Workspace {
         return courses.equals(workspace.courses);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(courses);

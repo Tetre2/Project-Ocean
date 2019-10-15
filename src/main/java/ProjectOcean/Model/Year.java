@@ -64,6 +64,9 @@ public class Year {
         return studyPeriods.equals(year.studyPeriods);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(studyPeriods);

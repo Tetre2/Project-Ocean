@@ -60,6 +60,9 @@ public class CourseInfo {
                 studyPoints.equals(that.studyPoints);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(courseCode, courseName, studyPoints);

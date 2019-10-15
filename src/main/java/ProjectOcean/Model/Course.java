@@ -126,6 +126,9 @@ public class Course implements ICourse {
         return b;
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(studyPeriod, cDetails, cInfo, cAccessibility);
