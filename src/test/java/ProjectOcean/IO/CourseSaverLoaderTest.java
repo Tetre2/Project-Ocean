@@ -53,17 +53,16 @@ public class CourseSaverLoaderTest {
             Assert.assertFalse(true);
         }
 
-        System.out.println(courses.toString());
+        List<Course> courseList = null;
+
         try {
-            System.out.println(courseSaverLoader.loadCoursesFile().toString());
+            courseList = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
             e.printStackTrace();
         }
 
-        try {
-            Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
-        } catch (CoursesNotFoundException e) {
-            Assert.assertFalse(true);
+        for (int i = 0; i < courseList.size(); i++) {
+            Assert.assertTrue(courses.get(i).equals(courseList.get(i)));
         }
 
     }
