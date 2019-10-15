@@ -1,16 +1,15 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Model.ICourse;
 import javafx.geometry.Point2D;
-
-import java.util.UUID;
 
 public interface Movable {
 
 
     /**
-     * @return the UUID of the Movable instance
+     * @return the ICourse of the Movable instance
      */
-    UUID getUUID();
+    ICourse getICourse();
 
     /**
      * Relocates the CourseListIconController instance according to the point parameter

@@ -5,20 +5,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CourseSaverLoaderTest {
 
     private CoursesSaverLoader courseSaverLoader;
-    private Map<UUID, Course> courses;
+    private List<Course> courses;
 
     @Before
     public void init(){
         courseSaverLoader = new CoursesSaverLoader();
-        courses = new HashMap<>();
+        courses = new ArrayList<>();
 
         for (Course course : courseSaverLoader.generatePreDefinedCourses()) {
-            courses.put(course.getId(), course);
+            courses.add(course);
         }
 
     }
@@ -49,6 +51,13 @@ public class CourseSaverLoaderTest {
             courses = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
             Assert.assertFalse(true);
+        }
+
+        System.out.println(courses.toString());
+        try {
+            System.out.println(courseSaverLoader.loadCoursesFile().toString());
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
         }
 
         try {

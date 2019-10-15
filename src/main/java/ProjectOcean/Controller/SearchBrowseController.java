@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents the visual component of the search bar and list of courses
@@ -28,12 +29,11 @@ public class SearchBrowseController extends AnchorPane {
     @FXML private CheckBox studyPeriodCheckbox3;
     @FXML private CheckBox studyPeriodCheckbox4;
 
-    private CoursePlanningSystem model;
-    private ApplicationController applicationController;
-    private List<UUID> currentSearchResult;
+    private final CoursePlanningSystem model;
+    private final ApplicationController applicationController;
+    private List<ICourse> currentSearchResult;
 
     /**
-     *
      * @param model: An instance of the course planning system
      * @param applicationController: An instance of the main controller.
      */
@@ -56,64 +56,81 @@ public class SearchBrowseController extends AnchorPane {
         executeSearch();
     }
 
-    private void displayAllCourses() {
-        for (UUID id : model.getAllCoursesIDs()) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
-        }
+    @FXML
+    private void onActionSearchButton() {
+        executeSearch();
     }
 
     @FXML
+    private void onActionSearchField() {
+        executeSearch();
+    }
+
     private void executeSearch() {
         //If no search text, show all courses, else execute search through model method, and adds the id:s to currentSearchResult
         //list
         if (searchField.getText().isEmpty()) {
-            currentSearchResult = model.getAllCoursesIDs();
+            currentSearchResult = model.getAllCourses();
         } else {
             currentSearchResult = model.executeSearch(searchField.getText());
         }
-        displayCourses();
+        filterAndDisplayCourses();
     }
 
     @FXML
-    private void displayCourses() {
-        searchResultVBox.getChildren().clear();
-        filterAndAddCourses();
+    private void onActionCheckbox() {
+        filterAndDisplayCourses();
     }
 
-    private void filterAndAddCourses() {
-        //For each id in the search result, check if its corresponding course study period matches any
-        //of the selected study period checkboxes, in which case it, through filterAndAddCourseBasedOnStudyPoint(),
-        //checks if the course study points matches any of the selected study points checkpoints, at which point it is displayed.
+    private void filterAndDisplayCourses() {
+        searchResultVBox.getChildren().clear();
+
+        List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
+        filterBasedOnStudyPeriod(filteredSearchResult);
+        filterBasedOnStudyPoints(filteredSearchResult);
+        //Displays filtered result
+        for(ICourse course : filteredSearchResult) {
+            CourseListIconController courseListIcon = new CourseListIconController(course, model, applicationController);
+            searchResultVBox.getChildren().add(courseListIcon);
+        }
+    }
+
+    private void filterBasedOnStudyPeriod(List<ICourse> filteredSearchResult) {
+        //Copies filteredSearchResult and clears it, and for each ICourse in the copy, check if its study period matches any
+        //of the selected study period checkboxes, in which case it is added to filteredSearchResult.
         //If all or none of the study period checkboxes are selected, all courses that matches the study points checkboxes are shown.
-        for (UUID id : currentSearchResult) {
-            if (studyPeriodCheckbox1.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 1) {
-                filterAndAddCourseBasedOnStudyPoint(id);
-            } else if (studyPeriodCheckbox2.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 2) {
-                filterAndAddCourseBasedOnStudyPoint(id);
-            } else if (studyPeriodCheckbox3.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 3) {
-                filterAndAddCourseBasedOnStudyPoint(id);
-            } else if (studyPeriodCheckbox4.isSelected() && Integer.parseInt(model.getStudyPeriod(id)) == 4) {
-                filterAndAddCourseBasedOnStudyPoint(id);
+        List<ICourse> preFilterSearchResult = new ArrayList<>(filteredSearchResult);
+        filteredSearchResult.clear();
+        for (ICourse course : preFilterSearchResult) {
+            if (studyPeriodCheckbox1.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 1) {
+                filteredSearchResult.add(course);
+            } else if (studyPeriodCheckbox2.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 2) {
+                filteredSearchResult.add(course);
+            } else if (studyPeriodCheckbox3.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 3) {
+                filteredSearchResult.add(course);
+            } else if (studyPeriodCheckbox4.isSelected() && Integer.parseInt(course.getStudyPeriod()) == 4) {
+                filteredSearchResult.add(course);
             } else if (!studyPeriodCheckbox1.isSelected() && !studyPeriodCheckbox2.isSelected() && !studyPeriodCheckbox3.isSelected() && !studyPeriodCheckbox4.isSelected()) {
-                filterAndAddCourseBasedOnStudyPoint(id);
+                filteredSearchResult.add(course);
             }
         }
     }
 
-    private void filterAndAddCourseBasedOnStudyPoint(UUID id) {
-        //Checks for the course corresponding to the id if its study points matches any of the
-        //selected study points checkboxes and if so displays it. If all or none of the study points checkboxes
+    private void filterBasedOnStudyPoints(List<ICourse> filteredSearchResult) {
+        //Copies filteredSearchResult and clears it, and for each ICourse in the copy, check if its study period matches any
+        //of the selected study period checkboxes, in which case it is added to filteredSearchResult. If all or none of the study points checkboxes
         //are selected, the course is shown regardless.
-        if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 7.5f) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
-        } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(model.getStudyPoints(id)) == 15f) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
-        } else if (!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
-            searchResultVBox.getChildren().add(iconController);
+        List<ICourse> preFilterSearchResult = new ArrayList<>(filteredSearchResult);
+        filteredSearchResult.clear();
+        for (ICourse course : preFilterSearchResult) {
+            if (studyPointCheckBox7_5.isSelected() && Float.parseFloat(course.getStudyPoints()) == 7.5f) {
+                filteredSearchResult.add(course);
+            } else if (studyPointCheckBox15.isSelected() && Float.parseFloat(course.getStudyPoints()) == 15f) {
+                filteredSearchResult.add(course);
+            } else if (!studyPointCheckBox7_5.isSelected() && !studyPointCheckBox15.isSelected()) {
+                filteredSearchResult.add(course);
+            }
         }
+
     }
 }

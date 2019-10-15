@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.Year;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +58,7 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveIconToCursor(icon, event);
+        applicationController.moveDraggedObjectToCursor(icon, event);
         event.consume();
     }
 
@@ -74,10 +74,10 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        model.addCourse(icon.getUUID(), year, studyPeriod, slot);
+        model.addCourse(icon.getICourse(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
-        applicationController.moveIconToCursor(icon, event);
+        applicationController.moveDraggedObjectToCursor(icon, event);
         event.consume();
     }
 
@@ -132,16 +132,16 @@ public class YearController extends VBox implements Observer {
             // For every slot
             for (int slot = 1; slot <= 2; slot++) {
                 if(slot == 1){
-                    Course course = y.getStudyPeriod(studyPeriod).getCourse1();
+                    ICourse course = y.getStudyPeriod(studyPeriod).getCourse1();
                     // Only add if there actually is a course in the slot in the model
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
+                        yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
                     }
                 }else{
-                    Course course = y.getStudyPeriod(studyPeriod).getCourse2();
+                    ICourse course = y.getStudyPeriod(studyPeriod).getCourse2();
                     // Only add if there actually is a course in the slot in the model
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course.getId(), applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
+                        yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
                     }
                 }
             }

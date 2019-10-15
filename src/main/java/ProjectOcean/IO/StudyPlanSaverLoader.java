@@ -58,7 +58,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         //adds all courses in workspace to studyplan
         JSONArray workspace = new JSONArray();
         for (Course course : student.getAllCoursesInWorkspace()) {
-            workspace.add(course.getId().toString());
+            workspace.add(course.getCourseCode());
         }
         return workspace;
     }
@@ -89,10 +89,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         //adds Course1 and Course2 to a studyperiod
         JSONObject jsonStudyPeriod = new JSONObject();
 
-        String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getId().toString());
+        String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getCourseCode());
         jsonStudyPeriod.put("Course1", course1);
 
-        String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse2().getId().toString());
+        String course2 = ((studyPeriod.getCourse2() == null) ? "null" : studyPeriod.getCourse2().getCourseCode());
         jsonStudyPeriod.put("Course2", course2);
 
         return jsonStudyPeriod;
@@ -154,7 +154,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject){
         StudyPlan studyPlan = new StudyPlan();
         JSONArray jsonStudyplan = (JSONArray) jsonObject.get("currentStudyPlan");
-        addJSONYearToStudyPlan(studyPlan, jsonStudyplan);
+        addJSONYearsToStudyPlan(studyPlan, jsonStudyplan);
         return studyPlan;
     }
 
@@ -164,7 +164,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         JSONArray jsonWorkspace = (JSONArray) jsonObject.get("workspace");
         for (Object object: jsonWorkspace) {
             for (Course c: courses) {
-                if(c.getId().toString().equals((String) object))
+                if(c.getCourseCode().equals((String) object))
                     workspace.addCourse(c);
             }
         }
@@ -182,23 +182,18 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
             JSONObject jsonYears = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
             JSONArray jsonYearArr = (JSONArray) jsonYears.get("years");
-            addJSONYearToStudyPlan(studyPlan, jsonYearArr);
+
+            addJSONYearsToStudyPlan(studyPlan, jsonYearArr);
 
             studyPlans.add(studyPlan);
         }
         return studyPlans;
     }
 
-    private static void addJSONYearToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
+    private static void addJSONYearsToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
         for (int year = 1; year <= jsonYearArr.size(); year++) {
             JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year-1);
             addJSONStudyPeriodToYearInStudyPlan(studyPlan, jsonStudyPeriod, year);
-
-            if(jsonYearArr.size()>year){
-                //Schedule cant starts with one year because then every time we open the program it will add a new empty year
-                studyPlan.addYear();
-            }
-
         }
     }
 
@@ -219,7 +214,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         String course1 = (String) jsonObjStudyPeriod.get("Course1");
         if( !course1.equals("null")) {
             for (Course c: courses) {
-                if(c.getId().toString().equals(course1)) {
+                if(c.getCourseCode().equals(course1)) {
                     studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
                     break;
                 }
@@ -229,7 +224,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         String course2 = (String) jsonObjStudyPeriod.get("Course2");
         if( !course2.equals("null")) {
             for (Course c: courses) {
-                if(c.getId().toString().equals(course2)){
+                if(c.getCourseCode().equals(course2)){
                     studyPlan.addCourseToSchedule(c, year, studyPeriod, 2);
                     break;
                 }

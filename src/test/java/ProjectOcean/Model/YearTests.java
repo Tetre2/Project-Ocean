@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 public class YearTests {
 
@@ -20,7 +20,11 @@ public class YearTests {
     @Test
     public void addCourseTest() {
         Year year = new Year();
-        Course course = new Course(UUID.randomUUID(), "EDA433", "Grundläggande Datorteknik", "7.5", "0", "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        Course course = CourseFactory.CreateCourse();
         year.addCourse(course, studyPeriod, slot);
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());
@@ -30,7 +34,11 @@ public class YearTests {
     @Test
     public void removeCourseTest() {
         Year year = new Year();
-        Course course = new Course(UUID.randomUUID(), "EDA433", "Grundläggande Datorteknik", "7.5", "0", "Brasse Brassesson", "Tenta", "Svesnka", null, "link", "Good course");
+        CourseFactory.SetStudyPeriod("1");
+        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
+        Course course = CourseFactory.CreateCourse();
         year.addCourse(course, studyPeriod, slot);
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());

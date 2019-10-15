@@ -1,8 +1,8 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-import java.util.UUID;
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,20 +22,20 @@ public class ApplicationController extends AnchorPane {
     @FXML private AnchorPane dragFeature;
     @FXML private AnchorPane searchBrowseWindow;
 
-    private CoursePlanningSystem coursePlanningSystem;
-    private SearchBrowseController searchBrowseController;
-    private WorkspaceController workspaceController;
-    private StudyPlanController studyPlanController;
+    private final CoursePlanningSystem model;
+    private final SearchBrowseController searchBrowseController;
+    private final WorkspaceController workspaceController;
+    private final StudyPlanController studyPlanController;
     private static DetailedController detailedController;
-    private HostServices hostServices;
+    private final HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
-        this.coursePlanningSystem = CoursePlanningSystem.getInstance();
-        this.searchBrowseController = new SearchBrowseController(coursePlanningSystem, this);
-        this.workspaceController = new WorkspaceController(coursePlanningSystem, this);
-        this.studyPlanController = new StudyPlanController(coursePlanningSystem, this);
-        detailedController = new DetailedController(coursePlanningSystem, this::showStudyPlanWorkspaceWindow, hostServices);
+        this.model = CoursePlanningSystem.getInstance();
+        this.searchBrowseController = new SearchBrowseController(model, this);
+        this.workspaceController = new WorkspaceController(model, this);
+        this.studyPlanController = new StudyPlanController(model, this);
+        detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -48,10 +48,7 @@ public class ApplicationController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        contentWindow.getChildren().add(0, workspaceController);
-        contentWindow.getChildren().add(1, studyPlanController);
-        searchBrowseWindow.getChildren().add(searchBrowseController);
-
+        instantiateChildControllers();
     }
 
 
@@ -69,8 +66,8 @@ public class ApplicationController extends AnchorPane {
     @FXML
     private void onDragOver(DragEvent event) {
 
-        Movable icon = (Movable) event.getGestureSource();
-        moveIconToCursor(icon, event);
+        Movable draggedObject = (Movable) event.getGestureSource();
+        moveDraggedObjectToCursor(draggedObject, event);
 
         event.consume();
 
@@ -79,10 +76,16 @@ public class ApplicationController extends AnchorPane {
     @FXML
     private void onDragDone(DragEvent event) {
 
-        Movable icon = (Movable) event.getGestureSource();
-        getChildren().remove(icon);
+        Movable draggedObject = (Movable) event.getGestureSource();
+        getChildren().remove(draggedObject);
         event.consume();
 
+    }
+
+    private void instantiateChildControllers() {
+        contentWindow.getChildren().add(0, workspaceController);
+        searchBrowseWindow.getChildren().add(searchBrowseController);
+        contentWindow.getChildren().add(1, studyPlanController);
     }
 
     /**
@@ -98,17 +101,18 @@ public class ApplicationController extends AnchorPane {
      * @param icon the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveIconToCursor(Movable icon, DragEvent event){
-        icon.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
+    public void moveDraggedObjectToCursor(Movable icon, DragEvent event){
+        Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
+        icon.relocateToPoint(mousePosition);
     }
 
     /**
      * Clears and adds a detailedController to the contentWindow
-     * @param id the UUID representing the course from which the details will be taken from
+     * @param course the ICourse representing the course from which the details will be taken from
      */
-    public void showDetailedInformation(UUID id){
+    public void showDetailedInformationWindow(ICourse course) {
         contentWindow.getChildren().clear();
-        detailedController.setDetailedInfo(id);
+        detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
     }
 
@@ -132,7 +136,7 @@ public class ApplicationController extends AnchorPane {
      * Method saves all properties of student in a json file
      */
     public void saveStudent(){
-        coursePlanningSystem.saveStudentToJSON();
+        model.saveStudentToJSON();
     }
 
 }
