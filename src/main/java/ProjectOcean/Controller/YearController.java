@@ -116,36 +116,39 @@ public class YearController extends VBox implements Observer {
 
 
     /**
-     * Felix ville inte hjälpa till att komma på en bra namn till funktionen så nu heter den george!
-     * Har ni problem med det ta upp det med felix!
+     * Displays all the courses that are currently in the model's study plan
      */
     private void displayAllCoursesInStudyPlan(){
-        //Clears the gridpane
+        clearStudyPlanGridPane();
+        addCourseControllersAccordingToModel();
+    }
+
+    private void clearStudyPlanGridPane() {
         int nElements = yearGrid.getChildren().size() - 1;
         for (int i = 0; i < nElements; i++) {
             yearGrid.getChildren().remove(1);
         }
+    }
 
+    private void addCourseControllersAccordingToModel() {
         Year y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
-        // For every study period
+
         for (int studyPeriod = 1; studyPeriod <= 4; studyPeriod++) {
-            // For every slot
             for (int slot = 1; slot <= 2; slot++) {
+
                 if(slot == 1){
                     ICourse course = y.getStudyPeriod(studyPeriod).getCourse1();
-                    // Only add if there actually is a course in the slot in the model
                     if(course != null) {
                         yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
                     }
                 }else{
                     ICourse course = y.getStudyPeriod(studyPeriod).getCourse2();
-                    // Only add if there actually is a course in the slot in the model
                     if(course != null) {
                         yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
                     }
                 }
+
             }
         }
     }
-
 }
