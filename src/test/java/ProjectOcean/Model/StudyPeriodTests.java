@@ -17,7 +17,6 @@ public class StudyPeriodTests {
         slot = 1;
     }
 
-
     @Test
     public void addCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
@@ -58,7 +57,7 @@ public class StudyPeriodTests {
     }
 
     @Test
-    public void eqaulsTest(){
+    public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
         List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();

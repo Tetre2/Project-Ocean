@@ -22,26 +22,26 @@ public class WorkspaceTest {
     public void createCourses() {
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum!");
+        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
         ICourse course4 = CourseFactory.CreateCourse();
 
         ws.addCourse(course);
@@ -67,8 +67,8 @@ public class WorkspaceTest {
         ws.removeAllCourses();
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course = CourseFactory.CreateCourse();
         ws.addCourse(course);
         Assert.assertTrue(ws.getAllCourses().get(0) == course);
@@ -76,20 +76,20 @@ public class WorkspaceTest {
         //Checking that a course cannot be added twice.
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
         ICourse course4 = CourseFactory.CreateCourse();
 
         ws.addCourse(course2);
@@ -113,8 +113,8 @@ public class WorkspaceTest {
 
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course = CourseFactory.CreateCourse();
 
         ws.addCourse(course);
@@ -125,20 +125,20 @@ public class WorkspaceTest {
         //Check that nothing happens to the list in we try to remove a Course that does not exist i the list.
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
         ICourse course4 = CourseFactory.CreateCourse();
 
         ws.addCourse(course);
@@ -155,8 +155,8 @@ public class WorkspaceTest {
 
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("HAT123", "Hierarkiska strukturer", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!");
-        CourseFactory.SetCourseAccessibility( "Anders Bölinge", "Tenta","Turkish");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.chalmers.se", "Lorem ipsum");
+        CourseFactory.SetCourseAccessibility( "Anders Bölinge", "Tenta","Svenska");
         ICourse courseTemp = CourseFactory.CreateCourse();
 
         ws.removeCourse(courseTemp);

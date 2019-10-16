@@ -165,10 +165,10 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         courses.add(createCourse("MVE045","Matematisk Analys", "7.5", "1", "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(createCourse("TMV206","Linjär Algebra", "7.5", "3", "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(createCourse("TDA552","Objektorienterad Programmering och Design", "7.5", "2", "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(createCourse("BAT123","Beroendespecifika paradigmer", "7.5","3","Anders Bölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
-        courses.add(createCourse("CAT123","Complex system", "7.5", "2", "Anders Fölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
-        courses.add(createCourse("DAT321","Datavetenskap", "7.5", "4", "Anders Bölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
-        courses.add(createCourse("FAT321","Fysik för ingenjörer", "7.5", "1", "Anders Brölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!"));
+        courses.add(createCourse("BAT123","Beroendespecifika paradigmer", "7.5","3","Anders Bölinge", "Tenta","Svenska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
+        courses.add(createCourse("CAT123","Complex system", "7.5", "2", "Anders Fölinge", "Tenta","Engelska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
+        courses.add(createCourse("DAT321","Datavetenskap", "7.5", "4", "Anders Bölinge", "Tenta","Svenska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
+        courses.add(createCourse("FAT321","Fysik för ingenjörer", "7.5", "1", "Anders Brölinge", "Tenta","Svenska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
 
         return courses;
     }

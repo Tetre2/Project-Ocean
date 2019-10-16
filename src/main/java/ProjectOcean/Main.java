@@ -20,6 +20,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * This method is run when the program terminates, it saves the parameters the student have
+     */
     @Override
     public void stop() {
         root.saveStudent();
