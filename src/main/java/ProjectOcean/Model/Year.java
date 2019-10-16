@@ -71,6 +71,12 @@ public class Year implements IYear{
                 '}';
     }
 
+    /**
+     *
+     * @param studyPeriod the study period from within the desired course lies
+     * @param slot the slot from within the desired course lies
+     * @return the desired Course
+     */
     @Override
     public ICourse getCourseInStudyPeriod(int studyPeriod, int slot) {
         if(slot == 1)
@@ -78,6 +84,10 @@ public class Year implements IYear{
         return studyPeriods.get(studyPeriod - 1).getCourse2();
     }
 
+    /**
+     *
+     * @return the amount of study periods in a year(this is most probably going to stay at 4 at all times)
+     */
     @Override
     public int getStudyPeriodsSize() {
         return studyPeriods.size();

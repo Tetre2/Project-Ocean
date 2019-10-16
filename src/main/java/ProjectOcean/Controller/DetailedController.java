@@ -36,7 +36,7 @@ public class DetailedController extends VBox {
 
     /**
      * Creates the view for the detailed view without any info in it.
-     * @param model is the model for the program
+     * @param goBack is a callback to the goback-method ApplicationController
      */
     public DetailedController(GoBackToMainContent goBack, HostServices hostServices) {
         this.goBack = goBack;

@@ -43,8 +43,6 @@ public class YearTests {
         year.addCourse(expectedCourse, studyPeriod, slot);
 
         ICourse actualCourse = year.getCourseInStudyPeriod(studyPeriod, slot);
-        System.out.println(expectedCourse.toString());
-        System.out.println(actualCourse.toString());
 
         Assert.assertTrue(expectedCourse.equals(actualCourse));
 
