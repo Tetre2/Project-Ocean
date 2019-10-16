@@ -57,7 +57,7 @@ public class StudyPeriodTests {
     }
 
     @Test
-    public void eqaulsTest(){
+    public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
         List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();
