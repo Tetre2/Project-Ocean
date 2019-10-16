@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -22,6 +23,9 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;
     @FXML private Text studyPointsText;
+    @FXML private AnchorPane itIndicator;
+    @FXML private AnchorPane mathIndicator;
+    @FXML private AnchorPane natureIndicator;
 
     private static CoursePlanningSystem model;
     private final ICourse course;
@@ -56,6 +60,20 @@ public class CourseListIconController extends VBox implements Movable {
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(course.getCourseCode());
         this.studyPointsText.setText(course.getStudyPoints() + " hp");
+        indicateCourseTypes();
+    }
+
+    private void indicateCourseTypes() {
+        String courseTypes = course.getCourseTypes();
+        if(courseTypes.contains("IT")) {
+            this.itIndicator.setStyle("-fx-background-color: #40E0D0");
+        }
+        if(courseTypes.contains("MA")) {
+            this.mathIndicator.setStyle("-fx-background-color: #DF3C3C");
+        }
+        if(courseTypes.contains("NA")) {
+            this.natureIndicator.setStyle("-fx-background-color: #3DC134");
+        }
     }
 
     @FXML

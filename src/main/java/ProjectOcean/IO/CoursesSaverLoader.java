@@ -144,6 +144,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
             jsonCourse.put("requiredCourses", requiredCourses);
             jsonCourse.put("coursePMLink", course.getCoursePMLink());
             jsonCourse.put("courseDescription", course.getCourseDescription());
+            jsonCourse.put("courseTypes", course.getCourseTypes());
 
             jsonCourses.add(jsonCourse);
 
