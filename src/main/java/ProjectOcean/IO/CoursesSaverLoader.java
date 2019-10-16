@@ -164,11 +164,55 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
     public static List<Course> generatePreDefinedCourses(){
         List<Course> courses = new ArrayList<>();
 
-        courses.add(createCourse("DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(createCourse("EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf snedspö", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
+        courses.add(createCourse("EDA433","Grundläggande datorteknik", "7.5", "1", "Rolf Snedsböl", "Tenta + Laborationer", "Svenska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27769&parsergrp=2", "Syfte:\n" +
+                "Kursen ska ge förståelse av datorns uppbyggnad och funktionssätt och därigenom en mycket god teoretisk och praktisk grund för fortsatta studier i såväl datortekniska som programmeringstekniska kurser.\n" +
+                "\n" +
+                "Innehåll:\n" +
+                "* Digitalteknikens grundläggande element och begrepp och olika talsystem.\n" +
+                "* Boolesk algebras användning för konstruktion av kombinatoriska nät och synkrona sekvensnät.\n" +
+                "* Datorns digitala byggblock (ALU, dataväg, styrenhet, minne, in- och ut- enheter).\n" +
+                "* Den traditionsenliga processorns uppbyggnad (dataväg och styrenhet med instruktionsuppsättning) som en synkront arbetande digitalmaskin.\n" +
+                "* Kodning i maskinspråk och assemblerspråk."));
+
+        courses.add(createCourse("TDA548","Grundläggande programvaruutveckling", "7.5", "1", "Joachim von Hacht", "Tenta + Laborationer", "Svenska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28460&parsergrp=2", "Syfte:\n" +
+                "Den här kursen är en introduktion till imperativ programmering och programvaruutveckling. Kursen syftar till att ge grundläggande färdigheter i programmeringsmässig problemlösning med imperativa metoder, och ge en första inblick i programmerandet som hantverk.\n" +
+                "\n" +
+                "Innehåll:\n" +
+                "I kursen används programspråket Java. Följande moment behandlas:\n" +
+                "* variabler, uttryck och satser, prioritet, metoder, parameteröverföring, rekursion\n" +
+                "* fält och inläsning från en användare\n" +
+                "* enkla typer och referenstyper, typomvandling\n" +
+                "* grundläggande objektorienterade begrepp såsom klasser, objekt, metoder och instansvariabler\n" +
+                "* olika tester på likhet, kanonisk form för klasser\n" +
+                "* grundläggande arv och gränssnitt (interfaces)\n" +
+                "* standardklasser för grafiska användargränssnitt\n" +
+                "* händelser och lyssnare\n" +
+                "* felhantering med hjälp av undantag\n" +
+                "* sökning på Internet efter dokumentation för standardklasser\n" +
+                "* några av klasserna i Javas API"));
+
+        courses.add(createCourse("TDA552","Objektorienterad programmering och design", "7.5", "2", "Alex Gerdes", "Munta + Inlämningsuppgift", "Svenska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27211&parsergrp=2", "Syfte:\n" +
+                "Programvaruutveckling är centralt för en civilingenjör inom informationsteknik. Kursen presenterar det objektorienterade programmeringsparadigmet och lägger stor vikt vid design av objektorienterade program.\n" +
+                "\n" +
+                "Innehåll:\n" +
+                "Kursen presenterar det objektorienterade programmeringsparadigmet och lägger stor vikt vid programkonstruktion och design.\n" +
+                "\n" +
+                "Begreppsapparat och teknik utökas och fördjupas: metoder, objekt, abstrakta- och anonyma klasser, initiering, polymorfism, överlagring och överskuggning,implementations- och gränssnittsarv, användning generiska typer, konstruktion av enkla generiska klasser, felhantering, immutabilitet och defensive copying, och introduktion till trådar och trådsäkerhet m.m.\n" +
+                "\n"));
+
+
+        courses.add(createCourse("TMV200","Diskret matematik", "7.5", "2", "Mårten Wadenbäck", "Tenta", "Svenska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28303&parsergrp=2", "Syfte:\n" +
+                "Kursen ger grundläggande kunskaper om diskreta matematiska strukturer som behövs för högskolestudier, främst sådana som har anknytning till datorer och programering.\n" +
+                "\n" +
+                "Innehåll:\n" +
+                "Kursen är uppdelad i tre teman. Inom varje tema studeras relevanta matematiska begrepp. Vissa kursmoment, såsom bevisföring, återkommer i fler teman. Kursens teman är:\n" +
+                "* Logik, relationer och funktioner, och bevis\n" +
+                "* Heltalsaritmetik och RSA-algoritmen\n" +
+                "* Kombinatorik och grafer\n" +
+                "Vissa grundläggande begr"));
+
         courses.add(createCourse("MVE045","Matematisk Analys", "7.5", "1", "Zoran Konkoli", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(createCourse("TMV206","Linjär Algebra", "7.5", "3", "Lukás Malý", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
-        courses.add(createCourse("TDA552","Objektorienterad Programmering och Design", "7.5", "2", "Alex Gerdes", "Munta/Inlämningsuppgift", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(createCourse("BAT123","Beroendespecifika paradigmer", "7.5","3","Anders Bölinge", "Tenta","Svenska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
         courses.add(createCourse("CAT123","Complex system", "7.5", "2", "Anders Fölinge", "Tenta","Engelska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));
         courses.add(createCourse("DAT321","Datavetenskap", "7.5", "4", "Anders Bölinge", "Tenta","Svenska", new ArrayList<>(), "www.chalmers.se", "Lorem ipsum"));

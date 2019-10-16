@@ -64,7 +64,7 @@ public class DetailedController extends VBox {
      */
     public void setDetailedInfo(ICourse course){
         clear();
-        String header = course.getCourseCode() + " - " + course.getCourseName() + course.getStudyPoints();
+        String header = course.getCourseCode() + " - " + course.getCourseName() + " - " + course.getStudyPoints();
         setHeader(header);
 
         setStudyPeriod(course.getStudyPeriod());
