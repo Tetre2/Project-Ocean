@@ -99,7 +99,7 @@ public class CourseTests {
     }
 
     @Test
-    public void getExaminatorTest(){
+    public void getExaminerTest(){
         String expected = examiner;
         String actual = course.getExaminer();
 
