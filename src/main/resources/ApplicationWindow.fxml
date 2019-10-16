@@ -33,7 +33,7 @@
             </MenuBar>
             <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="studyPlanWindow" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #61718c;" />
       
                   <VBox fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS" />
                   <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" />

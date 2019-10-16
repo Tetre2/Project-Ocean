@@ -4,10 +4,9 @@ import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.StudyPlan;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.io.IOException;
 /**
  * Represents a graphical component of a study plan.
  */
-public class StudyPlansController extends VBox {
+public class StudyPlansController extends AnchorPane {
 
     @FXML private VBox studyPlanContainer;
     @FXML private Button studyPlanView;
@@ -47,49 +46,32 @@ public class StudyPlansController extends VBox {
     @FXML
     private void onAddStudyPlanClicked(MouseEvent event) {
 
-        // Set new buttons properties, values taken from button created in ApplicationWindow.fxml
-        Button newButton = new Button();
-        newButton.setText("SPlan " + studyPlanContainer.getChildren().size());
-        newButton.setTextAlignment(studyPlanView.getTextAlignment());
-        newButton.setPrefSize(studyPlanView.getPrefWidth(), studyPlanView.getPrefHeight());
-        newButton.setNodeOrientation(NodeOrientation.INHERIT);
+        int studyPlanNumber = studyPlanContainer.getChildren().size();
+        model.addStudyPlan(); // method setting new studyPlan to current
+        StudyPlan currentStudyPlan = model.getStudent().getCurrentStudyPlan();
+        ButtonController newButton = new ButtonController(model, applicationController, studyPlanNumber, currentStudyPlan);
+
         studyPlanContainer.getChildren().add(studyPlanContainer.getChildren().size() - 1, newButton);
-        studyPlanContainer.setMargin(newButton, new Insets(30, 30, 0, 30)); //TODO: this is a property for the VBox
 
-        //newButton.setDefaultButton(true);
+        // Show the new StudyPlan in ScheduleView
+        applicationController.removeCurrentScheduleView();
+        StudyPlanController studyPlanController = new StudyPlanController(model, applicationController);
+        applicationController.addNewStudyPlanController(studyPlanController);
 
-        model.addStudyPlan();
-        //showChosenStudyPlan(model.getStudent().getCurrentStudyPlan());
         event.consume();
+
     }
 
     private void displayAllStudyPlans() {
         studyPlanContainer.getChildren().clear();
         studyPlanContainer.getChildren().add(addButton);
-        int studyPlans = model.getStudent().getAllStudyPlans().size();
-        System.out.println(studyPlans);
-        for (StudyPlan studyPlan : model.getStudent().getAllStudyPlans()) {
-            //model.getStudent().setCurrentStudyPlan(studyPlan);
-            // Set new buttons properties, values taken from button created in ApplicationWindow.fxml
-            Button newButton = new Button();
-            newButton.setText("SPlan " + studyPlanContainer.getChildren().size());
 
-            newButton.setPrefSize(studyPlanView.getPrefWidth(), studyPlanView.getPrefHeight());
-            //newButton.setAlignment(studyPlanView.getAlignment());
-            //newButton.setNodeOrientation(NodeOrientation.INHERIT);
-            newButton.setTextAlignment(studyPlanView.getTextAlignment());
-            studyPlanContainer.setMargin(newButton, new Insets(30, 30, 0, 30)); //TODO: this is a property for the VBox
+        for (StudyPlan studyPlan : model.getStudent().getAllStudyPlans()) {
+            // Set new buttons properties, values taken from button created in ApplicationWindow.fxml
+            int studyPlanNumber = studyPlanContainer.getChildren().size();
+            ButtonController newButton = new ButtonController(model, applicationController, studyPlanNumber, studyPlan);
 
             studyPlanContainer.getChildren().add(studyPlanContainer.getChildren().size() - 1, newButton);
-
-            //model.addStudyPlan();
-            //CourseListIconController iconController = new CourseListIconController(course, model, applicationController);
-            //workspaceContainer.getChildren().add(iconController);
-        }
-        for (int i = 0; i < studyPlans; i++) {
-
-
-
         }
     }
 

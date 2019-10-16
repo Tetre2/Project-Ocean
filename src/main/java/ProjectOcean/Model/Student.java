@@ -74,8 +74,6 @@ public class Student {
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
         setCurrentStudyPlan(studyPlan);
-
-        System.out.println(studyPlans.size());
     }
 
     public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
