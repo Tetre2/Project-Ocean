@@ -56,9 +56,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane fx:id="itIndicator" />
-                  <AnchorPane fx:id="mathIndicator" GridPane.rowIndex="1" />
-                  <AnchorPane fx:id="natureIndicator" GridPane.rowIndex="2" />
+                  <AnchorPane fx:id="itIndicator" style="-fx-border-color: #CCCCCC;" />
+                  <AnchorPane fx:id="mathIndicator" style="-fx-border-color: #CCCCCC;" GridPane.rowIndex="1" />
+                  <AnchorPane fx:id="natureIndicator" style="-fx-border-color: #CCCCCC;" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
