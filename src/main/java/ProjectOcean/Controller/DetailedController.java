@@ -1,6 +1,5 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -36,7 +35,7 @@ public class DetailedController extends VBox {
 
     /**
      * Creates the view for the detailed view without any info in it.
-     * @param model is the model for the program
+     * @param goBack is a callback to applicationController.
      */
     public DetailedController(GoBackToMainContent goBack, HostServices hostServices) {
         this.goBack = goBack;

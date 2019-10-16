@@ -55,6 +55,11 @@ public class StudyPlan {
         return schedule;
     }
 
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +68,9 @@ public class StudyPlan {
         return schedule.equals(studyPlan.schedule);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(schedule);

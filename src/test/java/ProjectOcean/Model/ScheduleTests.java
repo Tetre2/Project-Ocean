@@ -66,11 +66,7 @@ public class ScheduleTests {
         schedule.removeYear(year);
         Assert.assertTrue(schedule.getYear(2) == null);
 
-
     }
-
-
-
 }
 
 

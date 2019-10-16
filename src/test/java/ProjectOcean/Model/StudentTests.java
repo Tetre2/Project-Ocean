@@ -48,7 +48,6 @@ public class StudentTests {
         Assert.assertEquals(null, student.getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
     }
 
-
     @Test
     public void addYearTest(){
         Student student = new Student();
