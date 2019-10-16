@@ -24,7 +24,7 @@ public class StudentTests {
         Student student = new Student();
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
         student.addCourse(course, year, studyPeriod, slot);
@@ -37,7 +37,7 @@ public class StudentTests {
         Student student = new Student();
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
         student.addCourse(course, year, studyPeriod, slot);

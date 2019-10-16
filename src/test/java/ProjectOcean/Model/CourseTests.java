@@ -12,19 +12,19 @@ public class CourseTests {
     public void courseUniqueIdTest() {
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         ICourse course1 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         ICourse course2 = CourseFactory.CreateCourse();
 
@@ -155,7 +155,7 @@ public class CourseTests {
     public void toStringTest() {
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course1 = CourseFactory.CreateCourse();
 

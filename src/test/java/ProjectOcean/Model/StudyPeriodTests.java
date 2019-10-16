@@ -23,7 +23,7 @@ public class StudyPeriodTests {
         StudyPeriod studyPeriod = new StudyPeriod();
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course = CourseFactory.CreateCourse();
         studyPeriod.addCourse(course, slot);
@@ -37,7 +37,7 @@ public class StudyPeriodTests {
         StudyPeriod studyPeriod = new StudyPeriod();
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course1 = CourseFactory.CreateCourse();
         studyPeriod.addCourse(course1, slot);
@@ -47,7 +47,7 @@ public class StudyPeriodTests {
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
         CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
         Course course2 = CourseFactory.CreateCourse();
         studyPeriod.addCourse(course1, slot);

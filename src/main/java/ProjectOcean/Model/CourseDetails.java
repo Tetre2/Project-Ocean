@@ -13,11 +13,13 @@ public class CourseDetails {
     private final List<String> requiredCourses;
     private final String coursePMLink;
     private final String courseDescription;
+    private final String courseTypes;
 
-    public CourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription) {
+    public CourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription, String courseTypes) {
         this.requiredCourses = requiredCourses;
         this.coursePMLink = coursePMLink;
         this.courseDescription = courseDescription;
+        this.courseTypes = courseTypes;
     }
 
     /**
@@ -45,6 +47,14 @@ public class CourseDetails {
      */
     public String getCourseDescription() {
         return courseDescription;
+    }
+
+    /**
+     *
+     * @return this course's course Types
+     */
+    public String getCourseTypes() {
+        return courseTypes;
     }
 
     @Override

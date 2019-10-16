@@ -55,6 +55,15 @@ public class Course implements ICourse {
     }
 
     /**
+     *
+     * @return this course's course types
+     */
+    @Override
+    public String getCourseTypes() {
+        return cDetails.getCourseTypes();
+    }
+
+    /**
      * @return this course's name
      */
     @Override

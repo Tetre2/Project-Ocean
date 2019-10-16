@@ -37,8 +37,8 @@ public class CourseFactory {
      * @param coursePMLink Set a link to a course's PM
      * @param courseDescription Set a course's description
      */
-    public static void SetCourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription) {
-        CourseFactory.cDetails = new CourseDetails(requiredCourses, coursePMLink, courseDescription);
+    public static void SetCourseDetails(List<String> requiredCourses, String coursePMLink, String courseDescription, String courseTypes) {
+        CourseFactory.cDetails = new CourseDetails(requiredCourses, coursePMLink, courseDescription, courseTypes);
     }
 
     /**

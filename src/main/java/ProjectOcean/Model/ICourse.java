@@ -24,5 +24,7 @@ public interface ICourse {
 
     String getCourseDescription();
 
+    String getCourseTypes();
+
 
 }

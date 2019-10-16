@@ -22,25 +22,25 @@ public class WorkspaceTest {
     public void createCourses() {
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "NA");
         CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
         ICourse course4 = CourseFactory.CreateCourse();
 
@@ -67,7 +67,7 @@ public class WorkspaceTest {
         ws.removeAllCourses();
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course = CourseFactory.CreateCourse();
         ws.addCourse(course);
@@ -76,19 +76,19 @@ public class WorkspaceTest {
         //Checking that a course cannot be added twice.
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "NA");
         CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
         ICourse course4 = CourseFactory.CreateCourse();
 
@@ -113,7 +113,7 @@ public class WorkspaceTest {
 
         CourseFactory.SetStudyPeriod("3");
         CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course = CourseFactory.CreateCourse();
 
@@ -125,19 +125,19 @@ public class WorkspaceTest {
         //Check that nothing happens to the list in we try to remove a Course that does not exist i the list.
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Turkish");
         ICourse course2 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("4");
         CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "IT");
         CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Turkish");
         ICourse course3 = CourseFactory.CreateCourse();
 
         CourseFactory.SetStudyPeriod("1");
         CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(null, "LINK_Zelda", "Abu Dhabi. YOLO!", "NA");
         CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Turkish");
         ICourse course4 = CourseFactory.CreateCourse();
 
@@ -155,7 +155,7 @@ public class WorkspaceTest {
 
         CourseFactory.SetStudyPeriod("2");
         CourseFactory.SetCourseInfo("HAT123", "Hierarkiska strukturer", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!");
+        CourseFactory.SetCourseDetails(new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!", "");
         CourseFactory.SetCourseAccessibility( "Anders Bölinge", "Tenta","Turkish");
         ICourse courseTemp = CourseFactory.CreateCourse();
 
