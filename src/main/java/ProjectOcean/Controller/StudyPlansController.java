@@ -48,9 +48,8 @@ public class StudyPlansController extends AnchorPane {
     @FXML
     private void onAddStudyPlanClicked(MouseEvent event) {
 
-        for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {//Node buttonController : studyPlanContainer.getChildren()) {
+        for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {
             ButtonController buttonController = (ButtonController) studyPlanContainer.getChildren().get(i);
-            //ButtonController buttonController1 = (ButtonController) buttonController;
             if (buttonController.getStudyPlan() == model.getStudent().getCurrentStudyPlan()) {
                 buttonController.deActivateDefaultButton();
             }
@@ -83,6 +82,13 @@ public class StudyPlansController extends AnchorPane {
             ButtonController newButton = new ButtonController(model, applicationController, this, studyPlanNumber, studyPlan);
 
             studyPlanContainer.getChildren().add(studyPlanContainer.getChildren().size() - 1, newButton);
+        }
+
+        for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {
+            ButtonController buttonController = (ButtonController) studyPlanContainer.getChildren().get(i);
+            if (buttonController.getStudyPlan() == model.getStudent().getCurrentStudyPlan()) {
+                buttonController.activateDefaultButton();
+            }
         }
     }
 

@@ -83,4 +83,11 @@ public class ButtonController extends Button {
     public void deActivateDefaultButton() {
         buttonStudyPlan.setDefaultButton(false);
     }
+
+    /**
+     * Set non-active button to active
+     */
+    public void activateDefaultButton() {
+        buttonStudyPlan.setDefaultButton(true);
+    }
 }
