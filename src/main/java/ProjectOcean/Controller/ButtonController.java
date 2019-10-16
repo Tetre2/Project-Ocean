@@ -20,12 +20,14 @@ public class ButtonController extends Button {
     private StudyPlan studyPlan;
     private CoursePlanningSystem model;
     private ApplicationController applicationController;
+    private StudyPlansController studyPlansController;
 
-    public ButtonController(CoursePlanningSystem model, ApplicationController applicationController, int studyPlanNumber, StudyPlan studyPlan) {
+    public ButtonController(CoursePlanningSystem model, ApplicationController applicationController, StudyPlansController studyPlansController, int studyPlanNumber, StudyPlan studyPlan) {
         this.studyPlanNumber = studyPlanNumber;
         this.studyPlan = studyPlan;
         this.model = model;
         this.applicationController = applicationController;
+        this.studyPlansController = studyPlansController;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ButtonView.fxml"));
@@ -50,6 +52,13 @@ public class ButtonController extends Button {
     private void onStudyPlanClicked(MouseEvent event) {
 
         if (!(this.studyPlan == model.getStudent().getCurrentStudyPlan())) {
+            // Important to exclude last button: the "addButton" is not a ButtonController. Would throw cast error.
+            for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {
+                ButtonController buttonController = (ButtonController) studyPlansController.getStudyPlans().get(i);
+                if (buttonController.studyPlan == model.getStudent().getCurrentStudyPlan()) {
+                    buttonController.buttonStudyPlan.setDefaultButton(false);
+                }
+            }
             model.getStudent().setCurrentStudyPlan(studyPlan);
             buttonStudyPlan.setDefaultButton(true);
             applicationController.removeCurrentScheduleView(); // removes current schedule;
@@ -59,5 +68,19 @@ public class ButtonController extends Button {
         }
         event.consume();
 
+    }
+
+    /**
+     * @return get a study plan connected to given (this) button
+     */
+    public StudyPlan getStudyPlan() {
+        return studyPlan;
+    }
+
+    /**
+     * Set active button to non-active
+     */
+    public void deActivateDefaultButton() {
+        buttonStudyPlan.setDefaultButton(false);
     }
 }

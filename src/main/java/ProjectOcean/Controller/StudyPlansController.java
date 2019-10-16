@@ -2,8 +2,10 @@ package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.StudyPlan;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -46,10 +48,17 @@ public class StudyPlansController extends AnchorPane {
     @FXML
     private void onAddStudyPlanClicked(MouseEvent event) {
 
+        for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {//Node buttonController : studyPlanContainer.getChildren()) {
+            ButtonController buttonController = (ButtonController) studyPlanContainer.getChildren().get(i);
+            //ButtonController buttonController1 = (ButtonController) buttonController;
+            if (buttonController.getStudyPlan() == model.getStudent().getCurrentStudyPlan()) {
+                buttonController.deActivateDefaultButton();
+            }
+        }
         int studyPlanNumber = studyPlanContainer.getChildren().size();
         model.addStudyPlan(); // method setting new studyPlan to current
         StudyPlan currentStudyPlan = model.getStudent().getCurrentStudyPlan();
-        ButtonController newButton = new ButtonController(model, applicationController, studyPlanNumber, currentStudyPlan);
+        ButtonController newButton = new ButtonController(model, applicationController, this, studyPlanNumber, currentStudyPlan);
 
         studyPlanContainer.getChildren().add(studyPlanContainer.getChildren().size() - 1, newButton);
 
@@ -57,6 +66,8 @@ public class StudyPlansController extends AnchorPane {
         applicationController.removeCurrentScheduleView();
         StudyPlanController studyPlanController = new StudyPlanController(model, applicationController);
         applicationController.addNewStudyPlanController(studyPlanController);
+
+        newButton.setDefaultButton(true);
 
         event.consume();
 
@@ -69,10 +80,17 @@ public class StudyPlansController extends AnchorPane {
         for (StudyPlan studyPlan : model.getStudent().getAllStudyPlans()) {
             // Set new buttons properties, values taken from button created in ApplicationWindow.fxml
             int studyPlanNumber = studyPlanContainer.getChildren().size();
-            ButtonController newButton = new ButtonController(model, applicationController, studyPlanNumber, studyPlan);
+            ButtonController newButton = new ButtonController(model, applicationController, this, studyPlanNumber, studyPlan);
 
             studyPlanContainer.getChildren().add(studyPlanContainer.getChildren().size() - 1, newButton);
         }
+    }
+
+    /**
+     * @return An Observable list containing all nodes in the VBox "studyPlanContainer"
+     */
+    public ObservableList<Node> getStudyPlans() {
+        return studyPlanContainer.getChildren();
     }
 
 }
