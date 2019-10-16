@@ -30,6 +30,7 @@ public class DetailedController extends VBox {
     @FXML private VBox requiredCourses;
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
+    @FXML private Label courseTypeLabel;
 
     private HostServices hostServices;
     private GoBackToMainContent goBack;
@@ -81,6 +82,8 @@ public class DetailedController extends VBox {
         setCoursePMLink(course.getCoursePMLink());
 
         setCourseDescription(course.getCourseDescription());
+
+        setCourseType(course.getCourseTypes());
     }
 
     private void setHeader(String header){
@@ -101,6 +104,32 @@ public class DetailedController extends VBox {
 
     private void setLanguage(String language) {
         this.language.setText(language);
+    }
+
+    private void setCourseType(String courseTypes) {
+        this.courseTypeLabel.setText(formatCourseTypes(courseTypes));
+    }
+
+    private String formatCourseTypes(String courseTypes) {
+        String formatedCourseTypes = "";
+        if(courseTypes.contains("IT")) {
+            formatedCourseTypes = "Informationsteknik";
+        }
+        if(courseTypes.contains("MA")) {
+            if(formatedCourseTypes.isEmpty()) {
+                formatedCourseTypes = "Matematik";
+            } else {
+                formatedCourseTypes = formatedCourseTypes + ", matematik";
+            }
+        }
+        if(courseTypes.contains("NA")) {
+            if(formatedCourseTypes.isEmpty()) {
+                formatedCourseTypes = "Naturvetenskap";
+            } else {
+                formatedCourseTypes = formatedCourseTypes + ", naturvetenskap";
+            }
+        }
+        return formatedCourseTypes;
     }
 
     private void setRequiredCourses(List<String> courses) {

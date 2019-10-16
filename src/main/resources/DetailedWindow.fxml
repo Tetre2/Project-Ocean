@@ -75,6 +75,12 @@
                   </HBox>
                   <HBox>
                      <children>
+                        <Label text="%courseTypes" />
+                        <Label fx:id="courseTypeLabel" text="Label" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
                              <Label text="%requiredCourses" />
                      </children>
                   </HBox>
