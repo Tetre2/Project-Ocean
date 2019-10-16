@@ -32,8 +32,8 @@ public class ApplicationController extends AnchorPane {
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
-        this.searchBrowseController = new SearchBrowseController(model, this);
-        this.workspaceController = new WorkspaceController(model, this);
+        this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
+        this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
@@ -137,6 +137,10 @@ public class ApplicationController extends AnchorPane {
      */
     public void saveStudent(){
         model.saveStudentToJSON();
+    }
+
+    private void removeMovableChild(Movable course) {
+        this.getChildren().remove(course);
     }
 
 }

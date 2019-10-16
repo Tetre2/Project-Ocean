@@ -14,10 +14,10 @@ public class ScheduleController extends VBox {
 
     @FXML private VBox yearContentView;
 
-    private YearController yearController;
+    private final YearController yearController;
 
     public ScheduleController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
-        yearController = new YearController(1, model, moveDraggedObjectToCursor, addIconToScreen);
+        this.yearController = new YearController(1, model, moveDraggedObjectToCursor, addIconToScreen);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanWindow.fxml"));
