@@ -133,7 +133,7 @@ public class YearController extends VBox implements Observer {
     private void addCourseControllersAccordingToModel() {
         Year y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
 
-        for (int studyPeriod = 1; studyPeriod <= 4; studyPeriod++) {
+        for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriods().size(); studyPeriod++) {
             for (int slot = 1; slot <= 2; slot++) {
 
                 if(slot == 1){
