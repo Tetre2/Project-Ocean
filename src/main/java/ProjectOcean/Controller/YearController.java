@@ -23,14 +23,16 @@ public class YearController extends VBox implements Observer {
     @FXML private GridPane yearGrid;
 
     private final CoursePlanningSystem model;
-    private final ApplicationController applicationController;
     private final int year;
+    private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final AddIconToScreen addIconToScreen;
 
 
-    public YearController(int year, CoursePlanningSystem model, ApplicationController applicationController) {
+    public YearController(int year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.year = year;
-        this.applicationController = applicationController;
+        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+        this.addIconToScreen = addIconToScreen;
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -59,7 +61,7 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveDraggedObjectToCursor(icon, event);
+        moveDraggedObjectToCursor.moveDraggedObjectToCursor(icon, event);
         event.consume();
     }
 
@@ -78,7 +80,7 @@ public class YearController extends VBox implements Observer {
         model.addCourse(icon.getICourse(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
-        applicationController.moveDraggedObjectToCursor(icon, event);
+        moveDraggedObjectToCursor.moveDraggedObjectToCursor(icon, event);
         event.consume();
     }
 
@@ -141,12 +143,12 @@ public class YearController extends VBox implements Observer {
                 if(slot == 1){
                     ICourse course = y.getCourseInStudyPeriod(studyPeriod,slot);
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
+                        yearGrid.add(new ScheduleCourseController(model, course, this.addIconToScreen, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
                     }
                 }else{
                     ICourse course = y.getCourseInStudyPeriod(studyPeriod, slot);
                     if(course != null) {
-                        yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
+                        yearGrid.add(new ScheduleCourseController(model, course, this.addIconToScreen, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
                     }
                 }
 
