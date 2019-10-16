@@ -231,6 +231,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         }
     }
 
+    /**
+     * Creates a empty student file and creates a new file if it does not exist
+     */
     @Override
     public void createNewStudentFile(){
         File directory = new File(getHomeDirPath());

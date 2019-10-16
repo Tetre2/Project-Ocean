@@ -20,11 +20,7 @@ public class YearTests {
     @Test
     public void addCourseTest() {
         Year year = new Year();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         year.addCourse(course, studyPeriod, slot);
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());
@@ -35,11 +31,7 @@ public class YearTests {
     public void getCourseInStudyPeriodTest() {
         Year year = new Year();
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course expectedCourse = CourseFactory.CreateCourse();
+        ICourse expectedCourse = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         year.addCourse(expectedCourse, studyPeriod, slot);
 
         ICourse actualCourse = year.getCourseInStudyPeriod(studyPeriod, slot);
@@ -59,11 +51,7 @@ public class YearTests {
     @Test
     public void removeCourseTest() {
         Year year = new Year();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         year.addCourse(course, studyPeriod, slot);
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());

@@ -157,10 +157,10 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
     /**
-     * Gets a list of all courses in the workspace by their id.
-     * @return a list of UUID:s för the courses in workspace.
+     * Gets a list of all courses in the workspace.
+     * @return a list of ICourses in workspace.
      */
-    public List<ICourse> getCoursesInWorkspaceIDs(){
+    public List<ICourse> getCoursesInWorkspace(){
         List<ICourse> idList = new ArrayList<>();
         for (Course c : student.getAllCoursesInWorkspace()) {
             idList.add(c);
@@ -176,6 +176,13 @@ public class CoursePlanningSystem extends Observable {
         student.removeCourseFromWorkspace((Course) course);
         setChanged();
         notifyObservers();
+    }
+
+    /**
+     * Removes all courses
+     */
+    public void removeAllCoursesInWorkscpace(){
+        student.removeAllCoursesInWorkscpace();
     }
 
     private static List<Course> getCoursesFromCourseLoader(){

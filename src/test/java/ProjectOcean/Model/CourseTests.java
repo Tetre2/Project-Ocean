@@ -1,176 +1,154 @@
 package ProjectOcean.Model;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
 public class CourseTests {
 
+    String studyPeriod;
+    String courseCode;
+    String courseName;
+    String studyPoints;
+    List<String> requiredCourses;
+    String coursePMLink;
+    String courseDescription;
+    String examiner;
+    String examinationMeans;
+    String language;
+    ICourse course;
+
+    @Before
+    public void init(){
+        studyPeriod = "1";
+        courseCode = "DAT017";
+        courseName = "Maskinorienterad programmering";
+        studyPoints = "7.5";
+        requiredCourses = new ArrayList<>();
+        coursePMLink = "www.google.com";
+        courseDescription = "Lorem ipsum";
+        examiner = "Rolf Söderström";
+        examinationMeans = "Tenta";
+        language = "Svenska";
+
+        course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
+
+
+    }
+
     @Test
     public void courseUniqueIdTest() {
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        CourseFactory.CreateCourse();
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        ICourse course1 = CourseFactory.CreateCourse();
+        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        ICourse course2 = CourseFactory.CreateCourse();
 
         //Checks that ICourse references are different
         Assert.assertNotSame(course1, course2);
     }
 
-    //These tests come from CPS test, but where removed because the methods where removed from CPS.
-    //Similar tests need to be written here though if there is time.
-    /*
     @Test
     public void getCourseCodeTest() {
-        ICourse courseID = courses.get(0);
+       // ICourse courseID = courses.get(0);
 
-        String expected = courseID.getCourseCode();
-        String actual = coursePlanningSystem.getCourseCode(courseID);
+        String expected = courseCode;
+        String actual = course.getCourseCode();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getCourseNameTest() {
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getCourseName();
-        String actual = coursePlanningSystem.getCourseName(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getCourseStudyPointsTest() {
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getStudyPoints();
-        String actual = coursePlanningSystem.getStudyPoints(courseID);
+        String expected = courseName;
+        String actual = course.getCourseName();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getStudyPointsTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getStudyPoints();
-        String actual = coursePlanningSystem.getStudyPoints(courseID);
+        String expected = studyPoints;
+        String actual = course.getStudyPoints();
 
         Assert.assertEquals(expected, actual);
     }
 
         @Test
     public void getStudyPeriodTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = String.valueOf(courseID.getStudyPeriod());
-        String actual = coursePlanningSystem.getStudyPeriod(courseID);
+            String expected = studyPeriod;
+            String actual = course.getStudyPeriod();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getExaminatorTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getExaminator();
-        String actual = coursePlanningSystem.getExaminator(courseID);
+    public void getExaminerTest(){
+        String expected = examiner;
+        String actual = course.getExaminer();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getExaminationMeansTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getExaminationMeans();
-        String actual = coursePlanningSystem.getExaminationMeans(courseID);
+        String expected = examinationMeans;
+        String actual = course.getExaminationMeans();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getLanguageTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = courseID.getLanguage();
-        String actual = coursePlanningSystem.getLanguage(courseID);
+        String expected = language;
+        String actual = course.getLanguage();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getRequiredCoursesTest(){
-        ICourse courseID = courses.get(0);
-
-        List<String> expected = new ArrayList<>();
-
-        for (String string : courseID.getRequiredCourses()) {
-            expected.add(string);
-        }
-
-        List<String> actual = coursePlanningSystem.getRequiredCourses(courseID);
+        List<String> expected = requiredCourses;
+        List<String> actual = course.getRequiredCourses();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getCoursePMLinkTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = String.valueOf(courseID.getCoursePMLink());
-        String actual = coursePlanningSystem.getCoursePMLink(courseID);
+        String expected = coursePMLink;
+        String actual = course.getCoursePMLink();
 
         Assert.assertEquals(expected, actual);
     }
 
         @Test
     public void getCourseDescriptionTest(){
-        ICourse courseID = courses.get(0);
-
-        String expected = String.valueOf(courseID.getCourseDescription());
-        String actual = coursePlanningSystem.getCourseDescription(courseID);
+            String expected = courseDescription;
+            String actual = course.getCourseDescription();
 
         Assert.assertEquals(expected, actual);
     }
-    */
+
 
     @Test
     public void toStringTest() {
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course1 = CourseFactory.CreateCourse();
+        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         String actual = course1.toString();
         String expected = "Course{" +
-                "studyPeriod='" + course1.getStudyPeriod() + '\'' +
-                ", courseCode='" + course1.getCourseCode() + '\'' +
+                "courseCode='" + course1.getCourseCode() + '\'' +
                 ", courseName='" + course1.getCourseName() + '\'' +
-                ", studyPoints='" + course1.getStudyPoints()+ '\'' +
-                ", examiner='" + course1.getExaminer()+ '\'' +
-                ", examinationMeans='" + course1.getExaminationMeans()+ '\'' +
-                ", language='" + course1.getLanguage()+ '\'' +
-                ", requiredCourses=" + course1.getRequiredCourses()+
-                ", coursePMLink='" + course1.getCoursePMLink()+ '\'' +
-                ", courseDescription='" + course1.getCourseDescription()+ '\'' +
+                ", studyPoints='" + course1.getStudyPoints() + '\'' +
+                ", studyPeriod='" + course1.getStudyPeriod() + '\'' +
+                ", examiner='" + course1.getExaminer() + '\'' +
+                ", examinationMeans='" + course1.getExaminationMeans() + '\'' +
+                ", language='" + course1.getLanguage() + '\'' +
+                ", requiredCourses=" + course1.getRequiredCourses() +
+                ", coursePMLink='" + course1.getCoursePMLink() + '\'' +
+                ", courseDescription='" + course1.getCourseDescription() + '\'' +
                 '}';
 
         Assert.assertEquals(expected, actual);
