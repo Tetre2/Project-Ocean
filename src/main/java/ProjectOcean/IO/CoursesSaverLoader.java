@@ -170,6 +170,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         courses.add(createCourse("CAT123","Complex system", "7.5", "2", "Anders Fölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!", "IT"));
         courses.add(createCourse("DAT321","Datavetenskap", "7.5", "4", "Anders Bölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!", "IT"));
         courses.add(createCourse("FAT321","Fysik för ingenjörer", "7.5", "1", "Anders Brölinge", "Tenta","Turkish", new ArrayList<>(), "LINK_Zelda", "Abu Dhabi. YOLO!", "NA"));
+        courses.add(createCourse("TMV027","Ändliga automater och formella språk", "7.5", "2", "Ana Bove", "Tenta/hemuppgifter", "Engelska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/sidor/sokprogramutbudet.aspx?course_id=18397&parsergrp=2", "Lorem Ipsum", "IT, MA"));
 
         return courses;
     }
