@@ -20,29 +20,14 @@ public class WorkspaceTest {
 
     @Before
     public void createCourses() {
-        CourseFactory.SetStudyPeriod("3");
-        CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("2");
-        CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum!");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
-        ICourse course2 = CourseFactory.CreateCourse();
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("4");
-        CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course3 = CourseFactory.CreateCourse();
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
-        ICourse course4 = CourseFactory.CreateCourse();
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
 
         ws.addCourse(course);
         ws.addCourse(course2);
@@ -65,32 +50,17 @@ public class WorkspaceTest {
     @Test
     public void addCourseTest(){
         ws.removeAllCourses();
-        CourseFactory.SetStudyPeriod("3");
-        CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
         ws.addCourse(course);
         Assert.assertTrue(ws.getAllCourses().get(0) == course);
 
         //Checking that a course cannot be added twice.
-        CourseFactory.SetStudyPeriod("2");
-        CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
-        ICourse course2 = CourseFactory.CreateCourse();
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("4");
-        CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course3 = CourseFactory.CreateCourse();
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
-        ICourse course4 = CourseFactory.CreateCourse();
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         ws.addCourse(course2);
         ws.addCourse(course3);
@@ -111,11 +81,7 @@ public class WorkspaceTest {
     public void removeCourseTest(){
         ws.removeAllCourses();
 
-        CourseFactory.SetStudyPeriod("3");
-        CourseFactory.SetCourseInfo("BAT123", "Beroendespecifika paradigmer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         ws.addCourse(course);
         Assert.assertFalse(ws.getAllCourses() == null);
@@ -123,23 +89,13 @@ public class WorkspaceTest {
         Assert.assertTrue(ws.getAllCourses().isEmpty());
 
         //Check that nothing happens to the list in we try to remove a Course that does not exist i the list.
-        CourseFactory.SetStudyPeriod("2");
-        CourseFactory.SetCourseInfo("CAT123", "Complex system", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Fölinge", "Tenta","Svenska");
-        ICourse course2 = CourseFactory.CreateCourse();
 
-        CourseFactory.SetStudyPeriod("4");
-        CourseFactory.SetCourseInfo("DAT321", "Datavetenskap", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Bölinge", "Tenta","Svenska");
-        ICourse course3 = CourseFactory.CreateCourse();
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("FAT321", "Fysik för ingenjörer", "7.5");
-        CourseFactory.SetCourseDetails(null, "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility("Anders Brölinge", "Tenta","Svenska");
-        ICourse course4 = CourseFactory.CreateCourse();
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
 
         ws.addCourse(course);
         ws.addCourse(course2);
@@ -152,12 +108,8 @@ public class WorkspaceTest {
         coursesTemp.add(course2);
         coursesTemp.add(course3);
         coursesTemp.add(course4);
+        ICourse courseTemp = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        CourseFactory.SetStudyPeriod("2");
-        CourseFactory.SetCourseInfo("HAT123", "Hierarkiska strukturer", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.chalmers.se", "Lorem ipsum");
-        CourseFactory.SetCourseAccessibility( "Anders Bölinge", "Tenta","Svenska");
-        ICourse courseTemp = CourseFactory.CreateCourse();
 
         ws.removeCourse(courseTemp);
         Assert.assertEquals(coursesTemp, ws.getAllCourses());
