@@ -68,6 +68,21 @@ public class Student {
     }
 
     /**
+     * Adds a new study plan to last place in list studyPlans
+     */
+    public void addStudyPlan() {
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlans.add(studyPlan);
+        setCurrentStudyPlan(studyPlan);
+
+        System.out.println(studyPlans.size());
+    }
+
+    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+        this.currentStudyPlan = currentStudyPlan;
+    }
+
+    /**
      * @return the student's current active study plan
      */
     public StudyPlan getCurrentStudyPlan() {

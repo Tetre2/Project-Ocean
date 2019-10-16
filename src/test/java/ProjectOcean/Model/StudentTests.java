@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class StudentTests {
 
-    int studyPeriod;
-    int year;
-    int slot;
+    ArrayList<StudyPlan> studyPlans;
+    private int studyPeriod;
+    private int year;
+    private int slot;
 
     @Before
     public void before() {
@@ -48,7 +49,6 @@ public class StudentTests {
         Assert.assertEquals(null, student.getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
     }
 
-
     @Test
     public void addYearTest(){
         Student student = new Student();
@@ -70,6 +70,12 @@ public class StudentTests {
         Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(2) == null);
     }
 
+    @Test
+    public void addStudyPlan() {
+        Student student = new Student();
+        student.addStudyPlan();
+
+        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+    }
+
 }
-
-

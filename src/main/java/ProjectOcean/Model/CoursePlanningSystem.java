@@ -48,6 +48,17 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * Adds a study plan
+     */
+    public void addStudyPlan() {
+        student.addStudyPlan();
+    }
+
+    public void setCurrentStudyPlan(StudyPlan studyPlan) {
+        student.setCurrentStudyPlan(studyPlan);
+    }
+
+    /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param course the course to be added
      * @param year the year to add the course to
