@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CoursesSaverLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,207 +9,146 @@ import java.util.*;
 
 public class CoursePlanningSystemTests {
 
+    private CoursePlanningSystem model;
+    private List<ICourse> courses;
 
-    private CoursePlanningSystem coursePlanningSystem;
-    private Map<UUID, Course> courses;
-    private List<UUID> allUUIDs;
+    private int year;
+    private int studyPeriod;
+    private int slot;
 
     @Before
     public void init(){
-        coursePlanningSystem = new CoursePlanningSystem();
-        courses = coursePlanningSystem.getAllCourses();
+        model = CoursePlanningSystem.getInstance();
+        courses = new ArrayList<>();
+        List<StudyPlan> studyPlans = new ArrayList<>();
 
-        List<UUID> IDs = new ArrayList<>();
-        Iterator it = courses.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            IDs.add((UUID) pair.getKey());
+        for (Course course : CoursesSaverLoader.generatePreDefinedCourses()) {
+            courses.add(course);
         }
-        allUUIDs = IDs;
+
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlans.add(studyPlan);
+
+
+        year = 1;
+        studyPeriod = 1;
+        slot = 1;
 
     }
 
     @Test
     public void getAllCoursesTest() {
 
-        Map<UUID, Course> expected = courses;
-        Map<UUID, Course> actual = coursePlanningSystem.getAllCourses();
+        List<ICourse> expected = courses;
+        List<ICourse> actual = model.getAllCourses();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getCourseCodeTest() {
-        UUID courseID = allUUIDs.get(0);
+    public void addCourseTest() {
+        ICourse course1 = courses.get(0);
+        ICourse course2 = courses.get(1);
+        model.addCourse(course1, year, studyPeriod, slot);
+        model.addCourse(course2, year, studyPeriod, slot + 1);
 
-        String expected = courses.get(courseID).getCourseCode();
-        String actual = coursePlanningSystem.getCourseCode(courseID);
+        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
 
-        Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getCourseNameTest() {
-        UUID courseID = allUUIDs.get(0);
+    public void removeCourseTest() {
+        ICourse course1 = courses.get(0);
+        ICourse course2 = courses.get(1);
+        model.addCourse(course1, year, studyPeriod, slot);
+        model.addCourse(course2, year, studyPeriod, slot + 1);
 
-        String expected = courses.get(courseID).getCourseName();
-        String actual = coursePlanningSystem.getCourseName(courseID);
+        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
 
-        Assert.assertEquals(expected, actual);
+        model.removeCourse(year, studyPeriod, slot);
+        model.removeCourse(year, studyPeriod, slot + 1);
+
+        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+
     }
 
     @Test
-    public void getCourseStudyPointsTest() {
+    public void addCourseToWorkspaceTest() {
+        model.removeAllCoursesInWorkscpace();
+        model.addCourseToWorkspace(courses.get(0));
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getStudyPoints();
-        String actual = coursePlanningSystem.getStudyPoints(courseID);
-
-        Assert.assertEquals(expected, actual);
+        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
     }
 
     @Test
-    public void getAllCoursesIDsTest() {
+    public void getCoursesInWorkspaceTest() {
+        model.removeAllCoursesInWorkscpace();
 
-        List<UUID> expected = allUUIDs;
-        List<UUID> actual = coursePlanningSystem.getAllCoursesIDs();
+        Assert.assertTrue(model.getCoursesInWorkspace().size() == 0);
 
-        Assert.assertEquals(expected, actual);
+        model.addCourseToWorkspace(courses.get(0));
+
+        Assert.assertTrue(model.getCoursesInWorkspace().size() == 1);
+
     }
 
     @Test
-    public void getStudyPointsTest(){
-        UUID courseID = allUUIDs.get(0);
+    public void removeCourseFromWorkspaceTest() {
+        model.removeAllCoursesInWorkscpace();
+        model.addCourseToWorkspace(courses.get(0));
+        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
 
-        String expected = courses.get(courseID).getStudyPoints();
-        String actual = coursePlanningSystem.getStudyPoints(courseID);
+        model.removeCourseFromWorkspace(courses.get(0));
+        Assert.assertEquals(0, model.getCoursesInWorkspace().size());
 
-        Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getStudyPeriodTest(){
+    public void getCourseTest() {
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getStudyPeriod());
-        String actual = coursePlanningSystem.getStudyPeriod(courseID);
+        ICourse expected = courses.get(0);
+        ICourse actual = model.getCourse(courses.get(0));
 
         Assert.assertEquals(expected, actual);
+
     }
 
     @Test
-    public void getExaminatorTest(){
+    public void getStudentTest() {
+        Student student = model.getStudent();
 
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getExaminator();
-        String actual = coursePlanningSystem.getExaminator(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getExaminationMeansTest(){
-
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getExaminationMeans();
-        String actual = coursePlanningSystem.getExaminationMeans(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getLanguageTest(){
-
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = courses.get(courseID).getLanguage();
-        String actual = coursePlanningSystem.getLanguage(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getRequiredCoursesTest(){
-
-        UUID courseID = allUUIDs.get(0);
-        List<UUID> expected = new ArrayList<>();
-        Iterator iterator = courses.get(courseID).getRequiredCourses().iterator();
-
-        while (iterator.hasNext()){
-            expected.add(((Course)iterator.next()).getId());
-        }
-
-
-        List<UUID> actual = coursePlanningSystem.getRequiredCourses(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getCoursePMLinkTest(){
-
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getCoursePMLink());
-        String actual = coursePlanningSystem.getCoursePMLink(courseID);
-
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getCourseDescriptionTest(){
-
-        UUID courseID = allUUIDs.get(0);
-
-        String expected = String.valueOf(courses.get(courseID).getCourseDescription());
-        String actual = coursePlanningSystem.getCourseDescription(courseID);
-
-        Assert.assertEquals(expected, actual);
+        Assert.assertNotNull(student);
     }
 
     @Test
     public void executeSearchTest() {
         //Test searching for examinor
-        String searchText = "Rolf";
-        List<UUID> searchResult = coursePlanningSystem.executeSearch(searchText);
+        String searchText = "SnEdSpö Rolf";
+        List<ICourse> searchResult = model.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        if(searchResult.isEmpty()) {
-            for(UUID id : searchResult){
-                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("rolf"));
-            }
-
-        }
-        searchResult.clear();
-        searchText = "SöderSTröm Rolf";
-        searchResult = coursePlanningSystem.executeSearch(searchText);
-        Assert.assertTrue(searchResult.size()!=0);
-        if(!searchResult.isEmpty()) {
-            for(UUID id : searchResult){
-                Assert.assertTrue(coursePlanningSystem.getExaminator(searchResult.get(0)).toLowerCase().contains("söderström"));
-            }
-        }
+        Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("snedspö"));
         searchResult.clear();
 
         //tests searching for course code
         searchText = "Eda433";
-        searchResult = coursePlanningSystem.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size() == 1);
         if(!searchResult.isEmpty()) {
-            Assert.assertTrue(coursePlanningSystem.getCourseCode(searchResult.get(0)).toLowerCase().equals("eda433"));
+            Assert.assertTrue(searchResult.get(0).getCourseCode().toLowerCase().equals("eda433"));
         }
         searchResult.clear();
 
         //tests searching for course name
         searchText = "Maskin  matematisk";
-        searchResult = coursePlanningSystem.executeSearch(searchText);
+        searchResult = model.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
-            for(UUID id : searchResult) {
-                Assert.assertTrue(coursePlanningSystem.getCourseName(id).toLowerCase().contains("maskin") || coursePlanningSystem.getCourseName(id).toLowerCase().contains("matematisk"));
+            for(ICourse course : searchResult) {
+                Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
             }
         }
     }

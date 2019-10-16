@@ -1,94 +1,138 @@
 package ProjectOcean.Model;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
+import java.util.Objects;
 
 /**
  * Represents a course in the model
  */
-public class Course {
+public class Course implements ICourse {
 
-    private final UUID id;
-    private final String courseCode;
-    private final String courseName;
-    private final float studyPoints;
-    private final int studyPeriod;
-    private final String examinator;
-    private final String examinationMeans;
-    private final String language;
-    private final List<Course> requiredCourses;
-    private final String coursePMLink;
-    private final String courseDescription;
+    private final String studyPeriod;
+    private final CourseDetails cDetails;
+    private final CourseInfo cInfo;
+    private final CourseAccessibility cAccessibility;
 
-    public Course(String courseCode, String courseName, float studyPoints, int studyPeriod, String examinator, String examinationMeans, String language, List<Course> requiredCourses, String coursePMLink, String courseDescription) {
-        this.id = UUID.randomUUID();
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.studyPoints = studyPoints;
+    public Course(String studyPeriod, CourseDetails cDeatils, CourseInfo cInfo, CourseAccessibility cAccessibility) {
         this.studyPeriod = studyPeriod;
-        this.examinator = examinator;
-        this.examinationMeans = examinationMeans;
-        this.language = language;
-        this.requiredCourses = requiredCourses;
-        this.coursePMLink = coursePMLink;
-        this.courseDescription = courseDescription;
+        this.cDetails = cDeatils;
+        this.cInfo = cInfo;
+        this.cAccessibility = cAccessibility;
     }
 
     @Override
     public String toString() {
         return "Course{" +
-                "name='" + courseName + '\'' +
-                ", courseCode='" + courseCode + '\'' +
-                ", studyPoints=" + studyPoints +
+                "studyPeriod='" + studyPeriod + '\'' +
+                ", " + cInfo +
+                ", " + cAccessibility +
+                ", " + cDetails +
                 '}';
     }
 
-    public UUID getId() {
-        return this.id;
+    /**
+     * @return this course's PM link
+     */
+    @Override
+    public String getCoursePMLink() {
+        return cDetails.getCoursePMLink();
     }
 
-    public String getIdToString() {
-        return this.id.toString();
+    /**
+     * @return this course's description
+     */
+    @Override
+    public String getCourseDescription() {
+        return cDetails.getCourseDescription();
     }
 
+    /**
+     * @return this course's required courses
+     */
+    @Override
+    public List<String> getRequiredCourses() {
+        return cDetails.getRequiredCourses();
+    }
+
+    /**
+     * @return this course's name
+     */
+    @Override
     public String getCourseName() {
-        return courseName;
+        return cInfo.getCourseName();
     }
 
+    /**
+     * @return this course's code
+     */
+    @Override
     public String getCourseCode() {
-        return courseCode;
+        return cInfo.getCourseCode();
     }
 
-    public String getStudyPoints() {
-        return String.valueOf(studyPoints);
-    }
-
+    /**
+     * @return this course's study period
+     */
     public String getStudyPeriod() {
         return String.valueOf(studyPeriod);
     }
 
-    public String getExaminator() {
-        return examinator;
+    /**
+     * @return this course's study points
+     */
+    @Override
+    public String getStudyPoints() {
+        return cInfo.getStudyPoints();
     }
 
+    /**
+     * @return this course's examinator
+     */
+    @Override
+    public String getExaminer() {
+        return cAccessibility.getExaminer();
+    }
+
+    /**
+     * @return this course's examination forms
+     */
+    @Override
     public String getExaminationMeans() {
-        return examinationMeans;
+        return cAccessibility.getExaminationMeans();
     }
 
+    /**
+     * @return this course's language
+     */
+    @Override
     public String getLanguage() {
-        return language;
+        return cAccessibility.getLanguage();
     }
 
-    public List<Course> getRequiredCourses() {
-        return Collections.unmodifiableList(requiredCourses);
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        boolean b = studyPeriod.equals(course.studyPeriod) &&
+                cDetails.equals(course.cDetails) &&
+                cInfo.equals(course.cInfo) &&
+                cAccessibility.equals(course.cAccessibility);
+        return b;
     }
 
-    public String getCoursePMLink() {
-        return coursePMLink;
-    }
-
-    public String getCourseDescription() {
-        return courseDescription;
+    /**
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(studyPeriod, cDetails, cInfo, cAccessibility);
     }
 }
+
+

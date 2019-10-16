@@ -57,8 +57,8 @@
                   </HBox>
                   <HBox>
                      <children>
-                             <Label text="%examinator" />
-                        <Label fx:id="examinator" text="Label" />
+                             <Label text="%examiner" />
+                        <Label fx:id="examiner" text="Label" />
                      </children>
                   </HBox>
                   <HBox>

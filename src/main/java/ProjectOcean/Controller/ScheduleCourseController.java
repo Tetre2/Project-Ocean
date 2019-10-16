@@ -5,35 +5,33 @@ import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 /**
- * Represents the visual component of a course
+ * Represents the visual graphic component of a course in study plan.
  */
+public class ScheduleCourseController extends VBox implements Movable{
 
-public class CourseListIconController extends VBox implements Movable {
+    @FXML private Label courseCodeLabel;
+    private final CoursePlanningSystem model;
 
-    @FXML private Text courseCodeText;
-    @FXML private Text courseNameText;
-    @FXML private Text studyPointsText;
-
-    private static CoursePlanningSystem model;
-    private final ICourse course;
     private final ApplicationController applicationController;
+    private int year;
+    private int studyPeriod;
+    private int slot;
+    private final ICourse course;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, ApplicationController applicationController) {
-        this.model = model;
-        this.course = course;
-        this.applicationController = applicationController;
+    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, ApplicationController applicationController, int year, int studyPeriod, int slot) {
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/CourseView.fxml"));
+                "/ScheduleCourseView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -42,27 +40,19 @@ public class CourseListIconController extends VBox implements Movable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        populateIcon();
+
+        this.model = model;
+        this.slot = slot;
+        this.applicationController = applicationController;
+        this.course = course;
+        this.year = year;
+        this. studyPeriod = studyPeriod;
+        this.courseCodeLabel.setText(model.getCourse(course).getCourseCode());
     }
 
     /**
-     * Fills the texts withs strings
+     * @return the UUID of the Movable instance
      */
-    private void populateIcon() {
-        String courseName = course.getCourseName();
-        if (courseName.length() > 25) {
-            courseName = courseName.substring(0, 27) + "...";
-        }
-        this.courseNameText.setText(courseName);
-        this.courseCodeText.setText(course.getCourseCode());
-        this.studyPointsText.setText(course.getStudyPoints() + " hp");
-    }
-
-    @FXML
-    private void onMousedClicked(){
-        applicationController.showDetailedInformationWindow(course);
-    }
-
     @Override
     public ICourse getICourse() {
         return course;
@@ -72,6 +62,7 @@ public class CourseListIconController extends VBox implements Movable {
      * Relocates the CourseListIconController instance according to the point parameter
      * @param p the point representing the current mouse coordinates
      */
+    @Override
     public void relocateToPoint(Point2D p) {
         Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
 
@@ -86,21 +77,15 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML
     private void dragDetected(MouseEvent event) {
         //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
-        CourseListIconController icon = (CourseListIconController) event.getSource();
+        ScheduleCourseController icon = (ScheduleCourseController) event.getSource();
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
 
-        //Check from which parent the object started in.
-        switch (icon.getParent().getId()){
-            case "workspaceContainer":
-                model.removeCourseFromWorkspace(icon.getICourse());
-                break;
-            default:
-        }
+        model.removeCourse(year, studyPeriod, slot);
 
-         //MUST come after the above statement
-        icon = new CourseListIconController(icon.getICourse(), model, applicationController);
+        //MUST come after the above statement
+        icon = new ScheduleCourseController(model ,course, applicationController, year, studyPeriod, slot);
         applicationController.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
@@ -108,4 +93,5 @@ public class CourseListIconController extends VBox implements Movable {
         icon.setMouseTransparent(true);
         event.consume();
     }
+
 }

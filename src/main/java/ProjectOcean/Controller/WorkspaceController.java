@@ -3,9 +3,9 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.DragEvent;
@@ -19,12 +19,15 @@ import javafx.scene.layout.VBox;
 
 public class WorkspaceController extends VBox implements Observer {
 
-    @FXML FlowPane workspaceContainer;
+    @FXML private FlowPane workspaceContainer;
 
-    private ApplicationController applicationController;
-    private CoursePlanningSystem model;
+    private final ApplicationController applicationController;
+    private final CoursePlanningSystem model;
 
     public WorkspaceController(CoursePlanningSystem model, ApplicationController applicationController) {
+        this.applicationController = applicationController;
+        this.model = model;
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -36,9 +39,9 @@ public class WorkspaceController extends VBox implements Observer {
             throw new RuntimeException(exception);
         }
 
-        this.applicationController = applicationController;
-        this.model = model;
         model.addObserver(this);
+
+        displayAllCoursesInWorkspace();
     }
 
     @FXML
@@ -46,7 +49,7 @@ public class WorkspaceController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveIconToCursor(icon,event);
+        applicationController.moveDraggedObjectToCursor(icon,event);
         event.consume();
     }
 
@@ -54,9 +57,8 @@ public class WorkspaceController extends VBox implements Observer {
     private void onDragReleased(DragEvent event){
 
         Movable course = (Movable) event.getGestureSource();
-        model.addCourseToWorkspace(course.getUUID());
+        model.addCourseToWorkspace(course.getICourse());
 
-        displayAllCoursesInWorkspace();
         event.setDropCompleted(true);
 
         applicationController.getChildren().remove(course);
@@ -66,8 +68,8 @@ public class WorkspaceController extends VBox implements Observer {
 
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
-        for(UUID id : model.getCoursesInWorkspaceIDs()) {
-            CourseListIconController iconController = new CourseListIconController(id, model, applicationController);
+        for(ICourse course : model.getCoursesInWorkspace()) {
+            CourseListIconController iconController = new CourseListIconController(course, model, applicationController);
             workspaceContainer.getChildren().add(iconController);
         }
     }
