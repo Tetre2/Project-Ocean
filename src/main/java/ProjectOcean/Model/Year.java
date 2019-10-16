@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Class representing a year-row in a student's study plan
  */
-public class Year {
+public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
@@ -69,5 +69,17 @@ public class Year {
         return "Year{" +
                 "studyPeriods=" + studyPeriods +
                 '}';
+    }
+
+    @Override
+    public ICourse getCourseInStudyPeriod(int studyPeriod, int slot) {
+        if(slot == 1)
+            return studyPeriods.get(studyPeriod - 1).getCourse1();
+        return studyPeriods.get(studyPeriod - 1).getCourse2();
+    }
+
+    @Override
+    public int getStudyPeriodsSize() {
+        return studyPeriods.size();
     }
 }

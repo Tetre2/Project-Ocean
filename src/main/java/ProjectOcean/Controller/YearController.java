@@ -2,6 +2,7 @@ package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
+import ProjectOcean.Model.IYear;
 import ProjectOcean.Model.Year;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,18 +132,19 @@ public class YearController extends VBox implements Observer {
     }
 
     private void addCourseControllersAccordingToModel() {
-        Year y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
+        IYear y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
 
-        for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriods().size(); studyPeriod++) {
+
+        for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
             for (int slot = 1; slot <= 2; slot++) {
 
                 if(slot == 1){
-                    ICourse course = y.getStudyPeriod(studyPeriod).getCourse1();
+                    ICourse course = y.getCourseInStudyPeriod(studyPeriod,slot);
                     if(course != null) {
                         yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod, slot), studyPeriod - 1, slot - 1);
                     }
                 }else{
-                    ICourse course = y.getStudyPeriod(studyPeriod).getCourse2();
+                    ICourse course = y.getCourseInStudyPeriod(studyPeriod, slot);
                     if(course != null) {
                         yearGrid.add(new ScheduleCourseController(model, course, applicationController, year, studyPeriod , slot), studyPeriod - 1, slot - 1);
                     }
