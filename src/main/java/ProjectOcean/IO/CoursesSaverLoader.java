@@ -89,15 +89,19 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
             requiredCourses.add((String) obj);
         }
 
-        CourseFactory.SetCourseAccessibility((String) jsonObject.get("examiner"), (String) jsonObject.get("examinationMeans"), (String) jsonObject.get("language"));
-
-        CourseFactory.SetCourseDetails(requiredCourses, (String) jsonObject.get("coursePMLink"), (String) jsonObject.get("courseDescription"));
-
-        CourseFactory.SetCourseInfo((String) jsonObject.get("courseCode"), (String) jsonObject.get("courseName"), (String) jsonObject.get("studyPoints"));
-
-        CourseFactory.SetStudyPeriod((String) jsonObject.get("studyPeriod"));
-
-        return CourseFactory.CreateCourse();
+        Course course = new Course(
+                (String) jsonObject.get("courseCode"),
+                (String) jsonObject.get("courseName"),
+                (String) jsonObject.get("studyPoints"),
+                (String) jsonObject.get("studyPeriod"),
+                (String) jsonObject.get("examiner"),
+                (String) jsonObject.get("examinationMeans"),
+                (String) jsonObject.get("language"),
+                requiredCourses,
+                (String) jsonObject.get("coursePMLink"),
+                (String) jsonObject.get("courseDescription")
+        );
+        return course;
     }
 
     /**
@@ -173,16 +177,19 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         return courses;
     }
 
-    private static Course createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examinator, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription){
-        CourseFactory.SetCourseAccessibility(examinator, examinationMeans, language);
-
-        CourseFactory.SetCourseDetails(requiredCourses, coursePMLink, courseDescription);
-
-        CourseFactory.SetCourseInfo(courseCode, courseName, studyPoints);
-
-        CourseFactory.SetStudyPeriod(studyPeriod);
-
-        return CourseFactory.CreateCourse();
+    private static Course createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription){
+        return new Course(
+                courseCode,
+                courseName,
+                studyPoints,
+                studyPeriod,
+                examiner,
+                examinationMeans,
+                language,
+                requiredCourses,
+                coursePMLink,
+                courseDescription
+        );
     }
 
     /**
