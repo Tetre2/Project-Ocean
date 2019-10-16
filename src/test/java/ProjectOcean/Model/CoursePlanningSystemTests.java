@@ -11,7 +11,6 @@ public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
     private List<ICourse> courses;
-    private CoursesSaverLoader coursesSaverLoader;
 
     private int year;
     private int studyPeriod;
@@ -23,7 +22,7 @@ public class CoursePlanningSystemTests {
         courses = new ArrayList<>();
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (Course course : coursesSaverLoader.generatePreDefinedCourses()) {
+        for (Course course : CoursesSaverLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 
