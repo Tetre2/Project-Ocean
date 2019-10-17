@@ -12,7 +12,7 @@ public class CoursePlanningSystemTests {
     private CoursePlanningSystem model;
     private List<ICourse> courses;
 
-    private int year;
+    private int yearNumber;
     private int studyPeriod;
     private int slot;
 
@@ -30,7 +30,7 @@ public class CoursePlanningSystemTests {
         studyPlans.add(studyPlan);
 
 
-        year = 1;
+        yearNumber = 1;
         studyPeriod = 1;
         slot = 1;
 
@@ -49,11 +49,12 @@ public class CoursePlanningSystemTests {
     public void addCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.addCourse(course1, year, studyPeriod, slot);
-        model.addCourse(course2, year, studyPeriod, slot + 1);
+        model.getStudent().getCurrentStudyPlan().addYear(yearNumber);
+        model.addCourse(course1, yearNumber, studyPeriod, slot);
+        model.addCourse(course2, yearNumber, studyPeriod, slot + 1);
 
-        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse2());
 
     }
 
@@ -61,17 +62,18 @@ public class CoursePlanningSystemTests {
     public void removeCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.addCourse(course1, year, studyPeriod, slot);
-        model.addCourse(course2, year, studyPeriod, slot + 1);
+        model.getStudent().getCurrentStudyPlan().addYear(yearNumber);
+        model.addCourse(course1, yearNumber, studyPeriod, slot);
+        model.addCourse(course2, yearNumber, studyPeriod, slot + 1);
 
-        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse2());
 
-        model.removeCourse(year, studyPeriod, slot);
-        model.removeCourse(year, studyPeriod, slot + 1);
+        model.removeCourse(yearNumber, studyPeriod, slot);
+        model.removeCourse(yearNumber, studyPeriod, slot + 1);
 
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearNumber).getStudyPeriod(studyPeriod).getCourse2());
 
     }
 
@@ -151,5 +153,25 @@ public class CoursePlanningSystemTests {
                 Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
             }
         }
+    }
+
+    @Test
+    public void getYearsTest(){
+        List<IYear> iYears = model.getYears();
+
+        List<Year> years = model.getStudent().getCurrentStudyPlan().getSchedule().getYears();
+
+        Assert.assertTrue(iYears.equals(years));
+
+    }
+
+    @Test
+    public void addYearTest() {
+        int yearSizeBefore = model.getYears().size();
+        model.addYear(yearNumber);
+        int yearSizeAfter = model.getYears().size();
+
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter - 1);
+
     }
 }

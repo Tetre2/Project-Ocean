@@ -3,7 +3,6 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
-import ProjectOcean.Model.Year;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.DragEvent;

@@ -55,8 +55,8 @@ public class Student {
     /**
      * Creates a new year instance and adds it to the list of years, in the study plan
      */
-    public void addYear() {
-        currentStudyPlan.addYear();
+    public void addYear(int yearNumber) {
+        currentStudyPlan.addYear(yearNumber);
     }
 
     /**

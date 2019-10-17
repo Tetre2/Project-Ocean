@@ -192,6 +192,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     private static void addJSONYearsToStudyPlan(StudyPlan studyPlan, JSONArray jsonYearArr){
         for (int year = 1; year <= jsonYearArr.size(); year++) {
+            studyPlan.addYear(year);
             JSONArray jsonStudyPeriod = (JSONArray) jsonYearArr.get(year-1);
             addJSONStudyPeriodToYearInStudyPlan(studyPlan, jsonStudyPeriod, year);
         }

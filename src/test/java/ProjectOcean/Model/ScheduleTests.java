@@ -22,6 +22,7 @@ public class ScheduleTests {
     @Test
     public void removeCourseTest() {
         Schedule schedule = new Schedule();
+        schedule.addYear(year);
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         schedule.addCourse(course, year,studyPeriod,slot);
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
@@ -33,6 +34,7 @@ public class ScheduleTests {
     @Test
     public void addCourseTest() {
         Schedule schedule = new Schedule();
+        schedule.addYear(year);
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         schedule.addCourse(course, year,studyPeriod,slot);
 
@@ -44,7 +46,7 @@ public class ScheduleTests {
     public void addYearTest() {
         Schedule schedule = new Schedule();
 
-        schedule.addYear();
+        schedule.addYear(year);
         Assert.assertTrue(schedule.getYear(1) != null);
 
     }
@@ -53,7 +55,7 @@ public class ScheduleTests {
     public void removeYearTest() {
         Schedule schedule = new Schedule();
 
-        schedule.addYear();
+        schedule.addYear(year);
         Assert.assertTrue(schedule.getYear(2) != null);
 
         schedule.removeYear(year);

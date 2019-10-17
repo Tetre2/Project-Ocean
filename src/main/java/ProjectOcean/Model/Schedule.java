@@ -14,9 +14,12 @@ public class Schedule {
 
     public Schedule() {
         years = new ArrayList<>();
-        if(years.size()< 1){
-            years.add(new Year());
-        }
+
+
+
+        /*if(years.size()< 1){
+            addYear(1);
+        }*/
     }
 
     /**
@@ -42,8 +45,8 @@ public class Schedule {
     /**
      * Creates a new year instance and adds it to the list of years
      */
-    public void addYear(){
-        years.add(new Year());
+    public void addYear(int yearNumber){
+        years.add(new Year(yearNumber));
     }
 
     /**

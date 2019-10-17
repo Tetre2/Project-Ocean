@@ -2,10 +2,7 @@ package ProjectOcean.Model;
 
 import ProjectOcean.IO.*;
 
-import java.util.Collections;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -34,6 +31,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * @return all years in the student's current study plan IYears
+     */
+    public List<IYear> getYears(){
+        List<Year> years = getStudent().getCurrentStudyPlan().getSchedule().getYears();
+        return Collections.unmodifiableList(new ArrayList<>(years));
+    };
+
+    /**
      * @return returns all courses stored
      */
     public List<ICourse> getAllCourses() {
@@ -56,6 +61,12 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
         student.addCourse(course, year, studyPeriod,slot);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void addYear(int yearNumber) {
+        student.addYear(yearNumber);
         setChanged();
         notifyObservers();
     }

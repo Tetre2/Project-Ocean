@@ -12,7 +12,11 @@ public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
-    public Year() {
+    private int yearNumber;
+
+    public Year(int yearNumber) {
+        this.yearNumber = yearNumber;
+
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
         }
@@ -99,5 +103,10 @@ public class Year implements IYear{
     @Override
     public int getStudyPeriodsSize() {
         return studyPeriods.size();
+    }
+
+    @Override
+    public int getYearNumber() {
+        return yearNumber;
     }
 }

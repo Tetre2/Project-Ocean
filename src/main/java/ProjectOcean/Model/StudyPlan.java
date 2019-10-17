@@ -44,8 +44,8 @@ public class StudyPlan {
     /**
      * Creates a new year instance and adds it to the list of years, in the schedule
      */
-    public void addYear() {
-        schedule.addYear();
+    public void addYear(int yearNumber) {
+        schedule.addYear(yearNumber);
     }
 
     /**

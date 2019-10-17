@@ -21,6 +21,7 @@ public class StudyPlanTests {
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
+        studyPlan.addYear(year);
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
@@ -31,6 +32,7 @@ public class StudyPlanTests {
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
+        studyPlan.addYear(year);
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
@@ -45,7 +47,7 @@ public class StudyPlanTests {
     @Test
     public void addYear() {
         StudyPlan studyPlan = new StudyPlan();
-        studyPlan.addYear();
+        studyPlan.addYear(year);
 
         Assert.assertTrue(studyPlan.getSchedule().getYear(1) != null);
     }
@@ -53,7 +55,7 @@ public class StudyPlanTests {
     @Test(expected = IndexOutOfBoundsException.class)
     public void removeYear() {
         StudyPlan studyPlan = new StudyPlan();
-        studyPlan.addYear();
+        studyPlan.addYear(year);
 
         Assert.assertTrue(studyPlan.getSchedule().getYear(2) != null);
 
