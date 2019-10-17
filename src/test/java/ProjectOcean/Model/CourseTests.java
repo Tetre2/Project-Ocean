@@ -132,6 +132,13 @@ public class CourseTests {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void getCourseTypesTest() {
+        String expected = courseTypes;
+        String actual = course.getCourseDescription();
+
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
     public void toStringTest() {
