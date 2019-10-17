@@ -67,7 +67,7 @@ public class ApplicationController extends AnchorPane {
     private void onDragOver(DragEvent event) {
 
         Movable draggedObject = (Movable) event.getGestureSource();
-        moveDraggedObjectToCursor(draggedObject, event);
+        relocateDraggedObjectToCursor(draggedObject, event);
 
         event.consume();
 
@@ -101,7 +101,7 @@ public class ApplicationController extends AnchorPane {
      * @param icon the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveDraggedObjectToCursor(Movable icon, DragEvent event){
+    public void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }

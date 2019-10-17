@@ -47,10 +47,13 @@ public class WorkspaceController extends VBox implements Observer {
     @FXML
     private void onDragOver(DragEvent event){
         event.acceptTransferModes(TransferMode.MOVE);
-        Movable icon = (Movable) event.getGestureSource();
-
-        applicationController.moveDraggedObjectToCursor(icon,event);
+        relocateEventObjectToCursor(event);
         event.consume();
+    }
+
+    private void relocateEventObjectToCursor(DragEvent event){
+        Movable icon = (Movable) event.getGestureSource();
+        applicationController.relocateDraggedObjectToCursor(icon,event);
     }
 
     @FXML

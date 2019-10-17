@@ -58,7 +58,7 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveDraggedObjectToCursor(icon, event);
+        applicationController.relocateDraggedObjectToCursor(icon, event);
         event.consume();
     }
 
@@ -77,7 +77,7 @@ public class YearController extends VBox implements Observer {
         model.addCourse(icon.getICourse(), year, studyPeriod, slot);
 
         event.setDropCompleted(true);
-        applicationController.moveDraggedObjectToCursor(icon, event);
+        applicationController.relocateDraggedObjectToCursor(icon, event);
         event.consume();
     }
 

@@ -5,6 +5,7 @@ import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -23,6 +24,8 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML private Text courseNameText;
     @FXML private Text studyPointsText;
 
+    private Node owner;
+    private ClipboardContent content;
     private static CoursePlanningSystem model;
     private final ICourse course;
     private final ApplicationController applicationController;
@@ -86,26 +89,32 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML
     private void dragDetected(MouseEvent event) {
         //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
-        CourseListIconController icon = (CourseListIconController) event.getSource();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(icon.toString());
 
+      //  CourseListIconController draggedObject = getICourse();
+        owner = this.getParent();
+        copyObjectToClipBoard(this);
 
         //Check from which parent the object started in.
-        switch (icon.getParent().getId()){
+        switch (owner.getId()){
             case "workspaceContainer":
-                model.removeCourseFromWorkspace(icon.getICourse());
+                model.removeCourseFromWorkspace(course);
                 break;
             default:
         }
 
          //MUST come after the above statement
-        icon = new CourseListIconController(icon.getICourse(), model, applicationController);
-        applicationController.addIconToScreen(icon);
+        CourseListIconController draggedObject = new CourseListIconController(course, model, applicationController);
+        applicationController.addIconToScreen(draggedObject);
 
-        icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
-        icon.setVisible(true);
-        icon.setMouseTransparent(true);
+        draggedObject.startDragAndDrop(TransferMode.MOVE).setContent(content);
+        draggedObject.setVisible(true);
+        draggedObject.setMouseTransparent(true);
         event.consume();
+    }
+
+    private void copyObjectToClipBoard(CourseListIconController icon){
+
+        content = new ClipboardContent();
+        content.putString(icon.toString());
     }
 }
