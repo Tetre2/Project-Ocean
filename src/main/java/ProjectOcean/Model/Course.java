@@ -8,25 +8,43 @@ import java.util.Objects;
  */
 public class Course implements ICourse {
 
+    private final String courseCode;
+    private final String courseName;
+    private final String studyPoints;
     private final String studyPeriod;
-    private final CourseDetails cDetails;
-    private final CourseInfo cInfo;
-    private final CourseAccessibility cAccessibility;
+    private final String examiner;
+    private final String examinationMeans;
+    private final String language;
+    private final List<String> requiredCourses;
+    private final String coursePMLink;
+    private final String courseDescription;
 
-    public Course(String studyPeriod, CourseDetails cDeatils, CourseInfo cInfo, CourseAccessibility cAccessibility) {
+    public Course(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.studyPoints = studyPoints;
         this.studyPeriod = studyPeriod;
-        this.cDetails = cDeatils;
-        this.cInfo = cInfo;
-        this.cAccessibility = cAccessibility;
+        this.examiner = examiner;
+        this.examinationMeans = examinationMeans;
+        this.language = language;
+        this.requiredCourses = requiredCourses;
+        this.coursePMLink = coursePMLink;
+        this.courseDescription = courseDescription;
     }
 
     @Override
     public String toString() {
         return "Course{" +
-                "studyPeriod='" + studyPeriod + '\'' +
-                ", " + cInfo +
-                ", " + cAccessibility +
-                ", " + cDetails +
+                "courseCode='" + courseCode + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", studyPoints='" + studyPoints + '\'' +
+                ", studyPeriod='" + studyPeriod + '\'' +
+                ", examiner='" + examiner + '\'' +
+                ", examinationMeans='" + examinationMeans + '\'' +
+                ", language='" + language + '\'' +
+                ", requiredCourses=" + requiredCourses +
+                ", coursePMLink='" + coursePMLink + '\'' +
+                ", courseDescription='" + courseDescription + '\'' +
                 '}';
     }
 
@@ -35,7 +53,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getCoursePMLink() {
-        return cDetails.getCoursePMLink();
+        return coursePMLink;
     }
 
     /**
@@ -43,7 +61,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getCourseDescription() {
-        return cDetails.getCourseDescription();
+        return courseDescription;
     }
 
     /**
@@ -51,7 +69,7 @@ public class Course implements ICourse {
      */
     @Override
     public List<String> getRequiredCourses() {
-        return cDetails.getRequiredCourses();
+        return requiredCourses;
     }
 
     /**
@@ -68,7 +86,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getCourseName() {
-        return cInfo.getCourseName();
+        return courseName;
     }
 
     /**
@@ -76,14 +94,14 @@ public class Course implements ICourse {
      */
     @Override
     public String getCourseCode() {
-        return cInfo.getCourseCode();
+        return courseCode;
     }
 
     /**
      * @return this course's study period
      */
     public String getStudyPeriod() {
-        return String.valueOf(studyPeriod);
+        return studyPeriod;
     }
 
     /**
@@ -91,7 +109,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getStudyPoints() {
-        return cInfo.getStudyPoints();
+        return studyPoints;
     }
 
     /**
@@ -99,7 +117,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getExaminer() {
-        return cAccessibility.getExaminer();
+        return examiner;
     }
 
     /**
@@ -107,7 +125,7 @@ public class Course implements ICourse {
      */
     @Override
     public String getExaminationMeans() {
-        return cAccessibility.getExaminationMeans();
+        return examinationMeans;
     }
 
     /**
@@ -115,23 +133,37 @@ public class Course implements ICourse {
      */
     @Override
     public String getLanguage() {
-        return cAccessibility.getLanguage();
+        return language;
     }
 
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return studyPeriod == course.studyPeriod &&
-                cDetails.equals(course.cDetails) &&
-                cInfo.equals(course.cInfo) &&
-                cAccessibility.equals(course.cAccessibility);
+        return  courseCode.equals(course.courseCode) &&
+                courseName.equals(course.courseName) &&
+                studyPoints.equals(course.studyPoints) &&
+                studyPeriod.equals(course.studyPeriod) &&
+                examiner.equals(course.examiner) &&
+                examinationMeans.equals(course.examinationMeans) &&
+                language.equals(course.language) &&
+                requiredCourses.equals(course.requiredCourses) &&
+                coursePMLink.equals(course.coursePMLink) &&
+                courseDescription.equals(course.courseDescription);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(studyPeriod, cDetails, cInfo, cAccessibility);
+        return Objects.hash(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
     }
 }
 

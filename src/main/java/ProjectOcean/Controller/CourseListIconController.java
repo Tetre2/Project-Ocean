@@ -29,12 +29,14 @@ public class CourseListIconController extends VBox implements Movable {
 
     private static CoursePlanningSystem model;
     private final ICourse course;
-    private final ApplicationController applicationController;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
+    private final AddIconToScreen addIconToScreen;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, ApplicationController applicationController) {
+    public CourseListIconController(ICourse course, CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.course = course;
-        this.applicationController = applicationController;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
+        this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -78,7 +80,7 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void onMousedClicked(){
-        applicationController.showDetailedInformationWindow(course);
+        showDetailedInformationWindow.showDetailedInformationWindow(course);
     }
 
     @Override
@@ -118,8 +120,8 @@ public class CourseListIconController extends VBox implements Movable {
         }
 
          //MUST come after the above statement
-        icon = new CourseListIconController(icon.getICourse(), model, applicationController);
-        applicationController.addIconToScreen(icon);
+        icon = new CourseListIconController(icon.getICourse(), model, this.showDetailedInformationWindow, this.addIconToScreen);
+        addIconToScreen.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
         icon.setVisible(true);

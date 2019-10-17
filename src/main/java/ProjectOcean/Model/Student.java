@@ -105,7 +105,18 @@ public class Student {
         workspace.removeCourse(course);
     }
 
+    /**
+     * Removes all courses
+     */
+    public void removeAllCoursesInWorkscpace(){
+        workspace.removeAllCourses();
+    }
 
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,6 +127,9 @@ public class Student {
                 workspace.equals(student.workspace);
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(studyPlans, currentStudyPlan, workspace);
