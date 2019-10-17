@@ -28,12 +28,14 @@ public class CourseListIconController extends VBox implements Movable {
     private ClipboardContent content;
     private static CoursePlanningSystem model;
     private final ICourse course;
-    private final ApplicationController applicationController;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
+    private final AddIconToScreen addIconToScreen;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, ApplicationController applicationController) {
+    public CourseListIconController(ICourse course, CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.course = course;
-        this.applicationController = applicationController;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
+        this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -63,7 +65,7 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void onMousedClicked(){
-        applicationController.showDetailedInformationWindow(course);
+        showDetailedInformationWindow.showDetailedInformationWindow(course);
     }
 
     @Override
@@ -103,8 +105,9 @@ public class CourseListIconController extends VBox implements Movable {
         }
 
          //MUST come after the above statement
-        CourseListIconController draggedObject = new CourseListIconController(course, model, applicationController);
-        applicationController.addIconToScreen(draggedObject);
+        CourseListIconController draggedObject = new CourseListIconController(course, model, this.showDetailedInformationWindow, this.addIconToScreen);
+        addIconToScreen.addIconToScreen(draggedObject);
+
 
         draggedObject.startDragAndDrop(TransferMode.MOVE).setContent(content);
         draggedObject.setVisible(true);

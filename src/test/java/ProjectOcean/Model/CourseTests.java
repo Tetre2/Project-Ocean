@@ -34,35 +34,21 @@ public class CourseTests {
         examinationMeans = "Tenta";
         language = "Svenska";
 
-        CourseFactory.SetStudyPeriod(studyPeriod);
-        CourseFactory.SetCourseInfo(courseCode,courseName, studyPoints);
-        CourseFactory.SetCourseDetails(requiredCourses, coursePMLink, courseDescription);
-        CourseFactory.SetCourseAccessibility(examiner, examinationMeans, language);
-        course = CourseFactory.CreateCourse();
+        course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
 
 
     }
 
     @Test
     public void courseUniqueIdTest() {
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        ICourse course1 = CourseFactory.CreateCourse();
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        ICourse course2 = CourseFactory.CreateCourse();
+        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
 
         //Checks that ICourse references are different
         Assert.assertNotSame(course1, course2);
     }
-
-    //These tests come from CPS test, but where removed because the methods where removed from CPS.
-    //Similar tests need to be written here though if there is time.
 
     @Test
     public void getCourseCodeTest() {
@@ -149,24 +135,20 @@ public class CourseTests {
 
     @Test
     public void toStringTest() {
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course1 = CourseFactory.CreateCourse();
+        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         String actual = course1.toString();
         String expected = "Course{" +
-                "studyPeriod='" + course1.getStudyPeriod() + '\'' +
-                ", courseCode='" + course1.getCourseCode() + '\'' +
+                "courseCode='" + course1.getCourseCode() + '\'' +
                 ", courseName='" + course1.getCourseName() + '\'' +
-                ", studyPoints='" + course1.getStudyPoints()+ '\'' +
-                ", examiner='" + course1.getExaminer()+ '\'' +
-                ", examinationMeans='" + course1.getExaminationMeans()+ '\'' +
-                ", language='" + course1.getLanguage()+ '\'' +
-                ", requiredCourses=" + course1.getRequiredCourses()+
-                ", coursePMLink='" + course1.getCoursePMLink()+ '\'' +
-                ", courseDescription='" + course1.getCourseDescription()+ '\'' +
+                ", studyPoints='" + course1.getStudyPoints() + '\'' +
+                ", studyPeriod='" + course1.getStudyPeriod() + '\'' +
+                ", examiner='" + course1.getExaminer() + '\'' +
+                ", examinationMeans='" + course1.getExaminationMeans() + '\'' +
+                ", language='" + course1.getLanguage() + '\'' +
+                ", requiredCourses=" + course1.getRequiredCourses() +
+                ", coursePMLink='" + course1.getCoursePMLink() + '\'' +
+                ", courseDescription='" + course1.getCourseDescription() + '\'' +
                 '}';
 
         Assert.assertEquals(expected, actual);

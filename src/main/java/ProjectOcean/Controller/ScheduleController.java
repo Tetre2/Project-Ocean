@@ -10,14 +10,14 @@ import java.io.IOException;
 /**
  * Represents a graphical component of a study plan.
  */
-public class StudyPlanController extends VBox {
+public class ScheduleController extends VBox {
 
     @FXML private VBox yearContentView;
 
-    private YearController yearController;
+    private final YearController yearController;
 
-    public StudyPlanController(CoursePlanningSystem model, ApplicationController applicationController) {
-        yearController = new YearController(1, model, applicationController);
+    public ScheduleController(CoursePlanningSystem model, RefactorDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
+        this.yearController = new YearController(1, model, moveDraggedObjectToCursor, addIconToScreen);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanWindow.fxml"));
