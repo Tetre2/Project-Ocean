@@ -75,7 +75,6 @@ public class Course implements ICourse {
     }
 
     /**
-     *
      * @return this course's course types
      */
     @Override
