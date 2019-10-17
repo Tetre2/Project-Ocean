@@ -28,6 +28,27 @@ public class YearTests {
     }
 
     @Test
+    public void getCourseInStudyPeriodTest() {
+        Year year = new Year();
+
+        ICourse expectedCourse = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        year.addCourse(expectedCourse, studyPeriod, slot);
+
+        ICourse actualCourse = year.getCourseInStudyPeriod(studyPeriod, slot);
+
+        Assert.assertTrue(expectedCourse.equals(actualCourse));
+
+    }
+
+    @Test
+    public void getStudyPeriodsSizeTest() {
+        Year year = new Year();
+        int nStudyPeriods = 4;
+
+        Assert.assertEquals(year.getStudyPeriodsSize(), nStudyPeriods);
+    }
+
+    @Test
     public void removeCourseTest() {
         Year year = new Year();
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
@@ -38,6 +59,5 @@ public class YearTests {
         year.removeCourse(studyPeriod, slot);
 
         Assert.assertTrue(year.getStudyPeriod(studyPeriod).getCourse1() == null);
-
     }
 }

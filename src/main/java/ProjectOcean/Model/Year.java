@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Class representing a year-row in a student's study plan
  */
-public class Year {
+public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
@@ -77,5 +77,27 @@ public class Year {
         return "Year{" +
                 "studyPeriods=" + studyPeriods +
                 '}';
+    }
+
+    /**
+     *
+     * @param studyPeriod the study period from within the desired course lies
+     * @param slot the slot from within the desired course lies
+     * @return the desired Course
+     */
+    @Override
+    public ICourse getCourseInStudyPeriod(int studyPeriod, int slot) {
+        if(slot == 1)
+            return studyPeriods.get(studyPeriod - 1).getCourse1();
+        return studyPeriods.get(studyPeriod - 1).getCourse2();
+    }
+
+    /**
+     *
+     * @return the amount of study periods in a year(this is most probably going to stay at 4 at all times)
+     */
+    @Override
+    public int getStudyPeriodsSize() {
+        return studyPeriods.size();
     }
 }
