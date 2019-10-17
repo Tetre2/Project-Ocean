@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <fx:root minWidth="500.0" type="Pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -31,10 +32,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="SP 1" GridPane.halignment="CENTER" />
-                        <Label text="SP 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                        <Label text="SP 3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                        <Label text="SP 4" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                        <Label text="SP 1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label text="SP 2" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label text="SP 3" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label text="SP 4" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
                      </children>
                   </GridPane>
                   <GridPane fx:id="yearGrid" gridLinesVisible="true" onDragDropped="#onDragRelease" onDragOver="#onDragOver" prefHeight="101.0">
@@ -57,8 +70,6 @@
             <VBox prefHeight="142.0" prefWidth="65.0" HBox.hgrow="SOMETIMES">
                <children>
                   <Label prefHeight="17.0" prefWidth="107.0" text="Label" visible="false" />
-                  <Label alignment="CENTER" prefHeight="68.0" prefWidth="100.0" text="Course 1" />
-                  <Label alignment="CENTER" prefHeight="70.0" prefWidth="100.0" text="Course 2" />
                </children>
             </VBox>
          </children>
