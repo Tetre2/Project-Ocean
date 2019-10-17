@@ -30,16 +30,19 @@ public class SearchBrowseController extends AnchorPane {
     @FXML private CheckBox studyPeriodCheckbox4;
 
     private final CoursePlanningSystem model;
-    private final ApplicationController applicationController;
     private List<ICourse> currentSearchResult;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
+    private final AddIconToScreen addIconToScreen;
 
     /**
      * @param model: An instance of the course planning system
-     * @param applicationController: An instance of the main controller.
+     * @param showDetailedInformationWindow callback to the showDetailedInformationWindow method
+     * @param addIconToScreen callback to the addIconToScreen method
      */
-    public SearchBrowseController(CoursePlanningSystem model, ApplicationController applicationController) {
+    public SearchBrowseController(CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
-        this.applicationController = applicationController;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
+        this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/SearchBrowseWindow.fxml"));
@@ -90,7 +93,7 @@ public class SearchBrowseController extends AnchorPane {
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result
         for(ICourse course : filteredSearchResult) {
-            CourseListIconController courseListIcon = new CourseListIconController(course, model, applicationController);
+            CourseListIconController courseListIcon = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
             searchResultVBox.getChildren().add(courseListIcon);
         }
     }

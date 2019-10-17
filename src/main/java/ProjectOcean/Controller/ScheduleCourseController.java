@@ -21,14 +21,20 @@ public class ScheduleCourseController extends VBox implements Movable{
     @FXML private Label courseCodeLabel;
     private final CoursePlanningSystem model;
 
-    private final ApplicationController applicationController;
+    private final AddIconToScreen addIconToScreen;
     private int year;
     private int studyPeriod;
     private int slot;
     private final ICourse course;
 
-    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, ApplicationController applicationController, int year, int studyPeriod, int slot) {
+    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, int year, int studyPeriod, int slot) {
 
+        this.model = model;
+        this.slot = slot;
+        this.addIconToScreen = addIconToScreen;
+        this.course = course;
+        this.year = year;
+        this.studyPeriod = studyPeriod;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ScheduleCourseView.fxml"));
@@ -41,13 +47,7 @@ public class ScheduleCourseController extends VBox implements Movable{
             throw new RuntimeException(exception);
         }
 
-        this.model = model;
-        this.slot = slot;
-        this.applicationController = applicationController;
-        this.course = course;
-        this.year = year;
-        this. studyPeriod = studyPeriod;
-        this.courseCodeLabel.setText(model.getCourse(course).getCourseCode());
+        courseCodeLabel.setText(model.getCourse(course).getCourseCode());
     }
 
     /**
@@ -85,8 +85,8 @@ public class ScheduleCourseController extends VBox implements Movable{
         model.removeCourse(year, studyPeriod, slot);
 
         //MUST come after the above statement
-        icon = new ScheduleCourseController(model ,course, applicationController, year, studyPeriod, slot);
-        applicationController.addIconToScreen(icon);
+        icon = new ScheduleCourseController(model ,course, this.addIconToScreen, year, studyPeriod, slot);
+        addIconToScreen.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
         icon.setVisible(true);
