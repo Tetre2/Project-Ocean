@@ -90,11 +90,11 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void dragDetected(MouseEvent event) {
-        //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
+
 
       //  CourseListIconController draggedObject = getICourse();
         owner = this.getParent();
-        copyObjectToClipBoard(this);
+        copyDraggedObjectToClipBoard(this);
 
         //Check from which parent the object started in.
         switch (owner.getId()){
@@ -115,7 +115,7 @@ public class CourseListIconController extends VBox implements Movable {
         event.consume();
     }
 
-    private void copyObjectToClipBoard(CourseListIconController icon){
+    private void copyDraggedObjectToClipBoard(CourseListIconController icon){
 
         content = new ClipboardContent();
         content.putString(icon.toString());
