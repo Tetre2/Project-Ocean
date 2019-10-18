@@ -21,12 +21,19 @@ public class WorkspaceController extends VBox implements Observer {
 
     @FXML private FlowPane workspaceContainer;
 
-    private final ApplicationController applicationController;
     private final CoursePlanningSystem model;
+    private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
+    private final AddIconToScreen addIconToScreen;
+    private final RemoveMovableChild removeMovableChild;
 
-    public WorkspaceController(CoursePlanningSystem model, ApplicationController applicationController) {
-        this.applicationController = applicationController;
+    public WorkspaceController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveMovableChild removeMovableChild) {
+        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
+        this.addIconToScreen = addIconToScreen;
         this.model = model;
+        this.removeMovableChild = removeMovableChild;
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/WorkspaceWindow.fxml"));
@@ -49,7 +56,7 @@ public class WorkspaceController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        applicationController.moveDraggedObjectToCursor(icon,event);
+        moveDraggedObjectToCursor.moveDraggedObjectToCursor(icon,event);
         event.consume();
     }
 
@@ -61,15 +68,15 @@ public class WorkspaceController extends VBox implements Observer {
 
         event.setDropCompleted(true);
 
-        applicationController.getChildren().remove(course);
+        removeMovableChild.removeMovableChild(course);
 
         event.consume();
     }
 
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
-        for(ICourse course : model.getCoursesInWorkspaceIDs()) {
-            CourseListIconController iconController = new CourseListIconController(course, model, applicationController);
+        for(ICourse course : model.getCoursesInWorkspace()) {
+            CourseListIconController iconController = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
             workspaceContainer.getChildren().add(iconController);
         }
     }

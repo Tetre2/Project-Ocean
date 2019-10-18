@@ -27,19 +27,18 @@ public class ApplicationController extends AnchorPane {
     private final CoursePlanningSystem model;
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
-    private final StudyPlanController studyPlanController;
     private final StudyPlansController studyPlansController;
-
+    private final ScheduleController scheduleController;
     private static DetailedController detailedController;
     private final HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
-        this.searchBrowseController = new SearchBrowseController(model, this);
-        this.workspaceController = new WorkspaceController(model, this);
-        this.studyPlanController = new StudyPlanController(model, this);
         this.studyPlansController = new StudyPlansController(model, this::showAStudyPlan);
+        this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
+        this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
+        this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -63,7 +62,7 @@ public class ApplicationController extends AnchorPane {
     public void showStudyPlanWorkspaceWindow(){
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
-        contentWindow.getChildren().add(studyPlanController);
+        contentWindow.getChildren().add(scheduleController);
     }
 
     @FXML
@@ -100,8 +99,8 @@ public class ApplicationController extends AnchorPane {
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (model.getStudent().getAllStudyPlans().size() > 0) {
-            StudyPlanController studyPlanController = new StudyPlanController(model, this);
-            addNewStudyPlanController(studyPlanController);
+            ScheduleController scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
+            addNewStudyPlanController(scheduleController);
         }
     }
 
@@ -115,8 +114,8 @@ public class ApplicationController extends AnchorPane {
     private void instantiateChildControllers() {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        contentWindow.getChildren().add(1, studyPlanController);
         studyPlanWindow.getChildren().add(studyPlansController);
+        contentWindow.getChildren().add(1, scheduleController);
     }
 
     /**
@@ -171,10 +170,14 @@ public class ApplicationController extends AnchorPane {
 
     /**
      * Adds the study plan to be shown in the lower part of content window
-     * @param studyPlanController the study plan to be shown
+     * @param scheduleController the study plan to be shown
      */
-    public void addNewStudyPlanController(StudyPlanController studyPlanController) {
-        contentWindow.getChildren().add(1, studyPlanController);
+    public void addNewStudyPlanController(ScheduleController scheduleController) {
+        contentWindow.getChildren().add(1, scheduleController);
+    }
+
+    private void removeMovableChild(Movable course) {
+        this.getChildren().remove(course);
     }
 
 }

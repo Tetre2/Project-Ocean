@@ -16,9 +16,9 @@ public class StudyPeriod {
      * @param slot the index representing which slot to add the course in
      */
     public void addCourse(ICourse course, int slot){
-        if(course1 == null && slot == 1)
+        if(slot == 1)
             course1 = course;
-        else if(course2 == null && slot == 2)
+        else if(slot == 2)
             course2 = course;
 
     }
@@ -47,6 +47,11 @@ public class StudyPeriod {
         return course2;
     }
 
+    /**
+     * checks if this and an other object is the same
+     * @param o is the object being checked against this object
+     * @return true if the this object is the same as o
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -65,6 +70,9 @@ public class StudyPeriod {
         return isEqual;
     }
 
+    /**
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(course1, course2);

@@ -21,27 +21,17 @@ public class StudyPlanTests {
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 
         Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-
-
     }
 
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 

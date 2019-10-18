@@ -17,15 +17,10 @@ public class StudyPeriodTests {
         slot = 1;
     }
 
-
     @Test
     public void addCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course = CourseFactory.CreateCourse();
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         studyPeriod.addCourse(course, slot);
 
         Assert.assertTrue(studyPeriod.getCourse1() == course || studyPeriod.getCourse2() == course);
@@ -35,21 +30,13 @@ public class StudyPeriodTests {
     @Test
     public void removeCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course1 = CourseFactory.CreateCourse();
+        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         studyPeriod.addCourse(course1, slot);
         studyPeriod.removeCourse(slot);
 
         Assert.assertTrue(course1 != studyPeriod.getCourse1());
 
-        CourseFactory.SetStudyPeriod("1");
-        CourseFactory.SetCourseInfo("DAT017","Maskinorienterad programmering", "7.5");
-        CourseFactory.SetCourseDetails(new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        CourseFactory.SetCourseAccessibility("Rolf Söderström", "Tenta", "Svenska");
-        Course course2 = CourseFactory.CreateCourse();
+        ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
         studyPeriod.addCourse(course1, slot);
         studyPeriod.addCourse(course2, slot);
         studyPeriod.removeCourse(slot);
@@ -58,7 +45,7 @@ public class StudyPeriodTests {
     }
 
     @Test
-    public void eqaulsTest(){
+    public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
         List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();
