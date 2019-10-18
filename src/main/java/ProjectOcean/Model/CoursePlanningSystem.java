@@ -125,7 +125,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     private void matchCourseTypeAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
-        System.out.println("try");
         for (ICourse c : courses) {
             //Makes a list of course types that is lower case for this course c.
             List<String> courseTypesLowerString = new ArrayList<>();
@@ -137,7 +136,6 @@ public class CoursePlanningSystem extends Observable {
             for(String s : searchTerms) {
                 if(courseTypesLowerString.contains(s)&& !searchResult.contains(c)) {
                     searchResult.add(c);
-                    System.out.println("match");
                 }
             }
         }

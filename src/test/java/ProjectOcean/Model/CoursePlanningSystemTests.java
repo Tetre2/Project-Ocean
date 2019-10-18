@@ -151,5 +151,15 @@ public class CoursePlanningSystemTests {
                 Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
             }
         }
+
+        //tests searching for course type
+        searchText = "Naturvetenskap";
+        searchResult = model.executeSearch(searchText);
+        Assert.assertFalse(searchResult.isEmpty());
+        if(!searchResult.isEmpty()) {
+            for(ICourse course : searchResult) {
+                Assert.assertTrue(course.getCourseTypes().contains("Naturvetenskap"));
+            }
+        }
     }
 }
