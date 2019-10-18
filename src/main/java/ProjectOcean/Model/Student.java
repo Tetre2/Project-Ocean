@@ -1,9 +1,6 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class representing a student profile
@@ -76,6 +73,23 @@ public class Student {
         setCurrentStudyPlan(studyPlan);
     }
 
+    /**
+     * Method removes a given study plan if it exists.
+     * @param studyPlan Study plan of users decision to delete.
+     */
+    public void removeStudyPlan(StudyPlan studyPlan) {
+        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
+            StudyPlan sp = it.next();
+            if (sp == studyPlan) {
+                it.remove();
+            }
+        }
+    }
+
+    /**
+     * Set a given study plan as current, active.
+     * @param currentStudyPlan A study plan to assign as current.
+     */
     public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
         this.currentStudyPlan = currentStudyPlan;
     }

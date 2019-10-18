@@ -81,8 +81,36 @@ public class ApplicationController extends AnchorPane {
 
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
+
         event.consume();
 
+    }
+
+    @FXML
+    private void onDeleteClicked() {
+
+        studyPlansController.deleteCurrentStudyPlan();
+        showAStudyPlan();
+
+    }
+
+    //TOD: expose this method to ButtonController & StudyPlansController by a function lambda
+    public void showAStudyPlan() {
+        if (contentWindow.getChildren().size() == 2) {
+            removeCurrentScheduleView();
+        }
+        // Create and show a new Controller based on currentStudyPlan, if there is some study plan
+        if (model.getStudent().getAllStudyPlans().size() > 0) {
+            StudyPlanController studyPlanController = new StudyPlanController(model, this);
+            addNewStudyPlanController(studyPlanController);
+        }
+    }
+
+    /**
+     * Remove the active study plan in the lower part of content window
+     */
+    public void removeCurrentScheduleView() {
+            contentWindow.getChildren().remove(1);
     }
 
     private void instantiateChildControllers() {
@@ -140,13 +168,6 @@ public class ApplicationController extends AnchorPane {
      */
     public void saveStudent(){
         model.saveStudentToJSON();
-    }
-
-    /**
-     * Remove the active study plan in the lower part of content window
-     */
-    public void removeCurrentScheduleView() {
-        contentWindow.getChildren().remove(1);
     }
 
     /**

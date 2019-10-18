@@ -16,14 +16,14 @@ public class ButtonController extends Button {
 
     @FXML private Button buttonStudyPlan;
 
-    private int studyPlanNumber;
+    private int nOfStudyPlans;
     private StudyPlan studyPlan;
     private CoursePlanningSystem model;
     private ApplicationController applicationController;
     private StudyPlansController studyPlansController;
 
-    public ButtonController(CoursePlanningSystem model, ApplicationController applicationController, StudyPlansController studyPlansController, int studyPlanNumber, StudyPlan studyPlan) {
-        this.studyPlanNumber = studyPlanNumber;
+    public ButtonController(CoursePlanningSystem model, ApplicationController applicationController, StudyPlansController studyPlansController, int nOfStudyPlans, StudyPlan studyPlan) {
+        this.nOfStudyPlans = nOfStudyPlans;
         this.studyPlan = studyPlan;
         this.model = model;
         this.applicationController = applicationController;
@@ -45,29 +45,29 @@ public class ButtonController extends Button {
     }
 
     private void initiateButtonName() {
-        buttonStudyPlan.setText("SPlan " + studyPlanNumber);
+        buttonStudyPlan.setText("SPlan " + nOfStudyPlans);
     }
 
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
 
-        if (!(this.studyPlan == model.getStudent().getCurrentStudyPlan())) {
-            // Important to exclude last button: the "addButton" is not a ButtonController. Would throw cast error.
-            for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {
-                ButtonController buttonController = (ButtonController) studyPlansController.getStudyPlans().get(i);
-                if (buttonController.studyPlan == model.getStudent().getCurrentStudyPlan()) {
-                    buttonController.buttonStudyPlan.setDefaultButton(false);
-                }
-            }
+        if (!isThisButtonsStudyPlanTheCurrentStudyPlan()) {
+            studyPlansController.deactivateCurrStudyPlanButton();
             model.getStudent().setCurrentStudyPlan(studyPlan);
             buttonStudyPlan.setDefaultButton(true);
-            applicationController.removeCurrentScheduleView(); // removes current schedule;
-
-            StudyPlanController studyPlanController = new StudyPlanController(model, applicationController);
-            applicationController.addNewStudyPlanController(studyPlanController);
+            applicationController.showAStudyPlan();
         }
+
         event.consume();
 
+    }
+
+    /**
+     * Method checks whether this buttons study plan is the applications current study plan (showing).
+     * @return Boolean indicating if study plan is the current.
+     */
+    public boolean isThisButtonsStudyPlanTheCurrentStudyPlan() {
+        return this.studyPlan == model.getStudent().getCurrentStudyPlan();
     }
 
     /**

@@ -78,4 +78,16 @@ public class StudentTests {
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
     }
 
+    @Test
+    public void removeStudyPlan() {
+        Student student = new Student();
+
+        student.addStudyPlan();
+        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+
+        StudyPlan sp = student.getAllStudyPlans().get(0);
+        student.removeStudyPlan(sp);
+        Assert.assertTrue(student.getAllStudyPlans().size() == 0);
+    }
+
 }
