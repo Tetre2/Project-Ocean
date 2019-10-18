@@ -18,8 +18,9 @@ public class Course implements ICourse {
     private final List<String> requiredCourses;
     private final String coursePMLink;
     private final String courseDescription;
+    private final List<String> courseTypes;
 
-    public Course(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription) {
+    public Course(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription, List<String> courseTypes) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;
@@ -30,6 +31,7 @@ public class Course implements ICourse {
         this.requiredCourses = requiredCourses;
         this.coursePMLink = coursePMLink;
         this.courseDescription = courseDescription;
+        this.courseTypes = courseTypes;
     }
 
     @Override
@@ -70,6 +72,14 @@ public class Course implements ICourse {
     @Override
     public List<String> getRequiredCourses() {
         return requiredCourses;
+    }
+
+    /**
+     * @return this course's course types
+     */
+    @Override
+    public List<String> getCourseTypes() {
+        return courseTypes;
     }
 
     /**

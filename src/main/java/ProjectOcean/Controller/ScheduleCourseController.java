@@ -16,9 +16,10 @@ import java.io.IOException;
 /**
  * Represents the visual graphic component of a course in study plan.
  */
-public class ScheduleCourseController extends VBox implements Movable{
+public class ScheduleCourseController extends VBox implements Movable {
 
-    @FXML private Label courseCodeLabel;
+    @FXML
+    private Label courseCodeLabel;
     private final CoursePlanningSystem model;
 
     private final AddIconToScreen addIconToScreen;
@@ -60,11 +61,12 @@ public class ScheduleCourseController extends VBox implements Movable{
 
     /**
      * Relocates the CourseListIconController instance according to the point parameter
+     *
      * @param p the point representing the current mouse coordinates
      */
     @Override
     public void relocateToPoint(Point2D p) {
-        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
+        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY());
 
         relocate(
                 (int) (localCoords.getX() -
@@ -85,7 +87,7 @@ public class ScheduleCourseController extends VBox implements Movable{
         model.removeCourse(year, studyPeriod, slot);
 
         //MUST come after the above statement
-        icon = new ScheduleCourseController(model ,course, this.addIconToScreen, year, studyPeriod, slot);
+        icon = new ScheduleCourseController(model, course, this.addIconToScreen, year, studyPeriod, slot);
         addIconToScreen.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);

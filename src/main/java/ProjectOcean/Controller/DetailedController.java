@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,6 +30,7 @@ public class DetailedController extends VBox {
     @FXML private VBox requiredCourses;
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
+    @FXML private Label courseTypeLabel;
 
     private HostServices hostServices;
     private GoBackToMainContent goBack;
@@ -80,6 +82,8 @@ public class DetailedController extends VBox {
         setCoursePMLink(course.getCoursePMLink());
 
         setCourseDescription(course.getCourseDescription());
+
+        setCourseType(course.getCourseTypes());
     }
 
     private void setHeader(String header){
@@ -100,6 +104,18 @@ public class DetailedController extends VBox {
 
     private void setLanguage(String language) {
         this.language.setText(language);
+    }
+
+    private void setCourseType(List<String> courseTypes) {
+        if(courseTypes.isEmpty()) {
+            courseTypeLabel.setText("Allmän");
+        } else {
+            String courseTypesString = courseTypes.toString();
+            //Trims the brackets from List.toString
+            courseTypesString = courseTypesString.substring(1, courseTypesString.length()-1);
+            this.courseTypeLabel.setText(courseTypesString);
+        }
+
     }
 
     private void setRequiredCourses(List<String> courses) {
