@@ -39,7 +39,7 @@ public class ApplicationController extends AnchorPane {
         this.searchBrowseController = new SearchBrowseController(model, this);
         this.workspaceController = new WorkspaceController(model, this);
         this.studyPlanController = new StudyPlanController(model, this);
-        this.studyPlansController = new StudyPlansController(model, this);
+        this.studyPlansController = new StudyPlansController(model, this::showAStudyPlan);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -94,8 +94,7 @@ public class ApplicationController extends AnchorPane {
 
     }
 
-    //TOD: expose this method to ButtonController & StudyPlansController by a function lambda
-    public void showAStudyPlan() {
+    private void showAStudyPlan() {
         if (contentWindow.getChildren().size() == 2) {
             removeCurrentScheduleView();
         }
@@ -109,7 +108,7 @@ public class ApplicationController extends AnchorPane {
     /**
      * Remove the active study plan in the lower part of content window
      */
-    public void removeCurrentScheduleView() {
+    private void removeCurrentScheduleView() {
             contentWindow.getChildren().remove(1);
     }
 

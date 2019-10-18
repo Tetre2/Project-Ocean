@@ -19,15 +19,15 @@ public class ButtonController extends Button {
     private int nOfStudyPlans;
     private StudyPlan studyPlan;
     private CoursePlanningSystem model;
-    private ApplicationController applicationController;
-    private StudyPlansController studyPlansController;
+    private ShowAStudyPlan showStudyPlan;
+    private DeactivateCurrStudyPlanButton deActivate;
 
-    public ButtonController(CoursePlanningSystem model, ApplicationController applicationController, StudyPlansController studyPlansController, int nOfStudyPlans, StudyPlan studyPlan) {
+    public ButtonController(CoursePlanningSystem model, ShowAStudyPlan showStudyPlan, DeactivateCurrStudyPlanButton deActivate, int nOfStudyPlans, StudyPlan studyPlan) {
         this.nOfStudyPlans = nOfStudyPlans;
         this.studyPlan = studyPlan;
         this.model = model;
-        this.applicationController = applicationController;
-        this.studyPlansController = studyPlansController;
+        this.showStudyPlan = showStudyPlan;
+        this.deActivate = deActivate;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ButtonView.fxml"));
@@ -52,10 +52,10 @@ public class ButtonController extends Button {
     private void onStudyPlanClicked(MouseEvent event) {
 
         if (!isThisButtonsStudyPlanTheCurrentStudyPlan()) {
-            studyPlansController.deactivateCurrStudyPlanButton();
+            this.deActivate.deactivateCurrStudyPlanButton();
             model.getStudent().setCurrentStudyPlan(studyPlan);
             buttonStudyPlan.setDefaultButton(true);
-            applicationController.showAStudyPlan();
+            showStudyPlan.showAStudyPlan();
         }
 
         event.consume();
