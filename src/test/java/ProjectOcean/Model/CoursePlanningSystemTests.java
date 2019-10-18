@@ -137,19 +137,15 @@ public class CoursePlanningSystemTests {
         searchText = "Eda433";
         searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size() == 1);
-        if(!searchResult.isEmpty()) {
-            Assert.assertTrue(searchResult.get(0).getCourseCode().toLowerCase().equals("eda433"));
-        }
+        Assert.assertTrue(searchResult.get(0).getCourseCode().toLowerCase().equals("eda433"));
         searchResult.clear();
 
         //tests searching for course name
         searchText = "Maskin  matematisk";
         searchResult = model.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
-        if(!searchResult.isEmpty()) {
-            for(ICourse course : searchResult) {
-                Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
-            }
+        for(ICourse course : searchResult) {
+            Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
         }
 
         //tests searching for course type
