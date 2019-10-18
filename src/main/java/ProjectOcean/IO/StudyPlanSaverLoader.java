@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
@@ -294,7 +295,13 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
         if (!file.exists()) file.mkdirs();
+
         Student student = new Student();
+        StudyPlan studyPlan = new StudyPlan(0);
+        student.setStudyPlans(Arrays.asList(studyPlan));
+        student.setWorkspace(new Workspace());
+        student.setCurrentStudyPlan(studyPlan);
+
         saveModel(student);
     }
 
