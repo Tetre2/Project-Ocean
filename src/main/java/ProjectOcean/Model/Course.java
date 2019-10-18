@@ -1,5 +1,6 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,7 +80,7 @@ public class Course implements ICourse {
      */
     @Override
     public List<String> getCourseTypes() {
-        return courseTypes;
+        return new ArrayList<>(courseTypes);
     }
 
     /**
