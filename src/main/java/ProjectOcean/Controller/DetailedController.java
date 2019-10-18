@@ -106,7 +106,9 @@ public class DetailedController extends VBox {
     }
 
     private void setCourseType(List<String> courseTypes) {
-        this.courseTypeLabel.setText(courseTypes.toString());
+        if(!courseTypes.isEmpty()) {
+            this.courseTypeLabel.setText(courseTypes.toString());
+        }
     }
 
     private void setRequiredCourses(List<String> courses) {
