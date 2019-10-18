@@ -13,9 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import javax.swing.*;
 
 /**
  * Represents the root visual object, only contains empty containers
@@ -92,14 +96,10 @@ public class ApplicationController extends AnchorPane {
         searchBrowseWindow.getChildren().add(searchBrowseController);
         contentWindow.getChildren().add(1, scheduleController);
     }
-
+    
     private void initiateModel(){
-        //load in courses
-        try {
-            model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
-        } catch (CoursesNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        tryLoadCoursesFromJSON();
 
         //load in workspace
         try {
@@ -126,6 +126,21 @@ public class ApplicationController extends AnchorPane {
             e.printStackTrace();
         } catch (OldStudyplanExeption oldStudyplanExeption) {
             oldStudyplanExeption.printStackTrace();
+        }
+    }
+
+    private void tryLoadCoursesFromJSON(){
+        try {
+            model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
+        } catch (CoursesNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                courseSaveLoader.createCoursesFile();
+                tryLoadCoursesFromJSON();
+            }else if(alert.getResult() == ButtonType.NO){
+                System.exit(0);
+            }
         }
     }
 
