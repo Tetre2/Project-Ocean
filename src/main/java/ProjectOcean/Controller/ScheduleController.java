@@ -81,7 +81,6 @@ public class ScheduleController extends VBox implements Observer {
     public void addYear() {
         //model.getStudent().getCurrentStudyPlan().getSchedule().addYear(years.size());
         model.addYear(years.size() + 1);
-        System.out.println("sdasd");
     }
 
 

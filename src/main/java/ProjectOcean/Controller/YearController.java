@@ -5,6 +5,7 @@ import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
@@ -20,6 +21,7 @@ import java.util.Observer;
 public class YearController extends VBox implements Observer {
 
     @FXML private GridPane yearGrid;
+    @FXML private Button removeYearButton;
 
     private final CoursePlanningSystem model;
     private final int year;
@@ -153,5 +155,10 @@ public class YearController extends VBox implements Observer {
 
             }
         }
+    }
+
+    @FXML
+    public void removeYear() {
+        
     }
 }
