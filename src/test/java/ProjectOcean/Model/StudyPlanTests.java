@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StudyPlanTests {
     private int studyPeriod;
@@ -22,7 +23,7 @@ public class StudyPlanTests {
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 
@@ -33,7 +34,7 @@ public class StudyPlanTests {
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
 

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ScheduleTests {
 
@@ -22,7 +23,7 @@ public class ScheduleTests {
     @Test
     public void removeCourseTest() {
         Schedule schedule = new Schedule();
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
         schedule.addCourse(course, year,studyPeriod,slot);
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
 
@@ -33,7 +34,7 @@ public class ScheduleTests {
     @Test
     public void addCourseTest() {
         Schedule schedule = new Schedule();
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
         schedule.addCourse(course, year,studyPeriod,slot);
 
         Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());

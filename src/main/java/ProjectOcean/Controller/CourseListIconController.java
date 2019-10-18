@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Represents the visual component of a course
@@ -66,14 +67,14 @@ public class CourseListIconController extends VBox implements Movable {
     }
 
     private void indicateCourseTypes() {
-        String courseTypes = course.getCourseTypes();
-        if(courseTypes.contains("IT")) {
+        List<String> courseTypes = course.getCourseTypes();
+        if(courseTypes.contains("Informationsteknik")) {
             this.itIndicator.setStyle("-fx-background-color: #40E0D0");
         }
-        if(courseTypes.contains("MA")) {
+        if(courseTypes.contains("Matematik")) {
             this.mathIndicator.setStyle("-fx-background-color: #DF3C3C");
         }
-        if(courseTypes.contains("NA")) {
+        if(courseTypes.contains("Naturvetenskap")) {
             this.natureIndicator.setStyle("-fx-background-color: #3DC134");
         }
     }

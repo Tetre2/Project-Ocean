@@ -56,7 +56,7 @@ public interface ICourse {
     /**
      * @return this course's course types
      */
-    String getCourseTypes();
+    List<String> getCourseTypes();
 
 
 }

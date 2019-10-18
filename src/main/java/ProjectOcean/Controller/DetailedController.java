@@ -105,30 +105,8 @@ public class DetailedController extends VBox {
         this.language.setText(language);
     }
 
-    private void setCourseType(String courseTypes) {
-        this.courseTypeLabel.setText(formatCourseTypes(courseTypes));
-    }
-
-    private String formatCourseTypes(String courseTypes) {
-        String formatedCourseTypes = "";
-        if(courseTypes.contains("IT")) {
-            formatedCourseTypes = "Informationsteknik";
-        }
-        if(courseTypes.contains("MA")) {
-            if(formatedCourseTypes.isEmpty()) {
-                formatedCourseTypes = "Matematik";
-            } else {
-                formatedCourseTypes = formatedCourseTypes + ", matematik";
-            }
-        }
-        if(courseTypes.contains("NA")) {
-            if(formatedCourseTypes.isEmpty()) {
-                formatedCourseTypes = "Naturvetenskap";
-            } else {
-                formatedCourseTypes = formatedCourseTypes + ", naturvetenskap";
-            }
-        }
-        return formatedCourseTypes;
+    private void setCourseType(List<String> courseTypes) {
+        this.courseTypeLabel.setText(courseTypes.toString());
     }
 
     private void setRequiredCourses(List<String> courses) {

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CourseTests {
@@ -19,7 +20,7 @@ public class CourseTests {
     String examiner;
     String examinationMeans;
     String language;
-    String courseTypes;
+    List<String> courseTypes;
     ICourse course;
 
     @Before
@@ -34,7 +35,7 @@ public class CourseTests {
         examiner = "Rolf Söderström";
         examinationMeans = "Tenta";
         language = "Svenska";
-        courseTypes = "NA";
+        courseTypes = new ArrayList<>(Arrays.asList("Informationsteknik"));
 
         course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription, courseTypes);
 
@@ -43,8 +44,8 @@ public class CourseTests {
 
     @Test
     public void courseUniqueIdTest() {
-        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
-        ICourse course2 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course2 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         //Checks that ICourse references are different
         Assert.assertNotSame(course1, course2);
@@ -134,15 +135,15 @@ public class CourseTests {
 
     @Test
     public void getCourseTypesTest() {
-        String expected = courseTypes;
-        String actual = course.getCourseTypes();
+        List<String> expected = courseTypes;
+        List<String> actual = course.getCourseTypes();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void toStringTest() {
-        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", "IT");
+        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         String actual = course1.toString();
         String expected = "Course{" +
