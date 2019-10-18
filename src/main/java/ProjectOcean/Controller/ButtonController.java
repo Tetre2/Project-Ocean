@@ -50,16 +50,13 @@ public class ButtonController extends Button {
 
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
-
         if (!isThisButtonsStudyPlanTheCurrentStudyPlan()) {
             this.deActivate.deactivateCurrStudyPlanButton();
             model.getStudent().setCurrentStudyPlan(studyPlan);
             buttonStudyPlan.setDefaultButton(true);
             showStudyPlan.showAStudyPlan();
         }
-
         event.consume();
-
     }
 
     /**

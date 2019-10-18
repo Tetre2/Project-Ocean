@@ -53,7 +53,6 @@ public class ApplicationController extends AnchorPane {
         }
 
         instantiateChildControllers();
-
     }
 
     /**
@@ -67,30 +66,22 @@ public class ApplicationController extends AnchorPane {
 
     @FXML
     private void onDragOver(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         moveDraggedObjectToCursor(draggedObject, event);
-
         event.consume();
-
     }
 
     @FXML
     private void onDragDone(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
-
         event.consume();
-
     }
 
     @FXML
     private void onDeleteClicked() {
-
         studyPlansController.deleteCurrentStudyPlan();
         showAStudyPlan();
-
     }
 
     private void showAStudyPlan() {

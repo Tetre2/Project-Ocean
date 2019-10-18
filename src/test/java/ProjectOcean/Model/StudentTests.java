@@ -70,7 +70,6 @@ public class StudentTests {
     public void addStudyPlan() {
         Student student = new Student();
         student.addStudyPlan();
-
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
     }
 
