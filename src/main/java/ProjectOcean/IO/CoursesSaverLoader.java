@@ -1,7 +1,6 @@
 package ProjectOcean.IO;
-
-import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CourseFactory;
+import ProjectOcean.Model.ICourse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,7 +27,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public List<Course> loadCoursesFile() throws CoursesNotFoundException{
+    public List<ICourse> loadCoursesFile() throws CoursesNotFoundException{
         try {
             return readFromFile();
         } catch (ParseException e) {
@@ -54,13 +53,13 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @throws IOException
      * @throws ParseException
      */
-    private static List<Course> readFromFile() throws IOException, ParseException {
+    private static List<ICourse> readFromFile() throws IOException, ParseException {
 
         //creates a file with the path to the courses.json
         File file = new File(getHomeDirPath(), getFileName());
 
         //Map to return when method is done
-        List<Course> courses = new ArrayList<>();
+        List<ICourse> courses = new ArrayList<>();
 
         //Creates a filereader which reads the courses.json and creates it as a jsonArray
         FileReader fileReader = new FileReader(file);
@@ -70,7 +69,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         //loops through all "courses"
         for (Object object : studyPlans) {
 
-            Course course = createCourseFronJSONObject(object);
+            ICourse course = createCourseFronJSONObject(object);
             courses.add(course);
 
         }
@@ -78,7 +77,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         return courses;
     }
 
-    private static Course createCourseFronJSONObject(Object object){
+    private static ICourse createCourseFronJSONObject(Object object){
         //casts the "course" to a jsonObject to be able to access the info
         JSONObject jsonObject = (JSONObject) object;
 
@@ -89,7 +88,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
             requiredCourses.add((String) obj);
         }
 
-        Course course = new Course(
+        ICourse course = CourseFactory.CreateCourse(
                 (String) jsonObject.get("courseCode"),
                 (String) jsonObject.get("courseName"),
                 (String) jsonObject.get("studyPoints"),
@@ -127,9 +126,9 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         //creates the "main" array which contains all courses
         JSONArray jsonCourses = new JSONArray();
 
-        List<Course> courses = generatePreDefinedCourses();
+        List<ICourse> courses = generatePreDefinedCourses();
 
-        for (Course course: courses) {
+        for (ICourse course: courses) {
 
             //creates a json object which represents a course
             JSONObject jsonCourse = new JSONObject();
@@ -161,8 +160,8 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * Creates courses a predefined list of courses
      * @return returns a list of courses
      */
-    public static List<Course> generatePreDefinedCourses(){
-        List<Course> courses = new ArrayList<>();
+    public static List<ICourse> generatePreDefinedCourses(){
+        List<ICourse> courses = new ArrayList<>();
 
         courses.add(createCourse("DAT017","Maskinorienterad programmering", "7.5", "1", "Roger Johansson", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
         courses.add(createCourse("EDA433","Grundläggande Datorteknik", "7.5", "2", "Rolf snedspö", "Tenta/Laborationer", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum"));
@@ -177,8 +176,8 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         return courses;
     }
 
-    private static Course createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription){
-        return new Course(
+    private static ICourse createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription){
+        return CourseFactory.CreateCourse(
                 courseCode,
                 courseName,
                 studyPoints,

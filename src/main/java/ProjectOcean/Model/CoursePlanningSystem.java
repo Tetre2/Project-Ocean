@@ -70,6 +70,11 @@ public class CoursePlanningSystem extends Observable {
         addCourse(year, studyPeriod, slot);
     }
 
+    //implementeras utav fille, detta är bara en placeholder
+    public void addYear(){
+        student.addYear();
+    }
+
     /**
      * Removes the given course in the given year and study period, for the current student
      * @param year the year to remove the course from
@@ -186,7 +191,7 @@ public class CoursePlanningSystem extends Observable {
     }
 
     private static List<Course> getCoursesFromCourseLoader(){
-        List<Course> courses = null;
+        List<ICourse> courses = null;
         try {
             courses = courseSaveLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
@@ -198,7 +203,9 @@ public class CoursePlanningSystem extends Observable {
         } catch (CoursesNotFoundException e) {
             e.printStackTrace();
         }
-        return courses;
+
+        List<Course> c = new ArrayList(courses);
+        return c;
     }
 
     private static Student getStudentFromStudyPlanSaverLoader(){

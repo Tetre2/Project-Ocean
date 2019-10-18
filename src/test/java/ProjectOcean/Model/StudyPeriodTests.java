@@ -48,7 +48,7 @@ public class StudyPeriodTests {
     public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
-        List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();
+        List<ICourse> courses = CoursesSaverLoader.generatePreDefinedCourses();
 
         studyPeriod1.addCourse(courses.get(0), 1);
         studyPeriod2.addCourse(courses.get(0), 1);

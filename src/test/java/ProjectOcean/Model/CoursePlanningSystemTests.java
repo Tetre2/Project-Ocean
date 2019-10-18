@@ -22,7 +22,7 @@ public class CoursePlanningSystemTests {
         courses = new ArrayList<>();
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (Course course : CoursesSaverLoader.generatePreDefinedCourses()) {
+        for (ICourse course : CoursesSaverLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 

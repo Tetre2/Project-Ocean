@@ -1,9 +1,6 @@
 package ProjectOcean.IO;
 
-import ProjectOcean.Model.Course;
-import ProjectOcean.Model.Student;
-import ProjectOcean.Model.StudyPlan;
-import ProjectOcean.Model.Workspace;
+import ProjectOcean.Model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +14,7 @@ public class StudyPlanSaverLoaderTests {
     private CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
     private List<StudyPlan> studyPlans;
     private Student student;
-    private List<Course> courses;
+    private List<ICourse> courses;
 
     @Before
     public void setup(){

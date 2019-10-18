@@ -1,6 +1,7 @@
 package ProjectOcean.IO;
 
 import ProjectOcean.Model.Course;
+import ProjectOcean.Model.ICourse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +13,14 @@ import java.util.List;
 public class CourseSaverLoaderTest {
 
     private CoursesSaverLoader courseSaverLoader;
-    private List<Course> courses;
+    private List<ICourse> courses;
 
     @Before
     public void init(){
         courseSaverLoader = new CoursesSaverLoader();
         courses = new ArrayList<>();
 
-        for (Course course : courseSaverLoader.generatePreDefinedCourses()) {
+        for (ICourse course : courseSaverLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 
@@ -53,7 +54,7 @@ public class CourseSaverLoaderTest {
             Assert.assertFalse(true);
         }
 
-        List<Course> courseList = null;
+        List<ICourse> courseList = null;
 
         try {
             courseList = courseSaverLoader.loadCoursesFile();
