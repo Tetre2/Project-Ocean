@@ -71,6 +71,8 @@ public class StudyPlanSaverLoaderTests {
         arr.add(studyPlanTest);
         Student studentTest = new Student();
         studentTest.setStudyPlans(arr);
+        studentTest.setCurrentStudyPlan(studyPlanTest);
+        studentTest.setWorkspace(new Workspace());
         studentTest.addCourse(courses.get(1), 1, 1, 1);
         Assert.assertFalse(studentTest.equals(student));
 
