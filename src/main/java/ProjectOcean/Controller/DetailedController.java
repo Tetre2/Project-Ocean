@@ -107,10 +107,15 @@ public class DetailedController extends VBox {
     }
 
     private void setCourseType(List<String> courseTypes) {
-        String courseTypesString = courseTypes.toString();
-        //Trims the brackets from List.toString
-        courseTypesString = courseTypesString.substring(1, courseTypesString.length()-1);
-        this.courseTypeLabel.setText(courseTypesString);
+        if(courseTypes.isEmpty()) {
+            courseTypeLabel.setText("Allmän");
+        } else {
+            String courseTypesString = courseTypes.toString();
+            //Trims the brackets from List.toString
+            courseTypesString = courseTypesString.substring(1, courseTypesString.length()-1);
+            this.courseTypeLabel.setText(courseTypesString);
+        }
+
     }
 
     private void setRequiredCourses(List<String> courses) {
