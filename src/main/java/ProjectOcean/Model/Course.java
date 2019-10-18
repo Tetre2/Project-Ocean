@@ -152,10 +152,11 @@ public class Course implements ICourse {
     /**
      * @return a hash code
      */
+    /*
     @Override
     public int hashCode() {
         return Objects.hash(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
-    }
+    } */
 }
 
 

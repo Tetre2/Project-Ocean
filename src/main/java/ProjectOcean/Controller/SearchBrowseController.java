@@ -33,16 +33,18 @@ public class SearchBrowseController extends AnchorPane {
     private List<ICourse> currentSearchResult;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
 
     /**
      * @param model: An instance of the course planning system
      * @param showDetailedInformationWindow callback to the showDetailedInformationWindow method
      * @param addIconToScreen callback to the addIconToScreen method
      */
-    public SearchBrowseController(CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
+    public SearchBrowseController(CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
+        this.visualFeedback = visualFeedback;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/SearchBrowseWindow.fxml"));
@@ -93,7 +95,7 @@ public class SearchBrowseController extends AnchorPane {
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result
         for(ICourse course : filteredSearchResult) {
-            CourseListIconController courseListIcon = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
+            CourseListIconController courseListIcon = new CourseListIconController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen);
             searchResultVBox.getChildren().add(courseListIcon);
         }
     }

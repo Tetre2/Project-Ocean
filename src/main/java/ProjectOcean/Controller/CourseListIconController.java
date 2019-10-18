@@ -30,12 +30,14 @@ public class CourseListIconController extends VBox implements Movable {
     private final ICourse course;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
+    public CourseListIconController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.course = course;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
+        this.visualFeedback = visualFeedback;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -96,6 +98,8 @@ public class CourseListIconController extends VBox implements Movable {
         owner = this.getParent();
         copyDraggedObjectToClipBoard(this);
 
+        visualFeedback.showAvailablePlacementInSchedule(course);
+
         //Check from which parent the object started in.
         switch (owner.getId()){
             case "workspaceContainer":
@@ -105,7 +109,7 @@ public class CourseListIconController extends VBox implements Movable {
         }
 
          //MUST come after the above statement
-        CourseListIconController draggedObject = new CourseListIconController(course, model, this.showDetailedInformationWindow, this.addIconToScreen);
+        CourseListIconController draggedObject = new CourseListIconController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
         addIconToScreen.addIconToScreen(draggedObject);
 
 

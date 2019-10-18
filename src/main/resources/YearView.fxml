@@ -61,6 +61,16 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                     </children>
                   </GridPane>
                </children>
                <HBox.margin>

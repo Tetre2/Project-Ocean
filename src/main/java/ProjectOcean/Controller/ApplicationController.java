@@ -1,6 +1,8 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -16,7 +18,7 @@ import javafx.scene.layout.VBox;
  * Represents the root visual object, only contains empty containers
  */
 
-public class ApplicationController extends AnchorPane {
+public class ApplicationController extends AnchorPane implements VisualFeedback, RemoveCourseFromSchedule {
 
     @FXML private VBox contentWindow;
     @FXML private AnchorPane dragFeature;
@@ -32,9 +34,9 @@ public class ApplicationController extends AnchorPane {
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
-        this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
-        this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
-        this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
+        this.searchBrowseController = new SearchBrowseController(model, this, this::showDetailedInformationWindow, this::addIconToScreen);
+        this.workspaceController = new WorkspaceController(model, this, this::relocateDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
+        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -114,6 +116,17 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
+    }
+
+    /**
+     * Makes the course slots in schedule light up with a color responding to if the course can be placed or not.
+     */
+    public void showAvailablePlacementInSchedule(ICourse course){
+        scheduleController.setVisualFeedbackForCoursePlacement(course);
+    }
+
+    public void removeCourse(ICourse course){
+        scheduleController.getYearController().removeCourse(course);
     }
 
     /**

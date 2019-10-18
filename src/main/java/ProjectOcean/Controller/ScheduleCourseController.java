@@ -22,19 +22,15 @@ public class ScheduleCourseController extends VBox implements Movable{
     private final CoursePlanningSystem model;
 
     private final AddIconToScreen addIconToScreen;
-    private int year;
-    private int studyPeriod;
-    private int slot;
+    private final RemoveCourseFromSchedule removeCourseFromSchedule;
     private final ICourse course;
 
-    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, int year, int studyPeriod, int slot) {
+    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, RemoveCourseFromSchedule removeCourseFromSchedule) {
 
         this.model = model;
-        this.slot = slot;
         this.addIconToScreen = addIconToScreen;
+        this.removeCourseFromSchedule = removeCourseFromSchedule;
         this.course = course;
-        this.year = year;
-        this.studyPeriod = studyPeriod;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ScheduleCourseView.fxml"));
@@ -81,12 +77,11 @@ public class ScheduleCourseController extends VBox implements Movable{
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
-
-        model.removeCourse(year, studyPeriod, slot);
-
         //MUST come after the above statement
-        icon = new ScheduleCourseController(model ,course, this.addIconToScreen, year, studyPeriod, slot);
+        icon = new ScheduleCourseController(model ,course, this.addIconToScreen, removeCourseFromSchedule);
         addIconToScreen.addIconToScreen(icon);
+
+        removeCourseFromSchedule.removeCourse(course);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
         icon.setVisible(true);

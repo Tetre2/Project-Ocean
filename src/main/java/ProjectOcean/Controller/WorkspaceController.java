@@ -26,13 +26,15 @@ public class WorkspaceController extends VBox implements Observer {
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
     private final RemoveMovableChild removeMovableChild;
+    private final VisualFeedback visualFeedback;
 
-    public WorkspaceController(CoursePlanningSystem model, RefactorDraggedObjectToCursor relocateDraggedObjectToCursor, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveMovableChild removeMovableChild) {
+    public WorkspaceController(CoursePlanningSystem model, VisualFeedback visualFeedback, RefactorDraggedObjectToCursor relocateDraggedObjectToCursor, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveMovableChild removeMovableChild) {
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
         this.model = model;
         this.removeMovableChild = removeMovableChild;
+        this.visualFeedback = visualFeedback;
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -79,7 +81,7 @@ public class WorkspaceController extends VBox implements Observer {
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
         for(ICourse course : model.getCoursesInWorkspace()) {
-            CourseListIconController iconController = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
+            CourseListIconController iconController = new CourseListIconController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen);
             workspaceContainer.getChildren().add(iconController);
         }
     }
