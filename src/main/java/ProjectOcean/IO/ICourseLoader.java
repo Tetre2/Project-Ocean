@@ -4,7 +4,7 @@ import ProjectOcean.Model.ICourse;
 
 import java.util.List;
 
-public interface ICourseSaveLoader {
+public interface ICourseLoader {
 
     /**
      * tries to load all courses form a file if it cant load it it creates a new empty file

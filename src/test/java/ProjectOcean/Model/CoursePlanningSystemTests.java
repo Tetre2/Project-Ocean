@@ -1,6 +1,6 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CoursesSaverLoader;
+import ProjectOcean.IO.CourseLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class CoursePlanningSystemTests {
         courses = new ArrayList<>();
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (ICourse course : CoursesSaverLoader.generatePreDefinedCourses()) {
+        for (ICourse course : CourseLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 
@@ -77,7 +77,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void addCourseToWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
         model.addCourseToWorkspace(courses.get(0));
 
         Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
@@ -85,7 +85,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getCoursesInWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
 
         Assert.assertTrue(model.getCoursesInWorkspace().size() == 0);
 
@@ -97,7 +97,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void removeCourseFromWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
         model.addCourseToWorkspace(courses.get(0));
         Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
 

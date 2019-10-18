@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesSaverLoader implements ICourseSaveLoader{
+public class CourseLoader implements ICourseLoader {
 
     private static String fileName = "courses.json";
     private static JSONParser parser = new JSONParser();
 
-    public CoursesSaverLoader() {
+    public CourseLoader() {
     }
 
     /**

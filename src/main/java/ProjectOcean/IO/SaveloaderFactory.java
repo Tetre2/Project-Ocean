@@ -2,8 +2,8 @@ package ProjectOcean.IO;
 
 public class SaveloaderFactory {
 
-    public static ICourseSaveLoader createICourseSaveLoader(){
-        return new CoursesSaverLoader();
+    public static ICourseLoader createICourseSaveLoader(){
+        return new CourseLoader();
     }
 
     public static IStudyPlanSaverLoader createIStudyPlanSaverLoader(){

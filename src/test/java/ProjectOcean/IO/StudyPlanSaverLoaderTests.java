@@ -11,7 +11,7 @@ import java.util.List;
 public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
-    private CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
+    private CourseLoader courseSaverLoader = new CourseLoader();
     private List<StudyPlan> studyPlans;
     private Student student;
     private List<ICourse> courses;
@@ -50,7 +50,7 @@ public class StudyPlanSaverLoaderTests {
     @Test
     public void saveStudyplansTest(){
 
-        saverLoader.saveStudyplans(student);
+        saverLoader.saveModel(student);
 
     }
 

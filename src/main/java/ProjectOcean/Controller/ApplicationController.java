@@ -1,6 +1,11 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+
+import ProjectOcean.IO.CoursesNotFoundException;
+import ProjectOcean.IO.ICourseLoader;
+import ProjectOcean.IO.IStudyPlanSaverLoader;
+import ProjectOcean.IO.SaveloaderFactory;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -28,10 +33,13 @@ public class ApplicationController extends AnchorPane {
     private final ScheduleController scheduleController;
     private static DetailedController detailedController;
     private final HostServices hostServices;
+    private static ICourseLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
+        initiateModel();
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
@@ -65,17 +73,14 @@ public class ApplicationController extends AnchorPane {
 
     @FXML
     private void onDragOver(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         moveDraggedObjectToCursor(draggedObject, event);
 
         event.consume();
-
     }
 
     @FXML
     private void onDragDone(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
         event.consume();
@@ -86,6 +91,14 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
         contentWindow.getChildren().add(1, scheduleController);
+    }
+
+    private void initiateModel(){
+        try {
+            model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -129,14 +142,14 @@ public class ApplicationController extends AnchorPane {
      */
     @FXML
     public void onSaveClicked(){
-        saveStudent();
+        saveModel();
     }
 
     /**
      * Method saves all properties of student in a json file
      */
-    public void saveStudent(){
-        model.saveStudentToJSON();
+    public void saveModel(){
+        studyPlanSaverLoader.saveModel(model.getStudent());
     }
 
     private void removeMovableChild(Movable course) {

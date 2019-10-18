@@ -14,19 +14,20 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     private static String fileName = "studyplans.json";
     private static JSONParser parser = new JSONParser();
-    private static CoursesSaverLoader courseSaverLoader = new CoursesSaverLoader();
+    private static CourseLoader courseSaverLoader = new CourseLoader();
     private static List<ICourse> courses = courseSaverLoader.generatePreDefinedCourses();
 
     public StudyPlanSaverLoader() {
     }
 
+    //--------------Save---------------
 
     /**
      * Saves the users studyplans and workspace to the userHomeDir
      * @param student contains a list of studyPlans that will being saved and
      */
     @Override
-    public void saveStudyplans(Student student) {
+    public void saveModel(Student student) {
 
         JSONObject jsonStudent = new JSONObject();
 
@@ -112,6 +113,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             e.printStackTrace();
         }
     }
+
+
+
+    //--------------Load---------------
 
     /**
      * Loads a Student from the users home dir if the file cant be find it creates a new one
@@ -232,19 +237,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     /**
-     * Creates a empty student file and creates a new file if it does not exist
-     */
-    @Override
-    public void createNewStudentFile(){
-        File directory = new File(getHomeDirPath());
-        File file = new File(directory, getFileName());
-        file = new File(file.getParentFile().getAbsolutePath());
-        if (!file.exists()) file.mkdirs();
-        Student student = new Student();
-        saveStudyplans(student);
-    }
-
-    /**
      * Reads the file in the users home dir and creates a list from that
      * @return returns a list of studyplans
      * @throws IOException
@@ -259,6 +251,21 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
 
         return jsonObject;
+    }
+
+    //--------------Other---------------
+
+    /**
+     * Creates a empty student file and creates a new file if it does not exist
+     */
+    @Override
+    public void createNewStudentFile(){
+        File directory = new File(getHomeDirPath());
+        File file = new File(directory, getFileName());
+        file = new File(file.getParentFile().getAbsolutePath());
+        if (!file.exists()) file.mkdirs();
+        Student student = new Student();
+        saveModel(student);
     }
 
     /**
