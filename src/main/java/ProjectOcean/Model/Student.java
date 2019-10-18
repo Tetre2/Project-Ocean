@@ -15,21 +15,7 @@ public class Student {
     private Workspace workspace;
 
     public Student() {
-        this(new ArrayList<>(), new Workspace(), new StudyPlan());
-    }
 
-    public Student(List<StudyPlan> studyPlans){
-        this(studyPlans, new Workspace(), new StudyPlan());
-    }
-
-    public Student(List<StudyPlan> studyPlans, Workspace workspace){
-        this(studyPlans, workspace, new StudyPlan());
-    }
-
-    public Student(List<StudyPlan> studyPlans, Workspace workspace, StudyPlan currentStudyPlan) {
-        this.studyPlans = studyPlans;
-        this.currentStudyPlan = currentStudyPlan;
-        this.workspace = workspace;
     }
 
     /**

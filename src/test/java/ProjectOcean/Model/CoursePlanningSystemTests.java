@@ -26,7 +26,7 @@ public class CoursePlanningSystemTests {
             courses.add(course);
         }
 
-        StudyPlan studyPlan = new StudyPlan();
+        StudyPlan studyPlan = new StudyPlan(1);
         studyPlans.add(studyPlan);
 
 

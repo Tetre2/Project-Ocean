@@ -1,6 +1,7 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ProjectOcean.IO.CoursesNotFoundException;
 import ProjectOcean.IO.ICourseLoader;
@@ -8,6 +9,8 @@ import ProjectOcean.IO.IStudyPlanSaverLoader;
 import ProjectOcean.IO.SaveloaderFactory;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
+import ProjectOcean.Model.StudyPlan;
+import ProjectOcean.Model.Workspace;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -94,11 +97,20 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void initiateModel(){
+        //load in courses
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
         } catch (CoursesNotFoundException e) {
             e.printStackTrace();
         }
+
+        //load in studyPlan
+        StudyPlan studyPlan = new StudyPlan(0);
+        ArrayList<StudyPlan> arr = new ArrayList();
+        arr.add(studyPlan);
+        model.setStudyPlans(arr);
+        model.setCurrentStudyPlan(studyPlan);
+        model.setWorkspace(new Workspace());
     }
 
     /**

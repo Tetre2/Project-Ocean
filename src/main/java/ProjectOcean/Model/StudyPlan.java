@@ -8,8 +8,10 @@ import java.util.Objects;
 public class StudyPlan {
 
     private Schedule schedule;
+    private final int id;
 
-    public StudyPlan() {
+    public StudyPlan(int id) {
+        this.id = id;
         this.schedule = new Schedule();
     }
 
@@ -56,6 +58,13 @@ public class StudyPlan {
     }
 
     /**
+     * @returns the id of a studyplan
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * checks if this and an other object is the same
      * @param o is the object being checked against this object
      * @return true if the this object is the same as o
@@ -65,7 +74,8 @@ public class StudyPlan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudyPlan studyPlan = (StudyPlan) o;
-        return schedule.equals(studyPlan.schedule);
+        return id == studyPlan.getId() &&
+                schedule.equals(studyPlan.schedule);
     }
 
     /**
