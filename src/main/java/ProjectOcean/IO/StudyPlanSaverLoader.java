@@ -272,6 +272,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         return jsonObject;
     }
 
+    //--------------Other---------------
+
     private static boolean checkIfCorrectVersion() throws StudyPlanNotFoundException{
         try {
             JSONObject jsonObject = readFromFile();
@@ -283,8 +285,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             throw new StudyPlanNotFoundException();
         }
     }
-
-    //--------------Other---------------
 
     /**
      * Creates a empty student file and creates a new file if it does not exist

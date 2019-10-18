@@ -8,10 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class WorkspaceTest {
 
@@ -20,14 +17,14 @@ public class WorkspaceTest {
 
     @Before
     public void createCourses() {
-        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("")));
 
-        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Naturvetenskap")));
 
         ws.addCourse(course);
         ws.addCourse(course2);
@@ -50,17 +47,18 @@ public class WorkspaceTest {
     @Test
     public void addCourseTest(){
         ws.removeAllCourses();
-        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("")));
 
         ws.addCourse(course);
         Assert.assertTrue(ws.getAllCourses().get(0) == course);
 
         //Checking that a course cannot be added twice.
-        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Naturvetenskap")));
 
         ws.addCourse(course2);
         ws.addCourse(course3);
@@ -81,7 +79,7 @@ public class WorkspaceTest {
     public void removeCourseTest(){
         ws.removeAllCourses();
 
-        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("")));
 
         ws.addCourse(course);
         Assert.assertFalse(ws.getAllCourses() == null);
@@ -89,13 +87,11 @@ public class WorkspaceTest {
         Assert.assertTrue(ws.getAllCourses().isEmpty());
 
         //Check that nothing happens to the list in we try to remove a Course that does not exist i the list.
+        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course2 = CourseFactory.CreateCourse("CAT123","Complex system", "7.5", "2","Anders Frölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course3 = CourseFactory.CreateCourse("DAT321","Datavetenskap", "7.5", "4","Anders Bröninge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-
-        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-
+        ICourse course4 = CourseFactory.CreateCourse("FAT321","Fysik för ingenjörer", "7.5", "1","Anders Brölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Naturvetenskap")));
 
         ws.addCourse(course);
         ws.addCourse(course2);
@@ -108,8 +104,7 @@ public class WorkspaceTest {
         coursesTemp.add(course2);
         coursesTemp.add(course3);
         coursesTemp.add(course4);
-        ICourse courseTemp = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-
+        ICourse courseTemp = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         ws.removeCourse(courseTemp);
         Assert.assertEquals(coursesTemp, ws.getAllCourses());
