@@ -9,10 +9,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,9 +27,7 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;
     @FXML private Text studyPointsText;
-    @FXML private AnchorPane itIndicator;
-    @FXML private AnchorPane mathIndicator;
-    @FXML private AnchorPane natureIndicator;
+    @FXML private VBox typeIndicator;
 
     private static CoursePlanningSystem model;
     private final ICourse course;
@@ -68,15 +69,28 @@ public class CourseListIconController extends VBox implements Movable {
 
     private void indicateCourseTypes() {
         List<String> courseTypes = course.getCourseTypes();
-        if(courseTypes.contains("Informationsteknik")) {
-            this.itIndicator.setStyle("-fx-background-color: #40E0D0");
+        for(String s : courseTypes) {
+            switch(s) {
+                case "Informationsteknik" :
+                    paintIndicator("#40E0D0");
+                    break;
+
+                case "Matematik" :
+                    paintIndicator("#DF3C3C");
+                    break;
+
+                case "Naturvetenskap" :
+                    paintIndicator("#3DC134");
+                    break;
+            }
         }
-        if(courseTypes.contains("Matematik")) {
-            this.mathIndicator.setStyle("-fx-background-color: #DF3C3C");
-        }
-        if(courseTypes.contains("Naturvetenskap")) {
-            this.natureIndicator.setStyle("-fx-background-color: #3DC134");
-        }
+    }
+
+    private void paintIndicator(String colour) {
+        Pane sTypeIndicator = new Pane();
+        sTypeIndicator.setStyle("-fx-background-color: " + colour);
+        sTypeIndicator.setPrefHeight(200);
+        typeIndicator.getChildren().add(sTypeIndicator);
     }
 
     @FXML

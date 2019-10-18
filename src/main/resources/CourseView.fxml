@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -46,21 +46,15 @@
                   <Font size="22.0" />
                </font>
             </Text>
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <AnchorPane fx:id="itIndicator" style="-fx-border-color: #CCCCCC;" />
-                  <AnchorPane fx:id="mathIndicator" style="-fx-border-color: #CCCCCC;" GridPane.rowIndex="1" />
-                  <AnchorPane fx:id="natureIndicator" style="-fx-border-color: #CCCCCC;" GridPane.rowIndex="2" />
+                  <VBox fx:id="typeIndicator" prefHeight="200.0" prefWidth="100.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
                </children>
-            </GridPane>
+            </VBox>
          </children>
       </GridPane>
    </children>
