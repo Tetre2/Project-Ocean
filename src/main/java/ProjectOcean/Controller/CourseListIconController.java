@@ -87,10 +87,10 @@ public class CourseListIconController extends VBox implements Movable {
     }
 
     private void paintIndicator(String colour) {
-        Pane sTypeIndicator = new Pane();
-        sTypeIndicator.setStyle("-fx-background-color: " + colour);
-        sTypeIndicator.setPrefHeight(200);
-        typeIndicator.getChildren().add(sTypeIndicator);
+        Pane typeIndicatorPane = new Pane();
+        typeIndicatorPane.setStyle("-fx-background-color: " + colour);
+        typeIndicatorPane.setPrefHeight(200);
+        typeIndicator.getChildren().add(typeIndicatorPane);
     }
 
     @FXML

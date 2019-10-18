@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -106,7 +107,10 @@ public class DetailedController extends VBox {
     }
 
     private void setCourseType(List<String> courseTypes) {
-        this.courseTypeLabel.setText(courseTypes.toString());
+        String courseTypesString = courseTypes.toString();
+        //Trims the brackets from List.toString
+        courseTypesString = courseTypesString.substring(1, courseTypesString.length()-1);
+        this.courseTypeLabel.setText(courseTypesString);
     }
 
     private void setRequiredCourses(List<String> courses) {
