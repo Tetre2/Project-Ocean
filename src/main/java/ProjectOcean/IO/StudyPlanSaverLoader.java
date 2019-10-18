@@ -146,7 +146,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @exception throws a exeption if file cant be found
      */
     @Override
-    public StudyPlan loadCurrentWorkspace(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption {
+    public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption {
         if(!checkIfCorrectVertion())
             throw new OldStudyplanExeption();
         try {
@@ -274,7 +274,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static boolean checkIfCorrectVertion() throws StudyPlanNotFoundException{
         try {
             JSONObject jsonObject = readFromFile();
-            int version = (int) jsonObject.get("version");
+            int version = (int)(long) jsonObject.get("version");
             return version == VERSION;
         } catch (IOException e) {
             throw new StudyPlanNotFoundException();

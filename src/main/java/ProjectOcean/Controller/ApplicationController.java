@@ -3,10 +3,7 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ProjectOcean.IO.CoursesNotFoundException;
-import ProjectOcean.IO.ICourseLoader;
-import ProjectOcean.IO.IStudyPlanSaverLoader;
-import ProjectOcean.IO.SaveloaderFactory;
+import ProjectOcean.IO.*;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.StudyPlan;
@@ -105,12 +102,20 @@ public class ApplicationController extends AnchorPane {
         }
 
         //load in studyPlan
+
+        try {
+            model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldStudyplanExeption oldStudyplanExeption) {
+            oldStudyplanExeption.printStackTrace();
+        }
+
         StudyPlan studyPlan = new StudyPlan(0);
         ArrayList<StudyPlan> arr = new ArrayList();
         arr.add(studyPlan);
         model.setStudyPlans(arr);
         model.setCurrentStudyPlan(studyPlan);
-        model.setWorkspace(new Workspace());
     }
 
     /**

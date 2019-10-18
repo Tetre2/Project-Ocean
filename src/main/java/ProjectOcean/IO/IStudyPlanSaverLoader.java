@@ -26,7 +26,7 @@ public interface IStudyPlanSaverLoader {
      * @return a studyplan
      * @throws StudyPlanNotFoundException
      */
-    StudyPlan loadCurrentWorkspace(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption;
+    StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption;
 
     /**
      * tries to load a workspace saved in the JSON file
