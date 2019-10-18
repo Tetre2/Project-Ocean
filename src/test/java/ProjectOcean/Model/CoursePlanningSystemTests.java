@@ -130,7 +130,6 @@ public class CoursePlanningSystemTests {
         List<ICourse> searchResult = model.executeSearch(searchText);
         searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
-        System.out.println(searchResult.get(0).getExaminer());
         Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("söderström"));
         searchResult.clear();
 
