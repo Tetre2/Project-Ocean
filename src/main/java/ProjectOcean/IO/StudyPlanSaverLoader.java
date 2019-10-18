@@ -129,7 +129,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      */
     @Override
     public List<StudyPlan> loadStudyplans() throws StudyPlanNotFoundException, OldStudyplanExeption {
-        if(!checkIfCorrectVertion())
+        if(!checkIfCorrectVersion())
             throw new OldStudyplanExeption();
         try {
             return createStudyPlansFromJSON(readFromFile());
@@ -147,7 +147,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      */
     @Override
     public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption {
-        if(!checkIfCorrectVertion())
+        if(!checkIfCorrectVersion())
             throw new OldStudyplanExeption();
         try {
             return createCurrentStudyPlanFromJSON(readFromFile(), studyPlans);
@@ -165,7 +165,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      */
     @Override
     public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldStudyplanExeption {
-        if(!checkIfCorrectVertion())
+        if(!checkIfCorrectVersion())
             throw new OldStudyplanExeption();
         try {
             return createWorkspaceFromJSON(readFromFile());
@@ -177,7 +177,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject, List<StudyPlan> studyPlans){
-        int studyPlanPointer = (int) jsonObject.get("currentStudyPlan");
+        int studyPlanPointer = (int)(long) jsonObject.get("currentStudyPlan");
         return studyPlans.get(studyPlanPointer);
     }
 
@@ -204,7 +204,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             JSONObject jsonStudyplan = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
             JSONArray jsonYearArr = (JSONArray) jsonStudyplan.get("years");
 
-            StudyPlan studyPlan = new StudyPlan((int)jsonStudyplan.get("id"));
+            StudyPlan studyPlan = new StudyPlan((int)(long)jsonStudyplan.get("id"));
 
             addJSONYearsToStudyPlan(studyPlan, jsonYearArr);
 
@@ -271,7 +271,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         return jsonObject;
     }
 
-    private static boolean checkIfCorrectVertion() throws StudyPlanNotFoundException{
+    private static boolean checkIfCorrectVersion() throws StudyPlanNotFoundException{
         try {
             JSONObject jsonObject = readFromFile();
             int version = (int)(long) jsonObject.get("version");

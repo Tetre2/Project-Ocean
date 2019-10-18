@@ -101,8 +101,7 @@ public class ApplicationController extends AnchorPane {
             e.printStackTrace();
         }
 
-        //load in studyPlan
-
+        //load in workspace
         try {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
         } catch (StudyPlanNotFoundException e) {
@@ -111,11 +110,23 @@ public class ApplicationController extends AnchorPane {
             oldStudyplanExeption.printStackTrace();
         }
 
-        StudyPlan studyPlan = new StudyPlan(0);
-        ArrayList<StudyPlan> arr = new ArrayList();
-        arr.add(studyPlan);
-        model.setStudyPlans(arr);
-        model.setCurrentStudyPlan(studyPlan);
+        //load in studyplans
+        try {
+            model.setStudyPlans(studyPlanSaverLoader.loadStudyplans());
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldStudyplanExeption oldStudyplanExeption) {
+            oldStudyplanExeption.printStackTrace();
+        }
+
+        //load in currentStudyplan
+        try {
+            model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldStudyplanExeption oldStudyplanExeption) {
+            oldStudyplanExeption.printStackTrace();
+        }
     }
 
     /**
