@@ -12,25 +12,25 @@ import java.io.IOException;
 /**
  * Represents a graphical component of a study plan's button.
  */
-public class ButtonController extends Button {
+public class StudyPlanButtonController extends Button {
 
-    @FXML private Button buttonStudyPlan;
+    @FXML private Button studyPlanButton;
 
     private int nOfStudyPlans;
     private StudyPlan studyPlan;
     private CoursePlanningSystem model;
-    private ShowAStudyPlan showStudyPlan;
-    private DeactivateCurrStudyPlanButton deActivate;
+    private ShowCurrentStudyPlan showStudyPlan;
+    private DeactivateStudyPlanButton deactivate;
 
-    public ButtonController(CoursePlanningSystem model, ShowAStudyPlan showStudyPlan, DeactivateCurrStudyPlanButton deActivate, int nOfStudyPlans, StudyPlan studyPlan) {
+    public StudyPlanButtonController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan, DeactivateStudyPlanButton deactivate, int nOfStudyPlans, StudyPlan studyPlan) {
         this.nOfStudyPlans = nOfStudyPlans;
         this.studyPlan = studyPlan;
         this.model = model;
         this.showStudyPlan = showStudyPlan;
-        this.deActivate = deActivate;
+        this.deactivate = deactivate;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ButtonView.fxml"));
+                "/StudyPlanButtonView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -39,22 +39,21 @@ public class ButtonController extends Button {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
         initiateButtonName();
 
     }
 
     private void initiateButtonName() {
-        buttonStudyPlan.setText("SPlan " + nOfStudyPlans);
+        studyPlanButton.setText("SPlan " + nOfStudyPlans);
     }
 
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
-        if (!isThisButtonsStudyPlanTheCurrentStudyPlan()) {
-            this.deActivate.deactivateCurrStudyPlanButton();
+        if (!isThisStudyPlanCurrentStudyPlan()) {
+            this.deactivate.deactivateStudyPlanButton();
             model.getStudent().setCurrentStudyPlan(studyPlan);
-            buttonStudyPlan.setDefaultButton(true);
-            showStudyPlan.showAStudyPlan();
+            studyPlanButton.setDefaultButton(true);
+            showStudyPlan.showCurrentStudyPlan();
         }
         event.consume();
     }
@@ -63,7 +62,7 @@ public class ButtonController extends Button {
      * Method checks whether this buttons study plan is the applications current study plan (showing).
      * @return Boolean indicating if study plan is the current.
      */
-    public boolean isThisButtonsStudyPlanTheCurrentStudyPlan() {
+    public boolean isThisStudyPlanCurrentStudyPlan() {
         return this.studyPlan == model.getStudent().getCurrentStudyPlan();
     }
 
@@ -77,14 +76,14 @@ public class ButtonController extends Button {
     /**
      * Set active button to non-active
      */
-    public void deActivateDefaultButton() {
-        buttonStudyPlan.setDefaultButton(false);
+    public void deactivateButton() {
+        studyPlanButton.setDefaultButton(false);
     }
 
     /**
      * Set non-active button to active
      */
-    public void activateDefaultButton() {
-        buttonStudyPlan.setDefaultButton(true);
+    public void activateButton() {
+        studyPlanButton.setDefaultButton(true);
     }
 }

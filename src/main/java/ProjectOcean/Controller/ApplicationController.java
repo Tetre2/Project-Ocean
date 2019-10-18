@@ -27,7 +27,7 @@ public class ApplicationController extends AnchorPane {
     private final CoursePlanningSystem model;
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
-    private final StudyPlansController studyPlansController;
+    private final StudyPlanSelectorController studyPlanSelectorController;
     private final ScheduleController scheduleController;
     private static DetailedController detailedController;
     private final HostServices hostServices;
@@ -35,7 +35,7 @@ public class ApplicationController extends AnchorPane {
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
-        this.studyPlansController = new StudyPlansController(model, this::showAStudyPlan);
+        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
@@ -80,11 +80,12 @@ public class ApplicationController extends AnchorPane {
 
     @FXML
     private void onDeleteClicked() {
-        studyPlansController.deleteCurrentStudyPlan();
-        showAStudyPlan();
+        studyPlanSelectorController.deleteCurrentStudyPlan();
+        studyPlanSelectorController.showAllStudyPlanButtons();
+        showCurrentStudyPlan();
     }
 
-    private void showAStudyPlan() {
+    private void showCurrentStudyPlan() {
         if (contentWindow.getChildren().size() == 2) {
             removeCurrentScheduleView();
         }
@@ -105,7 +106,7 @@ public class ApplicationController extends AnchorPane {
     private void instantiateChildControllers() {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
-        studyPlanWindow.getChildren().add(studyPlansController);
+        studyPlanWindow.getChildren().add(studyPlanSelectorController);
         contentWindow.getChildren().add(1, scheduleController);
     }
 
