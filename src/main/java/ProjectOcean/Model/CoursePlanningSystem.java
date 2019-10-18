@@ -71,6 +71,12 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
 
+    public void removeYear(int yearNumber) {
+        student.removeYear(yearNumber);
+        setChanged();
+        notifyObservers();
+    }
+
     /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param year the year to add the course to

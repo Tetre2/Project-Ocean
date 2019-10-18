@@ -14,9 +14,6 @@ public class Schedule {
 
     public Schedule() {
         years = new ArrayList<>();
-
-
-
         /*if(years.size()< 1){
             addYear(1);
         }*/

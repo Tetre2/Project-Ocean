@@ -174,4 +174,17 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(yearSizeBefore, yearSizeAfter - 1);
 
     }
+
+    @Test
+    public void removeYearTest() {
+        int yearSizeBefore = model.getYears().size();
+        model.addYear(yearNumber);
+        int yearSizeAfter = model.getYears().size();
+
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter - 1);
+
+        model.removeYear(yearNumber);
+        yearSizeAfter = model.getYears().size();
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter);
+    }
 }

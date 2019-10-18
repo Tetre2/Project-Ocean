@@ -16,7 +16,6 @@ public class Year implements IYear{
 
     public Year(int yearNumber) {
         this.yearNumber = yearNumber;
-
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
         }

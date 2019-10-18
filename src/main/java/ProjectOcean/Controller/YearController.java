@@ -27,13 +27,16 @@ public class YearController extends VBox implements Observer {
     private final IYear year;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
+    private final RemoveYear removeYear;
 
 
-    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
+    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, RemoveYear removeYear) {
         this.model = model;
         this.year = year;
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
+        this.removeYear = removeYear;
+
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -159,6 +162,8 @@ public class YearController extends VBox implements Observer {
 
     @FXML
     public void removeYear() {
-
+        //removeYear.removeYear(year.getYearNumber());
+        //model.removeYear(year.getYearNumber());
+        //System.out.println(model.getYears().size());
     }
 }
