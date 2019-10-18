@@ -41,6 +41,17 @@ public class CourseSaverLoaderTest {
         courseSaverLoader.savePreMadeCourses();
     }
 
+    @Test
+    public void createCoursesFileTest(){
+        courseSaverLoader.createCoursesFile();
+
+        try {
+            Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Test
     public void saveIsSameAsLoad(){
