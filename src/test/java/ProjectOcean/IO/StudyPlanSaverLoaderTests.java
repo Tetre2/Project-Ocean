@@ -40,9 +40,9 @@ public class StudyPlanSaverLoaderTests {
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(0), studyPlan.getSchedule().getYearByOrder(1).getID(), 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(0), studyPlan2.getSchedule().getYearByOrder(1).getID(), 1, 1);
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(1), studyPlan.getSchedule().getYearByOrder(2).getID(), 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(1), studyPlan2.getSchedule().getYearByOrder(2).getID(), 1, 1);
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
@@ -74,7 +74,7 @@ public class StudyPlanSaverLoaderTests {
         arr.add(studyPlanTest);
         Student studentTest = new Student(arr);
         studentTest.addYear();
-        studentTest.addCourse(courses.get(1), 1, 1, 1);
+        studentTest.addCourse(courses.get(1), studentTest.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), 1, 1);
         Assert.assertFalse(studentTest.equals(student));
 
 
