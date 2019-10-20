@@ -22,23 +22,23 @@ public class ScheduleTests {
     @Test
     public void removeCourseTest() {
         Schedule schedule = new Schedule();
-        schedule.addYear(year);
+        schedule.addYear();
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        schedule.addCourse(course, year,studyPeriod,slot);
-        Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        schedule.addCourse(course, schedule.getYearByOrder(0).getID(),studyPeriod,slot);
+        Assert.assertEquals(course, schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
 
-        schedule.removeCourse(year, studyPeriod, slot);
-        Assert.assertTrue(course != schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1() || course != schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        schedule.removeCourse(schedule.getYearByOrder(0).getID(), studyPeriod, slot);
+        Assert.assertTrue(course != schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1() || course != schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
     }
 
     @Test
     public void addCourseTest() {
         Schedule schedule = new Schedule();
-        schedule.addYear(year);
+        schedule.addYear();
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        schedule.addCourse(course, year,studyPeriod,slot);
+        schedule.addCourse(course, schedule.getYearByOrder(0).getID(),studyPeriod,slot);
 
-        Assert.assertEquals(course, schedule.getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        Assert.assertEquals(course, schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
 
     }
 
@@ -46,8 +46,8 @@ public class ScheduleTests {
     public void addYearTest() {
         Schedule schedule = new Schedule();
 
-        schedule.addYear(year);
-        Assert.assertTrue(schedule.getYear(1) != null);
+        schedule.addYear();
+        Assert.assertTrue(schedule.getYear(schedule.getYears().get(0).getID()) != null);
 
     }
 
@@ -55,11 +55,11 @@ public class ScheduleTests {
     public void removeYearTest() {
         Schedule schedule = new Schedule();
 
-        schedule.addYear(year);
-        Assert.assertTrue(schedule.getYear(2) != null);
+        schedule.addYear();
+        Assert.assertTrue(schedule.getYear(schedule.getYears().get(0).getID()) != null);
 
-        schedule.removeYear(year);
-        Assert.assertTrue(schedule.getYear(2) == null);
+        schedule.removeYear(schedule.getYears().get(0).getID());
+        Assert.assertTrue(schedule.getYear(schedule.getYears().get(0).getID() + 1) == null);
 
     }
 }

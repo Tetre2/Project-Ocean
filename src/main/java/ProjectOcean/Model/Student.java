@@ -55,16 +55,16 @@ public class Student {
     /**
      * Creates a new year instance and adds it to the list of years, in the study plan
      */
-    public void addYear(int yearNumber) {
-        currentStudyPlan.addYear(yearNumber);
+    public void addYear() {
+        currentStudyPlan.addYear();
     }
 
     /**
      * Removes the year specified by the index, in the study plan
-     * @param year the year to be removed
+     * @param id the year to be removed
      */
-    public void removeYear(int year){
-        currentStudyPlan.removeYear(year);
+    public void removeYear(int id){
+        currentStudyPlan.removeYear(id);
     }
 
     /**

@@ -30,17 +30,18 @@ public class StudyPlanSaverLoaderTests {
         //---- studyPlan 1 ----
         StudyPlan studyPlan = new StudyPlan();
         Workspace workspace = new Workspace();
+        studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(0), 1, 1, 1);
-        studyPlan.addYear(yearNumber);
+        studyPlan.addYear();
         studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
         workspace.addCourse(courses.get(1));
 
         //---- studyPlan 2 ----
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
-        studyPlan2.addYear(yearNumber);
+        studyPlan2.addYear();
         studyPlan2.addCourseToSchedule(courses.get(0), 1, 1, 1);
-        studyPlan2.addYear(yearNumber);
+        studyPlan2.addYear();
         studyPlan2.addCourseToSchedule(courses.get(1), 2, 1, 1);
         workspace2.addCourse(courses.get(1));
 
@@ -55,7 +56,6 @@ public class StudyPlanSaverLoaderTests {
     @Test
     public void saveStudyplansTest(){
         saverLoader.saveStudyplans(student);
-
     }
 
     @Test
@@ -70,9 +70,10 @@ public class StudyPlanSaverLoaderTests {
         //tests so that two different students are not the same
         ArrayList arr = new ArrayList();
         StudyPlan studyPlanTest = new StudyPlan();
-        studyPlanTest.addYear(yearNumber);
+        studyPlanTest.addYear();
         arr.add(studyPlanTest);
         Student studentTest = new Student(arr);
+        studentTest.addYear();
         studentTest.addCourse(courses.get(1), 1, 1, 1);
         Assert.assertFalse(studentTest.equals(student));
 

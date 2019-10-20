@@ -79,7 +79,7 @@ public class ScheduleController extends VBox implements Observer {
 
     @FXML
     public void addYear() {
-        model.addYear(years.size() + 1);
+        model.addYear();
     }
 
     public void removeYear(int yearNumber) {

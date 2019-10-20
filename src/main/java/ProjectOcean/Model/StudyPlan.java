@@ -35,17 +35,17 @@ public class StudyPlan {
 
     /**
      * Removes the year specified by the index, in the schedule
-     * @param year the year to be removed
+     * @param id the year to be removed
      */
-    public void removeYear(int year) {
-        schedule.removeYear(year);
+    public void removeYear(int id) {
+        schedule.removeYear(id);
     }
 
     /**
      * Creates a new year instance and adds it to the list of years, in the schedule
      */
-    public void addYear(int yearNumber) {
-        schedule.addYear(yearNumber);
+    public void addYear() {
+        schedule.addYear();
     }
 
     /**

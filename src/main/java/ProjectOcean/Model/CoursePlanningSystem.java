@@ -65,14 +65,14 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
 
-    public void addYear(int yearNumber) {
-        student.addYear(yearNumber);
+    public void addYear() {
+        student.addYear();
         setChanged();
         notifyObservers();
     }
 
-    public void removeYear(int yearNumber) {
-        student.removeYear(yearNumber);
+    public void removeYear(int id) {
+        student.removeYear(id);
         setChanged();
         notifyObservers();
     }

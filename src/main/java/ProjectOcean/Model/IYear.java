@@ -16,5 +16,5 @@ public interface IYear {
      */
     int getStudyPeriodsSize();
 
-    int getYearNumber();
+    int getID();
 }

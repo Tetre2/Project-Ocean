@@ -25,7 +25,7 @@ public class Schedule {
      * @param studyPeriod the study period to remove the course from
      */
     public void removeCourse(int year, int studyPeriod, int slot) {
-        years.get(year - 1).removeCourse(studyPeriod, slot);
+        getYear(year).removeCourse(studyPeriod, slot);
     }
 
     /**
@@ -36,31 +36,47 @@ public class Schedule {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        years.get(year - 1).addCourse(course, studyPeriod, slot);
+        getYear(year).addCourse(course, studyPeriod, slot);
     }
 
     /**
      * Creates a new year instance and adds it to the list of years
      */
-    public void addYear(int yearNumber){
-        years.add(new Year(yearNumber));
+    public void addYear(){
+        years.add(new Year());
+        Year.incNumbersOfYearsID();
     }
 
     /**
      * Removes the year specified by the index
-     * @param year the year to be removed
+     * @param id the year to be removed
      */
-    public void removeYear(int year) {
-        years.remove(year - 1);
+    public void removeYear(int id) {
+        Year temp = null;
+        for (Year year : years) {
+            if(year.getID() == id){
+                temp = year;
+                break;
+            }
+        }
+        years.remove(temp);
     }
 
     /**
      * Gets the year specified by the index
-     * @param year the index specifying the year
+     * @param id the index specifying the year
      * @return the desired year
      */
-    public Year getYear(int year){
-        return years.get(year-1);
+    public Year getYear(int id){
+        for (Year year : years) {
+            if(year.getID() == id)
+                return year;
+        }
+        return null;
+    }
+
+    public Year getYearByOrder(int year) {
+        return years.get(year);
     }
 
     /**
