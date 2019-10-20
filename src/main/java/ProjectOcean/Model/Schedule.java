@@ -31,12 +31,12 @@ public class Schedule {
     /**
      * Attempts to add the given course to the given year, study period and slot
      * @param course the course to be added
-     * @param year the year to add the course to
+     * @param yearID the year to add the course to
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        getYear(year).addCourse(course, studyPeriod, slot);
+    public void addCourse(ICourse course, int yearID, int studyPeriod, int slot) {
+        getYear(yearID).addCourse(course, studyPeriod, slot);
     }
 
     /**

@@ -16,12 +16,12 @@ public class StudyPlan {
     /**
      * Attempts to add the given course to the given year, study period and slot, in the schedule
      * @param course the course to be added
-     * @param year the year to add the course to
+     * @param yearID the year to add the course to
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourseToSchedule(ICourse course, int year, int studyPeriod, int slot) {
-        schedule.addCourse(course, year, studyPeriod, slot);
+    public void addCourseToSchedule(ICourse course, int yearID, int studyPeriod, int slot) {
+        schedule.addCourse(course, yearID, studyPeriod, slot);
     }
 
     /**

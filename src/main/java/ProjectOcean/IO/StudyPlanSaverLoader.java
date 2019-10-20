@@ -215,7 +215,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course1.equals("null")) {
             for (Course c: courses) {
                 if(c.getCourseCode().equals(course1)) {
-                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 1);
+                    int yearID = studyPlan.getSchedule().getYearByOrder(year).getID();
+                    studyPlan.addCourseToSchedule(c, yearID, studyPeriod, 1);
                     break;
                 }
             }
@@ -225,7 +226,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course2.equals("null")) {
             for (Course c: courses) {
                 if(c.getCourseCode().equals(course2)){
-                    studyPlan.addCourseToSchedule(c, year, studyPeriod, 2);
+                    int yearID = studyPlan.getSchedule().getYearByOrder(year).getID();
+                    studyPlan.addCourseToSchedule(c, yearID, studyPeriod, 2);
                     break;
                 }
             }
