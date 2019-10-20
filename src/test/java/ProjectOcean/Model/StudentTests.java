@@ -37,18 +37,18 @@ public class StudentTests {
                 "Lorem Ipsum",
                 new ArrayList<>(Arrays.asList("")));
 
-        Year year = student.getCurrentStudyPlan().getSchedule().getYearByOrder(1);
+        Year year = student.getCurrentStudyPlan().getYearByOrder(1);
         student.addCourse(course, year.getID(), studyPeriod, slot);
 
-        int yearID = student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
-        ICourse actual = student.getCurrentStudyPlan().getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
+        ICourse actual = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
         Assert.assertEquals(course, actual);
     }
 
     @Test
     public void removeCourseTest() {
         Student student = new Student();
-        student.getCurrentStudyPlan().getSchedule().addYear();
+        student.getCurrentStudyPlan().addYear();
         ICourse course = CourseFactory.CreateCourse(
                 "BAT123",
                 "Beroendespecifika paradigmer",
@@ -61,16 +61,16 @@ public class StudentTests {
                 "www.google.com",
                 "Lorem Ipsum",
                 new ArrayList<>(Arrays.asList("")));
-        Year year = student.getCurrentStudyPlan().getSchedule().getYearByOrder(1);
+        Year year = student.getCurrentStudyPlan().getYearByOrder(1);
 
         student.addCourse(course, year.getID(), studyPeriod, slot);
 
-        int yearID = student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
-        ICourse actual = student.getCurrentStudyPlan().getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
+        ICourse actual = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
         Assert.assertEquals(course, actual);
 
-        student.removeCourse(student.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
-        course = student.getCurrentStudyPlan().getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        student.removeCourse(student.getCurrentStudyPlan().getYearByOrder(1).getID(), studyPeriod, slot);
+        course = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
         Assert.assertNull(course);
     }
 
@@ -79,8 +79,8 @@ public class StudentTests {
         Student student = new Student();
         student.addYear();
 
-        int yearID = student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
-        Year year = student.getCurrentStudyPlan().getSchedule().getYear(yearID);
+        int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
+        Year year = student.getCurrentStudyPlan().getYear(yearID);
 
         Assert.assertNotNull(year);
     }
@@ -90,13 +90,13 @@ public class StudentTests {
         Student student = new Student();
         student.addYear();
 
-        int yearID = student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
-        Year year = student.getCurrentStudyPlan().getSchedule().getYear(yearID);
+        int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
+        Year year = student.getCurrentStudyPlan().getYear(yearID);
         Assert.assertNotNull(year);
 
         student.removeYear(yearID);
-        yearID = student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
-        year = student.getCurrentStudyPlan().getSchedule().getYear(yearID);
+        yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
+        year = student.getCurrentStudyPlan().getYear(yearID);
         Assert.assertNull(year);
     }
 

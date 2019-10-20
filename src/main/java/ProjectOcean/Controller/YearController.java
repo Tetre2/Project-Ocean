@@ -127,7 +127,7 @@ public class YearController extends VBox {
     }
 
     private void addCourseControllersAccordingToModel() {
-        IYear y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year.getID());
+        IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
 
         for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
             for (int slot = 1; slot <= 2; slot++) {

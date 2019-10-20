@@ -34,7 +34,7 @@ public class CoursePlanningSystem extends Observable {
      * @return all years in the student's current study plan IYears
      */
     public List<IYear> getYears(){
-        List<Year> years = student.getCurrentStudyPlan().getSchedule().getYears();
+        List<Year> years = student.getCurrentStudyPlan().getYears();
         return Collections.unmodifiableList(new ArrayList<>(years));
     };
 
