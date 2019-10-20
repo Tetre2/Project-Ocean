@@ -30,7 +30,7 @@ public class YearController extends VBox {
     private final RemoveYear removeYear;
 
 
-    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, RemoveYear removeYear) {
+    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, RemoveYear removeYear, int yearIndex) {
         this.model = model;
         this.year = year;
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
@@ -50,7 +50,7 @@ public class YearController extends VBox {
             throw new RuntimeException(exception);
         }
 
-        this.yearLabel.setText(String.valueOf(year.getID()));
+        this.yearLabel.setText(String.valueOf(yearIndex));
         displayAllCoursesInStudyPlan();
 
     }

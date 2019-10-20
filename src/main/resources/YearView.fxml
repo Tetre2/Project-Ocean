@@ -68,10 +68,10 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefHeight="142.0" prefWidth="65.0" HBox.hgrow="SOMETIMES">
+            <VBox alignment="CENTER" prefHeight="142.0" prefWidth="65.0" HBox.hgrow="SOMETIMES">
                <children>
                   <Label prefHeight="17.0" prefWidth="107.0" text="Label" visible="false" />
-                  <Button fx:id="removeYearButton" mnemonicParsing="false" onAction="#removeYear" text="Button" />
+                  <Button fx:id="removeYearButton" alignment="CENTER" mnemonicParsing="false" onAction="#removeYear" prefHeight="52.0" prefWidth="63.0" text="Delete" />
                </children>
             </VBox>
          </children>

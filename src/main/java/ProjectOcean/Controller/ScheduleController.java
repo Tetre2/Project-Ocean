@@ -70,9 +70,11 @@ public class ScheduleController extends VBox implements Observer {
     private void updateControllerAccordingToModel() {
         years = model.getYears();
         yearControllers.clear();
+        int yearIndex = 0;
         for (IYear y :
                 years) {
-            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen,this::removeYear));
+            yearIndex++;
+            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen,this::removeYear, yearIndex ));
         }
 
     }
