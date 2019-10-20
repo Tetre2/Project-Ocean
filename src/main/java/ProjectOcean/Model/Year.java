@@ -15,9 +15,10 @@ public class Year implements IYear{
     private int ID;
     private static int yearsCreatedDuringRuntime = 0;
 
+
     public Year() {
         this.ID = yearsCreatedDuringRuntime;
-        yearsCreatedDuringRuntime++;
+
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
         }

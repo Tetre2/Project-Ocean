@@ -6,6 +6,7 @@ import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
@@ -20,6 +21,7 @@ public class YearController extends VBox {
 
     @FXML private GridPane yearGrid;
     @FXML private Button removeYearButton;
+    @FXML private Label yearLabel;
 
     private final CoursePlanningSystem model;
     private final IYear year;
@@ -48,7 +50,7 @@ public class YearController extends VBox {
             throw new RuntimeException(exception);
         }
 
-
+        this.yearLabel.setText(String.valueOf(year.getID()));
         displayAllCoursesInStudyPlan();
 
     }
