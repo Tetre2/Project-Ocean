@@ -14,9 +14,6 @@ public class Schedule {
 
     public Schedule() {
         years = new ArrayList<>();
-        if(years.size()< 1){
-            years.add(new Year());
-        }
     }
 
     /**
@@ -25,18 +22,18 @@ public class Schedule {
      * @param studyPeriod the study period to remove the course from
      */
     public void removeCourse(int year, int studyPeriod, int slot) {
-        years.get(year - 1).removeCourse(studyPeriod, slot);
+        getYear(year).removeCourse(studyPeriod, slot);
     }
 
     /**
      * Attempts to add the given course to the given year, study period and slot
      * @param course the course to be added
-     * @param year the year to add the course to
+     * @param yearID the year to add the course to
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        years.get(year - 1).addCourse(course, studyPeriod, slot);
+    public void addCourse(ICourse course, int yearID, int studyPeriod, int slot) {
+        getYear(yearID).addCourse(course, studyPeriod, slot);
     }
 
     /**
@@ -48,19 +45,34 @@ public class Schedule {
 
     /**
      * Removes the year specified by the index
-     * @param year the year to be removed
+     * @param id the year to be removed
      */
-    public void removeYear(int year) {
-        years.remove(year - 1);
+    public void removeYear(int id) {
+        Year tempYear = null;
+        for (Year year : years) {
+            if(year.getID() == id){
+                tempYear = year;
+                break;
+            }
+        }
+        years.remove(tempYear);
     }
 
     /**
      * Gets the year specified by the index
-     * @param year the index specifying the year
+     * @param id the index specifying the year
      * @return the desired year
      */
-    public Year getYear(int year){
-        return years.get(year-1);
+    public Year getYear(int id){
+        for (Year year : years) {
+            if(year.getID() == id )
+                return year;
+        }
+        return null;
+    }
+
+    public Year getYearByOrder(int year) {
+        return years.get(year - 1);
     }
 
     /**

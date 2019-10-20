@@ -10,39 +10,66 @@ import java.util.Arrays;
 public class StudyPlanTests {
     private int studyPeriod;
     private int slot;
-    private int year;
 
     @Before
     public void before() {
         studyPeriod = 1;
         slot = 1;
-        year = 1;
     }
 
     @Test
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
+        studyPlan.addYear();
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        Year year = studyPlan.getSchedule().getYearByOrder(1);
 
-        studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
-
-        Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        studyPlan.addCourseToSchedule(course, year.getID(), studyPeriod, slot);
+        int yearID = studyPlan.getSchedule().getYears().get(0).getID();
+        ICourse actual = studyPlan.getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        Assert.assertEquals(course, actual);
     }
 
     @Test
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
+        studyPlan.addYear();
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        Year year = studyPlan.getSchedule().getYearByOrder(1);
 
-        studyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
+        studyPlan.addCourseToSchedule(course, year.getID(), studyPeriod, slot);
 
-        Assert.assertEquals(course, studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
+        int yearID = studyPlan.getSchedule().getYears().get(0).getID();
+        ICourse actual = studyPlan.getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        Assert.assertEquals(course, actual);
 
-        studyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
-
-        Assert.assertTrue(studyPlan.getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1() == null);
+        studyPlan.removeCourseFromSchedule(studyPlan.getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
+        course = studyPlan.getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        Assert.assertNull(course);
     }
 
     @Test
@@ -50,7 +77,10 @@ public class StudyPlanTests {
         StudyPlan studyPlan = new StudyPlan();
         studyPlan.addYear();
 
-        Assert.assertTrue(studyPlan.getSchedule().getYear(1) != null);
+        int yearID = studyPlan.getSchedule().getYears().get(0).getID();
+        Year year = studyPlan.getSchedule().getYear(yearID);
+
+        Assert.assertNotNull(year);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -58,10 +88,14 @@ public class StudyPlanTests {
         StudyPlan studyPlan = new StudyPlan();
         studyPlan.addYear();
 
-        Assert.assertTrue(studyPlan.getSchedule().getYear(2) != null);
+        int yearID = studyPlan.getSchedule().getYears().get(0).getID();
+        Year year = studyPlan.getSchedule().getYear(yearID);
+        Assert.assertNotNull(year);
 
-        studyPlan.removeYear(1);
-        Assert.assertTrue(studyPlan.getSchedule().getYear(2) == null);
+        studyPlan.removeYear(yearID);
+        yearID = studyPlan.getSchedule().getYears().get(0).getID();
+        year = studyPlan.getSchedule().getYear(yearID);
+        Assert.assertNull(year);
 
     }
 }

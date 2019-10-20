@@ -2,10 +2,7 @@ package ProjectOcean.Model;
 
 import ProjectOcean.IO.*;
 
-import java.util.Collections;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -34,6 +31,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * @return all years in the student's current study plan IYears
+     */
+    public List<IYear> getYears(){
+        List<Year> years = student.getCurrentStudyPlan().getSchedule().getYears();
+        return Collections.unmodifiableList(new ArrayList<>(years));
+    };
+
+    /**
      * @return returns all courses stored
      */
     public List<ICourse> getAllCourses() {
@@ -60,23 +65,27 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
 
-    /**
-     * Attempts to add the given course to the given year, study period and slot for the current student
-     * @param year the year to add the course to
-     * @param studyPeriod the study period to add the course to
-     * @param slot the slot in which the course will be added
-     */
-    public void addCourse(int year, int studyPeriod, int slot){
-        addCourse(year, studyPeriod, slot);
+    public void addYear() {
+        student.addYear();
+        setChanged();
+        notifyObservers();
     }
+
+    public void removeYear(int id) {
+        student.removeYear(id);
+        setChanged();
+        notifyObservers();
+    }
+
+
 
     /**
      * Removes the given course in the given year and study period, for the current student
-     * @param year the year to remove the course from
+     * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(int year, int studyPeriod, int slot) {
-        student.removeCourse(year, studyPeriod, slot);
+    public void removeCourse(int yearID, int studyPeriod, int slot) {
+        student.removeCourse(yearID, studyPeriod, slot);
         setChanged();
         notifyObservers();
     }

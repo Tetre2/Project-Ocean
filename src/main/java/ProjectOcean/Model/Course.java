@@ -20,7 +20,17 @@ public class Course implements ICourse {
     private final String courseDescription;
     private final List<String> courseTypes;
 
-    public Course(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription, List<String> courseTypes) {
+    public Course(String courseCode,
+                  String courseName,
+                  String studyPoints,
+                  String studyPeriod,
+                  String examiner,
+                  String examinationMeans,
+                  String language,
+                  List<String> requiredCourses,
+                  String coursePMLink,
+                  String courseDescription,
+                  List<String> courseTypes) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;

@@ -44,8 +44,30 @@ public class CourseTests {
 
     @Test
     public void courseUniqueIdTest() {
-        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
-        ICourse course2 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course1 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course2 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         //Checks that ICourse references are different
         Assert.assertNotSame(course1, course2);
@@ -143,7 +165,18 @@ public class CourseTests {
 
     @Test
     public void toStringTest() {
-        ICourse course1 = CourseFactory.CreateCourse("DAT017", "Maskinorienterad programmering", "7.5", "1", "Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course1 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         String actual = course1.toString();
         String expected = "Course{" +

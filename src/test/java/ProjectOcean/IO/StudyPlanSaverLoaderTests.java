@@ -28,22 +28,22 @@ public class StudyPlanSaverLoaderTests {
         //---- studyPlan 1 ----
         StudyPlan studyPlan = new StudyPlan();
         Workspace workspace = new Workspace();
-        studyPlan.addCourseToSchedule(courses.get(0), 1, 1, 1);
         studyPlan.addYear();
-        studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan.addCourseToSchedule(courses.get(0), studyPlan.getSchedule().getYearByOrder(1).getID(), 1, 1);
+        studyPlan.addYear();
+        studyPlan.addCourseToSchedule(courses.get(1), studyPlan.getSchedule().getYearByOrder(2).getID(), 1, 1);
         workspace.addCourse(courses.get(1));
 
         //---- studyPlan 2 ----
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(0), 1, 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(0), studyPlan2.getSchedule().getYearByOrder(1).getID(), 1, 1);
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(1), studyPlan2.getSchedule().getYearByOrder(2).getID(), 1, 1);
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
-        //studyPlans.add(studyPlan2);
 
         student = new Student(studyPlans, workspace);
 
@@ -52,9 +52,7 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void saveStudyplansTest(){
-
         saverLoader.saveStudyplans(student);
-
     }
 
     @Test
@@ -72,7 +70,8 @@ public class StudyPlanSaverLoaderTests {
         studyPlanTest.addYear();
         arr.add(studyPlanTest);
         Student studentTest = new Student(arr);
-        studentTest.addCourse(courses.get(1), 1, 1, 1);
+        studentTest.addYear();
+        studentTest.addCourse(courses.get(1), studentTest.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), 1, 1);
         Assert.assertFalse(studentTest.equals(student));
 
 

@@ -12,7 +12,6 @@ public class CoursePlanningSystemTests {
     private CoursePlanningSystem model;
     private List<ICourse> courses;
 
-    private int year;
     private int studyPeriod;
     private int slot;
 
@@ -29,8 +28,6 @@ public class CoursePlanningSystemTests {
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
 
-
-        year = 1;
         studyPeriod = 1;
         slot = 1;
 
@@ -38,7 +35,6 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getAllCoursesTest() {
-
         List<ICourse> expected = courses;
         List<ICourse> actual = model.getAllCourses();
 
@@ -49,11 +45,19 @@ public class CoursePlanningSystemTests {
     public void addCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.addCourse(course1, year, studyPeriod, slot);
-        model.addCourse(course2, year, studyPeriod, slot + 1);
+        model.addYear();
 
-        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        Year year = model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1);
+        model.addCourse(course1, year.getID(), studyPeriod, slot);
+        model.addCourse(course2, year.getID(), studyPeriod, slot + 1);
+
+        int yearID = model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
+
+        ICourse expected1 = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        ICourse expected2 = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearID).getStudyPeriod(studyPeriod).getCourse2();
+
+        Assert.assertEquals(course1, expected1);
+        Assert.assertEquals(course2, expected2);
 
     }
 
@@ -61,17 +65,31 @@ public class CoursePlanningSystemTests {
     public void removeCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.addCourse(course1, year, studyPeriod, slot);
-        model.addCourse(course2, year, studyPeriod, slot + 1);
+        model.addYear();
 
-        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        Year year = model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1);
+        model.addCourse(course1, year.getID(), studyPeriod, slot);
+        model.addCourse(course2, year.getID(), studyPeriod, slot + 1);
 
-        model.removeCourse(year, studyPeriod, slot);
-        model.removeCourse(year, studyPeriod, slot + 1);
+        int yearID = model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
+        year = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearID);
 
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year).getStudyPeriod(studyPeriod).getCourse2());
+        ICourse expected1 = year.getStudyPeriod(studyPeriod).getCourse1();
+        ICourse expected2 = year.getStudyPeriod(studyPeriod).getCourse2();
+
+        Assert.assertEquals(course1, expected1);
+        Assert.assertEquals(course2, expected2);
+
+        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
+        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
+
+        yearID = model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
+        year = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearID);
+        course1 = year.getStudyPeriod(studyPeriod).getCourse1();
+        course2 = year.getStudyPeriod(studyPeriod).getCourse2();
+
+        Assert.assertNull(course1);
+        Assert.assertNull(course2);
 
     }
 
@@ -80,18 +98,16 @@ public class CoursePlanningSystemTests {
         model.removeAllCoursesInWorkscpace();
         model.addCourseToWorkspace(courses.get(0));
 
-        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
+        Assert.assertEquals(courses.get(0), model.getCoursesInWorkspace().get(0));
     }
 
     @Test
     public void getCoursesInWorkspaceTest() {
         model.removeAllCoursesInWorkscpace();
-
-        Assert.assertTrue(model.getCoursesInWorkspace().size() == 0);
+        Assert.assertEquals(0, model.getCoursesInWorkspace().size());
 
         model.addCourseToWorkspace(courses.get(0));
-
-        Assert.assertTrue(model.getCoursesInWorkspace().size() == 1);
+        Assert.assertEquals(1, model.getCoursesInWorkspace().size());
 
     }
 
@@ -99,7 +115,7 @@ public class CoursePlanningSystemTests {
     public void removeCourseFromWorkspaceTest() {
         model.removeAllCoursesInWorkscpace();
         model.addCourseToWorkspace(courses.get(0));
-        Assert.assertTrue(courses.get(0).equals(model.getCoursesInWorkspace().get(0)));
+        Assert.assertEquals(courses.get(0), model.getCoursesInWorkspace().get(0));
 
         model.removeCourseFromWorkspace(courses.get(0));
         Assert.assertEquals(0, model.getCoursesInWorkspace().size());
@@ -136,9 +152,9 @@ public class CoursePlanningSystemTests {
         //tests searching for course code
         searchText = "Eda433";
         searchResult = model.executeSearch(searchText);
-        Assert.assertTrue(searchResult.size() == 1);
+        Assert.assertEquals(1, searchResult.size());
         if(!searchResult.isEmpty()) {
-            Assert.assertTrue(searchResult.get(0).getCourseCode().toLowerCase().equals("eda433"));
+            Assert.assertEquals("eda433", searchResult.get(0).getCourseCode().toLowerCase());
         }
         searchResult.clear();
 
@@ -148,8 +164,43 @@ public class CoursePlanningSystemTests {
         Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(ICourse course : searchResult) {
-                Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
+                boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
+                boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
+                Assert.assertTrue(containsFirstWord|| containsSecondWord);
             }
         }
+    }
+
+    @Test
+    public void getYearsTest(){
+        List<IYear> iYears = model.getYears();
+
+        List<Year> years = model.getStudent().getCurrentStudyPlan().getSchedule().getYears();
+
+        Assert.assertTrue(iYears.equals(years));
+
+    }
+
+    @Test
+    public void addYearTest() {
+        int yearSizeBefore = model.getYears().size();
+        model.addYear();
+        int yearSizeAfter = model.getYears().size();
+
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter - 1);
+
+    }
+
+    @Test
+    public void removeYearTest() {
+        int yearSizeBefore = model.getYears().size();
+        model.addYear();
+        int yearSizeAfter = model.getYears().size();
+
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter - 1);
+
+        model.removeYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID());
+        yearSizeAfter = model.getYears().size();
+        Assert.assertEquals(yearSizeBefore, yearSizeAfter);
     }
 }
