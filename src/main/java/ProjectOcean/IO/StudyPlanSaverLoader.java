@@ -70,7 +70,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static JSONArray createJSONYearArray(StudyPlan studyPlan){
         //adds all years to jsonStudyplan
         JSONArray jsonYears = new JSONArray();
-        for (Year year : studyPlan.getSchedule().getYears()) {
+        for (Year year : studyPlan.getYears()) {
             jsonYears.add(createJSONStudyPeriodArray(year));
         }
         return jsonYears;
@@ -215,8 +215,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course1.equals("null")) {
             for (Course c: courses) {
                 if(c.getCourseCode().equals(course1)) {
-                    int yearID = studyPlan.getSchedule().getYearByOrder(year).getID();
-                    studyPlan.addCourseToSchedule(c, yearID, studyPeriod, 1);
+                    int yearID = studyPlan.getYearByOrder(year).getID();
+                    studyPlan.addCourse(c, yearID, studyPeriod, 1);
                     break;
                 }
             }
@@ -226,8 +226,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         if( !course2.equals("null")) {
             for (Course c: courses) {
                 if(c.getCourseCode().equals(course2)){
-                    int yearID = studyPlan.getSchedule().getYearByOrder(year).getID();
-                    studyPlan.addCourseToSchedule(c, yearID, studyPeriod, 2);
+                    int yearID = studyPlan.getYearByOrder(year).getID();
+                    studyPlan.addCourse(c, yearID, studyPeriod, 2);
                     break;
                 }
             }

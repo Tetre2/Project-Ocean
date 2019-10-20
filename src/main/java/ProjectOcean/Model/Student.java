@@ -40,7 +40,7 @@ public class Student {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        currentStudyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
+        currentStudyPlan.addCourse(course, year, studyPeriod, slot);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Student {
      * @param studyPeriod the study period to remove the course from
      */
     public void removeCourse(int yearID, int studyPeriod, int slot) {
-        currentStudyPlan.removeCourseFromSchedule(yearID, studyPeriod, slot);
+        currentStudyPlan.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**
