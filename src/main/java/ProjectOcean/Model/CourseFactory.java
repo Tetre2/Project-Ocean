@@ -7,6 +7,11 @@ import java.util.List;
  */
 public class CourseFactory {
 
+    //Makes it so you can't create an instance of CourseFactory
+    private CourseFactory(){
+
+    }
+
     /**
      * Create a course with the current variable state of this class.
      * @return A freshly created course of type ICourse
@@ -21,7 +26,8 @@ public class CourseFactory {
             String language,
             List<String> requiredCourses,
             String coursePMLink,
-            String courseDescription) {
+            String courseDescription,
+            List<String> courseTypes) {
 
         return new Course(
                 courseCode,
@@ -33,9 +39,9 @@ public class CourseFactory {
                 language,
                 requiredCourses,
                 coursePMLink,
-                courseDescription
+                courseDescription,
+                courseTypes
         );
-
     }
 
 }
