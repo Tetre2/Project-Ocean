@@ -26,11 +26,11 @@ public class StudyPlan {
 
     /**
      * Removes the given course in the given year and study period, in the schedule
-     * @param year the year to remove the course from
+     * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourseFromSchedule(int year, int studyPeriod, int slot){
-        schedule.removeCourse(year, studyPeriod, slot);
+    public void removeCourseFromSchedule(int yearID, int studyPeriod, int slot){
+        schedule.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**

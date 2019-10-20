@@ -89,11 +89,11 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      * Removes the given course in the given year and study period, for the current student
-     * @param year the year to remove the course from
+     * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(int year, int studyPeriod, int slot) {
-        student.removeCourse(year, studyPeriod, slot);
+    public void removeCourse(int yearID, int studyPeriod, int slot) {
+        student.removeCourse(yearID, studyPeriod, slot);
         setChanged();
         notifyObservers();
     }

@@ -31,18 +31,18 @@ public class StudyPlanSaverLoaderTests {
         StudyPlan studyPlan = new StudyPlan();
         Workspace workspace = new Workspace();
         studyPlan.addYear();
-        studyPlan.addCourseToSchedule(courses.get(0), 1, 1, 1);
+        studyPlan.addCourseToSchedule(courses.get(0), studyPlan.getSchedule().getYearByOrder(1).getID(), 1, 1);
         studyPlan.addYear();
-        studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan.addCourseToSchedule(courses.get(1), studyPlan.getSchedule().getYearByOrder(2).getID(), 1, 1);
         workspace.addCourse(courses.get(1));
 
         //---- studyPlan 2 ----
         StudyPlan studyPlan2 = new StudyPlan();
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(0), 1, 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(0), studyPlan.getSchedule().getYearByOrder(1).getID(), 1, 1);
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan2.addCourseToSchedule(courses.get(1), studyPlan.getSchedule().getYearByOrder(2).getID(), 1, 1);
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
