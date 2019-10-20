@@ -18,14 +18,12 @@ public class StudyPlanSaverLoaderTests {
     private List<StudyPlan> studyPlans;
     private Student student;
     private List<Course> courses;
-    private int yearNumber;
 
     @Before
     public void setup(){
         studyPlans = new ArrayList<>();
         courses = courseSaverLoader.generatePreDefinedCourses();
         saverLoader.createNewStudentFile();
-        yearNumber = 1;
 
         //---- studyPlan 1 ----
         StudyPlan studyPlan = new StudyPlan();
@@ -46,7 +44,6 @@ public class StudyPlanSaverLoaderTests {
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
-        //studyPlans.add(studyPlan2);
 
         student = new Student(studyPlans, workspace);
 

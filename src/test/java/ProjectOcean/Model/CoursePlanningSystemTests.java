@@ -12,7 +12,6 @@ public class CoursePlanningSystemTests {
     private CoursePlanningSystem model;
     private List<ICourse> courses;
 
-    private int yearNumber;
     private int studyPeriod;
     private int slot;
 
@@ -29,8 +28,6 @@ public class CoursePlanningSystemTests {
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
 
-
-        yearNumber = 1;
         studyPeriod = 1;
         slot = 1;
 
@@ -38,7 +35,6 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getAllCoursesTest() {
-
         List<ICourse> expected = courses;
         List<ICourse> actual = model.getAllCourses();
 
@@ -49,7 +45,7 @@ public class CoursePlanningSystemTests {
     public void addCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.getStudent().getCurrentStudyPlan().addYear();
+        model.addYear();
         model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
         model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
@@ -62,18 +58,28 @@ public class CoursePlanningSystemTests {
     public void removeCourseTest() {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
-        model.getStudent().getCurrentStudyPlan().addYear();
+        model.addYear();
         model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
         model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
-        Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
+        Year year = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID());
+
+        ICourse expected1 = year.getStudyPeriod(studyPeriod).getCourse1();
+        ICourse expected2 = year.getStudyPeriod(studyPeriod).getCourse2();
+
+        Assert.assertEquals(course1, expected1);
+        Assert.assertEquals(course2, expected2);
 
         model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
         model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
-        Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
+        int yearID = model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID();
+        year = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(yearID);
+        course1 = year.getStudyPeriod(studyPeriod).getCourse1();
+        course2 = year.getStudyPeriod(studyPeriod).getCourse2();
+
+        Assert.assertNull(course1);
+        Assert.assertNull(course2);
 
     }
 
@@ -150,7 +156,9 @@ public class CoursePlanningSystemTests {
         Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(ICourse course : searchResult) {
-                Assert.assertTrue(course.getCourseName().toLowerCase().contains("maskin") || course.getCourseName().toLowerCase().contains("matematisk"));
+                boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
+                boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
+                Assert.assertTrue(containsFirstWord|| containsSecondWord);
             }
         }
     }

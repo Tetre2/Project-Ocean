@@ -27,15 +27,13 @@ public class YearController extends VBox {
     private final IYear year;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
-    private final RemoveYear removeYear;
 
 
-    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, RemoveYear removeYear, int yearIndex) {
+    public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
         this.model = model;
         this.year = year;
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
-        this.removeYear = removeYear;
 
 
 
@@ -62,9 +60,9 @@ public class YearController extends VBox {
     @FXML
     private void onDragOver(DragEvent event) {
         event.acceptTransferModes(TransferMode.MOVE);
-        Movable icon = (Movable) event.getGestureSource();
+        Movable draggedObject = (Movable) event.getGestureSource();
 
-        moveDraggedObjectToCursor.moveDraggedObjectToCursor(icon, event);
+        moveDraggedObjectToCursor.moveDraggedObjectToCursor(draggedObject, event);
         event.consume();
     }
 
@@ -115,9 +113,6 @@ public class YearController extends VBox {
         }
     }
 
-
-
-
     /**
      * Displays all the courses that are currently in the model's study plan
      */
@@ -135,7 +130,6 @@ public class YearController extends VBox {
 
     private void addCourseControllersAccordingToModel() {
         IYear y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year.getID());
-
 
         for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
             for (int slot = 1; slot <= 2; slot++) {
@@ -158,8 +152,6 @@ public class YearController extends VBox {
 
     @FXML
     public void removeYear() {
-        //removeYear.removeYear(year.getYearNumber());
         model.removeYear(year.getID());
-        //System.out.println(model.getYears().size());
     }
 }

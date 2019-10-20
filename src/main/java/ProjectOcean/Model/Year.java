@@ -18,6 +18,7 @@ public class Year implements IYear{
 
     public Year() {
         this.ID = yearsCreatedDuringRuntime;
+        yearsCreatedDuringRuntime++;
 
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
@@ -112,7 +113,4 @@ public class Year implements IYear{
         return ID;
     }
 
-    public static void incNumbersOfYearsID(){
-        yearsCreatedDuringRuntime++;
-    }
 }

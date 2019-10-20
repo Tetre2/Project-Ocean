@@ -2,7 +2,6 @@ package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.IYear;
-import ProjectOcean.Model.Year;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -30,7 +29,6 @@ public class ScheduleController extends VBox implements Observer {
 
 
     public ScheduleController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
-        //this.yearController = new YearController(1, model, moveDraggedObjectToCursor, addIconToScreen);
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
@@ -74,7 +72,7 @@ public class ScheduleController extends VBox implements Observer {
         for (IYear y :
                 years) {
             yearIndex++;
-            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen,this::removeYear, yearIndex ));
+            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen, yearIndex ));
         }
 
     }
@@ -82,9 +80,5 @@ public class ScheduleController extends VBox implements Observer {
     @FXML
     public void addYear() {
         model.addYear();
-    }
-
-    public void removeYear(int yearNumber) {
-        
     }
 }

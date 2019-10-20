@@ -14,9 +14,6 @@ public class Schedule {
 
     public Schedule() {
         years = new ArrayList<>();
-        /*if(years.size()< 1){
-            addYear(1);
-        }*/
     }
 
     /**
@@ -44,7 +41,6 @@ public class Schedule {
      */
     public void addYear(){
         years.add(new Year());
-        Year.incNumbersOfYearsID();
     }
 
     /**
@@ -52,14 +48,14 @@ public class Schedule {
      * @param id the year to be removed
      */
     public void removeYear(int id) {
-        Year temp = null;
+        Year tempYear = null;
         for (Year year : years) {
             if(year.getID() == id){
-                temp = year;
+                tempYear = year;
                 break;
             }
         }
-        years.remove(temp);
+        years.remove(tempYear);
     }
 
     /**
