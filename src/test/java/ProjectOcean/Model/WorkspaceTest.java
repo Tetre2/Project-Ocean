@@ -1,4 +1,4 @@
-package ProjectOcean;
+package ProjectOcean.Model;
 
 import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CourseFactory;

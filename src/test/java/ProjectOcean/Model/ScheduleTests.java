@@ -23,7 +23,18 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
         schedule.addYear();
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
         schedule.addCourse(course, schedule.getYearByOrder(1).getID(),studyPeriod,slot);
 
         Year year = schedule.getYear(schedule.getYears().get(0).getID());
@@ -41,7 +52,18 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
         schedule.addYear();
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
         schedule.addCourse(course, schedule.getYearByOrder(1).getID(),studyPeriod,slot);
 
         Year year = schedule.getYear(schedule.getYears().get(0).getID());

@@ -35,8 +35,6 @@ public class YearController extends VBox {
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
 
-
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/YearView.fxml"));
         fxmlLoader.setRoot(this);

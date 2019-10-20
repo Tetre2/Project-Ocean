@@ -21,7 +21,19 @@ public class StudyPlanTests {
     public void addCourseToScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
         studyPlan.addYear();
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+
         Year year = studyPlan.getSchedule().getYearByOrder(1);
 
         studyPlan.addCourseToSchedule(course, year.getID(), studyPeriod, slot);
@@ -34,7 +46,19 @@ public class StudyPlanTests {
     public void removeCourseFromScheduleTest() {
         StudyPlan studyPlan = new StudyPlan();
         studyPlan.addYear();
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+
         Year year = studyPlan.getSchedule().getYearByOrder(1);
 
         studyPlan.addCourseToSchedule(course, year.getID(), studyPeriod, slot);
