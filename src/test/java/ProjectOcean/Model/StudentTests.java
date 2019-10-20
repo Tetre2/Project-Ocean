@@ -25,7 +25,7 @@ public class StudentTests {
         student.getCurrentStudyPlan().getSchedule().addYear();
         ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        student.addCourse(course, student.getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
+        student.addCourse(course, student.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
 
         Assert.assertEquals(course, student.getCurrentStudyPlan().getSchedule().getYear(student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
     }
@@ -36,11 +36,11 @@ public class StudentTests {
         student.getCurrentStudyPlan().getSchedule().addYear();
         ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
-        student.addCourse(course, student.getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
+        student.addCourse(course, student.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
 
         Assert.assertEquals(course, student.getCurrentStudyPlan().getSchedule().getYear(student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
 
-        student.removeCourse(student.getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
+        student.removeCourse(student.getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
         Assert.assertEquals(null, student.getCurrentStudyPlan().getSchedule().getYear(student.getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
     }
 

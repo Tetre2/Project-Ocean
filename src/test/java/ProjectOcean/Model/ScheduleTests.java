@@ -10,13 +10,11 @@ public class ScheduleTests {
 
     private int studyPeriod;
     private int slot;
-    private int year;
 
     @Before
     public void before() {
         studyPeriod = 1;
         slot = 1;
-        year = 1;
     }
 
     @Test
@@ -24,10 +22,10 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
         schedule.addYear();
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        schedule.addCourse(course, schedule.getYearByOrder(0).getID(),studyPeriod,slot);
+        schedule.addCourse(course, schedule.getYearByOrder(1).getID(),studyPeriod,slot);
         Assert.assertEquals(course, schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
 
-        schedule.removeCourse(schedule.getYearByOrder(0).getID(), studyPeriod, slot);
+        schedule.removeCourse(schedule.getYearByOrder(1).getID(), studyPeriod, slot);
         Assert.assertTrue(course != schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1() || course != schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
     }
 
@@ -36,7 +34,7 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
         schedule.addYear();
         ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        schedule.addCourse(course, schedule.getYearByOrder(0).getID(),studyPeriod,slot);
+        schedule.addCourse(course, schedule.getYearByOrder(1).getID(),studyPeriod,slot);
 
         Assert.assertEquals(course, schedule.getYear(schedule.getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
 
@@ -47,6 +45,7 @@ public class ScheduleTests {
         Schedule schedule = new Schedule();
 
         schedule.addYear();
+
         Assert.assertTrue(schedule.getYear(schedule.getYears().get(0).getID()) != null);
 
     }

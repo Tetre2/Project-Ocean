@@ -50,8 +50,8 @@ public class CoursePlanningSystemTests {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
         model.getStudent().getCurrentStudyPlan().addYear();
-        model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
-        model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot + 1);
+        model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
+        model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
         Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
@@ -63,14 +63,14 @@ public class CoursePlanningSystemTests {
         ICourse course1 = courses.get(0);
         ICourse course2 = courses.get(1);
         model.getStudent().getCurrentStudyPlan().addYear();
-        model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
-        model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot + 1);
+        model.addCourse(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
+        model.addCourse(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
         Assert.assertEquals(course1, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertEquals(course2, model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());
 
-        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot);
-        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(0).getID(), studyPeriod, slot + 1);
+        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot);
+        model.removeCourse(model.getStudent().getCurrentStudyPlan().getSchedule().getYearByOrder(1).getID(), studyPeriod, slot + 1);
 
         Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse1());
         Assert.assertNull(model.getStudent().getCurrentStudyPlan().getSchedule().getYear(model.getStudent().getCurrentStudyPlan().getSchedule().getYears().get(0).getID()).getStudyPeriod(studyPeriod).getCourse2());

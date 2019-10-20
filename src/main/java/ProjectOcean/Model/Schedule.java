@@ -69,14 +69,14 @@ public class Schedule {
      */
     public Year getYear(int id){
         for (Year year : years) {
-            if(year.getID() == id)
+            if(year.getID() == id )
                 return year;
         }
         return null;
     }
 
     public Year getYearByOrder(int year) {
-        return years.get(year);
+        return years.get(year - 1);
     }
 
     /**
