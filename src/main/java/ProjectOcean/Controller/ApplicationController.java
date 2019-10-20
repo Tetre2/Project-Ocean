@@ -86,20 +86,28 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void showCurrentStudyPlan() {
-        if (contentWindow.getChildren().size() == 2) {
-            removeCurrentScheduleView();
+        if (isScheduleViewVisible()) {
+            removeCurrentScheduleController();
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
-        if (model.getStudent().getAllStudyPlans().size() > 0) {
+        if (studyPlanExists()) {
             ScheduleController scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
             addNewStudyPlanController(scheduleController);
         }
     }
 
+    private boolean isScheduleViewVisible() {
+        return contentWindow.getChildren().size() == 2;
+    }
+
+    private boolean studyPlanExists() {
+        return model.getAllStudyPlans().size() > 0;
+    }
+
     /**
-     * Remove the active study plan in the lower part of content window
+     * Remove the active study plan in the content window: ScheduleController
      */
-    private void removeCurrentScheduleView() {
+    private void removeCurrentScheduleController() {
             contentWindow.getChildren().remove(1);
     }
 

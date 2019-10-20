@@ -78,20 +78,34 @@ public class Student {
      * @param studyPlan Study plan of users decision to delete.
      */
     public void removeStudyPlan(StudyPlan studyPlan) {
-        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
-            StudyPlan sp = it.next();
-            if (sp == studyPlan) {
-                it.remove();
-            }
+        if (studyPlanExists(studyPlan)) {
+            studyPlans.remove(studyPlan);
         }
     }
 
     /**
      * Set a given study plan as current, active.
-     * @param currentStudyPlan A study plan to assign as current.
+     * @param studyPlan A study plan to assign as current.
      */
-    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
-        this.currentStudyPlan = currentStudyPlan;
+    public void setCurrentStudyPlan(StudyPlan studyPlan) {
+        if (studyPlanExists(studyPlan)) {
+            this.currentStudyPlan = studyPlan;
+        }
+    }
+
+    /**
+     * Method checks whether some study plan is an element in the list of study plans
+     * @param studyPlan Some study plan
+     * @return True if given study plan exists in the list studyPlans, otherwise false
+     */
+    private boolean studyPlanExists(StudyPlan studyPlan) {
+        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
+            StudyPlan sp = it.next();
+            if (sp == studyPlan) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -20,8 +20,8 @@ public class StudyPlanSelectorController extends AnchorPane {
     @FXML private VBox studyPlanContainer;
     @FXML private Button addButton;
 
-    private CoursePlanningSystem model;
-    private ShowCurrentStudyPlan showStudyPlan;
+    private final CoursePlanningSystem model;
+    private final ShowCurrentStudyPlan showStudyPlan;
 
     public StudyPlanSelectorController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan) {
 
@@ -55,13 +55,13 @@ public class StudyPlanSelectorController extends AnchorPane {
         studyPlanContainer.getChildren().clear();
         studyPlanContainer.getChildren().add(addButton);
 
-        for (StudyPlan studyPlan : model.getStudent().getAllStudyPlans()) {
+        for (StudyPlan studyPlan : model.getAllStudyPlans()) {
             int nOfStudyPlans = studyPlanContainer.getChildren().size();
             StudyPlanButtonController newButton = new StudyPlanButtonController(model, showStudyPlan, this::deactivateStudyPlanButton, nOfStudyPlans, studyPlan);
 
             studyPlanContainer.getChildren().add(nOfStudyPlans - 1, newButton);
 
-            if (newButton.getStudyPlan() == model.getStudent().getCurrentStudyPlan()) {
+            if (newButton.getStudyPlan() == model.getCurrentStudyPlan()) {
                 newButton.activateButton();
             }
         }
@@ -77,9 +77,9 @@ public class StudyPlanSelectorController extends AnchorPane {
     // Premise: there is an active study plan button.
     private StudyPlanButtonController getCurrStudyPlansButtonController() {
         StudyPlanButtonController spc = null;
-        for (int i = 0; i < model.getStudent().getAllStudyPlans().size(); i++) {
+        for (int i = 0; i < model.getAllStudyPlans().size(); i++) {
             StudyPlanButtonController spbController = (StudyPlanButtonController) studyPlanContainer.getChildren().get(i);
-            if (spbController.getStudyPlan() == model.getStudent().getCurrentStudyPlan()) {
+            if (spbController.getStudyPlan() == model.getCurrentStudyPlan()) {
                 spc = spbController;
             }
         }
@@ -94,12 +94,12 @@ public class StudyPlanSelectorController extends AnchorPane {
             new Alert(Alert.AlertType.ERROR, "Warning: you have no study plan to delete!").showAndWait();
         } else {
             StudyPlanButtonController spbController = getCurrStudyPlansButtonController();
-            model.getStudent().removeStudyPlan(spbController.getStudyPlan());
+            model.removeStudyPlan(spbController.getStudyPlan());
         }
     }
 
     private boolean studyPlanExists() {
-        return model.getStudent().getAllStudyPlans().size() > 0;
+        return model.getAllStudyPlans().size() > 0;
     }
 
     /**
@@ -112,8 +112,8 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private void setFirstStudyPlanAsCurrent() {
         if (studyPlanExists()) {
-            StudyPlan sp = model.getStudent().getAllStudyPlans().get(0);
-            model.getStudent().setCurrentStudyPlan(sp);
+            StudyPlan sp = model.getAllStudyPlans().get(0);
+            model.setCurrentStudyPlan(sp);
         }
     }
 

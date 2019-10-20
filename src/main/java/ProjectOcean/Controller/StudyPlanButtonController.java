@@ -16,11 +16,11 @@ public class StudyPlanButtonController extends Button {
 
     @FXML private Button studyPlanButton;
 
-    private int nOfStudyPlans;
-    private StudyPlan studyPlan;
-    private CoursePlanningSystem model;
-    private ShowCurrentStudyPlan showStudyPlan;
-    private DeactivateStudyPlanButton deactivate;
+    private final int nOfStudyPlans;
+    private final StudyPlan studyPlan;
+    private final CoursePlanningSystem model;
+    private final ShowCurrentStudyPlan showStudyPlan;
+    private final DeactivateStudyPlanButton deactivate;
 
     public StudyPlanButtonController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan, DeactivateStudyPlanButton deactivate, int nOfStudyPlans, StudyPlan studyPlan) {
         this.nOfStudyPlans = nOfStudyPlans;
@@ -51,7 +51,7 @@ public class StudyPlanButtonController extends Button {
     private void onStudyPlanClicked(MouseEvent event) {
         if (!isThisStudyPlanCurrentStudyPlan()) {
             this.deactivate.deactivateStudyPlanButton();
-            model.getStudent().setCurrentStudyPlan(studyPlan);
+            model.setCurrentStudyPlan(studyPlan);
             studyPlanButton.setDefaultButton(true);
             showStudyPlan.showCurrentStudyPlan();
         }
@@ -63,7 +63,7 @@ public class StudyPlanButtonController extends Button {
      * @return Boolean indicating if study plan is the current.
      */
     public boolean isThisStudyPlanCurrentStudyPlan() {
-        return this.studyPlan == model.getStudent().getCurrentStudyPlan();
+        return this.studyPlan == model.getCurrentStudyPlan();
     }
 
     /**

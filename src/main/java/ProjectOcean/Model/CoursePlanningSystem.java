@@ -54,6 +54,10 @@ public class CoursePlanningSystem extends Observable {
         student.addStudyPlan();
     }
 
+    /**
+     * Set a given study plan as current, active.
+     * @param studyPlan A study plan to assign as current.
+     */
     public void setCurrentStudyPlan(StudyPlan studyPlan) {
         student.setCurrentStudyPlan(studyPlan);
     }
@@ -167,6 +171,7 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
+
     /**
      * Gets a list of all courses in the workspace.
      * @return a list of ICourses in workspace.
@@ -210,6 +215,28 @@ public class CoursePlanningSystem extends Observable {
             e.printStackTrace();
         }
         return courses;
+    }
+
+    /**
+     * @return all studyplans
+     */
+    public List<StudyPlan> getAllStudyPlans() {
+        return getStudent().getAllStudyPlans();
+    }
+
+    /**
+     * @return the student's current active study plan
+     */
+    public StudyPlan getCurrentStudyPlan() {
+        return student.getCurrentStudyPlan();
+    }
+
+    /**
+     * Method removes a given study plan if it exists.
+     * @param studyPlan Study plan of users decision to delete.
+     */
+    public void removeStudyPlan(StudyPlan studyPlan) {
+        student.removeStudyPlan(studyPlan);
     }
 
     private static Student getStudentFromStudyPlanSaverLoader(){

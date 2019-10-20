@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 public class StudentTests {
 
-    ArrayList<StudyPlan> studyPlans;
+    private ArrayList<StudyPlan> studyPlans;
+    private Student student;
     private int studyPeriod;
     private int year;
     private int slot;
 
     @Before
     public void before() {
+        student = new Student();
         studyPeriod = 1;
         year = 1;
         slot = 1;
@@ -22,8 +24,6 @@ public class StudentTests {
 
     @Test
     public void addCourseTest() {
-        Student student = new Student();
-
         ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         student.addCourse(course, year, studyPeriod, slot);
@@ -33,8 +33,6 @@ public class StudentTests {
 
     @Test
     public void removeCourseTest() {
-        Student student = new Student();
-
         ICourse course = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
 
         student.addCourse(course, year, studyPeriod, slot);
@@ -47,7 +45,6 @@ public class StudentTests {
 
     @Test
     public void addYearTest(){
-        Student student = new Student();
         student.addYear();
 
         Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(1) != null);
@@ -56,7 +53,6 @@ public class StudentTests {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void removeYearTest() {
-        Student student = new Student();
         student.addYear();
 
         Assert.assertTrue(student.getCurrentStudyPlan().getSchedule().getYear(2) != null);
@@ -68,15 +64,13 @@ public class StudentTests {
 
     @Test
     public void addStudyPlan() {
-        Student student = new Student();
+        Assert.assertTrue(student.getAllStudyPlans().size() == 0);
         student.addStudyPlan();
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
     }
 
     @Test
     public void removeStudyPlan() {
-        Student student = new Student();
-
         student.addStudyPlan();
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
 
