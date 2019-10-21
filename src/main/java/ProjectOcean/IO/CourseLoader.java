@@ -5,7 +5,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class CourseLoader implements ICourseLoader {
     private static final int VERSION = 1;
     private static JSONParser parser = new JSONParser();
 
-    public CourseLoader() {
+    CourseLoader() {
     }
 
     /**
@@ -367,6 +366,7 @@ public class CourseLoader implements ICourseLoader {
             throw new CoursesNotFoundException();
         }
     }
+
     /**
      * The actual method that creates the file and puts a json array in it
      *

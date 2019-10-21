@@ -1,6 +1,6 @@
 package ProjectOcean.IO;
 
-public class SaveloaderFactory {
+public class SaverLoaderFactory {
 
     public static ICourseLoader createICourseSaveLoader(){
         return new CourseLoader();
@@ -9,7 +9,5 @@ public class SaveloaderFactory {
     public static IStudyPlanSaverLoader createIStudyPlanSaverLoader(){
         return new StudyPlanSaverLoader();
     }
-
-
 
 }

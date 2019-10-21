@@ -11,7 +11,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 
 /**
@@ -27,7 +26,6 @@ public class YearController extends VBox {
     private final IYear year;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
-
 
     public YearController(IYear year, CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
         this.model = model;

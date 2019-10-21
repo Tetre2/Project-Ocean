@@ -32,8 +32,8 @@ public class ApplicationController extends AnchorPane {
     private final ScheduleController scheduleController;
     private static DetailedController detailedController;
     private final HostServices hostServices;
-    private static ICourseLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
-    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
+    private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
@@ -57,7 +57,6 @@ public class ApplicationController extends AnchorPane {
 
         instantiateChildControllers();
     }
-
 
     /**
      * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace

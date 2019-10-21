@@ -10,9 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -164,7 +162,5 @@ public class DetailedController extends VBox {
         goBack.goBack();
         //applicationController.showStudyPlanWorkspaceWindow();
     }
-
-
 
 }

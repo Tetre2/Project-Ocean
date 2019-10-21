@@ -5,7 +5,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +18,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static CourseLoader courseSaverLoader = new CourseLoader();
     private static List<ICourse> courses = courseSaverLoader.generatePreDefinedCourses();
 
-    public StudyPlanSaverLoader() {
+    StudyPlanSaverLoader() {
     }
 
     //--------------Save---------------
-
     /**
      * Saves the users studyplans and workspace to the userHomeDir
      * @param student contains a list of studyPlans that will being saved and
@@ -119,10 +117,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         }
     }
 
-
-
     //--------------Load---------------
-
     /**
      * Loads a list of studyplans from the users home dir if the file cant be find throws a exeption
      * @return returns a list of the loaded studyplanes

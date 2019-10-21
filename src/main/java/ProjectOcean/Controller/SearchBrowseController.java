@@ -9,7 +9,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,6 +133,5 @@ public class SearchBrowseController extends AnchorPane {
                 filteredSearchResult.add(course);
             }
         }
-
     }
 }
