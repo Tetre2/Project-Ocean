@@ -11,36 +11,53 @@ public class YearTests {
 
     int studyPeriod;
     int slot;
+    int yearNumber;
 
     @Before
     public void before() {
         studyPeriod = 1;
         slot = 1;
+        yearNumber = 1;
     }
 
     @Test
     public void addCourseTest() {
         Year year = new Year();
-
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
-
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
         year.addCourse(course, studyPeriod, slot);
 
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());
-
     }
 
     @Test
     public void getCourseInStudyPeriodTest() {
         Year year = new Year();
-
-        ICourse expectedCourse = CourseFactory.CreateCourse("BAT123","Beroendespecifika paradigmer", "7.5", "3","Anders Bölinge", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("")));
+        ICourse expectedCourse = CourseFactory.CreateCourse("BAT123",
+                "Beroendespecifika paradigmer",
+                "7.5",
+                "3",
+                "Anders Bölinge",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("")));
         year.addCourse(expectedCourse, studyPeriod, slot);
 
         ICourse actualCourse = year.getCourseInStudyPeriod(studyPeriod, slot);
-
         Assert.assertTrue(expectedCourse.equals(actualCourse));
-
     }
 
     @Test
@@ -54,15 +71,23 @@ public class YearTests {
     @Test
     public void removeCourseTest() {
         Year year = new Year();
-
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         year.addCourse(course, studyPeriod, slot);
-
         Assert.assertEquals(course, year.getStudyPeriod(studyPeriod).getCourse1());
 
         year.removeCourse(studyPeriod, slot);
-
         Assert.assertTrue(year.getStudyPeriod(studyPeriod).getCourse1() == null);
     }
 }

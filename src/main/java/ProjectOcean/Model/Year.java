@@ -12,7 +12,14 @@ public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
+    private int ID;
+    private static int yearsCreatedDuringRuntime = 0;
+
+
     public Year() {
+        this.ID = yearsCreatedDuringRuntime;
+        yearsCreatedDuringRuntime++;
+
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
         }
@@ -100,4 +107,10 @@ public class Year implements IYear{
     public int getStudyPeriodsSize() {
         return studyPeriods.size();
     }
+
+    @Override
+    public int getID() {
+        return ID;
+    }
+
 }
