@@ -14,6 +14,7 @@ public class StudyPlanSaverLoaderTests {
     private CourseLoader courseSaverLoader = new CourseLoader();
     private List<StudyPlan> studyPlans;
     private Student student;
+    private CoursePlanningSystem model;
     private List<ICourse> courses;
 
     @Before
@@ -43,16 +44,16 @@ public class StudyPlanSaverLoaderTests {
         studyPlans.add(studyPlan);
         studyPlans.add(studyPlan2);
 
-        student = new Student();
-        student.setStudyPlans(studyPlans);
-        student.setWorkspace(workspace);
-        student.setCurrentStudyPlan(studyPlans.get(0));
+        model = CoursePlanningSystem.getInstance();
+        model.setStudyPlans(studyPlans);
+        model.setWorkspace(workspace);
+        model.setCurrentStudyPlan(studyPlans.get(0));
 
     }
 
     @Test
     public void saveStudyplansTest(){
-        saverLoader.saveModel(student);
+        saverLoader.saveModel(model);
 
     }
 
