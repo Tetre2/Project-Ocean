@@ -68,7 +68,6 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().add(scheduleController);
     }
 
-
     @FXML
     private void onDragOver(DragEvent event) {
         Movable draggedObject = (Movable) event.getGestureSource();
@@ -166,7 +165,6 @@ public class ApplicationController extends AnchorPane {
         return alert.getResult();
     }
 
-
     /**
      * Adds the icon to the drag surface
      *
@@ -204,7 +202,6 @@ public class ApplicationController extends AnchorPane {
     public HostServices getHostServices() {
         return hostServices;
     }
-
 
     /**
      * Method is called from the menubar in the view
