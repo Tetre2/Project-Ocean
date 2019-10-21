@@ -162,11 +162,19 @@ public class CoursePlanningSystemTests {
         searchText = "Maskin  matematisk";
         searchResult = model.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
+        for(ICourse course : searchResult) {
+            boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
+            boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
+            Assert.assertTrue(containsFirstWord|| containsSecondWord);
+        }
+
+        //tests searching for course type
+        searchText = "Naturvetenskap";
+        searchResult = model.executeSearch(searchText);
+        Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(ICourse course : searchResult) {
-                boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
-                boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
-                Assert.assertTrue(containsFirstWord|| containsSecondWord);
+                Assert.assertTrue(course.getCourseTypes().contains("Naturvetenskap"));
             }
         }
     }

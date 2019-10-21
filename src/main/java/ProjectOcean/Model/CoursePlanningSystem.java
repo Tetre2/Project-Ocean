@@ -109,6 +109,7 @@ public class CoursePlanningSystem extends Observable {
         matchCourseNameAndAddCourse(searchTerms, searchResult);
         matchCourseCodeAndAddCourse(searchTerms, searchResult);
         matchExaminerAndAddCourse(searchTerms, searchResult);
+        matchCourseTypeAndAddCourse(searchTerms, searchResult);
         return searchResult;
     }
 
@@ -126,6 +127,23 @@ public class CoursePlanningSystem extends Observable {
         for(String s : searchTerms) {
             for(ICourse c : courses) {
                 if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c)) {
+                    searchResult.add(c);
+                }
+            }
+        }
+    }
+
+    private void matchCourseTypeAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
+        for (ICourse c : courses) {
+            //Makes a list of course types that is lower case for this course c.
+            List<String> courseTypesLowerString = new ArrayList<>();
+            for(String coursetype : c.getCourseTypes()) {
+                courseTypesLowerString.add(coursetype.toLowerCase());
+            }
+            //Goes through the search terms and see if they match the lower-case course type list
+            //for this course
+            for(String s : searchTerms) {
+                if(courseTypesLowerString.contains(s)&& !searchResult.contains(c)) {
                     searchResult.add(c);
                 }
             }
