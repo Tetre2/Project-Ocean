@@ -40,11 +40,12 @@ public class StudyPlanSaverLoaderTests {
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
-        //studyPlans.add(studyPlan2);
+        studyPlans.add(studyPlan2);
 
         student = new Student();
         student.setStudyPlans(studyPlans);
         student.setWorkspace(workspace);
+        student.setCurrentStudyPlan(studyPlans.get(0));
 
     }
 
@@ -55,13 +56,13 @@ public class StudyPlanSaverLoaderTests {
 
     }
 
-    @Test
+   /* @Test
     public void loadStudent(){
-        /*try {
+        *//*try {
             student = saverLoader.loadStudent();
         } catch (StudyPlanNotFoundException e) {
             e.printStackTrace();
-        }*/
+        }*//*
         Assert.assertTrue(student.equals(this.student));
 
         //tests so that two different students are not the same
@@ -75,9 +76,53 @@ public class StudyPlanSaverLoaderTests {
         studentTest.setWorkspace(new Workspace());
         studentTest.addCourse(courses.get(1), 1, 1, 1);
         Assert.assertFalse(studentTest.equals(student));
+    }*/
 
+    @Test
+    public void loadWorkspace(){
+        try {
 
+            List<Course> expected = student.getAllCoursesInWorkspace();
+            List<Course> actual = saverLoader.loadWorkspace().getAllCourses();
 
+            if(expected.size()== actual.size()){
+                for (Course course : expected) {
+                    if (!actual.contains(course)) {
+                        Assert.assertTrue(false);
+                    }
+                }
+            }
+
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldStudyplanExeption oldStudyplanExeption) {
+            oldStudyplanExeption.printStackTrace();
+        }
     }
+
+    @Test
+    public void loadStudyplans(){
+        try {
+
+            List<Course> expected = student.getAllCoursesInWorkspace();
+            List<Course> actual = saverLoader.loadWorkspace().getAllCourses();
+
+            if(expected.size()== actual.size()){
+                for (Course course : expected) {
+                    if (!actual.contains(course)) {
+                        Assert.assertTrue(false);
+                    }
+                }
+            }
+
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldStudyplanExeption oldStudyplanExeption) {
+            oldStudyplanExeption.printStackTrace();
+        }
+    }
+
+
+
 
 }
