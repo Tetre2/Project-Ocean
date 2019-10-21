@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CourseTests {
@@ -19,10 +20,11 @@ public class CourseTests {
     String examiner;
     String examinationMeans;
     String language;
+    List<String> courseTypes;
     ICourse course;
 
     @Before
-    public void init(){
+    public void init() {
         studyPeriod = "1";
         courseCode = "DAT017";
         courseName = "Maskinorienterad programmering";
@@ -33,18 +35,39 @@ public class CourseTests {
         examiner = "Rolf Söderström";
         examinationMeans = "Tenta";
         language = "Svenska";
+        courseTypes = new ArrayList<>(Arrays.asList("Informationsteknik"));
 
-        course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
+        course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription, courseTypes);
 
 
     }
 
     @Test
     public void courseUniqueIdTest() {
-
-        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-        ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
-
+        ICourse course1 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course2 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         //Checks that ICourse references are different
         Assert.assertNotSame(course1, course2);
@@ -52,7 +75,7 @@ public class CourseTests {
 
     @Test
     public void getCourseCodeTest() {
-       // ICourse courseID = courses.get(0);
+        // ICourse courseID = courses.get(0);
 
         String expected = courseCode;
         String actual = course.getCourseCode();
@@ -69,23 +92,23 @@ public class CourseTests {
     }
 
     @Test
-    public void getStudyPointsTest(){
+    public void getStudyPointsTest() {
         String expected = studyPoints;
         String actual = course.getStudyPoints();
 
         Assert.assertEquals(expected, actual);
     }
 
-        @Test
-    public void getStudyPeriodTest(){
-            String expected = studyPeriod;
-            String actual = course.getStudyPeriod();
+    @Test
+    public void getStudyPeriodTest() {
+        String expected = studyPeriod;
+        String actual = course.getStudyPeriod();
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getExaminerTest(){
+    public void getExaminerTest() {
         String expected = examiner;
         String actual = course.getExaminer();
 
@@ -93,7 +116,7 @@ public class CourseTests {
     }
 
     @Test
-    public void getExaminationMeansTest(){
+    public void getExaminationMeansTest() {
         String expected = examinationMeans;
         String actual = course.getExaminationMeans();
 
@@ -101,7 +124,7 @@ public class CourseTests {
     }
 
     @Test
-    public void getLanguageTest(){
+    public void getLanguageTest() {
         String expected = language;
         String actual = course.getLanguage();
 
@@ -109,7 +132,7 @@ public class CourseTests {
     }
 
     @Test
-    public void getRequiredCoursesTest(){
+    public void getRequiredCoursesTest() {
         List<String> expected = requiredCourses;
         List<String> actual = course.getRequiredCourses();
 
@@ -117,25 +140,43 @@ public class CourseTests {
     }
 
     @Test
-    public void getCoursePMLinkTest(){
+    public void getCoursePMLinkTest() {
         String expected = coursePMLink;
         String actual = course.getCoursePMLink();
 
         Assert.assertEquals(expected, actual);
     }
 
-        @Test
-    public void getCourseDescriptionTest(){
-            String expected = courseDescription;
-            String actual = course.getCourseDescription();
+    @Test
+    public void getCourseDescriptionTest() {
+        String expected = courseDescription;
+        String actual = course.getCourseDescription();
 
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void getCourseTypesTest() {
+        List<String> expected = courseTypes;
+        List<String> actual = course.getCourseTypes();
+
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
     public void toStringTest() {
-        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum");
+        ICourse course1 = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
 
         String actual = course1.toString();
         String expected = "Course{" +

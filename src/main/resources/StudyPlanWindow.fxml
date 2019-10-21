@@ -16,9 +16,10 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <content>
-            <VBox fx:id="yearContentView" style="-fx-border-radius: 0; -fx-border-color: purple;">
+            <VBox style="-fx-border-radius: 0; -fx-border-color: purple;">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
+                  <VBox fx:id="yearContentView" prefHeight="200.0" prefWidth="100.0" />
+                  <Button fx:id="addYearButton" mnemonicParsing="false" onAction="#addYear" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
                      <font>
                         <Font size="40.0" />
                      </font>

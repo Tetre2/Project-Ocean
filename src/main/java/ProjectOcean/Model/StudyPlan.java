@@ -1,5 +1,8 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -7,52 +10,76 @@ import java.util.Objects;
  */
 public class StudyPlan implements IStudyPlan {
 
-    private Schedule schedule;
+    private List<Year> years;
 
     public StudyPlan() {
-        this.schedule = new Schedule();
+        years = new ArrayList<>();
     }
 
     /**
-     * Attempts to add the given course to the given year, study period and slot, in the schedule
-     * @param course the course to be added
-     * @param year the year to add the course to
-     * @param studyPeriod the study period to add the course to
-     * @param slot the slot in which the course will be added
-     */
-    public void addCourseToSchedule(ICourse course, int year, int studyPeriod, int slot) {
-        schedule.addCourse(course, year, studyPeriod, slot);
-    }
-
-    /**
-     * Removes the given course in the given year and study period, in the schedule
+     * Removes the given course in the given year and study period
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourseFromSchedule(int year, int studyPeriod, int slot){
-        schedule.removeCourse(year, studyPeriod, slot);
+    public void removeCourse(int year, int studyPeriod, int slot) {
+        getYear(year).removeCourse(studyPeriod, slot);
     }
 
     /**
-     * Removes the year specified by the index, in the schedule
-     * @param year the year to be removed
+     * Attempts to add the given course to the given year, study period and slot
+     * @param course the course to be added
+     * @param yearID the year to add the course to
+     * @param studyPeriod the study period to add the course to
+     * @param slot the slot in which the course will be added
      */
-    public void removeYear(int year) {
-        schedule.removeYear(year);
+    public void addCourse(ICourse course, int yearID, int studyPeriod, int slot) {
+        getYear(yearID).addCourse(course, studyPeriod, slot);
     }
 
     /**
-     * Creates a new year instance and adds it to the list of years, in the schedule
+     * Creates a new year instance and adds it to the list of years
      */
-    public void addYear() {
-        schedule.addYear();
+    public void addYear(){
+        years.add(new Year());
     }
 
     /**
-     * @return this study plan's schedule
+     * Removes the year specified by the index
+     * @param id the year to be removed
      */
-    public Schedule getSchedule() {
-        return schedule;
+    public void removeYear(int id) {
+        Year tempYear = null;
+        for (Year year : years) {
+            if(year.getID() == id){
+                tempYear = year;
+                break;
+            }
+        }
+        years.remove(tempYear);
+    }
+
+    /**
+     * Gets the year specified by the index
+     * @param id the index specifying the year
+     * @return the desired year
+     */
+    public Year getYear(int id){
+        for (Year year : years) {
+            if(year.getID() == id )
+                return year;
+        }
+        return null;
+    }
+
+    public Year getYearByOrder(int year) {
+        return years.get(year - 1);
+    }
+
+    /**
+     * @return returns all years
+     */
+    public List<Year> getYears() {
+        return Collections.unmodifiableList(years);
     }
 
     /**
@@ -62,10 +89,11 @@ public class StudyPlan implements IStudyPlan {
      */
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudyPlan studyPlan = (StudyPlan) o;
-        return schedule.equals(studyPlan.schedule);
+        return studyPlan.getYears().equals(years);
     }
 
     /**
@@ -73,13 +101,13 @@ public class StudyPlan implements IStudyPlan {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(schedule);
+        return Objects.hash(years);
     }
 
     @Override
     public String toString() {
-        return "StudyPlan{" +
-                "schedule=" + schedule +
+        return "Schedule{" +
+                "years=" + years +
                 '}';
     }
 }

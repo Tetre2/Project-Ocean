@@ -26,7 +26,8 @@ public class CourseFactory {
             String language,
             List<String> requiredCourses,
             String coursePMLink,
-            String courseDescription) {
+            String courseDescription,
+            List<String> courseTypes) {
 
         return new Course(
                 courseCode,
@@ -38,9 +39,9 @@ public class CourseFactory {
                 language,
                 requiredCourses,
                 coursePMLink,
-                courseDescription
+                courseDescription,
+                courseTypes
         );
-
     }
 
 }

@@ -15,4 +15,6 @@ public interface IYear {
      * @return the amount of study periods in a year(this is most probably going to stay at 4 at all times)
      */
     int getStudyPeriodsSize();
+
+    int getID();
 }
