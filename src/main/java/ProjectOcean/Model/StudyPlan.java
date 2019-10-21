@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Class representing one of multiple study plans held by a student
  */
-public class StudyPlan {
+public class StudyPlan implements IStudyPlan {
 
     private Schedule schedule;
 

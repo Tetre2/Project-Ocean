@@ -2,10 +2,7 @@ package ProjectOcean.Model;
 
 import ProjectOcean.IO.*;
 
-import java.util.Collections;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -51,15 +48,15 @@ public class CoursePlanningSystem extends Observable {
      * Adds a study plan
      */
     public void addStudyPlan() {
-        student.addStudyPlan();
+        student.addStudyPlanAsCurrent();
     }
 
     /**
      * Set a given study plan as current, active.
      * @param studyPlan A study plan to assign as current.
      */
-    public void setCurrentStudyPlan(StudyPlan studyPlan) {
-        student.setCurrentStudyPlan(studyPlan);
+    public void setCurrentStudyPlan(IStudyPlan studyPlan) {
+        student.setCurrentStudyPlan((StudyPlan) studyPlan);
     }
 
     /**
@@ -220,14 +217,18 @@ public class CoursePlanningSystem extends Observable {
     /**
      * @return all studyplans
      */
-    public List<StudyPlan> getAllStudyPlans() {
-        return getStudent().getAllStudyPlans();
+    public List<IStudyPlan> getAllStudyPlans() {
+        List<IStudyPlan> studyPlans = new ArrayList<>();
+        for (StudyPlan sp : student.getAllStudyPlans()) {
+            studyPlans.add(sp);
+        }
+        return studyPlans;
     }
 
     /**
      * @return the student's current active study plan
      */
-    public StudyPlan getCurrentStudyPlan() {
+    public IStudyPlan getCurrentStudyPlan() {
         return student.getCurrentStudyPlan();
     }
 
@@ -235,8 +236,8 @@ public class CoursePlanningSystem extends Observable {
      * Method removes a given study plan if it exists.
      * @param studyPlan Study plan of users decision to delete.
      */
-    public void removeStudyPlan(StudyPlan studyPlan) {
-        student.removeStudyPlan(studyPlan);
+    public void removeStudyPlan(IStudyPlan studyPlan) {
+        student.removeStudyPlan((StudyPlan) studyPlan);
     }
 
     private static Student getStudentFromStudyPlanSaverLoader(){

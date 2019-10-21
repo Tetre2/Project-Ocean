@@ -65,13 +65,13 @@ public class StudentTests {
     @Test
     public void addStudyPlan() {
         Assert.assertTrue(student.getAllStudyPlans().size() == 0);
-        student.addStudyPlan();
+        student.addStudyPlanAsCurrent();
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
     }
 
     @Test
     public void removeStudyPlan() {
-        student.addStudyPlan();
+        student.addStudyPlanAsCurrent();
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
 
         StudyPlan sp = student.getAllStudyPlans().get(0);

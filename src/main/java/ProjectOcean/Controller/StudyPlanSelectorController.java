@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
-import ProjectOcean.Model.StudyPlan;
+import ProjectOcean.Model.IStudyPlan;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a graphical component of a study plan.
@@ -22,6 +24,7 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private final CoursePlanningSystem model;
     private final ShowCurrentStudyPlan showStudyPlan;
+    private Map<StudyPlanButtonController, IStudyPlan> mapStudyPlanAndController = new HashMap<>();
 
     public StudyPlanSelectorController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan) {
 
@@ -55,13 +58,15 @@ public class StudyPlanSelectorController extends AnchorPane {
         studyPlanContainer.getChildren().clear();
         studyPlanContainer.getChildren().add(addButton);
 
-        for (StudyPlan studyPlan : model.getAllStudyPlans()) {
+        for (IStudyPlan studyPlan : model.getAllStudyPlans()) {
             int nOfStudyPlans = studyPlanContainer.getChildren().size();
-            StudyPlanButtonController newButton = new StudyPlanButtonController(model, showStudyPlan, this::deactivateStudyPlanButton, nOfStudyPlans, studyPlan);
+            StudyPlanButtonController newButton = new StudyPlanButtonController(showStudyPlan, this::setCurrentStudyPlan,
+                    this::isThisStudyPlanCurrentStudyPlan, this::deactivateStudyPlanButton, nOfStudyPlans);
 
             studyPlanContainer.getChildren().add(nOfStudyPlans - 1, newButton);
+            mapStudyPlanAndController.put(newButton, studyPlan);
 
-            if (newButton.getStudyPlan() == model.getCurrentStudyPlan()) {
+            if (mapStudyPlanAndController.get(newButton) == model.getCurrentStudyPlan()) {
                 newButton.activateButton();
             }
         }
@@ -79,7 +84,7 @@ public class StudyPlanSelectorController extends AnchorPane {
         StudyPlanButtonController spc = null;
         for (int i = 0; i < model.getAllStudyPlans().size(); i++) {
             StudyPlanButtonController spbController = (StudyPlanButtonController) studyPlanContainer.getChildren().get(i);
-            if (spbController.getStudyPlan() == model.getCurrentStudyPlan()) {
+            if (mapStudyPlanAndController.get(spbController) == model.getCurrentStudyPlan()) {
                 spc = spbController;
             }
         }
@@ -94,7 +99,7 @@ public class StudyPlanSelectorController extends AnchorPane {
             new Alert(Alert.AlertType.ERROR, "Warning: you have no study plan to delete!").showAndWait();
         } else {
             StudyPlanButtonController spbController = getCurrStudyPlansButtonController();
-            model.removeStudyPlan(spbController.getStudyPlan());
+            model.removeStudyPlan(mapStudyPlanAndController.get(spbController));
         }
     }
 
@@ -112,9 +117,17 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private void setFirstStudyPlanAsCurrent() {
         if (studyPlanExists()) {
-            StudyPlan sp = model.getAllStudyPlans().get(0);
+            IStudyPlan sp = model.getAllStudyPlans().get(0);
             model.setCurrentStudyPlan(sp);
         }
+    }
+
+    private void setCurrentStudyPlan(StudyPlanButtonController buttonController) {
+        model.setCurrentStudyPlan(mapStudyPlanAndController.get(buttonController));
+    }
+
+    private boolean isThisStudyPlanCurrentStudyPlan(StudyPlanButtonController buttonController) {
+        return model.getCurrentStudyPlan() == mapStudyPlanAndController.get(buttonController);
     }
 
 }

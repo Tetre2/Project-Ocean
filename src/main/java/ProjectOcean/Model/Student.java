@@ -65,9 +65,9 @@ public class Student {
     }
 
     /**
-     * Adds a new study plan to last place in list studyPlans
+     * Adds a new study plan to last place in list studyPlans and set it to current
      */
-    public void addStudyPlan() {
+    public void addStudyPlanAsCurrent() {
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
         setCurrentStudyPlan(studyPlan);
