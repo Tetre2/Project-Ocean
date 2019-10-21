@@ -32,7 +32,7 @@ public class CoursePlanningSystem extends Observable {
     public List<IYear> getYears(){
         List<Year> years = student.getCurrentStudyPlan().getYears();
         return Collections.unmodifiableList(new ArrayList<>(years));
-    };
+    }
 
     /**
      * @return returns all courses stored

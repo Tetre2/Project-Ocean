@@ -64,8 +64,8 @@ public class CourseLoader implements ICourseLoader {
         JSONArray studyPlans = (JSONArray) readFormFile().get("courses");
 
         //loops through all "courses"
-        for (Object object : studyPlans) {
-            ICourse course = createCourseFronJSONObject(object);
+        for (Object courseObject : studyPlans) {
+            ICourse course = createCourseFronJSONObject(courseObject);
             courses.add(course);
 
         }

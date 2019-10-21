@@ -1,11 +1,21 @@
 package ProjectOcean.IO;
 
-import ProjectOcean.Model.*;
+import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
+import ProjectOcean.Model.Student;
+import ProjectOcean.Model.StudyPlan;
+import ProjectOcean.Model.Course;
+import ProjectOcean.Model.Year;
+import ProjectOcean.Model.StudyPeriod;
+import ProjectOcean.Model.Workspace;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,20 +34,20 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     //--------------Save---------------
     /**
      * Saves the users studyplans and workspace to the userHomeDir
-     * @param student contains a list of studyPlans that will being saved and
+     * @param model is what will being saved
      */
     @Override
-    public void saveModel(Student student) {
+    public void saveModel(CoursePlanningSystem model) {
 
         JSONObject jsonStudent = new JSONObject();
 
         jsonStudent.put("version", VERSION);
 
-        jsonStudent.put("studyplans", createJSONStudyplans(student));
+        jsonStudent.put("studyplans", createJSONStudyplans(model.getStudent()));
 
-        jsonStudent.put("workspace", createJSONWorkspace(student));
+        jsonStudent.put("workspace", createJSONWorkspace(model.getStudent()));
 
-        jsonStudent.put("currentStudyPlan", createJSONCurrentStudyPlanPointerToStudyplans(student));
+        jsonStudent.put("currentStudyPlan", createJSONCurrentStudyPlanPointerToStudyplans(model.getStudent()));
 
         writeToFile(jsonStudent);
 
@@ -292,15 +302,16 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         File directory = new File(getHomeDirPath());
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
-        if (!file.exists()) file.mkdirs();
+        if (!file.exists())
+            file.mkdirs();
 
-        Student student = new Student();
+        CoursePlanningSystem model = CoursePlanningSystem.getInstance();
         StudyPlan studyPlan = new StudyPlan(0);
-        student.setStudyPlans(Arrays.asList(studyPlan));
-        student.setWorkspace(new Workspace());
-        student.setCurrentStudyPlan(studyPlan);
+        model.setStudyPlans(Arrays.asList(studyPlan));
+        model.setWorkspace(new Workspace());
+        model.setCurrentStudyPlan(studyPlan);
 
-        saveModel(student);
+        saveModel(model);
     }
 
     /**

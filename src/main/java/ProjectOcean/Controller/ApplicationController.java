@@ -217,7 +217,7 @@ public class ApplicationController extends AnchorPane {
      * Method saves all properties of student in a json file
      */
     public void saveModel() {
-        studyPlanSaverLoader.saveModel(model.getStudent());
+        studyPlanSaverLoader.saveModel(model);
     }
 
     private void removeMovableChild(Movable course) {

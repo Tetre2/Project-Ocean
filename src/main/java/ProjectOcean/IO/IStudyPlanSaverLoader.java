@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;
 import ProjectOcean.Model.Workspace;
@@ -10,9 +11,9 @@ public interface IStudyPlanSaverLoader {
 
     /**
      * Saves the students studyplans to a file
-     * @param student
+     * @param model the model
      */
-    void saveModel(Student student);
+    void saveModel(CoursePlanningSystem model);
 
     /**
      * tries to load all studyplans saved in the JSON file

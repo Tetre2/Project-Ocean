@@ -160,7 +160,6 @@ public class DetailedController extends VBox {
     @FXML
     private void setOnBackClicked(){
         goBack.goBack();
-        //applicationController.showStudyPlanWorkspaceWindow();
     }
 
 }
