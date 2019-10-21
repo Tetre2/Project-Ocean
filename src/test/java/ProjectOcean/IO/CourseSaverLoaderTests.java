@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseSaverLoaderTest {
+public class CourseSaverLoaderTests {
 
     private CourseLoader courseSaverLoader;
     private List<ICourse> courses;

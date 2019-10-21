@@ -82,12 +82,12 @@ public class StudyPlanSaverLoaderTests {
     public void loadStudyplans(){
         try {
 
-            List<Course> expected = student.getAllCoursesInWorkspace();
-            List<Course> actual = saverLoader.loadWorkspace().getAllCourses();
+            List<StudyPlan> expected = student.getAllStudyPlans();
+            List<StudyPlan> actual = saverLoader.loadStudyplans();
 
             if(expected.size()== actual.size()){
-                for (Course course : expected) {
-                    if (!actual.contains(course)) {
+                for (StudyPlan studyPlan : expected) {
+                    if (!actual.contains(studyPlan)) {
                         Assert.assertTrue(false);
                     }
                 }
@@ -100,7 +100,24 @@ public class StudyPlanSaverLoaderTests {
         }
     }
 
+    @Test
+    public void loadCurrentStudyPlanTest(){
+        try {
+            StudyPlan expected = student.getCurrentStudyPlan();
+            StudyPlan actual = saverLoader.loadCurrentStudyPlan(student.getAllStudyPlans());
 
+            //because assertEquals dont use the overriten equals method
+            if(expected.equals(actual)){
+                Assert.assertTrue(true);
+            }else {
+                Assert.assertFalse(true);
+            }
 
+        } catch (StudyPlanNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException oldFileException) {
+            oldFileException.printStackTrace();
+        }
+    }
 
 }
