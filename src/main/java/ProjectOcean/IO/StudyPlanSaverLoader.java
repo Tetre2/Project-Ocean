@@ -129,9 +129,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @exception throws a exeption if file cant be found
      */
     @Override
-    public List<StudyPlan> loadStudyplans() throws StudyPlanNotFoundException, OldStudyplanExeption {
+    public List<StudyPlan> loadStudyplans() throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
-            throw new OldStudyplanExeption();
+            throw new OldFileException();
         try {
             return createStudyPlansFromJSON(readFromFile());
         } catch (IOException e) {
@@ -147,9 +147,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @exception throws a exeption if file cant be found
      */
     @Override
-    public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldStudyplanExeption {
+    public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
-            throw new OldStudyplanExeption();
+            throw new OldFileException();
         try {
             return createCurrentStudyPlanFromJSON(readFromFile(), studyPlans);
         } catch (IOException e) {
@@ -165,9 +165,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @exception throws a exeption if file cant be found
      */
     @Override
-    public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldStudyplanExeption {
+    public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
-            throw new OldStudyplanExeption();
+            throw new OldFileException();
         try {
             return createWorkspaceFromJSON(readFromFile());
         } catch (IOException e) {

@@ -100,15 +100,18 @@ public class ApplicationController extends AnchorPane {
     private void tryLoadCoursesFromJSON() {
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
+            return;
         } catch (CoursesNotFoundException e) {
-            ButtonType buttonType = showAndGetResultFromDialogBox();
-            if (buttonType == ButtonType.YES) {
-                courseSaveLoader.createCoursesFile();
-                tryLoadCoursesFromJSON();
-            } else {
-                System.exit(0);
-            }
+        }catch (OldFileException e) {
         }
+        ButtonType buttonType = showAndGetResultFromDialogBox();
+        if (buttonType == ButtonType.YES) {
+            courseSaveLoader.createCoursesFile();
+            tryLoadCoursesFromJSON();
+        } else {
+            System.exit(0);
+        }
+
     }
 
     private void tryLoadWorkspaceFromJSON(){
@@ -116,7 +119,7 @@ public class ApplicationController extends AnchorPane {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
         } catch (StudyPlanNotFoundException e) {
-        } catch (OldStudyplanExeption oldStudyplanExeption) {
+        } catch (OldFileException oldFileException) {
         }
         ButtonType buttonType = showAndGetResultFromDialogBox();
         if (buttonType == ButtonType.YES) {
@@ -132,7 +135,7 @@ public class ApplicationController extends AnchorPane {
             model.setStudyPlans(studyPlanSaverLoader.loadStudyplans());
             return;
         } catch (StudyPlanNotFoundException e) {
-        } catch (OldStudyplanExeption oldStudyplanExeption) {
+        } catch (OldFileException oldFileException) {
         }
         ButtonType buttonType = showAndGetResultFromDialogBox();
         if (buttonType == ButtonType.YES) {
@@ -148,7 +151,7 @@ public class ApplicationController extends AnchorPane {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
         } catch (StudyPlanNotFoundException e) {
-        } catch (OldStudyplanExeption oldStudyplanExeption) {
+        } catch (OldFileException oldFileException) {
         }
         ButtonType buttonType = showAndGetResultFromDialogBox();
         if (buttonType == ButtonType.YES) {

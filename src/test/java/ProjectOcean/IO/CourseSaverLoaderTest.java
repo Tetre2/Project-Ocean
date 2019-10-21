@@ -32,6 +32,8 @@ public class CourseSaverLoaderTest {
             courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
             Assert.assertFalse(true);
+        } catch (OldFileException e) {
+            Assert.assertFalse(true);
         }
     }
 
@@ -49,6 +51,8 @@ public class CourseSaverLoaderTest {
             Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
         } catch (CoursesNotFoundException e) {
             e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
         }
 
     }
@@ -62,6 +66,8 @@ public class CourseSaverLoaderTest {
             courses = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
             Assert.assertFalse(true);
+        } catch (OldFileException e) {
+            Assert.assertFalse(true);
         }
 
         List<ICourse> courseList = null;
@@ -69,6 +75,8 @@ public class CourseSaverLoaderTest {
         try {
             courseList = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
             e.printStackTrace();
         }
 

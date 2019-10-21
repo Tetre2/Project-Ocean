@@ -73,8 +73,8 @@ public class StudyPlanSaverLoaderTests {
 
         } catch (StudyPlanNotFoundException e) {
             e.printStackTrace();
-        } catch (OldStudyplanExeption oldStudyplanExeption) {
-            oldStudyplanExeption.printStackTrace();
+        } catch (OldFileException oldFileException) {
+            oldFileException.printStackTrace();
         }
     }
 
@@ -95,8 +95,8 @@ public class StudyPlanSaverLoaderTests {
 
         } catch (StudyPlanNotFoundException e) {
             e.printStackTrace();
-        } catch (OldStudyplanExeption oldStudyplanExeption) {
-            oldStudyplanExeption.printStackTrace();
+        } catch (OldFileException oldFileException) {
+            oldFileException.printStackTrace();
         }
     }
 

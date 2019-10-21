@@ -26,7 +26,9 @@ public class CourseLoader implements ICourseLoader {
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public List<ICourse> loadCoursesFile() throws CoursesNotFoundException{
+    public List<ICourse> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
+        if(!checkIfCorrectVersion())
+            throw new OldFileException();
         try {
             return getCoursesFromJSON();
         } catch (ParseException e) {
@@ -354,15 +356,15 @@ public class CourseLoader implements ICourseLoader {
         );
     }
 
-    private static boolean checkIfCorrectVersion() throws StudyPlanNotFoundException{
+    private static boolean checkIfCorrectVersion() throws CoursesNotFoundException{
         try {
             JSONObject jsonObject = readFormFile();
             int version = (int)(long) jsonObject.get("version");
             return version == VERSION;
         } catch (IOException e) {
-            throw new StudyPlanNotFoundException();
+            throw new CoursesNotFoundException();
         } catch (ParseException e) {
-            throw new StudyPlanNotFoundException();
+            throw new CoursesNotFoundException();
         }
     }
     /**
