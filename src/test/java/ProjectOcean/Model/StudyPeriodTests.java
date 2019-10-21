@@ -22,7 +22,19 @@ public class StudyPeriodTests {
     public void addCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
 
-        ICourse course = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+
         studyPeriod.addCourse(course, slot);
 
         Assert.assertTrue(studyPeriod.getCourse1() == course || studyPeriod.getCourse2() == course);
@@ -33,14 +45,26 @@ public class StudyPeriodTests {
     public void removeCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
 
-        ICourse course1 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
-        studyPeriod.addCourse(course1, slot);
+        ICourse course = CourseFactory.CreateCourse(
+                "DAT017",
+                "Maskinorienterad programmering",
+                "7.5",
+                "1",
+                "Rolf Söderström",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("Informationsteknik")));
+
+        studyPeriod.addCourse(course, slot);
         studyPeriod.removeCourse(slot);
 
-        Assert.assertTrue(course1 != studyPeriod.getCourse1());
+        Assert.assertTrue(course != studyPeriod.getCourse1());
 
         ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
-        studyPeriod.addCourse(course1, slot);
+        studyPeriod.addCourse(course, slot);
         studyPeriod.addCourse(course2, slot);
         studyPeriod.removeCourse(slot);
 

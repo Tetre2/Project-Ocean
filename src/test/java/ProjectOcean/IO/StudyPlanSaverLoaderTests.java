@@ -25,18 +25,19 @@ public class StudyPlanSaverLoaderTests {
         //---- studyPlan 1 ----
         StudyPlan studyPlan = new StudyPlan(1);
         Workspace workspace = new Workspace();
-        studyPlan.addCourseToSchedule(courses.get(0), 1, 1, 1);
         studyPlan.addYear();
-        studyPlan.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan.addCourse(courses.get(0), studyPlan.getYearByOrder(1).getID(), 1, 1);
+        studyPlan.addYear();
+        studyPlan.addCourse(courses.get(1), studyPlan.getYearByOrder(2).getID(), 1, 1);
         workspace.addCourse(courses.get(1));
 
         //---- studyPlan 2 ----
         StudyPlan studyPlan2 = new StudyPlan(2);
         Workspace workspace2 = new Workspace();
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(0), 1, 1, 1);
+        studyPlan2.addCourse(courses.get(0), studyPlan2.getYearByOrder(1).getID(), 1, 1);
         studyPlan2.addYear();
-        studyPlan2.addCourseToSchedule(courses.get(1), 2, 1, 1);
+        studyPlan2.addCourse(courses.get(1), studyPlan2.getYearByOrder(2).getID(), 1, 1);
         workspace2.addCourse(courses.get(1));
 
         studyPlans.add(studyPlan);
@@ -51,32 +52,9 @@ public class StudyPlanSaverLoaderTests {
 
     @Test
     public void saveStudyplansTest(){
-
         saverLoader.saveModel(student);
 
     }
-
-   /* @Test
-    public void loadStudent(){
-        *//*try {
-            student = saverLoader.loadStudent();
-        } catch (StudyPlanNotFoundException e) {
-            e.printStackTrace();
-        }*//*
-        Assert.assertTrue(student.equals(this.student));
-
-        //tests so that two different students are not the same
-        ArrayList arr = new ArrayList();
-        StudyPlan studyPlanTest = new StudyPlan(1);
-        studyPlanTest.addYear();
-        arr.add(studyPlanTest);
-        Student studentTest = new Student();
-        studentTest.setStudyPlans(arr);
-        studentTest.setCurrentStudyPlan(studyPlanTest);
-        studentTest.setWorkspace(new Workspace());
-        studentTest.addCourse(courses.get(1), 1, 1, 1);
-        Assert.assertFalse(studentTest.equals(student));
-    }*/
 
     @Test
     public void loadWorkspace(){
