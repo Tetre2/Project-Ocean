@@ -1,5 +1,6 @@
-package ProjectOcean.Controller;
+package ProjectOcean.Controller.FunctionalInterfaces;
 
+import ProjectOcean.Controller.Movable;
 import javafx.scene.input.DragEvent;
 
 @FunctionalInterface

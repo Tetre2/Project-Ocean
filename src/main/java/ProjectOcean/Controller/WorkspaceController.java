@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.MoveDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.RemoveMovableChild;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
