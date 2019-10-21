@@ -106,12 +106,8 @@ public class StudyPlanSaverLoaderTests {
             StudyPlan expected = student.getCurrentStudyPlan();
             StudyPlan actual = saverLoader.loadCurrentStudyPlan(student.getAllStudyPlans());
 
-            //because assertEquals dont use the overriten equals method
-            if(expected.equals(actual)){
-                Assert.assertTrue(true);
-            }else {
-                Assert.assertFalse(true);
-            }
+            Assert.assertTrue(expected.equals(actual));
+
 
         } catch (StudyPlanNotFoundException e) {
             e.printStackTrace();
