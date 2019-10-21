@@ -18,7 +18,7 @@ import java.util.Observer;
 /**
  * Represents a graphical component of a study plan.
  */
-public class ScheduleController extends VBox implements Observer {
+public class StudyPlanController extends VBox implements Observer {
 
     @FXML private VBox yearContentView;
     @FXML private Button addYearButton;
@@ -30,7 +30,7 @@ public class ScheduleController extends VBox implements Observer {
     private final AddIconToScreen addIconToScreen;
 
 
-    public ScheduleController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
+    public StudyPlanController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
