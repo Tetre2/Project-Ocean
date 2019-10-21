@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Class representing one of multiple study plans held by a student
  */
-public class StudyPlan implements IStudyPlan {
+public class StudyPlan {
 
     private List<Year> years;
 

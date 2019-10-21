@@ -63,7 +63,7 @@ public class CoursePlanningSystem extends Observable {
      * Set a given study plan as current, active.
      * @param studyPlan A study plan to assign as current.
      */
-    public void setCurrentStudyPlan(IStudyPlan studyPlan) {
+    public void setCurrentStudyPlan(StudyPlan studyPlan) {
         student.setCurrentStudyPlan((StudyPlan) studyPlan);
     }
 
@@ -247,8 +247,8 @@ public class CoursePlanningSystem extends Observable {
     /**
      * @return all studyplans
      */
-    public List<IStudyPlan> getAllStudyPlans() {
-        List<IStudyPlan> studyPlans = new ArrayList<>();
+    public List<StudyPlan> getAllStudyPlans() {
+        List<StudyPlan> studyPlans = new ArrayList<>();
         for (StudyPlan sp : student.getAllStudyPlans()) {
             studyPlans.add(sp);
         }
@@ -258,7 +258,7 @@ public class CoursePlanningSystem extends Observable {
     /**
      * @return the student's current active study plan
      */
-    public IStudyPlan getCurrentStudyPlan() {
+    public StudyPlan getCurrentStudyPlan() {
         return student.getCurrentStudyPlan();
     }
 
@@ -266,7 +266,7 @@ public class CoursePlanningSystem extends Observable {
      * Method removes a given study plan if it exists.
      * @param studyPlan Study plan of users decision to delete.
      */
-    public void removeStudyPlan(IStudyPlan studyPlan) {
+    public void removeStudyPlan(StudyPlan studyPlan) {
         student.removeStudyPlan((StudyPlan) studyPlan);
     }
 

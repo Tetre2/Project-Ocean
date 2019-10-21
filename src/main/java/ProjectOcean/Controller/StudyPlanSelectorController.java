@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
-import ProjectOcean.Model.IStudyPlan;
+import ProjectOcean.Model.StudyPlan;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -24,7 +24,7 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private final CoursePlanningSystem model;
     private final ShowCurrentStudyPlan showStudyPlan;
-    private Map<StudyPlanButtonController, IStudyPlan> mapStudyPlanAndController = new HashMap<>();
+    private Map<StudyPlanButtonController, StudyPlan> mapStudyPlanAndController = new HashMap<>();
 
     public StudyPlanSelectorController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan) {
 
@@ -58,7 +58,7 @@ public class StudyPlanSelectorController extends AnchorPane {
         studyPlanContainer.getChildren().clear();
         studyPlanContainer.getChildren().add(addButton);
 
-        for (IStudyPlan studyPlan : model.getAllStudyPlans()) {
+        for (StudyPlan studyPlan : model.getAllStudyPlans()) {
             int nOfStudyPlans = studyPlanContainer.getChildren().size();
             StudyPlanButtonController newButton = new StudyPlanButtonController(showStudyPlan, this::setCurrentStudyPlan,
                     this::isThisStudyPlanCurrentStudyPlan, this::deactivateStudyPlanButton, nOfStudyPlans);
@@ -117,7 +117,7 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private void setFirstStudyPlanAsCurrent() {
         if (studyPlanExists()) {
-            IStudyPlan sp = model.getAllStudyPlans().get(0);
+            StudyPlan sp = model.getAllStudyPlans().get(0);
             model.setCurrentStudyPlan(sp);
         }
     }
