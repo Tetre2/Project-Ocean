@@ -53,6 +53,13 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * @return A list of id:s of all study plans
+     */
+    public List<Integer> getStudyPlanIds() {
+        return student.getStudyPeriodIds();
+    }
+
+    /**
      * Adds a study plan
      */
     public void addStudyPlan() {
@@ -61,10 +68,17 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      * Set a given study plan as current, active.
-     * @param studyPlan A study plan to assign as current.
+     * @param studyPlanID A study plan to assign as current.
      */
-    public void setCurrentStudyPlan(StudyPlan studyPlan) {
-        student.setCurrentStudyPlan((StudyPlan) studyPlan);
+    public void setCurrentStudyPlan(Integer studyPlanID) {
+        student.setCurrentStudyPlan(studyPlanID);
+    }
+
+    /**
+     * Set first study plan as current.
+     */
+    public void setFirstStudyPlanAsCurrent() {
+        student.setFirstStudyPlanAsCurrent();
     }
 
     /**
@@ -91,8 +105,6 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
-
-
 
     /**
      * Removes the given course in the given year and study period, for the current student
@@ -264,10 +276,10 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      * Method removes a given study plan if it exists.
-     * @param studyPlan Study plan of users decision to delete.
+     * @param studyPlanID Study plan of users decision to delete.
      */
-    public void removeStudyPlan(StudyPlan studyPlan) {
-        student.removeStudyPlan((StudyPlan) studyPlan);
+    public void removeStudyPlan(Integer studyPlanID) {
+        student.removeStudyPlan(studyPlanID);
     }
 
     private static Student getStudentFromStudyPlanSaverLoader(){

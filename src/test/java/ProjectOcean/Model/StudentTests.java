@@ -108,8 +108,8 @@ public class StudentTests {
         student.addStudyPlanAsCurrent();
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
 
-        StudyPlan sp = student.getAllStudyPlans().get(0);
-        student.removeStudyPlan(sp);
+        Integer spID = student.getAllStudyPlans().get(0).getID();
+        student.removeStudyPlan(spID);
         Assert.assertTrue(student.getAllStudyPlans().size() == 0);
     }
 

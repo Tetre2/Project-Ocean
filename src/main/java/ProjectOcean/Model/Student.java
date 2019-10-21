@@ -70,38 +70,50 @@ public class Student {
     public void addStudyPlanAsCurrent() {
         StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
-        setCurrentStudyPlan(studyPlan);
+        setCurrentStudyPlan(studyPlan.getID());
     }
 
     /**
      * Method removes a given study plan if it exists.
-     * @param studyPlan Study plan of users decision to delete.
+     * @param studyPlanID Study plan of users decision to delete.
      */
-    public void removeStudyPlan(StudyPlan studyPlan) {
-        if (studyPlanExists(studyPlan)) {
-            studyPlans.remove(studyPlan);
+    public void removeStudyPlan(Integer studyPlanID) {
+        if (studyPlanExists(studyPlanID)) {
+            studyPlans.remove(getStudyPlanByID(studyPlanID));
         }
     }
 
     /**
      * Set a given study plan as current, active.
-     * @param studyPlan A study plan to assign as current.
+     * @param studyPlanID A study plan to assign as current.
      */
-    public void setCurrentStudyPlan(StudyPlan studyPlan) {
-        if (studyPlanExists(studyPlan)) {
-            this.currentStudyPlan = studyPlan;
+    public void setCurrentStudyPlan(Integer studyPlanID) {
+        if (studyPlanExists(studyPlanID)) {
+            this.currentStudyPlan = getStudyPlanByID(studyPlanID);
         }
+    }
+
+    private StudyPlan getStudyPlanByID(Integer studyPlanID) {
+        StudyPlan studyPlan = null;
+        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
+            StudyPlan sp = it.next();
+            if (sp.getID().equals(studyPlanID)) {
+                studyPlan = sp;
+                break;
+            }
+        }
+        return studyPlan;
     }
 
     /**
      * Method checks whether some study plan is an element in the list of study plans
-     * @param studyPlan Some study plan
+     * @param studyPlanID Some study plan
      * @return True if given study plan exists in the list studyPlans, otherwise false
      */
-    private boolean studyPlanExists(StudyPlan studyPlan) {
+    private boolean studyPlanExists(Integer studyPlanID) {
         for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
             StudyPlan sp = it.next();
-            if (sp == studyPlan) {
+            if (sp.getID().equals(studyPlanID)) {
                 return true;
             }
         }
@@ -151,6 +163,26 @@ public class Student {
      */
     public void removeAllCoursesInWorkscpace(){
         workspace.removeAllCourses();
+    }
+
+    /**
+     * @return A list of id:s of all study plans
+     */
+    public List<Integer> getStudyPeriodIds() {
+        List<Integer> ids = new ArrayList<>();
+        for (StudyPlan sp : studyPlans) {
+            Integer id = sp.getID();
+            ids.add(id);
+        }
+        return ids;
+    }
+
+    /**
+     * Set first study plan as current.
+     */
+    public void setFirstStudyPlanAsCurrent() {
+        StudyPlan sp = studyPlans.get(0);
+        setCurrentStudyPlan(sp.getID());
     }
 
     /**

@@ -12,8 +12,14 @@ public class StudyPlan {
 
     private List<Year> years;
 
+    private Integer ID;
+    private static Integer studyPlansCreated = 0;
+
     public StudyPlan() {
         years = new ArrayList<>();
+
+            this.ID = studyPlansCreated;
+            studyPlansCreated++;
     }
 
     /**
@@ -80,6 +86,13 @@ public class StudyPlan {
      */
     public List<Year> getYears() {
         return Collections.unmodifiableList(years);
+    }
+
+    /**
+     * @return Returns the ID of this study plan
+     */
+    public Integer getID() {
+        return this.ID;
     }
 
     /**
