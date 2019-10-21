@@ -22,12 +22,9 @@ import javafx.scene.layout.VBox;
 
 public class ApplicationController extends AnchorPane {
 
-    @FXML
-    private VBox contentWindow;
-    @FXML
-    private AnchorPane dragFeature;
-    @FXML
-    private AnchorPane searchBrowseWindow;
+    @FXML private VBox contentWindow;
+    @FXML private AnchorPane dragFeature;
+    @FXML private AnchorPane searchBrowseWindow;
 
     private final CoursePlanningSystem model;
     private final SearchBrowseController searchBrowseController;
