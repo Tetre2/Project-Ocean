@@ -241,12 +241,4 @@ public class CoursePlanningSystem extends Observable {
         }
     }
 
-    /**
-     * Adds a ICourse to the model
-     * @param iCourse is the course to be added to the model
-     */
-    public void addCourseToModel(ICourse iCourse){
-        courses.add((Course) iCourse);
-    }
-
 }
