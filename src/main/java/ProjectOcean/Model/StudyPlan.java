@@ -85,7 +85,7 @@ public class StudyPlan {
     }
 
     /**
-     * @returns the id of a studyplan
+     * @returns the id of a studyPlan
      */
     public int getId() {
         return id;

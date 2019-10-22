@@ -89,7 +89,7 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @param course is a Icourse for a specific course
+     * @param course is a ICourse for a specific course
      * @return returns the Course corresponding to the given UUID
      */
     public Course getCourse(ICourse course) {
@@ -98,7 +98,7 @@ public class CoursePlanningSystem extends Observable {
 
     /**
      *
-     * @param searchText: A string of search terms seperated by blankspaces
+     * @param searchText: A string of search terms separated by blank spaces
      * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
      */
     public List<ICourse> executeSearch(String searchText) {
@@ -112,7 +112,7 @@ public class CoursePlanningSystem extends Observable {
     }
 
     private String[] trimString(String searchText) {
-        //Trims away unnecessary blankspaces, makes them lowercase and splits the terms into a array.
+        //Trims away unnecessary blank spaces, makes them lowercase and splits the terms into a array.
         searchText = searchText.trim();
         searchText = searchText.toLowerCase();
         searchText = searchText.trim().replaceAll(" +", " ");
@@ -135,8 +135,8 @@ public class CoursePlanningSystem extends Observable {
         for (ICourse c : courses) {
             //Makes a list of course types that is lower case for this course c.
             List<String> courseTypesLowerString = new ArrayList<>();
-            for(String coursetype : c.getCourseTypes()) {
-                courseTypesLowerString.add(coursetype.toLowerCase());
+            for(String courseType : c.getCourseTypes()) {
+                courseTypesLowerString.add(courseType.toLowerCase());
             }
             //Goes through the search terms and see if they match the lower-case course type list
             //for this course
@@ -161,7 +161,7 @@ public class CoursePlanningSystem extends Observable {
     }
 
     private void matchExaminerAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
-        //For each search term, searches through each courses examinor for matches and
+        //For each search term, searches through each courses examiner for matches and
         // if found adds the course to search result.
         for(String s : searchTerms) {
             for(ICourse c : courses) {
@@ -211,14 +211,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @param studyPlans is the list of studyplans to be set in the model
+     * @param studyPlans is the list of studyPlans to be set in the model
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         student.setStudyPlans(studyPlans);
     }
 
     /**
-     * @param currentStudyPlan is the studyplan to be set as the current studyplan in the model
+     * @param currentStudyPlan is the studyPlan to be set as the current studyPlan in the model
      */
     public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
         student.setCurrentStudyPlan(currentStudyPlan);

@@ -46,7 +46,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     //--------------Save---------------
     /**
-     * Saves the users studyplans and workspace to the userHomeDir
+     * Saves the users studyPlans and workspace to the userHomeDir
      * @param model is what will being saved
      */
     @Override
@@ -56,33 +56,33 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         jsonStudent.put("version", VERSION);
 
-        jsonStudent.put("studyplans", createJSONStudyplans(model.getStudent()));
+        jsonStudent.put("studyplans", createJSONStudyPlans(model.getStudent()));
 
         jsonStudent.put("workspace", createJSONWorkspace(model.getStudent()));
 
-        jsonStudent.put("currentStudyPlan", createJSONCurrentStudyPlanPointerToStudyplans(model.getStudent()));
+        jsonStudent.put("currentStudyPlan", createJSONCurrentStudyPlanPointerToStudyPlans(model.getStudent()));
 
         writeToFile(jsonStudent);
 
     }
 
-    private static JSONArray createJSONStudyplans(Student student){
-        //jsonStudyplans contains all studyplans
+    private static JSONArray createJSONStudyPlans(Student student){
+        //jsonStudyPlans contains all studyPlans
         JSONArray jsonStudyPlans = new JSONArray();
         List<StudyPlan> studyPlans = student.getAllStudyPlans();
 
         for (StudyPlan studyplan : studyPlans) {
-            //represents a studyplan
-            JSONObject jsonStudyplan = new JSONObject();
-            jsonStudyplan.put("id", studyplan.getId());
-            jsonStudyplan.put("years", createJSONYearArray(studyplan));
-            jsonStudyPlans.add(jsonStudyplan);
+            //represents a studyPlan
+            JSONObject jsonStudyPlan = new JSONObject();
+            jsonStudyPlan.put("id", studyplan.getId());
+            jsonStudyPlan.put("years", createJSONYearArray(studyplan));
+            jsonStudyPlans.add(jsonStudyPlan);
         }
         return jsonStudyPlans;
     }
 
     private static JSONArray createJSONWorkspace(Student student){
-        //adds all courses in workspace to studyplan
+        //adds all courses in workspace to studyPlan
         JSONArray workspace = new JSONArray();
         for (Course course : student.getAllCoursesInWorkspace()) {
             workspace.add(course.getCourseCode());
@@ -90,12 +90,12 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         return workspace;
     }
 
-    private static int createJSONCurrentStudyPlanPointerToStudyplans(Student student){
+    private static int createJSONCurrentStudyPlanPointerToStudyPlans(Student student){
         return student.getAllStudyPlans().indexOf(student.getCurrentStudyPlan());
     }
 
     private static JSONArray createJSONYearArray(StudyPlan studyPlan){
-        //adds all years to jsonStudyplan
+        //adds all years to jsonStudyPlan
         JSONArray jsonYears = new JSONArray();
         for (Year year : studyPlan.getYears()) {
             jsonYears.add(createJSONStudyPeriodArray(year));
@@ -104,16 +104,16 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     private static JSONArray createJSONStudyPeriodArray(Year year){
-        //adds all studyperiods in a year to jsonYears
-        JSONArray jsonStudyperiods = new JSONArray();
+        //adds all studyPeriods in a year to jsonYears
+        JSONArray jsonStudyPeriods = new JSONArray();
         for (StudyPeriod studyPeriod : year.getStudyPeriods()) {
-            jsonStudyperiods.add(createJSONStudyPeriodObject(studyPeriod));
+            jsonStudyPeriods.add(createJSONStudyPeriodObject(studyPeriod));
         }
-        return jsonStudyperiods;
+        return jsonStudyPeriods;
     }
 
     private static JSONObject createJSONStudyPeriodObject(StudyPeriod studyPeriod){
-        //adds Course1 and Course2 to a studyperiod
+        //adds Course1 and Course2 to a studyPeriod
         JSONObject jsonStudyPeriod = new JSONObject();
 
         String course1 = ((studyPeriod.getCourse1() == null) ? "null" : studyPeriod.getCourse1().getCourseCode());
@@ -142,12 +142,12 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     //--------------Load---------------
     /**
-     * Loads a list of studyplans from the users home dir if the file cant be find throws a exeption
-     * @return returns a list of the loaded studyplanes
-     * @exception throws a exeption if file cant be found
+     * Loads a list of studyPlans from the users home dir if the file cant be find throws a exception
+     * @return returns a list of the loaded studyPlanes
+     * @exception throws a exception if file cant be found
      */
     @Override
-    public List<StudyPlan> loadStudyplans() throws StudyPlanNotFoundException, OldFileException {
+    public List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -160,9 +160,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     /**
-     * Loads a studyplan from the users home dir if the file cant be find throws a exeption
-     * @return returns a studyplane
-     * @exception throws a exeption if file cant be found
+     * Loads a studyPlan from the users home dir if the file cant be find throws a exception
+     * @return returns a studyPlane
+     * @exception throws a exception if file cant be found
      */
     @Override
     public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
@@ -178,9 +178,9 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     /**
-     * Loads a workspace from the users home dir if the file cant be find throws a exeption
+     * Loads a workspace from the users home dir if the file cant be find throws a exception
      * @return returns a workspace
-     * @exception throws a exeption if file cant be found
+     * @exception throws a exception if file cant be found
      */
     @Override
     public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException {
@@ -215,15 +215,15 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     private static List<StudyPlan> createStudyPlansFromJSON(JSONObject jsonObject){
 
-        JSONArray jsonStudyplans = (JSONArray) jsonObject.get("studyplans");
+        JSONArray jsonStudyPlans = (JSONArray) jsonObject.get("studyplans");
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (int studyplanIndex = 1; studyplanIndex <= jsonStudyplans.size(); studyplanIndex++) {
+        for (int studyPlanIndex = 1; studyPlanIndex <= jsonStudyPlans.size(); studyPlanIndex++) {
 
-            JSONObject jsonStudyplan = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
-            JSONArray jsonYearArr = (JSONArray) jsonStudyplan.get("years");
+            JSONObject jsonStudyPlan = (JSONObject) jsonStudyPlans.get(studyPlanIndex-1);
+            JSONArray jsonYearArr = (JSONArray) jsonStudyPlan.get("years");
 
-            StudyPlan studyPlan = new StudyPlan((int)(long)jsonStudyplan.get("id"));
+            StudyPlan studyPlan = new StudyPlan((int)(long)jsonStudyPlan.get("id"));
 
             addJSONYearsToStudyPlan(studyPlan, jsonYearArr);
 
@@ -278,7 +278,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     /**
      * Reads the file in the users home dir and creates a list from that
-     * @return returns a list of studyplans
+     * @return returns a list of studyPlans
      * @throws IOException
      * @throws ParseException
      */

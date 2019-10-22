@@ -11,21 +11,21 @@ import java.util.List;
 public interface IStudyPlanSaverLoader {
 
     /**
-     * Saves the students studyplans to a file
+     * Saves the students studyPlans to a file
      * @param model the model
      */
     void saveModel(CoursePlanningSystem model);
 
     /**
-     * tries to load all studyplans saved in the JSON file
-     * @return a list of studyplans
+     * tries to load all studyPlans saved in the JSON file
+     * @return a list of studyPlans
      * @throws StudyPlanNotFoundException
      */
-    List<StudyPlan> loadStudyplans() throws StudyPlanNotFoundException, OldFileException;
+    List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException;
 
     /**
-     * tries to load the current studyplan saved in the JSON file
-     * @return a studyplan
+     * tries to load the current studyPlan saved in the JSON file
+     * @return a studyPlan
      * @throws StudyPlanNotFoundException
      */
     StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException;

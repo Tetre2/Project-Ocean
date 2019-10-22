@@ -95,8 +95,8 @@ public class ApplicationController extends AnchorPane {
     private void initiateModel() {
         tryLoadCoursesFromJSON();
         tryLoadWorkspaceFromJSON();
-        tryLoadStudyplansFromJSON();
-        tryLoadCurrentStudyplanFromJSON();
+        tryLoadStudyPlansFromJSON();
+        tryLoadCurrentStudyPlanFromJSON();
     }
 
     private void tryLoadCoursesFromJSON() {
@@ -138,10 +138,10 @@ public class ApplicationController extends AnchorPane {
         }
     }
 
-    private void tryLoadStudyplansFromJSON() {
+    private void tryLoadStudyPlansFromJSON() {
         Alert alert = null;
         try {
-            model.setStudyPlans(studyPlanSaverLoader.loadStudyplans());
+            model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
         }  catch (StudyPlanNotFoundException e) {
             alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
@@ -159,7 +159,7 @@ public class ApplicationController extends AnchorPane {
         }
     }
 
-    private void tryLoadCurrentStudyplanFromJSON(){
+    private void tryLoadCurrentStudyPlanFromJSON(){
         Alert alert = null;
         try {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));

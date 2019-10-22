@@ -64,12 +64,12 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void setCurrentStudyPlanTest(){
-        StudyPlan currentStudyplan = studyPlans.get(0);
+        StudyPlan currentStudyPlan = studyPlans.get(0);
 
-        Assert.assertFalse(model.getStudent().getCurrentStudyPlan().equals(currentStudyplan));
-        currentStudyplan = studyPlans.get(1);
-        model.setCurrentStudyPlan(currentStudyplan);
-        Assert.assertTrue(model.getStudent().getCurrentStudyPlan().equals(currentStudyplan));
+        Assert.assertFalse(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
+        currentStudyPlan = studyPlans.get(1);
+        model.setCurrentStudyPlan(currentStudyPlan);
+        Assert.assertTrue(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
     }
 
     @Test
@@ -200,7 +200,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void executeSearchTest() {
-        //Test searching for examinor
+        //Test searching for examiner
         String searchText = "sÖDerStrÖM Rolf";
         List<ICourse> searchResult;
         searchResult = model.executeSearch(searchText);

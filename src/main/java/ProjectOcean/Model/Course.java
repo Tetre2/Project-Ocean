@@ -125,7 +125,7 @@ public class Course implements ICourse {
     }
 
     /**
-     * @return this course's examinator
+     * @return this course's examiner
      */
     @Override
     public String getExaminer() {

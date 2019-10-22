@@ -136,7 +136,7 @@
                         <RowConstraints vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="searchField" maxHeight="30.0" minHeight="30.0" onAction="#onActionSearchField" prefHeight="30.0" promptText="Search here, seperate terms with blankspace">
+                        <TextField fx:id="searchField" maxHeight="30.0" minHeight="30.0" onAction="#onActionSearchField" prefHeight="30.0" promptText="Search here, separate terms with blank space">
                            <GridPane.margin>
                               <Insets bottom="2.0" left="2.0" right="1.0" top="2.0" />
                            </GridPane.margin>

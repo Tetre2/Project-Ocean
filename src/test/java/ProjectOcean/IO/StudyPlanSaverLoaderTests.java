@@ -4,7 +4,6 @@ import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.Course;
-import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;
 import ProjectOcean.Model.Workspace;
 import ProjectOcean.Model.*;
@@ -64,7 +63,7 @@ public class StudyPlanSaverLoaderTests {
     }
 
     @Test
-    public void saveStudyplansTest(){
+    public void saveStudyPlansTest(){
         saverLoader.saveModel(model);
 
     }
@@ -92,11 +91,11 @@ public class StudyPlanSaverLoaderTests {
     }
 
     @Test
-    public void loadStudyplans(){
+    public void loadStudyPlans(){
         try {
 
             List<StudyPlan> expected = model.getStudent().getAllStudyPlans();
-            List<StudyPlan> actual = saverLoader.loadStudyplans();
+            List<StudyPlan> actual = saverLoader.loadStudyPlans();
 
             if(expected.size()== actual.size()){
                 for (StudyPlan studyPlan : expected) {

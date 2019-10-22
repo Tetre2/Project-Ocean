@@ -66,7 +66,7 @@ public class Student {
     }
 
     /**
-     * @return all studyplans
+     * @return all studyPlans
      */
     public List<StudyPlan> getAllStudyPlans() {
         return Collections.unmodifiableList(studyPlans);
@@ -104,14 +104,14 @@ public class Student {
     }
 
     /**
-     * @param studyPlans is the list of studyplans to be set in the model
+     * @param studyPlans is the list of studyPlans to be set in the model
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         this.studyPlans = studyPlans;
     }
 
     /**
-     * @param currentStudyPlan is the studyplan to be set as the current studyplan in the model
+     * @param currentStudyPlan is the studyPlan to be set as the current studyplan in the model
      */
     public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
         this.currentStudyPlan = currentStudyPlan;

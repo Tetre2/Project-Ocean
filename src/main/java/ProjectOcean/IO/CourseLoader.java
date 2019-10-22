@@ -57,7 +57,7 @@ public class CourseLoader implements ICourseLoader {
 
         //loops through all "courses"
         for (Object courseObject : studyPlans) {
-            ICourse course = createCourseFronJSONObject(courseObject);
+            ICourse course = createCourseFromJSONObject(courseObject);
             courses.add(course);
 
         }
@@ -65,7 +65,7 @@ public class CourseLoader implements ICourseLoader {
         return courses;
     }
 
-    private ICourse createCourseFronJSONObject(Object object){
+    private ICourse createCourseFromJSONObject(Object object){
         //casts the "course" to a jsonObject to be able to access the info
         JSONObject jsonObject = (JSONObject) object;
 
@@ -114,7 +114,7 @@ public class CourseLoader implements ICourseLoader {
         //creates a file with the path to the courses.json
         File file = new File(getClass().getClassLoader().getResource("courses.json").getFile());
 
-        //Creates a filereader which reads the courses.json and creates it as a jsonArray
+        //Creates a fileReader which reads the courses.json and creates it as a jsonArray
         FileReader fileReader = new FileReader(file);
         Object parsed = parser.parse(fileReader);
         return (JSONObject) parsed;

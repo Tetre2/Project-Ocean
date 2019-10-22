@@ -52,7 +52,7 @@ public class Year implements IYear{
     }
 
     /**
-     * @return returns all studyperiods
+     * @return returns all studyPeriods
      */
     public List<StudyPeriod> getStudyPeriods() {
         return Collections.unmodifiableList(studyPeriods);
