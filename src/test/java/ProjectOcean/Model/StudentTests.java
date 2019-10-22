@@ -13,64 +13,70 @@ public class StudentTests {
     int yearNumber;
     int slot;
 
+    Course course1;
+    Course course2;
+
     @Before
     public void before() {
         studyPeriod = 1;
         yearNumber = 1;
         slot = 1;
+
+        course1 = CourseFactory.CreateCourse(
+                "BAT123",
+                "Beroendespecifika paradigmer",
+                "7.5",
+                "3",
+                "Anders Bölinge",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("")));
+
+        course2 = CourseFactory.CreateCourse(
+                "Dat123",
+                "Maskinprogramering",
+                "7.5",
+                "1",
+                "Anders Brölinge",
+                "Tenta",
+                "Svenska",
+                new ArrayList<>(),
+                "www.google.com",
+                "Lorem Ipsum",
+                new ArrayList<>(Arrays.asList("")));
+
     }
 
     @Test
     public void addCourseTest() {
         Student student = new Student();
         student.addYear();
-        ICourse course = CourseFactory.CreateCourse(
-                "BAT123",
-                "Beroendespecifika paradigmer",
-                "7.5",
-                "3",
-                "Anders Bölinge",
-                "Tenta",
-                "Svenska",
-                new ArrayList<>(),
-                "www.google.com",
-                "Lorem Ipsum",
-                new ArrayList<>(Arrays.asList("")));
 
         Year year = student.getCurrentStudyPlan().getYearByOrder(1);
-        student.addCourse(course, year.getID(), studyPeriod, slot);
+        student.addCourse(course1, year.getID(), studyPeriod, slot);
 
         int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
         ICourse actual = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
-        Assert.assertEquals(course, actual);
+        Assert.assertEquals(course1, actual);
     }
 
     @Test
     public void removeCourseTest() {
         Student student = new Student();
         student.getCurrentStudyPlan().addYear();
-        ICourse course = CourseFactory.CreateCourse(
-                "BAT123",
-                "Beroendespecifika paradigmer",
-                "7.5",
-                "3",
-                "Anders Bölinge",
-                "Tenta",
-                "Svenska",
-                new ArrayList<>(),
-                "www.google.com",
-                "Lorem Ipsum",
-                new ArrayList<>(Arrays.asList("")));
         Year year = student.getCurrentStudyPlan().getYearByOrder(1);
 
-        student.addCourse(course, year.getID(), studyPeriod, slot);
+        student.addCourse(course1, year.getID(), studyPeriod, slot);
 
         int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
         ICourse actual = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
-        Assert.assertEquals(course, actual);
+        Assert.assertEquals(course1, actual);
 
         student.removeCourse(student.getCurrentStudyPlan().getYearByOrder(1).getID(), studyPeriod, slot);
-        course = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
+        ICourse course = student.getCurrentStudyPlan().getYear(yearID).getStudyPeriod(studyPeriod).getCourse1();
         Assert.assertNull(course);
     }
 
@@ -98,6 +104,12 @@ public class StudentTests {
         yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
         year = student.getCurrentStudyPlan().getYear(yearID);
         Assert.assertNull(year);
+    }
+
+    @Test
+    public void equalsTest(){
+        Assert.assertTrue(course1.equals(course1));
+        Assert.assertFalse(course2.equals(course1));
     }
 
 }
