@@ -13,7 +13,7 @@ public class StudyPlanSaverLoaderTests {
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
     private CourseLoader courseSaverLoader = new CourseLoader();
     private List<StudyPlan> studyPlans;
-    private Student student;
+    private Student student = new Student();
     private CoursePlanningSystem model;
     private List<ICourse> courses;
 

@@ -67,12 +67,12 @@ public class ScheduleController extends VBox implements Observer {
         years = model.getYears();
         yearControllers.clear();
         int yearIndex = 0;
+
         for (IYear y :
                 years) {
             yearIndex++;
             yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen, yearIndex ));
         }
-
     }
 
     @FXML

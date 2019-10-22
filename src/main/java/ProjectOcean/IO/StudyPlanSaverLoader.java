@@ -184,6 +184,10 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
     private static StudyPlan createCurrentStudyPlanFromJSON(JSONObject jsonObject, List<StudyPlan> studyPlans){
         int studyPlanPointer = (int)(long) jsonObject.get("currentStudyPlan");
+
+        if(studyPlanPointer == -1)
+            return null;
+
         return studyPlans.get(studyPlanPointer);
     }
 
@@ -206,7 +210,6 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         List<StudyPlan> studyPlans = new ArrayList<>();
 
         for (int studyplanIndex = 1; studyplanIndex <= jsonStudyplans.size(); studyplanIndex++) {
-
             JSONObject jsonStudyplan = (JSONObject) jsonStudyplans.get(studyplanIndex-1);
             JSONArray jsonYearArr = (JSONArray) jsonStudyplan.get("years");
 
@@ -306,7 +309,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
             file.mkdirs();
 
         CoursePlanningSystem model = CoursePlanningSystem.getInstance();
-        StudyPlan studyPlan = new StudyPlan(0);
+        StudyPlan studyPlan = new StudyPlan();
         model.setStudyPlans(Arrays.asList(studyPlan));
         model.setWorkspace(new Workspace());
         model.setCurrentStudyPlan(studyPlan);
