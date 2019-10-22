@@ -77,9 +77,7 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     private void deactivateStudyPlanButton() {
         StudyPlanButtonController spbController = getCurrStudyPlansButtonController();
-        if (spbController != null) {
-            spbController.deactivateButton();
-        }
+        spbController.deactivateButton();
     }
 
     private StudyPlanButtonController getCurrStudyPlansButtonController() {
