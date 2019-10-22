@@ -12,10 +12,18 @@ public class StudyPlan {
 
     private List<Year> years;
     private final int id;
+    private static int studyPlansCreatedDuringRuntime = 0;
 
     public StudyPlan(int id) {
         this.id = id;
         years = new ArrayList<>();
+        studyPlansCreatedDuringRuntime++;
+    }
+
+    public StudyPlan() {
+        this.id = studyPlansCreatedDuringRuntime;
+        years = new ArrayList<>();
+        studyPlansCreatedDuringRuntime++;
     }
 
     /**

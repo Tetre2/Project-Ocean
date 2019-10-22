@@ -98,19 +98,20 @@ public class StudentTests {
 
     @Test
     public void addStudyPlan() {
-        Assert.assertTrue(student.getAllStudyPlans().size() == 0);
-        student.addStudyPlanAsCurrent();
+
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+        student.addStudyPlanAsCurrent();
+        Assert.assertTrue(student.getAllStudyPlans().size() == 2);
     }
 
     @Test
     public void removeStudyPlan() {
         student.addStudyPlanAsCurrent();
-        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+        Assert.assertTrue(student.getAllStudyPlans().size() == 2);
 
         int spId = student.getAllStudyPlans().get(0).getId();
         student.removeStudyPlan(spId);
-        Assert.assertTrue(student.getAllStudyPlans().size() == 0);
+        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
     }
 
 }

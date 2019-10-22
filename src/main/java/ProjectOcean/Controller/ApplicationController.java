@@ -45,7 +45,8 @@ public class ApplicationController extends AnchorPane {
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
-        detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
+        this.detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -59,6 +60,7 @@ public class ApplicationController extends AnchorPane {
         }
 
         instantiateChildControllers();
+        showCurrentStudyPlan();
     }
 
     /**
@@ -114,7 +116,7 @@ public class ApplicationController extends AnchorPane {
      * Remove the active study plan in the content window: ScheduleController
      */
     private void removeCurrentScheduleController() {
-            contentWindow.getChildren().remove(1);
+        contentWindow.getChildren().remove(1);
     }
 
     private void instantiateChildControllers() {

@@ -14,7 +14,7 @@ public class Student {
     public Student() {
         //if CoursePlaningSystem does not set the instance variables they should be defaulted
         //these will be overwritten if we set these from CoursePlaningSystem
-        this.currentStudyPlan = new StudyPlan(0);
+        this.currentStudyPlan = new StudyPlan();
         studyPlans = new ArrayList<>();
         studyPlans.add(currentStudyPlan);
         workspace = new Workspace();
@@ -59,8 +59,7 @@ public class Student {
      * Adds a new study plan to last place in list studyPlans and set it to current
      */
     public void addStudyPlanAsCurrent() {
-        int nStudyPlans = studyPlans.size();
-        StudyPlan studyPlan = new StudyPlan(nStudyPlans);
+        StudyPlan studyPlan = new StudyPlan();
         studyPlans.add(studyPlan);
         setCurrentStudyPlan(studyPlan.getId());
     }

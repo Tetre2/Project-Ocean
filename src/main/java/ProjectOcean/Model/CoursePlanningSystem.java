@@ -27,10 +27,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @return all years in the student's current study plan IYears
+     * @return all years in the student's current study plan as IYears.
+     * Instead returns a list of null if current study plan doesn't exist.
      */
     public List<IYear> getYears(){
+        if(student.getCurrentStudyPlan() == null)
+            return Collections.unmodifiableList(new ArrayList<Year>());
         List<Year> years = student.getCurrentStudyPlan().getYears();
+
         return Collections.unmodifiableList(new ArrayList<>(years));
     }
 
