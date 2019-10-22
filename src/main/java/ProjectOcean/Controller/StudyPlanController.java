@@ -23,7 +23,6 @@ public class StudyPlanController extends VBox implements Observer {
     @FXML private Button addYearButton;
     private CoursePlanningSystem model;
 
-    private List<IYear> years;
     private final List<YearController> yearControllers;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
@@ -66,7 +65,7 @@ public class StudyPlanController extends VBox implements Observer {
     }
 
     private void updateControllerAccordingToModel() {
-        years = model.getYears();
+        List<IYear> years = model.getYears();
         yearControllers.clear();
         int yearIndex = 0;
         for (IYear y :

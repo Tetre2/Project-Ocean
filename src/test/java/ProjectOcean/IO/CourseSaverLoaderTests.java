@@ -12,12 +12,11 @@ import java.util.List;
 public class CourseSaverLoaderTests {
 
     private CourseLoader courseSaverLoader;
-    private List<ICourse> courses;
 
     @Before
     public void init(){
         courseSaverLoader = new CourseLoader();
-        courses = new ArrayList<>();
+        List<ICourse> courses = new ArrayList<>();
 
         List<ICourse> loadedCourses = null;
         try {
