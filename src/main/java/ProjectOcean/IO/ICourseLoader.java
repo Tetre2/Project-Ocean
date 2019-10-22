@@ -14,8 +14,4 @@ public interface ICourseLoader {
      */
     List<ICourse> loadCoursesFile() throws CoursesNotFoundException, OldFileException;
 
-    void createCoursesFile();
-
-
-
 }

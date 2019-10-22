@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.Course;
@@ -25,7 +26,13 @@ public class StudyPlanSaverLoaderTests {
     @Before
     public void setup(){
         studyPlans = new ArrayList<>();
-        courses = courseSaverLoader.generatePreDefinedCourses();
+        try {
+            courses = courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
         saverLoader.createNewStudentFile();
 
         //---- studyPlan 1 ----

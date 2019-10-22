@@ -1,0 +1,298 @@
+{
+	"courses": [
+		{
+			"studyPeriod": "1",
+			"courseName": "Grundläggande datorteknik",
+			"courseCode": "EDA433",
+			"examiner": "Rolf Söderström",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27769&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta + Laborationer",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen ska ge förståelse av datorns uppbyggnad och funktionssätt och därigenom en mycket god teoretisk och praktisk grund för fortsatta studier i såväl datortekniska som programmeringstekniska kurser.\n\nInnehåll:\n* Digitalteknikens grundläggande element och begrepp och olika talsystem.\n* Boolesk algebras användning för konstruktion av kombinatoriska nät och synkrona sekvensnät.\n* Datorns digitala byggblock (ALU, dataväg, styrenhet, minne, in- och ut- enheter).\n* Den traditionsenliga processorns uppbyggnad (dataväg och styrenhet med instruktionsuppsättning) som en synkront arbetande digitalmaskin.\n* Kodning i maskinspråk och assemblerspråk.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "1",
+			"courseName": "Grundläggande programvaruutveckling",
+			"courseCode": "TDA548",
+			"examiner": "Joachim von Hacht",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28460&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta + Laborationer",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nDen här kursen är en introduktion till imperativ programmering och programvaruutveckling. Kursen syftar till att ge grundläggande färdigheter i programmeringsmässig problemlösning med imperativa metoder, och ge en första inblick i programmerandet som hantverk.\n\nInnehåll:\nI kursen används programspråket Java. Följande moment behandlas:\n* variabler, uttryck och satser, prioritet, metoder, parameteröverföring, rekursion\n* fält och inläsning från en användare\n* enkla typer och referenstyper, typomvandling\n* grundläggande objektorienterade begrepp såsom klasser, objekt, metoder och instansvariabler\n* olika tester på likhet, kanonisk form för klasser\n* grundläggande arv och gränssnitt (interfaces)\n* standardklasser för grafiska användargränssnitt\n* händelser och lyssnare\n* felhantering med hjälp av undantag\n* sökning på Internet efter dokumentation för standardklasser\n* några av klasserna i Javas API",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Objektorienterad programmering och design",
+			"courseCode": "TDA552",
+			"examiner": "Alex Gerdes",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27211&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Munta + Inlämningsuppgift",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nProgramvaruutveckling är centralt för en civilingenjör inom informationsteknik. Kursen presenterar det objektorienterade programmeringsparadigmet och lägger stor vikt vid design av objektorienterade program.\n\nInnehåll:\nKursen presenterar det objektorienterade programmeringsparadigmet och lägger stor vikt vid programkonstruktion och design.\n\nBegreppsapparat och teknik utökas och fördjupas: metoder, objekt, abstrakta- och anonyma klasser, initiering, polymorfism, överlagring och överskuggning,implementations- och gränssnittsarv, användning generiska typer, konstruktion av enkla generiska klasser, felhantering, immutabilitet och defensive copying, och introduktion till trådar och trådsäkerhet m.m.\n\n",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Diskret matematik",
+			"courseCode": "TMV200",
+			"examiner": "Mårten Wadenbäck",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28303&parsergrp=2",
+			"courseTypes": [
+				"Matematik"
+			],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen ger grundläggande kunskaper om diskreta matematiska strukturer som behövs för högskolestudier, främst sådana som har anknytning till datorer och programering.\n\nInnehåll:\nKursen är uppdelad i tre teman. Inom varje tema studeras relevanta matematiska begrepp. Vissa kursmoment, såsom bevisföring, återkommer i fler teman. Kursens teman är:\n* Logik, relationer och funktioner, och bevis\n* Heltalsaritmetik och RSA-algoritmen\n* Kombinatorik och grafer\nVissa grundläggande begrepp såsom mängder och funktioner introduceras i den introduktionskurs som föregår denna kurs, men de fördjupas och spelar en roll även i denna kurs.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "3",
+			"courseName": "Maskinorienterad programmering",
+			"courseCode": "DAT017",
+			"examiner": "Roger Johansson",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28459&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta + Laborationer",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursens syfte är att vara en introduktion till konstruktion av små inbyggda system och att ge en förståelse för hur imperativa styrstrukturer översätts till assembler samt för de svårigheter som uppstår vid programmering av händelsestyrda system med flera indatakällor.\n\nInnehåll:\nSchemalagd undervisning bes",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "3",
+			"courseName": "Kommunikation och ingenjörskompetens",
+			"courseCode": "LSP310",
+			"examiner": "Fia Christina Börjeson",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28459&parsergrp=2",
+			"courseTypes": [],
+			"examinationMeans": "Inlämning + Muntlig presentation",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nUnder första året syftar kursen Kommunikation och ingenjörskompetens till att tydliggöra rollen som IT-ingenjör, vad som krävs av en ingenjör och skapa motivation för fortsatta studier.\nVidare syftar kursen till att fördjupa studenternas kommunikativa kompetenser och träna skrivande och muntlig framställning. Kursen avser att skapa språklig medvetenhet och arbeta med varseblivning om vilka faktorer som styr och utgör effektiv kommunikation.\n\nInnehåll:\nKommunikationskursen omfattar både muntlig och skriftlig framställning. De moment som rör skrivande och skrivprocessen är t.ex. textmedvetenhet och färdighet i textproduktion. Vidare finns inslag av textanalys, retorik, källkritik, textlayout. Viss betoning ligger på rapportskrivning och innefattar genomgång och diskussion av skrivregler med avseende på den tekniska rapporten och vetenskaplig text.\n\nGenomgående innehåller kursen diskussioner kring och metodik för textförbättring, anpassning, av information till olika målgrupper och kommunikationssituationer och från text till tal. Stil- och språkriktighetsfrågor i skrift såväl som tal diskuteras genomgående i syfte att ge en allmän orientering i det samtida språket.\n\nUtöver de större skrivuppgifterna som ligger till grund för examinationen genomförs under kursens gång också en hel del skrivövningar, både i klassrummet och mellan lektionerna i form av inlämningsuppgifter.\n\nInom ramen för Ingenjörskompetensdelen bjuds personer från näringsliv och högskola in för att få en översiktlig bild av yrkesroller och kompetenser kopplade till Informationsteknik. Föreläsningarna har olika tema som förutom olika yrkesroller kan handla om entreprenörskap, konsultrollen, hållbar utveckling osv. Genom reflektion kopplar studenten det som sagts till sig själv och sin kommande roll som ingenjör.\nInom ramen för gruppdynamik betonas innehåll/process, värderingar, gruppnormer, gruppers utvecklingsprocess, målfokusering, grupproller, feedback, personliga styrkor.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "3",
+			"courseName": "Linjär Algebra",
+			"courseCode": "TMV206",
+			"examiner": "Lukás Malý",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27506&parsergrp=2",
+			"courseTypes": [
+				"Matematik"
+			],
+			"examinationMeans": "Tenta + Laborationer",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nLinjär algebra är ett matematiskt verktyg som används inom alla vetenskaper som använder matematik och är därför ett oundgängligt redskap för i stort sett alla civilingenjörer. Detta gäller inte minst för ingenjörer inom datavetenskap som har massor av tillämpningar av linjär algebra. Det slutgiltliga syftet är därför att du som ingenjör skall vara redo att betrakta nya problem utifrån dina kunskaper i linjär algebra och kunna angripa problemen med dessa nya verktyg.\n\nInnehåll:\nGeometriska vektorer:\nSkalärprodukt, vektorprodukt, linjärkombinationer, ortogonal projektion, koordinatsystem, linjer och plan.\nMatrisalgebra:\nAddition, multiplikation, transponat, identitet och invers.\nLinjära avbildningar:\nMatrisrepresentation, geometriska avbildningar, sammansättning och invers.\nVektorer i godtycklig dimension:\nGeneralisering av de geometriska begreppen till godtycklig dimension.\nLinjära ekvationssystem:\nMatrisform, lösningsmängd, Gausselimination och minstakvadratlösning.\nDeterminant:\nDefinition, beräkning och geometrisk tolkning.\nBaser och linjärt oberoende:\nByta bas i koordinatsystem och för linjär avbildning, ON-bas och ON-matris.\nEgenvärden och egenvektorer:\nKarakteristisk ekvation, spektralsatser, diagonalisering och potensmetoden.\nGrafer och grannmatriser:\nGrafbegrepp, övergångsmatris, slumpvandring, stationär fördelning och Markovkedja.\n",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "4",
+			"courseName": "Design och konstruktion av grafiska gränssnitt",
+			"courseCode": "DAT216",
+			"examiner": "Olof Torgersson",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27928&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta + Projektrapport",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nI princip alla datorprogram som ska användas av människor använder sig idag av grafiska gränssnitt. Att utveckla dessa innebär inte bara en förståelse av hur dessa kan implementeras utan även att man har en förståelse för de som ska använda programmen. Kursen ger praktisk erfarenhet i dessa två aspekter genom ett grupprojekt som ger en fördjupning av delmomentet kring grafiska komponenter från kursen Objektorienterad programvaruutveckling. Projektets mål är att utveckla en applikation för en specifik användargrupp och att genom att låta dessa testa programmet iterativt förbättra det.\n\nInnehåll:\nKursen innehåller en genomgång av standardklasserna i ett välutvecklat\ngrafiskt bibliotek, en översikt över vilka riktlinjer som krävs för att\nskapa lättanvända gränssnitt samt metoder för att iterativt utveckla och\nförbättra ett gränssnitt.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "1",
+			"courseName": "Matematisk Analys",
+			"courseCode": "MVE045",
+			"examiner": "Zoran Konkoli",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27512&parsergrp=2",
+			"courseTypes": [
+				"Matematik"
+			],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursens syfte är att, tillsammans med övriga matematikkurser, ge en matematisk allmänbildning användbar i fortsatta studier och yrkesverksamhet. Kursen skall ge kunskaper i envariabelanalys nödvändiga för övriga kurser inom IT-programmet.\n\nInnehåll\nGrundläggande analys i en variabel: elementära funktioner, gränsvärdesbegeppet, kontinuitet och deriverbarhet för reella funktioner, medelvärdessatsen, Riemannintegralen, primitiva funktioner och kopplingen till integraler, tillämpningar av intregralberäkningar på volymer av kroppar och längden av kurvor, enklare differentialekvationer, Taylorutvecklingar och approximationer av funktioner, komplexa tal",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Datastrukturer och algoritmer",
+			"courseCode": "TDA416",
+			"examiner": "Erland Holmström",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27945&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta + Laborationer",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen skall ge goda kunskaper om vanligt förekommande abstrakta datatyper, datastrukturer och algoritmer, samt hur dessa används.\n\nInnehåll:\nAbstrakta datatyper. Enkel komplexitetsanalys av imperativ kod. Vanliga datastrukturer som fält, listor, träd och hashtabeller samt hur dessa kan användas för att implementera abstrakta datatyper som köer, prioritetsköer, lexika och grafer. Standardalgoritmer på dessa datastrukturer och deras resurskrav. Iteratorer. Metoder för sortering. Standardbibliotek för datastrukturer och algoritmer. Något om vanliga tekniker för algoritmdesign.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "4",
+			"courseName": "Software engineering project",
+			"courseCode": "DAT256",
+			"examiner": "Jan-Philipp Steghöfer",
+			"language": "Engelska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28608&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Rapport",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen syftar till att ge studenterna grundläggande kunskap och en första erfarenhet av mjukvaruutveckling genom praktiskt projektarbete.\n\nInnehåll:\nKursen ger en praktisk introduktion till mjukvaruutveckling. Studenterna kommer att arbeta med ett öppet problem som definieras av en eller flera intressenter utanför studenternas arbetslag. Studenter får alltså inte själva bestämma projektets inriktning. För att hantera den utmaningen lär sig studenterna:\n\n* en mjukvaruutvecklingsprocess för att strukturera arbete\n* specificering och utvärdering av krav och samarbete med intressenter för att det som levereras ska anses värdefullt\n* nya teknologier och verktyg och lämpliga sätt att använda de på för att realisera sitt värdeerbjudande genom att utforma egna lärandestrategier\n* organisera sig själva i lag för att nå gemensamma mål med begränsade resurser\n* reflektera över sitt egna arbete och lärande för att möjliggöra kontinuerlig förbättring av sitt egna arbetssätt",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "4",
+			"courseName": "Matematisk statistik och diskret matematik",
+			"courseCode": "MVE051",
+			"examiner": "Nancy Abdallah",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28161&parsergrp=2",
+			"courseTypes": [
+				"Matematik"
+			],
+			"examinationMeans": "Tenta + Inlämningsuppgifter",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen avser att ge\n- Förståelse av grundläggande sannolikhetslära, statistik och kombinatorik som är viktig för tekniska studier i allmänhet och studier i informationsteknologi i synnerhet.\n- Färdighet i att förstå och använda det matematiska språket.\n- Förmåga att kommunicera matematik.\n\nInnehåll\nKursen består av olika teman. Inom varje tema studeras relevanta matematiska begrepp. Samma kursmoment återkommer, i fördjupad framställning, i flera teman.\nDe moment som ingår i kursen är:\n- Sannolikhetslära och Markovkedjor -- stokastiska variabler, väntevärde, varians, korrelation, betingade sannolikheter, stora talens lag, centrala gränsvärdessatsen.\n- Statistik -- skattningar, konfidensintervall, test.\n- Kombinatorik -- kombinationer, permutationer, genererande funktioner.\n\nI sannolikhetsläran läggs tonvikten på diskreta modeller.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "1",
+			"courseName": "Teknik för ett hållbart globalt samhälle",
+			"courseCode": "ITS024",
+			"examiner": "Catharina Landström",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28433&parsergrp=2",
+			"courseTypes": [],
+			"examinationMeans": "Tenta + Inlämningsuppgifter",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nKursen syftar till att både introducera grundläggande kunskaper inom området hållbar utveckling samt metoder och verktyg för uthålligare IT-utveckling och IT-användning.\n\nKursen syftar till att ge en förståelse för de komplexa sammanhang som påverkar hållbarhetsanpassning av produkter och tjänster sett ur ett livscykelperspektiv samt att erbjuda möjligheter att reflektera kring IT-ingenjörens möjligheter att på olika nivåer och områden medverka till ett hållbart samhälle.\n\nEn viktig utgångspunkt är att kursens olika moment skall ge kunskaper och möjligheter att träna på att bryta ner komplexa hållbarhetsfrågeställningar till hanterbara delproblem som ligger inom IT-ingenjörens påverkansområden.\n\nInnehåll:\n- Fördjupning i hållbar utveckling\n- IT-ingenjörens roll i ett hållbart samhälle\n- Att formulera utvecklingsprojekt utifrån hållbarhetsprinciper\n- Historiska perspektiv på IT och hållbar utveckling\n- Att genomföra en nulägesanalys\n- Konkreta exempel på pågående IT- och hållbarhetsprojekt\n- Livscykelanalyser\n- Politiska styrmedel\n- Ekonomisk tillväxt, frikoppling och rekyleffekt\n- Metoder för urval och genomförande av IT- och hållbarhetsprojekt",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Modelldriven mjukvaruutveckling",
+			"courseCode": "TDA593",
+			"examiner": "Patrizio Pelliccione",
+			"language": "Engelska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=28506&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Projeckt",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nModel-driven system development (MDSD) has become a popular way of building software systems. The promise of MDSD is to improve the quality of the developed systems, including extensibility, reusability, and maintainability. The purpose of this course is to show how models can be profitably used during the development of software systems.\n\nInnehåll:\nIn this course we will critically analyse the use of models during system development processes. We will introduce different types of models and we will discuss on the benefits and limitations of using them in practical environments. We will discuss on how to identify the right abstraction level, according to the purpose of the models and to the intended consumers.\n\nWe will introduce both static and behavioural models, we will introduce executable models, and we will explain how to generate code from models.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "4",
+			"courseName": "Kommunikation engelska och ingenjörskompetens",
+			"courseCode": "TDA518",
+			"examiner": "Raffaella Negretti",
+			"language": "Svenska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27880&parsergrp=2",
+			"courseTypes": [],
+			"examinationMeans": "Inlämningsupgift ",
+			"requiredCourses": [],
+			"courseDescription": "Syfte:\nIngenjörskompetensmomentet av kursen syftar till att göra teknologen medveten om de kompetenser som behövs för framtida studier och yrkesliv samt öka förmågan att reflektera över hur hon/han, med sina individuella förutsättningar, på ett systematiskt sätt kan bygga upp samt dokumentera sin utveckling.\n\nKursens kommunikationskompetensdel sker på engelska, med syfte att öka elevernas förståelse av olika genrer av kommunikation i sin disciplin, som akademisk och yrkesmässig, och deras förmåga att tillämpa denna kunskap för att kommunicera på ett effektivt sätt på engelska både i tal och skrift, för att förbereda dem inför framtida studier och yrkesliv.\n\nInnehåll:\nKursdelen ingenjörskompetens börjar i lp 3 och innehåller flera olika delar; karriärplanering i grupp, seminarier/workshops och ett studiebesök. Karriärplanering i grupp syftar till att reflektera över den egna rollen. Övningar kring individens starka sidor, intressen, värderingar, färdigheter och viktiga erfarenheter görs både individuellt och i grupp. Möten med arbetslivet sker i olika former som seminarier/workshops och ett studiebesök i grupp hos en IT-ingenjör i industrin. Studiebesöket följs av rapportskrivning och en powerpoint-presentation. Sista momentet är en individuell självreflektion där den egna karriärplaneringen ska kopplas ihop med studiebesöket.\n\nDen engelska delen av kursen syftar till att utveckla en mängd kritiskt tänkande som är nödvändiga för effektiv kommunikation i professionella och akademiska sammanhang. Även om fokus är på engelska, är målet att utveckla läsning, skrivning och kommunikativa strategier som kan överföras till andra sammanhang och språk. Av denna anledning omfattar kursen aktiviteter som läsning och analys av ämnes relevanta vetenskapliga texter (till exempel konferensbidrag), översikt och praktik av effektiva retoriska strukturer i skrift, peer-review och reflektion för planering och självbedövning, och individuell engelsk grammatik praktiken. Kursen kräver av studenterna att tillämpa dessa kunskaper i skrift och i tal, genom att producera en text som kritiskt granskar kunskaper inom en disciplin-relevant område och argumenterar för en synpunkt, och genom att presentera detta arbete och ge feedback till andra.",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "3",
+			"courseName": "Beroendespecifika paradigmer",
+			"courseCode": "BAT123",
+			"examiner": "Anders Bölinge",
+			"language": "Svenska",
+			"coursePMLink": "www.chalmers.se",
+			"courseTypes": [],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Lorem ipsum",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Complex system",
+			"courseCode": "CAT123",
+			"examiner": "Anders Fölinge",
+			"language": "Engelska",
+			"coursePMLink": "www.chalmers.se",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Lorem ipsum",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "4",
+			"courseName": "Datavetenskap",
+			"courseCode": "DAT321",
+			"examiner": "Anders Bölinge",
+			"language": "Svenska",
+			"coursePMLink": "www.chalmers.se",
+			"courseTypes": [
+				"Informationsteknik"
+			],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Lorem ipsum",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "1",
+			"courseName": "Fysik för ingenjörer",
+			"courseCode": "FAT321",
+			"examiner": "Anders Brölinge",
+			"language": "Svenska",
+			"coursePMLink": "www.chalmers.se",
+			"courseTypes": [
+				"Naturvetenskap"
+			],
+			"examinationMeans": "Tenta",
+			"requiredCourses": [],
+			"courseDescription": "Lorem ipsum",
+			"studyPoints": "7.5"
+		},
+		{
+			"studyPeriod": "2",
+			"courseName": "Ändliga automater och formella språk",
+			"courseCode": "TMV027",
+			"examiner": "Ana Bove",
+			"language": "Engelska",
+			"coursePMLink": "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/sidor/sokprogramutbudet.aspx?course_id=18397&parsergrp=2",
+			"courseTypes": [
+				"Informationsteknik",
+				"Matematik"
+			],
+			"examinationMeans": "Tenta/hemuppgifter",
+			"requiredCourses": [],
+			"courseDescription": "Lorem Ipsum",
+			"studyPoints": "7.5"
+		}
+	],
+	"version": 2
+}

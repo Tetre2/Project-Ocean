@@ -19,7 +19,16 @@ public class CourseSaverLoaderTests {
         courseSaverLoader = new CourseLoader();
         courses = new ArrayList<>();
 
-        for (ICourse course : courseSaverLoader.generatePreDefinedCourses()) {
+        List<ICourse> loadedCourses = null;
+        try {
+            loadedCourses = courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+
+        for (ICourse course : loadedCourses) {
             courses.add(course);
         }
 
@@ -34,55 +43,6 @@ public class CourseSaverLoaderTests {
         } catch (OldFileException e) {
             Assert.assertFalse(true);
         }
-    }
-
-
-    @Test
-    public void saveCourses(){
-        courseSaverLoader.savePreMadeCourses();
-    }
-
-    @Test
-    public void createCoursesFileTest(){
-        courseSaverLoader.createCoursesFile();
-
-        try {
-            Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
-        } catch (CoursesNotFoundException e) {
-            e.printStackTrace();
-        } catch (OldFileException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void saveIsSameAsLoad(){
-
-        courseSaverLoader.savePreMadeCourses();
-
-        try {
-            courses = courseSaverLoader.loadCoursesFile();
-        } catch (CoursesNotFoundException e) {
-            Assert.assertFalse(true);
-        } catch (OldFileException e) {
-            Assert.assertFalse(true);
-        }
-
-        List<ICourse> courseList = null;
-
-        try {
-            courseList = courseSaverLoader.loadCoursesFile();
-        } catch (CoursesNotFoundException e) {
-            e.printStackTrace();
-        } catch (OldFileException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < courseList.size(); i++) {
-            Assert.assertTrue(courses.get(i).equals(courseList.get(i)));
-        }
-
     }
 
 }

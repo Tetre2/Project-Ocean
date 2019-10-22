@@ -100,31 +100,37 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadCoursesFromJSON() {
+        Alert alert = null;
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
             return;
         } catch (CoursesNotFoundException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Could not find/load courses!\n" + "You have probably removed/moved the courses.json file from its origin\n" + "Try to download the program again", ButtonType.CLOSE);
+            alert.showAndWait();
         }catch (OldFileException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Old courses!\n" + "Update the program", ButtonType.CLOSE);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
-            courseSaveLoader.createCoursesFile();
-            tryLoadCoursesFromJSON();
-        } else {
+        if (alert.getResult() == ButtonType.CLOSE) {
             System.exit(0);
         }
 
     }
 
     private void tryLoadWorkspaceFromJSON(){
+        Alert alert = null;
         try {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
         } catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
             tryLoadWorkspaceFromJSON();
         } else {
@@ -133,41 +139,45 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadStudyplansFromJSON() {
+        Alert alert = null;
         try {
             model.setStudyPlans(studyPlanSaverLoader.loadStudyplans());
             return;
-        } catch (StudyPlanNotFoundException e) {
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
-            tryLoadStudyplansFromJSON();
+            tryLoadWorkspaceFromJSON();
         } else {
             System.exit(0);
         }
     }
 
     private void tryLoadCurrentStudyplanFromJSON(){
+        Alert alert = null;
         try {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
-        } catch (StudyPlanNotFoundException e) {
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
-            tryLoadCurrentStudyplanFromJSON();
+            tryLoadWorkspaceFromJSON();
         } else {
             System.exit(0);
         }
-    }
-
-    private ButtonType showAndGetResultFromDialogBox(){
-        Alert alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-        return alert.getResult();
     }
 
     /**

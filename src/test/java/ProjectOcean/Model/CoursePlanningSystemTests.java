@@ -1,6 +1,10 @@
 package ProjectOcean.Model;
 
 import ProjectOcean.IO.CourseLoader;
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.ICourseLoader;
+import ProjectOcean.IO.SaverLoaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +15,7 @@ public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
     private List<ICourse> courses;
+    private ICourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
 
     private int studyPeriod;
     private int slot;
@@ -21,7 +26,16 @@ public class CoursePlanningSystemTests {
         courses = new ArrayList<>();
         List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (ICourse course : CourseLoader.generatePreDefinedCourses()) {
+        List<ICourse> loadedCourses = null;
+        try {
+            loadedCourses = courseLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+
+        for (ICourse course : loadedCourses) {
             courses.add(course);
         }
 

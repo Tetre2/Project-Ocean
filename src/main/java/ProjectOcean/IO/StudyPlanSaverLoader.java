@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.CoursePlanningSystem;
@@ -28,7 +29,17 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static final int VERSION = 1;
     private static JSONParser parser = new JSONParser();
     private static CourseLoader courseSaverLoader = new CourseLoader();
-    private static List<ICourse> courses = courseSaverLoader.generatePreDefinedCourses();
+    private static List<ICourse> courses;
+    //not nice but needed
+    static {
+        try {
+            courses = courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+    }
 
     StudyPlanSaverLoader() {
     }
