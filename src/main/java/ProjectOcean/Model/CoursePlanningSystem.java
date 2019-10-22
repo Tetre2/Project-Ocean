@@ -65,12 +65,19 @@ public class CoursePlanningSystem extends Observable {
         notifyObservers();
     }
 
+    /**
+     * Creates a new year instance and adds it to the list of years, in the study plan
+     */
     public void addYear() {
         student.addYear();
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Removes the year specified by the index, in the study plan
+     * @param id the year to be removed
+     */
     public void removeYear(int id) {
         student.removeYear(id);
         setChanged();
