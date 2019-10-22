@@ -13,14 +13,12 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.util.List;
 
 /**
  * Represents the visual component of a course
  */
-
 public class CourseListIconController extends VBox implements Movable {
 
     @FXML private Text courseCodeText;

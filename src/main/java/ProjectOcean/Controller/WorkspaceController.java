@@ -3,7 +3,6 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
 import ProjectOcean.Controller.FunctionalInterfaces.MoveDraggedObjectToCursor;
 import ProjectOcean.Controller.FunctionalInterfaces.RemoveMovableChild;
@@ -20,7 +19,6 @@ import javafx.scene.layout.VBox;
 /**
  * Controls the workspace in the application
  */
-
 public class WorkspaceController extends VBox implements Observer {
 
     @FXML private FlowPane workspaceContainer;

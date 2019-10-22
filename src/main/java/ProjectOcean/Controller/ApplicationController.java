@@ -1,6 +1,13 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
+
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
+import ProjectOcean.IO.ICourseLoader;
+import ProjectOcean.IO.IStudyPlanSaverLoader;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.SaverLoaderFactory;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -8,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -27,9 +36,12 @@ public class ApplicationController extends AnchorPane {
     private final WorkspaceController workspaceController;
     private final StudyPlanController studyPlanController;
     private static DetailedController detailedController;
+    private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.model = CoursePlanningSystem.getInstance();
+        initiateModel();
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
@@ -49,31 +61,25 @@ public class ApplicationController extends AnchorPane {
         instantiateChildControllers();
     }
 
-
-
     /**
      * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
      */
-    public void showStudyPlanWorkspaceWindow(){
+    public void showStudyPlanWorkspaceWindow() {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
         contentWindow.getChildren().add(studyPlanController);
     }
 
-
     @FXML
     private void onDragOver(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         moveDraggedObjectToCursor(draggedObject, event);
 
         event.consume();
-
     }
 
     @FXML
     private void onDragDone(DragEvent event) {
-
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
         event.consume();
@@ -86,26 +92,117 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().add(1, studyPlanController);
     }
 
+    private void initiateModel() {
+        tryLoadCoursesFromJSON();
+        tryLoadWorkspaceFromJSON();
+        tryLoadStudyPlansFromJSON();
+        tryLoadCurrentStudyPlanFromJSON();
+    }
+
+    private void tryLoadCoursesFromJSON() {
+        Alert alert = null;
+        try {
+            model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
+            return;
+        } catch (CoursesNotFoundException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Could not find/load courses!\n" + "You have probably removed/moved the courses.json file from its origin\n" + "Try to download the program again", ButtonType.CLOSE);
+            alert.showAndWait();
+        }catch (OldFileException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Old courses!\n" + "Update the program", ButtonType.CLOSE);
+            alert.showAndWait();
+        }
+        if (alert.getResult() == ButtonType.CLOSE) {
+            System.exit(0);
+        }
+
+    }
+
+    private void tryLoadWorkspaceFromJSON(){
+        Alert alert = null;
+        try {
+            model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
+            return;
+        } catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        }
+
+        if (alert.getResult() == ButtonType.YES) {
+            studyPlanSaverLoader.createNewStudentFile();
+            tryLoadWorkspaceFromJSON();
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void tryLoadStudyPlansFromJSON() {
+        Alert alert = null;
+        try {
+            model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
+            return;
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        }
+
+        if (alert.getResult() == ButtonType.YES) {
+            studyPlanSaverLoader.createNewStudentFile();
+            tryLoadWorkspaceFromJSON();
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void tryLoadCurrentStudyPlanFromJSON(){
+        Alert alert = null;
+        try {
+            model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
+            return;
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+        }
+
+        if (alert.getResult() == ButtonType.YES) {
+            studyPlanSaverLoader.createNewStudentFile();
+            tryLoadWorkspaceFromJSON();
+        } else {
+            System.exit(0);
+        }
+    }
+
     /**
      * Adds the icon to the drag surface
+     *
      * @param icon the movable icon to be added
      */
-    public void addIconToScreen(Movable icon){
-        dragFeature.getChildren().add((Node)icon);
+    public void addIconToScreen(Movable icon) {
+        dragFeature.getChildren().add((Node) icon);
     }
 
     /**
      * Moves the icon to the cursor position
-     * @param icon the icon to be moved
+     *
+     * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveDraggedObjectToCursor(Movable icon, DragEvent event){
+    public void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
 
     /**
      * Clears and adds a detailedController to the contentWindow
+     *
      * @param course the ICourse representing the course from which the details will be taken from
      */
     public void showDetailedInformationWindow(ICourse course) {
@@ -118,15 +215,15 @@ public class ApplicationController extends AnchorPane {
      * Method is called from the menubar in the view
      */
     @FXML
-    public void onSaveClicked(){
-        saveStudent();
+    public void onSaveClicked() {
+        saveModel();
     }
 
     /**
      * Method saves all properties of student in a json file
      */
-    public void saveStudent(){
-        model.saveStudentToJSON();
+    public void saveModel() {
+        studyPlanSaverLoader.saveModel(model);
     }
 
     private void removeMovableChild(Movable course) {

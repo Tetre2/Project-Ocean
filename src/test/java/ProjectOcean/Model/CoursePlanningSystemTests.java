@@ -1,6 +1,9 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CoursesSaverLoader;
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.ICourseLoader;
+import ProjectOcean.IO.SaverLoaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +14,8 @@ public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
     private List<ICourse> courses;
+    private ICourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private List<StudyPlan> studyPlans;
 
     private int studyPeriod;
     private int slot;
@@ -19,17 +24,62 @@ public class CoursePlanningSystemTests {
     public void init(){
         model = CoursePlanningSystem.getInstance();
         courses = new ArrayList<>();
-        List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (Course course : CoursesSaverLoader.generatePreDefinedCourses()) {
+        List<ICourse> loadedCourses = null;
+        try {
+            loadedCourses = courseLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+
+        for (ICourse course : loadedCourses) {
             courses.add(course);
         }
 
-        StudyPlan studyPlan = new StudyPlan();
-        studyPlans.add(studyPlan);
+        studyPlans = new ArrayList<>();
+        StudyPlan studyPlan1 = new StudyPlan(1);
+        StudyPlan studyPlan2 = new StudyPlan(2);
+        StudyPlan studyPlan3 = new StudyPlan(3);
+        StudyPlan studyPlan4 = new StudyPlan(4);
+        studyPlans.add(studyPlan1);
+        studyPlans.add(studyPlan2);
+        studyPlans.add(studyPlan3);
+        studyPlans.add(studyPlan4);
+
+        model.fillModelWithCourses(courses);
 
         studyPeriod = 1;
         slot = 1;
+
+    }
+
+    @Test
+    public void setStudyPlansTest(){
+        Assert.assertFalse(model.getStudent().getAllStudyPlans().equals(studyPlans));
+        model.setStudyPlans(studyPlans);
+        Assert.assertTrue(model.getStudent().getAllStudyPlans().equals(studyPlans));
+    }
+
+    @Test
+    public void setCurrentStudyPlanTest(){
+        StudyPlan currentStudyPlan = studyPlans.get(0);
+
+        Assert.assertFalse(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
+        currentStudyPlan = studyPlans.get(1);
+        model.setCurrentStudyPlan(currentStudyPlan);
+        Assert.assertTrue(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
+    }
+
+    @Test
+    public void setWorkspaceTest(){
+
+        Workspace workspace = new Workspace();
+
+        Assert.assertFalse(model.getStudent().getAllCoursesInWorkspace().equals(workspace));
+        model.setWorkspace(workspace);
+        Assert.assertTrue(model.getCoursesInWorkspace().equals(workspace.getAllCourses()));
 
     }
 
@@ -38,7 +88,15 @@ public class CoursePlanningSystemTests {
         List<ICourse> expected = courses;
         List<ICourse> actual = model.getAllCourses();
 
-        Assert.assertEquals(expected, actual);
+        if(expected.size() == actual.size()){
+            for (ICourse icourse : expected) {
+                if( ! actual.contains(icourse)){
+                    Assert.assertTrue(false);
+                }
+            }
+
+        }
+
     }
 
     @Test
@@ -95,7 +153,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void addCourseToWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
         model.addCourseToWorkspace(courses.get(0));
 
         Assert.assertEquals(courses.get(0), model.getCoursesInWorkspace().get(0));
@@ -103,7 +161,8 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getCoursesInWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
+
         Assert.assertEquals(0, model.getCoursesInWorkspace().size());
 
         model.addCourseToWorkspace(courses.get(0));
@@ -113,7 +172,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void removeCourseFromWorkspaceTest() {
-        model.removeAllCoursesInWorkscpace();
+        model.removeAllCoursesInWorkspace();
         model.addCourseToWorkspace(courses.get(0));
         Assert.assertEquals(courses.get(0), model.getCoursesInWorkspace().get(0));
 
@@ -141,9 +200,9 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void executeSearchTest() {
-        //Test searching for examinor
+        //Test searching for examiner
         String searchText = "sÖDerStrÖM Rolf";
-        List<ICourse> searchResult = model.executeSearch(searchText);
+        List<ICourse> searchResult;
         searchResult = model.executeSearch(searchText);
         Assert.assertTrue(searchResult.size()!=0);
         Assert.assertTrue(searchResult.get(0).getExaminer().toLowerCase().contains("söderström"));
@@ -162,11 +221,19 @@ public class CoursePlanningSystemTests {
         searchText = "Maskin  matematisk";
         searchResult = model.executeSearch(searchText);
         Assert.assertFalse(searchResult.isEmpty());
+        for(ICourse course : searchResult) {
+            boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
+            boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
+            Assert.assertTrue(containsFirstWord|| containsSecondWord);
+        }
+
+        //tests searching for course type
+        searchText = "Naturvetenskap";
+        searchResult = model.executeSearch(searchText);
+        Assert.assertFalse(searchResult.isEmpty());
         if(!searchResult.isEmpty()) {
             for(ICourse course : searchResult) {
-                boolean containsFirstWord = course.getCourseName().toLowerCase().contains("maskin");
-                boolean containsSecondWord = course.getCourseName().toLowerCase().contains("matematisk");
-                Assert.assertTrue(containsFirstWord|| containsSecondWord);
+                Assert.assertTrue(course.getCourseTypes().contains("Naturvetenskap"));
             }
         }
     }
@@ -203,4 +270,5 @@ public class CoursePlanningSystemTests {
         yearSizeAfter = model.getYears().size();
         Assert.assertEquals(yearSizeBefore, yearSizeAfter);
     }
+
 }
