@@ -220,8 +220,18 @@ public class YearController extends VBox implements Observer {
             Tuple<Integer, Integer> location = entry.getValue();
 
             if(entry.getKey() != null) {
-                yearGrid.add(
-                        new ScheduleCourseController(model, entry.getKey(), this.addIconToScreen, removeCourseFromSchedule), location.getStudyPeriod() - 1, location.getSlot() - 1);
+                ScheduleCourseController course = new ScheduleCourseController(
+                        model,
+                        entry.getKey(),
+                        this.addIconToScreen,
+                        removeCourseFromSchedule
+                ) ;
+                yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
+
+                //Check whether we add it to a "correct" study period and otherwise make the background orange.
+                if(Integer.parseInt(entry.getKey().getStudyPeriod()) != (location.getStudyPeriod())){
+                    course.setStyle("-fx-background-color: orange");
+                }
             }
         }
 
