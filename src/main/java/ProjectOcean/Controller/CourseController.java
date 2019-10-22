@@ -27,7 +27,6 @@ public class CourseController extends VBox implements Movable {
     @FXML private Text studyPointsText;
     @FXML private VBox typeIndicator;
 
-    private Node owner;
     private ClipboardContent content;
     private static CoursePlanningSystem model;
     private final ICourse course;
@@ -123,12 +122,8 @@ public class CourseController extends VBox implements Movable {
     @FXML
     private void dragDetected(MouseEvent event) {
 
-
-      //  CourseController draggedObject = getICourse();
-        owner = this.getParent();
+        Node owner = this.getParent();
         copyDraggedObjectToClipBoard(this);
-
-
 
         //Check from which parent the object started in and delete from the model.
         switch (owner.getId()){
@@ -139,7 +134,6 @@ public class CourseController extends VBox implements Movable {
                 //TODO Come back and fix a better solution.
                 YearController yearController = (YearController) owner.getParent().getParent().getParent();
                 yearController.removeCourse(course);
-                //  model.removeCourse();
             default:
         }
 
@@ -148,7 +142,6 @@ public class CourseController extends VBox implements Movable {
         CourseController draggedObject = new CourseController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
         addIconToScreen.addIconToScreen(draggedObject);
 
-
         draggedObject.startDragAndDrop(TransferMode.MOVE).setContent(content);
         draggedObject.setVisible(true);
         draggedObject.setMouseTransparent(true);
@@ -156,7 +149,6 @@ public class CourseController extends VBox implements Movable {
     }
 
     private void copyDraggedObjectToClipBoard(CourseController icon){
-
         content = new ClipboardContent();
         content.putString(icon.toString());
     }

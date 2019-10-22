@@ -1,12 +1,13 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Model.*;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
+import ProjectOcean.Model.Course;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
@@ -15,7 +16,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Observer;
+import java.util.Observable;
 
 /**
  * Represents the visual graphic component of a year.
@@ -34,7 +39,6 @@ public class YearController extends VBox implements Observer {
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
     private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
-    private ICourse courseTmp;
 
     public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.model = model;
@@ -102,22 +106,22 @@ public class YearController extends VBox implements Observer {
         model.deleteObserver(this);
     }
 
-    public void setGreenBorderColorInSlots(String studyPeriod){
-        //TODO gör sen
-        System.out.println("YEARGRID CHildren:" + yearGrid.getChildren());
 
+    /**
+     * Sets the border color of all slots based on where the dragged course will fit.
+     * @param studyPeriod of the course currently being dragged.
+     */
+    public void setBorderColorInSlots(String studyPeriod){
         List<Node> slots = yearGrid.getChildren();
 
         for (Node slot: slots) {
-            //Make sure that the group that displays the gridlines are not counted.
+            //Makes sure that the first element (a group) that displays the gridlines is not counted.
             if(slots.indexOf(slot) != 0) {
-               // System.out.println("SLOT: " + slot);
                 Integer column = 1 + GridPane.getColumnIndex(slot);
-                //int row = 1 +GridPane.getRowIndex(slot);
                 if (column == Integer.parseInt(studyPeriod)) {
-                    slot.setStyle("-fx-border-color: green;" + "-fx-border-width: 3;" + "-fx-border-radius: 3");
+                   slot.setStyle("-fx-border-color: green;" + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 } else {
-                    slot.setStyle("-fx-border-color: red;"  + "-fx-border-width: 3;" + "-fx-border-radius: 3");
+                   slot.setStyle("-fx-border-color: red;"  + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 }
             }
         }
@@ -151,51 +155,105 @@ public class YearController extends VBox implements Observer {
         }
     }
 
+    /**
+     * Gets called when the model is updated.
+     * @param o is the observable
+     * @param arg is an argument.
+     */
     @Override
     public void update(Observable o, Object arg) {
-       // System.out.println("UPDATE");
         updateCoursesInMap();
         displayAllCoursesInStudyPlan();
     }
 
     private void updateCoursesInMap(){
-        //TODO erase comments
-
         coursesInYear.clear();
-        //TODO Check with Fille that I use year.getID in the right way.
-        IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
+        if( year != null){
+            copyCoursesInModeltoMap();
+        }
+    }
 
-        //System.out.println("----------------\n");
-        if( y !=null){
-            for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
+    private void copyCoursesInModeltoMap(){
+        for (int studyPeriod = 1; studyPeriod <= year.getStudyPeriodsSize(); studyPeriod++) {
+            for (int slot = 1; slot <= 2; slot++) {
+                ICourse course = year.getCourseInStudyPeriod(studyPeriod,slot);
+                if(course != null) {
+                    coursesInYear.put( createNewCopyOfCourse(course), new Tuple<>(studyPeriod, slot));
+                }
+            }
+        }
+    }
+
+    private ICourse createNewCopyOfCourse(ICourse course){
+        return new Course(
+                course.getCourseCode(),
+                course.getCourseName(),
+                course.getStudyPoints(),
+                course.getStudyPeriod(),
+                course.getExaminer(),
+                course.getExaminationMeans(),
+                course.getLanguage(),
+                course.getRequiredCourses(),
+                course.getCoursePMLink(),
+                course.getCourseDescription(),
+                course.getCourseTypes()
+        );
+    }
+
+    /**
+     * Displays all the courses that are currently in the model's study plan
+     */
+    private void displayAllCoursesInStudyPlan(){
+        clearStudyPlanGridPane();
+        addCoursesFromMap();
+    }
+
+    private void clearStudyPlanGridPane() {
+        int nElements = yearGrid.getChildren().size() - 1;
+        for (int i = 0; i < nElements; i++) {
+            //Would be good if we could check it the element is "group" instead of relying on which order it are among the children.
+            yearGrid.getChildren().remove(1);
+        }
+    }
+
+    private void addCoursesFromMap() {
+        for(Map.Entry<ICourse,Tuple<Integer,Integer>> entry : coursesInYear.entrySet()){
+            Tuple<Integer, Integer> location = entry.getValue();
+
+            if(entry.getKey() != null){
+                addCourseControllerToYearGrid(entry, location);
+            }
+        }
+        fillEmptySlotsWithPanes();
+    }
+
+    private void addCourseControllerToYearGrid(Map.Entry<ICourse,Tuple<Integer,Integer>> entry, Tuple<Integer, Integer> location) {
+        CourseController course = new CourseController(
+                entry.getKey(),
+                model,
+                visualFeedback,
+                showDetailedInformationWindow,
+                this.addIconToScreen
+        ) ;
+        yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
+
+        if(courseIsInWrongStudyPeriod(entry.getKey(), location.getStudyPeriod())){
+            course.setStyle("-fx-background-color: orange");
+        }
+    }
+
+    private boolean courseIsInWrongStudyPeriod(ICourse course, int studyPeriod){
+        return Integer.parseInt(course.getStudyPeriod()) != (studyPeriod);
+    }
+
+    private void fillEmptySlotsWithPanes(){
+        if(year != null){
+            for (int studyPeriod = 1; studyPeriod <= year.getStudyPeriodsSize(); studyPeriod++) {
                 for (int slot = 1; slot <= 2; slot++) {
-                    ICourse course = y.getCourseInStudyPeriod(studyPeriod,slot);
-                    if(course != null) {
-                        courseTmp = new Course(
-                                course.getCourseCode(),
-                                course.getCourseName(),
-                                course.getStudyPoints(),
-                                course.getStudyPeriod(),
-                                course.getExaminer(),
-                                course.getExaminationMeans(),
-                                course.getLanguage(),
-                                course.getRequiredCourses(),
-                                course.getCoursePMLink(),
-                                course.getCourseDescription(),
-                                course.getCourseTypes()
-                        );
-
-                        coursesInYear.put( courseTmp , new Tuple<>(studyPeriod, slot));
-
-
-                    /*    System.out.println("COURSE CODE: "
-                                + courseTmp.getCourseCode()
-                                + " SP: "
-                                + coursesInYear.get(courseTmp).getStudyPeriod()
-                                + " S: "
-                                + coursesInYear.get(courseTmp).getSlot());*/
+                    ICourse course = year.getCourseInStudyPeriod(studyPeriod, slot);
+                    if (course == null) {
+                        yearGrid.add(new Pane(), studyPeriod - 1, slot - 1);
                     }
-
                 }
             }
         }
@@ -206,66 +264,10 @@ public class YearController extends VBox implements Observer {
      * @param course
      */
     public void removeCourse(ICourse course){
-        //TODO, do a try catch here or handle potential errors.
         Tuple<Integer, Integer> location = coursesInYear.get(course);
-        model.removeCourse(year.getID(), location.getStudyPeriod(), location.getSlot());
-    }
-
-    /**
-     * Displays all the courses that are currently in the model's study plan
-     */
-    private void displayAllCoursesInStudyPlan(){
-        clearStudyPlanGridPane();
-        addCourseControllersAccordingToModel();
-    }
-
-    private void clearStudyPlanGridPane() {
-        int nElements = yearGrid.getChildren().size() - 1;
-        for (int i = 0; i < nElements; i++) {
-         //   System.out.print(yearGrid.getChildren().get(1));
-            //TODO maybe do a check if the element is not a group instead?
-            yearGrid.getChildren().remove(1);
+        if(location != null){
+            model.removeCourse(year.getID(), location.getStudyPeriod(), location.getSlot());
         }
-    }
-
-    //TODO change name to actual thing
-    private void addCourseControllersAccordingToModel() {
-        for(Map.Entry<ICourse,Tuple<Integer,Integer>> entry : coursesInYear.entrySet()){
-            Tuple<Integer, Integer> location = entry.getValue();
-
-            if(entry.getKey() != null) {
-                CourseController course = new CourseController(
-                        entry.getKey(),
-                        model,
-                        visualFeedback,
-                        showDetailedInformationWindow,
-                        this.addIconToScreen
-                ) ;
-                yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
-
-                //Check whether we add it to a "correct" study period and otherwise make the background orange.
-                if(Integer.parseInt(entry.getKey().getStudyPeriod()) != (location.getStudyPeriod())){
-                    course.setStyle("-fx-background-color: orange");
-                }
-            }
-        }
-
-        //Checks where courses in the model are null so we can add empty panes in those slots. (Needed for visual feedback)
-        IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
-
-        if(y != null){
-            for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
-                for (int slot = 1; slot <= 2; slot++) {
-                    ICourse course = y.getCourseInStudyPeriod(studyPeriod, slot);
-                    if (course == null) {
-                        yearGrid.add(new Pane(), studyPeriod - 1, slot - 1);
-                    }
-                }
-            }
-        }
-
-      //  System.out.println(yearGrid.getChildren());
-
     }
 
     @FXML

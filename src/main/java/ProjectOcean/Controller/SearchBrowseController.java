@@ -94,8 +94,8 @@ public class SearchBrowseController extends AnchorPane {
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result
         for(ICourse course : filteredSearchResult) {
-            CourseController courseListIcon = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen);
-            searchResultVBox.getChildren().add(courseListIcon);
+            CourseController courseController = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen);
+            searchResultVBox.getChildren().add(courseController);
         }
     }
 

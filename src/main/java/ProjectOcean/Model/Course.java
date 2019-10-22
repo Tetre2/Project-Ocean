@@ -169,15 +169,6 @@ public class Course implements ICourse {
                 coursePMLink.equals(course.coursePMLink) &&
                 courseDescription.equals(course.courseDescription);
     }
-
-    /**
-     * @return a hash code
-     */
-    /*
-    @Override
-    public int hashCode() {
-        return Objects.hash(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
-    } */
 }
 
 

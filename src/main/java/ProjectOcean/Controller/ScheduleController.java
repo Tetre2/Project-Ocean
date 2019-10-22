@@ -69,27 +69,33 @@ public class ScheduleController extends VBox implements Observer {
         }
     }
 
+    /**
+     * Displays visual feedback depending on where the course is placed.
+     * @param course is the current object being drag and dropped.
+     */
     public void setVisualFeedbackForCoursePlacement(ICourse course){
         for (YearController yearController: yearControllers) {
-            yearController.setGreenBorderColorInSlots(course.getStudyPeriod());
+            yearController.setBorderColorInSlots(course.getStudyPeriod());
         }
     }
 
     private void updateControllerAccordingToModel() {
+        deleteObserversAndChildren();
+
         years = model.getYears();
+        int yearIndex = 0;
+
+        for (IYear y : years) {
+            yearIndex++;
+            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
+        }
+    }
+
+    private void deleteObserversAndChildren(){
         for (YearController yearController: yearControllers) {
             yearController.deleteFromObserver();
         }
-
         yearControllers.clear();
-        int yearIndex = 0;
-
-        for (IYear y :
-                years) {
-            yearIndex++;
-            //System.out.println("YEAR");
-            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
-        }
     }
 
     @FXML
