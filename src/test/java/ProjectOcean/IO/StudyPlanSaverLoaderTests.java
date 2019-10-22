@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.Course;
 import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;

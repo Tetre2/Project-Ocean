@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.Model.Course;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,7 +29,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public List<Course> loadCoursesFile() throws CoursesNotFoundException{
+    public List<Course> loadCoursesFile() throws CoursesNotFoundException {
         try {
             return readFromFile();
         } catch (ParseException e) {

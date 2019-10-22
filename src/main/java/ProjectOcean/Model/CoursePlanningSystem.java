@@ -1,6 +1,8 @@
 package ProjectOcean.Model;
 
 import ProjectOcean.IO.*;
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 
 import java.util.*;
 

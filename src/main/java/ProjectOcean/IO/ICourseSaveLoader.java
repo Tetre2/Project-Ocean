@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.Model.Course;
 
 import java.util.List;

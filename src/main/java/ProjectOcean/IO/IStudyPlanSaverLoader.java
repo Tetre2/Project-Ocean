@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.Student;
 
 public interface IStudyPlanSaverLoader {

@@ -1,5 +1,6 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
