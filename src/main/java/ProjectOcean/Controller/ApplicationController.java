@@ -24,17 +24,18 @@ import javafx.scene.layout.VBox;
 /**
  * Represents the root visual object, only contains empty containers
  */
-
 public class ApplicationController extends AnchorPane {
 
     @FXML private VBox contentWindow;
     @FXML private AnchorPane dragFeature;
     @FXML private AnchorPane searchBrowseWindow;
+    @FXML private AnchorPane studyPlanWindow;
 
     private final CoursePlanningSystem model;
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
     private final StudyPlanController studyPlanController;
+    private final StudyPlanSelectorController studyPlanSelectorController;
     private static DetailedController detailedController;
     private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
     private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
@@ -42,6 +43,7 @@ public class ApplicationController extends AnchorPane {
     public ApplicationController(HostServices hostServices) {
         this.model = CoursePlanningSystem.getInstance();
         initiateModel();
+        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
@@ -59,6 +61,7 @@ public class ApplicationController extends AnchorPane {
         }
 
         instantiateChildControllers();
+        showCurrentStudyPlan();
     }
 
     /**
@@ -74,7 +77,6 @@ public class ApplicationController extends AnchorPane {
     private void onDragOver(DragEvent event) {
         Movable draggedObject = (Movable) event.getGestureSource();
         moveDraggedObjectToCursor(draggedObject, event);
-
         event.consume();
     }
 
@@ -83,13 +85,46 @@ public class ApplicationController extends AnchorPane {
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
         event.consume();
+    }
 
+    @FXML
+    private void onDeleteClicked() {
+        studyPlanSelectorController.deleteCurrentStudyPlan();
+        studyPlanSelectorController.showAllStudyPlanButtons();
+        showCurrentStudyPlan();
+    }
+
+    private void showCurrentStudyPlan() {
+        if (isScheduleViewVisible()) {
+            removeCurrentScheduleController();
+        }
+        // Create and show a new Controller based on currentStudyPlan, if there is some study plan
+        if (studyPlanExists()) {
+            StudyPlanController studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);;
+            addNewStudyPlanController(studyPlanController);
+        }
+    }
+
+    private boolean isScheduleViewVisible() {
+        return contentWindow.getChildren().size() == 2;
+    }
+
+    private boolean studyPlanExists() {
+        return model.getAllStudyPlans().size() > 0;
+    }
+
+    /**
+     * Remove the active study plan in the content window: ScheduleController
+     */
+    private void removeCurrentScheduleController() {
+        contentWindow.getChildren().remove(1);
     }
 
     private void instantiateChildControllers() {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
         contentWindow.getChildren().add(1, studyPlanController);
+        studyPlanWindow.getChildren().add(studyPlanSelectorController);
     }
 
     private void initiateModel() {
@@ -224,6 +259,14 @@ public class ApplicationController extends AnchorPane {
      */
     public void saveModel() {
         studyPlanSaverLoader.saveModel(model);
+    }
+
+    /**
+     * Adds the study plan to be shown in the lower part of content window
+     * @param StudyPlanController the study plan to be shown
+     */
+    public void addNewStudyPlanController(StudyPlanController StudyPlanController) {
+        contentWindow.getChildren().add(1, StudyPlanController);
     }
 
     private void removeMovableChild(Movable course) {

@@ -31,10 +31,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * @return all years in the student's current study plan IYears
+     * @return all years in the student's current study plan as IYears.
+     * Instead returns a list of null if current study plan doesn't exist.
      */
     public List<IYear> getYears(){
+        if(student.getCurrentStudyPlan() == null)
+            return Collections.unmodifiableList(new ArrayList<Year>());
         List<Year> years = student.getCurrentStudyPlan().getYears();
+
         return Collections.unmodifiableList(new ArrayList<>(years));
     }
 
@@ -50,6 +54,35 @@ public class CoursePlanningSystem extends Observable {
      */
     public Student getStudent() {
         return student;
+    }
+
+    /**
+     * @return A list of id:s of all study plans
+     */
+    public List<Integer> getStudyPlanIds() {
+        return student.getStudyPlanIds();
+    }
+
+    /**
+     * Adds a study plan
+     */
+    public void addStudyPlan() {
+        student.addStudyPlanAsCurrent();
+    }
+
+    /**
+     * Set a given study plan as current, active.
+     * @param studyPlanID A study plan to assign as current.
+     */
+    public void setCurrentStudyPlan(Integer studyPlanID) {
+        student.setCurrentStudyPlan(studyPlanID);
+    }
+
+    /**
+     * Set first study plan as current.
+     */
+    public void setFirstStudyPlanAsCurrent() {
+        student.setFirstStudyPlanAsCurrent();
     }
 
     /**
@@ -188,6 +221,7 @@ public class CoursePlanningSystem extends Observable {
         setChanged();
         notifyObservers();
     }
+
     /**
      * Gets a list of all courses in the workspace.
      * @return a list of ICourses in workspace.
@@ -222,6 +256,32 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         student.setStudyPlans(studyPlans);
+    }
+
+    /**
+     * @return all studyPlans
+     */
+    public List<StudyPlan> getAllStudyPlans() {
+        List<StudyPlan> studyPlans = new ArrayList<>();
+        for (StudyPlan sp : student.getAllStudyPlans()) {
+            studyPlans.add(sp);
+        }
+        return studyPlans;
+    }
+
+    /**
+     * @return the student's current active study plan
+     */
+    public StudyPlan getCurrentStudyPlan() {
+        return student.getCurrentStudyPlan();
+    }
+
+    /**
+     * Method removes a given study plan if it exists.
+     * @param studyPlanID Study plan of users decision to delete.
+     */
+    public void removeStudyPlan(Integer studyPlanID) {
+        student.removeStudyPlan(studyPlanID);
     }
 
     /**
