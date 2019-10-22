@@ -28,17 +28,17 @@ public class YearController extends VBox implements Observer {
 
     private final CoursePlanningSystem model;
     private final IYear year;
-    private final RefactorDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
 
     private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
     private ICourse courseTmp;
 
 
-    public YearController(IYear year, CoursePlanningSystem model, RefactorDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
+    public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
         this.model = model;
         this.year = year;
-        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+        this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.coursesInYear = new HashMap<>();
 
@@ -69,7 +69,7 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable draggedObject = (Movable) event.getGestureSource();
 
-        moveDraggedObjectToCursor.relocateDraggedObjectToCursor(draggedObject, event);
+        relocateDraggedObjectToCursor.relocateDraggedObjectToCursor(draggedObject, event);
         event.consume();
     }
 
@@ -88,7 +88,7 @@ public class YearController extends VBox implements Observer {
         model.addCourse(icon.getICourse(), year.getID(), studyPeriod, slot);
 
         event.setDropCompleted(true);
-        moveDraggedObjectToCursor.relocateDraggedObjectToCursor(icon, event);
+        relocateDraggedObjectToCursor.relocateDraggedObjectToCursor(icon, event);
         event.consume();
     }
 

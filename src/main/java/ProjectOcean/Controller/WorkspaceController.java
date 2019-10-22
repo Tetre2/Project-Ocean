@@ -22,7 +22,7 @@ public class WorkspaceController extends VBox implements Observer {
     @FXML private FlowPane workspaceContainer;
 
     private final CoursePlanningSystem model;
-    private final RefactorDraggedObjectToCursor relocateDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
     private final RemoveMovableChild removeMovableChild;
@@ -30,7 +30,7 @@ public class WorkspaceController extends VBox implements Observer {
 
     public WorkspaceController(CoursePlanningSystem model,
                                VisualFeedback visualFeedback,
-                               RefactorDraggedObjectToCursor relocateDraggedObjectToCursor,
+                               RelocateDraggedObjectToCursor relocateDraggedObjectToCursor,
                                ShowDetailedInformationWindow showDetailedInformationWindow,
                                AddIconToScreen addIconToScreen,
                                RemoveMovableChild removeMovableChild) {

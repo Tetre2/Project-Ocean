@@ -25,12 +25,12 @@ public class ScheduleController extends VBox implements Observer {
 
     private List<IYear> years;
     private final List<YearController> yearControllers;
-    private final RefactorDraggedObjectToCursor refactorDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
 
 
-    public ScheduleController(CoursePlanningSystem model, RefactorDraggedObjectToCursor refactorDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
-        this.refactorDraggedObjectToCursor = refactorDraggedObjectToCursor;
+    public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
+        this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
         this.model = model;
@@ -79,7 +79,7 @@ public class ScheduleController extends VBox implements Observer {
         for (IYear y :
                 years) {
             yearIndex++;
-            yearControllers.add(new YearController(y, model, refactorDraggedObjectToCursor, addIconToScreen, yearIndex ));
+            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex ));
         }
 
     }

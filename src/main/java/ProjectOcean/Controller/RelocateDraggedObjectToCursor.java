@@ -3,7 +3,7 @@ package ProjectOcean.Controller;
 import javafx.scene.input.DragEvent;
 
 @FunctionalInterface
-public interface RefactorDraggedObjectToCursor {
+public interface RelocateDraggedObjectToCursor {
 
     /**
      * Moves the icon to the cursor position
