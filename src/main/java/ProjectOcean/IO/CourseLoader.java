@@ -1,6 +1,6 @@
 package ProjectOcean.IO;
-
-import ProjectOcean.Model.Course;
+import ProjectOcean.Model.CourseFactory;
+import ProjectOcean.Model.ICourse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CoursesSaverLoader implements ICourseSaveLoader{
+public class CourseLoader implements ICourseLoader {
 
     private static String fileName = "courses.json";
+    private static final int VERSION = 1;
     private static JSONParser parser = new JSONParser();
 
-    public CoursesSaverLoader() {
+    CourseLoader() {
     }
 
     /**
@@ -28,9 +29,11 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public List<Course> loadCoursesFile() throws CoursesNotFoundException{
+    public List<ICourse> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
+        if(!checkIfCorrectVersion())
+            throw new OldFileException();
         try {
-            return readFromFile();
+            return getCoursesFromJSON();
         } catch (ParseException e) {
             throw new CoursesNotFoundException();
         } catch (IOException e) {
@@ -54,23 +57,15 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * @throws IOException
      * @throws ParseException
      */
-    private static List<Course> readFromFile() throws IOException, ParseException {
-
-        //creates a file with the path to the courses.json
-        File file = new File(getHomeDirPath(), getFileName());
-
+    private static List<ICourse> getCoursesFromJSON() throws IOException, ParseException {
         //Map to return when method is done
-        List<Course> courses = new ArrayList<>();
+        List<ICourse> courses = new ArrayList<>();
 
-        //Creates a filereader which reads the courses.json and creates it as a jsonArray
-        FileReader fileReader = new FileReader(file);
-        Object parsed = parser.parse(fileReader);
-        JSONArray studyPlans = (JSONArray) parsed;
+        JSONArray studyPlans = (JSONArray) readFormFile().get("courses");
 
         //loops through all "courses"
-        for (Object object : studyPlans) {
-
-            Course course = createCourseFronJSONObject(object);
+        for (Object courseObject : studyPlans) {
+            ICourse course = createCourseFronJSONObject(courseObject);
             courses.add(course);
 
         }
@@ -78,7 +73,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         return courses;
     }
 
-    private static Course createCourseFronJSONObject(Object object){
+    private static ICourse createCourseFronJSONObject(Object object){
         //casts the "course" to a jsonObject to be able to access the info
         JSONObject jsonObject = (JSONObject) object;
 
@@ -95,7 +90,7 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
             courseTypes.add((String) obj);
         }
 
-        Course course = new Course(
+        ICourse course = CourseFactory.CreateCourse(
                 (String) jsonObject.get("courseCode"),
                 (String) jsonObject.get("courseName"),
                 (String) jsonObject.get("studyPoints"),
@@ -112,32 +107,16 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
     }
 
     /**
-     *
-     * @return returns the users home directory
-     */
-    static String getHomeDirPath() {
-        return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
-    }
-
-    /**
-     *
-     * @return returns the filename which holds courses
-     */
-    static String getFileName() {
-        return fileName;
-    }
-
-    /**
      * Saves a list of courses to a "courses.json" file in the user home dir.
      */
     static void savePreMadeCourses() {
         //creates the "main" array which contains all courses
+        JSONObject jsonObject = new JSONObject();
         JSONArray jsonCourses = new JSONArray();
 
-        List<Course> courses = generatePreDefinedCourses();
+        List<ICourse> courses = generatePreDefinedCourses();
 
-        for (Course course: courses) {
-
+        for (ICourse course: courses) {
             //creates a json object which represents a course
             JSONObject jsonCourse = new JSONObject();
 
@@ -162,10 +141,12 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
             jsonCourse.put("courseTypes", courseTypes);
 
             jsonCourses.add(jsonCourse);
-
         }
 
-        writeToFile(jsonCourses);
+        jsonObject.put("version",VERSION);
+        jsonObject.put("courses", jsonCourses);
+
+        writeToFile(jsonObject);
 
     }
 
@@ -173,8 +154,8 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
      * Creates courses a predefined list of courses
      * @return returns a list of courses
      */
-    public static List<Course> generatePreDefinedCourses(){
-        List<Course> courses = new ArrayList<>();
+    public static List<ICourse> generatePreDefinedCourses(){
+        List<ICourse> courses = new ArrayList<>();
 
         courses.add(createCourse("EDA433","Grundläggande datorteknik", "7.5", "1", "Rolf Söderström", "Tenta + Laborationer", "Svenska", new ArrayList<>(), "https://student.portal.chalmers.se/sv/chalmersstudier/programinformation/Sidor/SokProgramutbudet.aspx?course_id=27769&parsergrp=2", "Syfte:\n" +
                 "Kursen ska ge förståelse av datorns uppbyggnad och funktionssätt och därigenom en mycket god teoretisk och praktisk grund för fortsatta studier i såväl datortekniska som programmeringstekniska kurser.\n" +
@@ -362,9 +343,8 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         return courses;
     }
 
-
-    private static Course createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription, List<String> courseTypes){
-        return new Course(
+    private static ICourse createCourse(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription, List<String> courseTypes){
+        return CourseFactory.CreateCourse(
                 courseCode,
                 courseName,
                 studyPoints,
@@ -379,20 +359,58 @@ public class CoursesSaverLoader implements ICourseSaveLoader{
         );
     }
 
+    private static boolean checkIfCorrectVersion() throws CoursesNotFoundException{
+        try {
+            JSONObject jsonObject = readFormFile();
+            int version = (int)(long) jsonObject.get("version");
+            return version == VERSION;
+        } catch (IOException e) {
+            throw new CoursesNotFoundException();
+        } catch (ParseException e) {
+            throw new CoursesNotFoundException();
+        }
+    }
+
     /**
      * The actual method that creates the file and puts a json array in it
      *
-     * @param jsonArray is the array being saved
+     * @param jsonObject is the object being saved
      */
-    private static void writeToFile(JSONArray jsonArray) {
+    private static void writeToFile(JSONObject jsonObject) {
         try (FileWriter file = new FileWriter(new File(getHomeDirPath(), fileName))) {
 
-            file.write(jsonArray.toJSONString());
+            file.write(jsonObject.toJSONString());
             file.flush();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static JSONObject readFormFile() throws IOException, ParseException {
+        //creates a file with the path to the courses.json
+        File file = new File(getHomeDirPath(), getFileName());
+
+        //Creates a filereader which reads the courses.json and creates it as a jsonArray
+        FileReader fileReader = new FileReader(file);
+        Object parsed = parser.parse(fileReader);
+        return (JSONObject) parsed;
+    }
+
+    /**
+     *
+     * @return returns the users home directory
+     */
+    static String getHomeDirPath() {
+        return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
+    }
+
+    /**
+     *
+     * @return returns the filename which holds courses
+     */
+    static String getFileName() {
+        return fileName;
     }
 
 }

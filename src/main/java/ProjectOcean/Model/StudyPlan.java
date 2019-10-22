@@ -11,15 +11,11 @@ import java.util.Objects;
 public class StudyPlan {
 
     private List<Year> years;
+    private final int id;
 
-    private Integer ID;
-    private static Integer studyPlansCreated = 0;
-
-    public StudyPlan() {
+    public StudyPlan(int id) {
+        this.id = id;
         years = new ArrayList<>();
-
-            this.ID = studyPlansCreated;
-            studyPlansCreated++;
     }
 
     /**
@@ -89,10 +85,10 @@ public class StudyPlan {
     }
 
     /**
-     * @return Returns the ID of this study plan
+     * @return the id of a studyplan
      */
-    public Integer getID() {
-        return this.ID;
+    public int getId() {
+        return id;
     }
 
     /**

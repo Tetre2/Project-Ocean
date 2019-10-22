@@ -3,7 +3,6 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import javafx.scene.layout.VBox;
 /**
  * Controls the workspace in the application
  */
-
 public class WorkspaceController extends VBox implements Observer {
 
     @FXML private FlowPane workspaceContainer;

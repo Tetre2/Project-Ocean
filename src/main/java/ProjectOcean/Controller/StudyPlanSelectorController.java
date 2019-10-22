@@ -66,7 +66,7 @@ public class StudyPlanSelectorController extends AnchorPane {
             studyPlanContainer.getChildren().add(nOfStudyPlans - 1, newButton);
             mapStudyPlanAndController.put(newButton, id);
 
-            if (mapStudyPlanAndController.get(newButton).equals(model.getCurrentStudyPlan().getID())) {
+            if (mapStudyPlanAndController.get(newButton).equals(model.getCurrentStudyPlan().getId())) {
                 newButton.activateButton();
             }
         }
@@ -84,7 +84,7 @@ public class StudyPlanSelectorController extends AnchorPane {
         StudyPlanButtonController spc = null;
         for (int i = 0; i < model.getAllStudyPlans().size(); i++) {
             StudyPlanButtonController spbController = (StudyPlanButtonController) studyPlanContainer.getChildren().get(i);
-            if (mapStudyPlanAndController.get(spbController).equals(model.getCurrentStudyPlan().getID())) {
+            if (mapStudyPlanAndController.get(spbController).equals(model.getCurrentStudyPlan().getId())) {
                 spc = spbController;
             }
         }
@@ -126,7 +126,7 @@ public class StudyPlanSelectorController extends AnchorPane {
     }
 
     private boolean isThisStudyPlanCurrentStudyPlan(StudyPlanButtonController buttonController) {
-        return model.getCurrentStudyPlan().getID().equals(mapStudyPlanAndController.get(buttonController));
+        return model.getCurrentStudyPlan().getId() == mapStudyPlanAndController.get(buttonController);
     }
 
 }

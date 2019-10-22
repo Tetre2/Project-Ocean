@@ -25,7 +25,7 @@ public class Main extends Application {
      */
     @Override
     public void stop() {
-        root.saveStudent();
+        root.saveModel();
     }
 
     public static void main(String[] args) {
