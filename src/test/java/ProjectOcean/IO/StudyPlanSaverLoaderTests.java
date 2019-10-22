@@ -18,13 +18,12 @@ public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
     private CourseLoader courseSaverLoader = new CourseLoader();
-    private List<StudyPlan> studyPlans;
     private CoursePlanningSystem model;
     private List<ICourse> courses;
 
     @Before
     public void setup(){
-        studyPlans = new ArrayList<>();
+        List<StudyPlan> studyPlans = new ArrayList<>();
         try {
             courses = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
