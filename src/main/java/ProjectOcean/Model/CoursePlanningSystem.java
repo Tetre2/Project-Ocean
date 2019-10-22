@@ -1,6 +1,10 @@
 package ProjectOcean.Model;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
