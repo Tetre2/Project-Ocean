@@ -1,6 +1,6 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CoursesSaverLoader;
+import ProjectOcean.IO.CourseLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +75,7 @@ public class StudyPeriodTests {
     public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
-        List<Course> courses = CoursesSaverLoader.generatePreDefinedCourses();
+        List<ICourse> courses = CourseLoader.generatePreDefinedCourses();
 
         studyPeriod1.addCourse(courses.get(0), 1);
         studyPeriod2.addCourse(courses.get(0), 1);

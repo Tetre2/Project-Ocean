@@ -19,7 +19,7 @@ public class StudyPlanTests {
 
     @Test
     public void addCourseTest() {
-        StudyPlan studyPlan = new StudyPlan();
+        StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
         ICourse course = CourseFactory.CreateCourse(
                 "DAT017",
@@ -44,7 +44,7 @@ public class StudyPlanTests {
 
     @Test
     public void removeCourseTest() {
-        StudyPlan studyPlan = new StudyPlan();
+        StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
         ICourse course = CourseFactory.CreateCourse(
                 "DAT017",
@@ -80,7 +80,7 @@ public class StudyPlanTests {
 
     @Test
     public void addYear() {
-        StudyPlan studyPlan = new StudyPlan();
+        StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
 
         int yearID = studyPlan.getYears().get(0).getID();
@@ -91,7 +91,7 @@ public class StudyPlanTests {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void removeYear() {
-        StudyPlan studyPlan = new StudyPlan();
+        StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
 
         int yearID = studyPlan.getYears().get(0).getID();

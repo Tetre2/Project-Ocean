@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,6 @@ public class ScheduleController extends VBox implements Observer {
     private final List<YearController> yearControllers;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
-
 
     public ScheduleController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
