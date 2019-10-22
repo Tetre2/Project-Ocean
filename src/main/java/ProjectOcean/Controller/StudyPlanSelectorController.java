@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -81,14 +82,13 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     // Premise: there is an active study plan button.
     private StudyPlanButtonController getCurrStudyPlansButtonController() {
-        StudyPlanButtonController spc = null;
-        for (int i = 0; i < model.getAllStudyPlans().size(); i++) {
-            StudyPlanButtonController spbController = (StudyPlanButtonController) studyPlanContainer.getChildren().get(i);
-            if (mapStudyPlanAndController.get(spbController).equals(model.getCurrentStudyPlan().getId())) {
-                spc = spbController;
+        for (Node listButton : studyPlanContainer.getChildren()) {
+            StudyPlanButtonController spButton = (StudyPlanButtonController) listButton;
+            if (mapStudyPlanAndController.get(spButton).equals(model.getCurrentStudyPlan().getId())) {
+                return spButton;
             }
         }
-        return spc;
+        return null;
     }
 
     /**
