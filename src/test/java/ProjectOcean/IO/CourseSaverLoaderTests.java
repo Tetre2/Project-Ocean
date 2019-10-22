@@ -1,37 +1,37 @@
 package ProjectOcean.IO;
 
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
-import ProjectOcean.Model.Course;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.Model.ICourse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
+public class CourseSaverLoaderTests {
 
-public class CourseSaverLoaderTest {
-
-    private CoursesSaverLoader courseSaverLoader;
-    private List<Course> courses;
+    private CourseLoader courseSaverLoader;
+    private List<ICourse> courses;
 
     @Before
     public void init(){
-        courseSaverLoader = new CoursesSaverLoader();
+        courseSaverLoader = new CourseLoader();
         courses = new ArrayList<>();
 
-        for (Course course : courseSaverLoader.generatePreDefinedCourses()) {
+        for (ICourse course : courseSaverLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 
     }
-
 
     @Test
     public void loadStudyPlansTest(){
         try {
             courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
+            Assert.assertFalse(true);
+        } catch (OldFileException e) {
             Assert.assertFalse(true);
         }
     }
@@ -42,6 +42,19 @@ public class CourseSaverLoaderTest {
         courseSaverLoader.savePreMadeCourses();
     }
 
+    @Test
+    public void createCoursesFileTest(){
+        courseSaverLoader.createCoursesFile();
+
+        try {
+            Assert.assertTrue(courses.equals(courseSaverLoader.loadCoursesFile()));
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Test
     public void saveIsSameAsLoad(){
@@ -52,13 +65,17 @@ public class CourseSaverLoaderTest {
             courses = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
             Assert.assertFalse(true);
+        } catch (OldFileException e) {
+            Assert.assertFalse(true);
         }
 
-        List<Course> courseList = null;
+        List<ICourse> courseList = null;
 
         try {
             courseList = courseSaverLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
             e.printStackTrace();
         }
 

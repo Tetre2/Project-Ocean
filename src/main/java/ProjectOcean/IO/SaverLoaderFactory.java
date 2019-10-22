@@ -1,15 +1,13 @@
 package ProjectOcean.IO;
 
-public class SaveloaderFactory {
+public class SaverLoaderFactory {
 
-    public static ICourseSaveLoader createICourseSaveLoader(){
-        return new CoursesSaverLoader();
+    public static ICourseLoader createICourseSaveLoader(){
+        return new CourseLoader();
     }
 
     public static IStudyPlanSaverLoader createIStudyPlanSaverLoader(){
         return new StudyPlanSaverLoader();
     }
-
-
 
 }

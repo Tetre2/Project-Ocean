@@ -15,21 +15,12 @@ public class Student {
     private Workspace workspace;
 
     public Student() {
-        this(new ArrayList<>(), new Workspace(), new StudyPlan());
-    }
-
-    public Student(List<StudyPlan> studyPlans){
-        this(studyPlans, new Workspace(), new StudyPlan());
-    }
-
-    public Student(List<StudyPlan> studyPlans, Workspace workspace){
-        this(studyPlans, workspace, new StudyPlan());
-    }
-
-    public Student(List<StudyPlan> studyPlans, Workspace workspace, StudyPlan currentStudyPlan) {
-        this.studyPlans = studyPlans;
-        this.currentStudyPlan = currentStudyPlan;
-        this.workspace = workspace;
+        //if CoursePlaningSystem does not set the instance variables they should be defaulted
+        //these will be overwritten if we set these from CoursePlaningSystem
+        this.currentStudyPlan = new StudyPlan(0);
+        studyPlans = new ArrayList<>();
+        studyPlans.add(currentStudyPlan);
+        workspace = new Workspace();
     }
 
     /**
@@ -108,8 +99,29 @@ public class Student {
     /**
      * Removes all courses
      */
-    public void removeAllCoursesInWorkscpace(){
+    public void removeAllCoursesInWorkspace(){
         workspace.removeAllCourses();
+    }
+
+    /**
+     * @param studyPlans is the list of studyplans to be set in the model
+     */
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        this.studyPlans = studyPlans;
+    }
+
+    /**
+     * @param currentStudyPlan is the studyplan to be set as the current studyplan in the model
+     */
+    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+        this.currentStudyPlan = currentStudyPlan;
+    }
+
+    /**
+     * @param workspace is the workspace to be set as the workspace in the model
+     */
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     /**
