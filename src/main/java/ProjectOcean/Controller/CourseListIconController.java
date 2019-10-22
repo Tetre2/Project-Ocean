@@ -98,9 +98,9 @@ public class CourseListIconController extends VBox implements Movable {
         owner = this.getParent();
         copyDraggedObjectToClipBoard(this);
 
-        visualFeedback.showAvailablePlacementInSchedule(course);
 
-        //Check from which parent the object started in.
+
+        //Check from which parent the object started in and delete from the model.
         switch (owner.getId()){
             case "workspaceContainer":
                 model.removeCourseFromWorkspace(course);
@@ -108,7 +108,10 @@ public class CourseListIconController extends VBox implements Movable {
             default:
         }
 
+
+
          //MUST come after the above statement
+        visualFeedback.showAvailablePlacementInSchedule(course);
         CourseListIconController draggedObject = new CourseListIconController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
         addIconToScreen.addIconToScreen(draggedObject);
 

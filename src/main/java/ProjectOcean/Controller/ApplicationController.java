@@ -80,6 +80,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback,
 
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
+        model.update();
         event.consume();
 
     }
