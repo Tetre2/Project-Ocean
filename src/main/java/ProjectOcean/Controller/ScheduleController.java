@@ -30,7 +30,6 @@ public class ScheduleController extends VBox implements Observer {
     private final VisualFeedback visualFeedback;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
-
     public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
@@ -84,13 +83,13 @@ public class ScheduleController extends VBox implements Observer {
 
         yearControllers.clear();
         int yearIndex = 0;
+
         for (IYear y :
                 years) {
             yearIndex++;
             //System.out.println("YEAR");
             yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
         }
-
     }
 
     @FXML

@@ -36,7 +36,6 @@ public class YearController extends VBox implements Observer {
     private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
     private ICourse courseTmp;
 
-
     public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.model = model;
         this.year = year;
@@ -105,7 +104,7 @@ public class YearController extends VBox implements Observer {
 
     public void setGreenBorderColorInSlots(String studyPeriod){
         //TODO gör sen
-      //  System.out.println("YEARGRID CHildren:" + yearGrid.getChildren());
+        System.out.println("YEARGRID CHildren:" + yearGrid.getChildren());
 
         List<Node> slots = yearGrid.getChildren();
 

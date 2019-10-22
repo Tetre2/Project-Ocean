@@ -12,7 +12,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import java.util.List;
  */
 
 public class CourseController extends VBox implements Movable {
+
 
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;

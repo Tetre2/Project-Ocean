@@ -11,9 +11,19 @@ import java.util.Objects;
 public class StudyPlan {
 
     private List<Year> years;
+    private final int id;
+    private static int studyPlansCreatedDuringRuntime = 0;
+
+    public StudyPlan(int id) {
+        this.id = id;
+        years = new ArrayList<>();
+        studyPlansCreatedDuringRuntime++;
+    }
 
     public StudyPlan() {
+        this.id = studyPlansCreatedDuringRuntime;
         years = new ArrayList<>();
+        studyPlansCreatedDuringRuntime++;
     }
 
     /**
@@ -80,6 +90,13 @@ public class StudyPlan {
      */
     public List<Year> getYears() {
         return Collections.unmodifiableList(years);
+    }
+
+    /**
+     * @return the id of a studyplan
+     */
+    public int getId() {
+        return id;
     }
 
     /**

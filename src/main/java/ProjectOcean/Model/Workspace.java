@@ -12,7 +12,6 @@ public class Workspace {
 
     private final List courses = new LinkedList<ICourse>();
 
-
     /**
      * Adds a specific course to the workspace
      * @param course the course instance to be added

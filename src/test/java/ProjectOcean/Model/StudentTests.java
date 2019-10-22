@@ -9,20 +9,19 @@ import java.util.Arrays;
 
 public class StudentTests {
 
-    int studyPeriod;
-    int yearNumber;
-    int slot;
+    private Student student;
+    private int studyPeriod;
+    private int slot;
 
     @Before
     public void before() {
+        student = new Student();
         studyPeriod = 1;
-        yearNumber = 1;
         slot = 1;
     }
 
     @Test
     public void addCourseTest() {
-        Student student = new Student();
         student.addYear();
         ICourse course = CourseFactory.CreateCourse(
                 "BAT123",
@@ -47,7 +46,6 @@ public class StudentTests {
 
     @Test
     public void removeCourseTest() {
-        Student student = new Student();
         student.getCurrentStudyPlan().addYear();
         ICourse course = CourseFactory.CreateCourse(
                 "BAT123",
@@ -76,7 +74,6 @@ public class StudentTests {
 
     @Test
     public void addYearTest(){
-        Student student = new Student();
         student.addYear();
 
         int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
@@ -87,7 +84,6 @@ public class StudentTests {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void removeYearTest() {
-        Student student = new Student();
         student.addYear();
 
         int yearID = student.getCurrentStudyPlan().getYears().get(0).getID();
@@ -100,6 +96,22 @@ public class StudentTests {
         Assert.assertNull(year);
     }
 
+    @Test
+    public void addStudyPlan() {
+
+        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+        student.addStudyPlanAsCurrent();
+        Assert.assertTrue(student.getAllStudyPlans().size() == 2);
+    }
+
+    @Test
+    public void removeStudyPlan() {
+        student.addStudyPlanAsCurrent();
+        Assert.assertTrue(student.getAllStudyPlans().size() == 2);
+
+        int spId = student.getAllStudyPlans().get(0).getId();
+        student.removeStudyPlan(spId);
+        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+    }
+
 }
-
-

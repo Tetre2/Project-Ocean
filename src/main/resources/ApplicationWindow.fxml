@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <fx:root fx:id="dragFeature" onDragDone="#onDragDone" onDragOver="#onDragOver" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -25,7 +21,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#onDeleteClicked" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -37,30 +33,7 @@
             </MenuBar>
             <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="TOP_CENTER" minHeight="550.0" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #61718c;">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="82.0" prefWidth="122.0" text="Button">
-                           <VBox.margin>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="82.0" prefWidth="122.0" text="Button">
-                           <VBox.margin>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="82.0" prefWidth="122.0" text="Button">
-                           <VBox.margin>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="82.0" prefWidth="122.0" text="Button">
-                           <VBox.margin>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
+                  <AnchorPane fx:id="studyPlanWindow" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #61718c;" />
       
                   <VBox fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS" />
                   <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" />
