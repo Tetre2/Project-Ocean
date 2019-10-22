@@ -149,7 +149,8 @@ public class YearController extends VBox {
     }
 
     @FXML
-    public void removeYear() {
+    private void removeYear() {
         model.removeYear(year.getID());
     }
+
 }

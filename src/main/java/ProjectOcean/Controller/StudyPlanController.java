@@ -77,7 +77,8 @@ public class StudyPlanController extends VBox implements Observer {
     }
 
     @FXML
-    public void addYear() {
+    private void addYear() {
         model.addYear();
     }
+
 }
