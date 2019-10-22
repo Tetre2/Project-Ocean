@@ -16,21 +16,26 @@ import java.io.IOException;
 /**
  * Represents the visual graphic component of a course in study plan.
  */
-public class ScheduleCourseController extends VBox implements Movable{
+public class ScheduleCourseController extends VBox implements Movable {
 
-    @FXML private Label courseCodeLabel;
+    @FXML
+    private Label courseCodeLabel;
     private final CoursePlanningSystem model;
 
     private final AddIconToScreen addIconToScreen;
-    private final RemoveCourseFromSchedule removeCourseFromSchedule;
+    private int year;
+    private int studyPeriod;
+    private int slot;
     private final ICourse course;
 
-    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, RemoveCourseFromSchedule removeCourseFromSchedule) {
+    public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, int year, int studyPeriod, int slot) {
 
         this.model = model;
         this.addIconToScreen = addIconToScreen;
-        this.removeCourseFromSchedule = removeCourseFromSchedule;
         this.course = course;
+        this.year = year;
+        this.studyPeriod = studyPeriod;
+        this.slot = slot;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ScheduleCourseView.fxml"));
@@ -56,11 +61,12 @@ public class ScheduleCourseController extends VBox implements Movable{
 
     /**
      * Relocates the CourseListIconController instance according to the point parameter
+     *
      * @param p the point representing the current mouse coordinates
      */
     @Override
     public void relocateToPoint(Point2D p) {
-        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY() );
+        Point2D localCoords = new Point2D(this.getParent().sceneToLocal(p).getX(), this.getParent().sceneToLocal(p).getY());
 
         relocate(
                 (int) (localCoords.getX() -
@@ -77,11 +83,11 @@ public class ScheduleCourseController extends VBox implements Movable{
         ClipboardContent content = new ClipboardContent();
         content.putString(icon.toString());
 
-        //MUST come after the above statement
-        icon = new ScheduleCourseController(model ,course, this.addIconToScreen, removeCourseFromSchedule);
-        addIconToScreen.addIconToScreen(icon);
+        model.removeCourse(year, studyPeriod, slot);
 
-        removeCourseFromSchedule.removeCourse(course);
+        //MUST come after the above statement
+        icon = new ScheduleCourseController(model, course, this.addIconToScreen, year, studyPeriod, slot);
+        addIconToScreen.addIconToScreen(icon);
 
         icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
         icon.setVisible(true);

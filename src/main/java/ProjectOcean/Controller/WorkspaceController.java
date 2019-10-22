@@ -28,7 +28,13 @@ public class WorkspaceController extends VBox implements Observer {
     private final RemoveMovableChild removeMovableChild;
     private final VisualFeedback visualFeedback;
 
-    public WorkspaceController(CoursePlanningSystem model, VisualFeedback visualFeedback, RefactorDraggedObjectToCursor relocateDraggedObjectToCursor, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveMovableChild removeMovableChild) {
+    public WorkspaceController(CoursePlanningSystem model,
+                               VisualFeedback visualFeedback,
+                               RefactorDraggedObjectToCursor relocateDraggedObjectToCursor,
+                               ShowDetailedInformationWindow showDetailedInformationWindow,
+                               AddIconToScreen addIconToScreen,
+                               RemoveMovableChild removeMovableChild) {
+
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;

@@ -3,14 +3,17 @@ package ProjectOcean.Controller;
 import ProjectOcean.Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
+import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
+import ProjectOcean.Model.IYear;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -20,25 +23,24 @@ import java.util.*;
 public class YearController extends VBox implements Observer {
 
     @FXML private GridPane yearGrid;
+    @FXML private Button removeYearButton;
+    @FXML private Label yearLabel;
 
     private final CoursePlanningSystem model;
-    private final int year;
+    private final IYear year;
     private final RefactorDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
-    private final RemoveCourseFromSchedule removeCourseFromSchedule;
 
     private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
     private ICourse courseTmp;
 
 
-    public YearController(int year, CoursePlanningSystem model, RefactorDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, RemoveCourseFromSchedule removeCourseFromSchedule) {
+    public YearController(IYear year, CoursePlanningSystem model, RefactorDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
         this.model = model;
         this.year = year;
         this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
-        this.removeCourseFromSchedule = removeCourseFromSchedule;
         this.coursesInYear = new HashMap<>();
-
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/YearView.fxml"));
@@ -53,6 +55,7 @@ public class YearController extends VBox implements Observer {
 
         model.addObserver(this);
         updateCoursesInMap();
+        this.yearLabel.setText(String.valueOf(yearIndex));
         displayAllCoursesInStudyPlan();
 
     }
@@ -64,9 +67,9 @@ public class YearController extends VBox implements Observer {
     @FXML
     private void onDragOver(DragEvent event) {
         event.acceptTransferModes(TransferMode.MOVE);
-        Movable icon = (Movable) event.getGestureSource();
+        Movable draggedObject = (Movable) event.getGestureSource();
 
-        moveDraggedObjectToCursor.relocateDraggedObjectToCursor(icon, event);
+        moveDraggedObjectToCursor.relocateDraggedObjectToCursor(draggedObject, event);
         event.consume();
     }
 
@@ -82,7 +85,7 @@ public class YearController extends VBox implements Observer {
         event.acceptTransferModes(TransferMode.MOVE);
         Movable icon = (Movable) event.getGestureSource();
 
-        model.addCourse(icon.getICourse(), year, studyPeriod, slot);
+        model.addCourse(icon.getICourse(), year.getID(), studyPeriod, slot);
 
         event.setDropCompleted(true);
         moveDraggedObjectToCursor.relocateDraggedObjectToCursor(icon, event);
@@ -147,40 +150,43 @@ public class YearController extends VBox implements Observer {
     private void updateCoursesInMap(){
         //TODO erase comments
         coursesInYear.clear();
-        IYear y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
+        //TODO Check with Fille that I use year.getID in the right way.
+        IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
 
         System.out.println("----------------\n");
-        for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
-            for (int slot = 1; slot <= 2; slot++) {
-                ICourse course = y.getCourseInStudyPeriod(studyPeriod,slot);
-                if(course != null) {
-                    courseTmp = new Course(
-                            course.getCourseCode(),
-                            course.getCourseName(),
-                            course.getStudyPoints(),
-                            course.getStudyPeriod(),
-                            course.getExaminer(),
-                            course.getExaminationMeans(),
-                            course.getLanguage(),
-                            course.getRequiredCourses(),
-                            course.getCoursePMLink(),
-                            course.getCourseDescription()
-                    );
+        if( y !=null){
+            for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
+                for (int slot = 1; slot <= 2; slot++) {
+                    ICourse course = y.getCourseInStudyPeriod(studyPeriod,slot);
+                    if(course != null) {
+                        courseTmp = new Course(
+                                course.getCourseCode(),
+                                course.getCourseName(),
+                                course.getStudyPoints(),
+                                course.getStudyPeriod(),
+                                course.getExaminer(),
+                                course.getExaminationMeans(),
+                                course.getLanguage(),
+                                course.getRequiredCourses(),
+                                course.getCoursePMLink(),
+                                course.getCourseDescription(),
+                                course.getCourseTypes()
+                        );
 
-                    coursesInYear.put( courseTmp , new Tuple<>(studyPeriod, slot));
+                        coursesInYear.put( courseTmp , new Tuple<>(studyPeriod, slot));
 
 
-                    System.out.println("COURSE CODE: "
-                            + courseTmp.getCourseCode()
-                            + " SP: "
-                            + coursesInYear.get(courseTmp).getStudyPeriod()
-                            + " S: "
-                            + coursesInYear.get(courseTmp).getSlot());
+                        System.out.println("COURSE CODE: "
+                                + courseTmp.getCourseCode()
+                                + " SP: "
+                                + coursesInYear.get(courseTmp).getStudyPeriod()
+                                + " S: "
+                                + coursesInYear.get(courseTmp).getSlot());
+                    }
+
                 }
-
             }
         }
-     //   System.out.println(coursesInYear.toString());
     }
 
     /**
@@ -190,10 +196,8 @@ public class YearController extends VBox implements Observer {
     public void removeCourse(ICourse course){
         //TODO, do a try catch here or handle potential errors.
         Tuple<Integer, Integer> location = coursesInYear.get(course);
-        //TODO, change here to get year from locattion aswell in order to support many years.
-        model.removeCourse(year, location.getStudyPeriod(), location.getSlot());
+        model.removeCourse(year.getID(), location.getStudyPeriod(), location.getSlot());
     }
-
 
     /**
      * Displays all the courses that are currently in the model's study plan
@@ -209,8 +213,6 @@ public class YearController extends VBox implements Observer {
             System.out.print(yearGrid.getChildren().get(1));
             //TODO maybe do a check if the element is not a group instead?
             yearGrid.getChildren().remove(1);
-
-            System.out.println("Clearing: " + yearGrid.getChildren().toString());
         }
     }
 
@@ -224,7 +226,9 @@ public class YearController extends VBox implements Observer {
                         model,
                         entry.getKey(),
                         this.addIconToScreen,
-                        removeCourseFromSchedule
+                        year.getID(),
+                        location.getStudyPeriod(),
+                        location.getSlot()
                 ) ;
                 yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
 
@@ -235,17 +239,24 @@ public class YearController extends VBox implements Observer {
             }
         }
 
-
         //Checks where courses in the model are null so we can add empty panes in those slots. (Needed for visual feedback)
-        IYear y = model.getStudent().getCurrentStudyPlan().getSchedule().getYear(year);
+        IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
 
-        for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
-            for (int slot = 1; slot <= 2; slot++) {
-                ICourse course = y.getCourseInStudyPeriod(studyPeriod, slot);
-                if (course == null) {
-                    yearGrid.add(new Pane(), studyPeriod - 1, slot - 1);
+        if(y != null){
+            for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
+                for (int slot = 1; slot <= 2; slot++) {
+                    ICourse course = y.getCourseInStudyPeriod(studyPeriod, slot);
+                    if (course == null) {
+                        yearGrid.add(new Pane(), studyPeriod - 1, slot - 1);
+                    }
                 }
             }
         }
+
+    }
+
+    @FXML
+    public void removeYear() {
+        model.removeYear(year.getID());
     }
 }

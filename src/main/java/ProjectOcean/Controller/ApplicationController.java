@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
  * Represents the root visual object, only contains empty containers
  */
 
-public class ApplicationController extends AnchorPane implements VisualFeedback, RemoveCourseFromSchedule {
+public class ApplicationController extends AnchorPane implements VisualFeedback {
 
     @FXML private VBox contentWindow;
     @FXML private AnchorPane dragFeature;
@@ -36,7 +36,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback,
         this.model = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(model, this, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this, this::relocateDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
-        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this);
+        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -126,8 +126,8 @@ public class ApplicationController extends AnchorPane implements VisualFeedback,
         scheduleController.setVisualFeedbackForCoursePlacement(course);
     }
 
-    public void removeCourse(ICourse course){
-        scheduleController.getYearController().removeCourse(course);
+    public void removeCourse(int yearID, int studyPeriod, int slot){
+        model.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**

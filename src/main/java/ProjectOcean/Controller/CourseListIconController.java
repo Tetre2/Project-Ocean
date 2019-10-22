@@ -9,10 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents the visual component of a course
@@ -23,6 +28,7 @@ public class CourseListIconController extends VBox implements Movable {
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;
     @FXML private Text studyPointsText;
+    @FXML private VBox typeIndicator;
 
     private Node owner;
     private ClipboardContent content;
@@ -63,6 +69,33 @@ public class CourseListIconController extends VBox implements Movable {
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(course.getCourseCode());
         this.studyPointsText.setText(course.getStudyPoints() + " hp");
+        indicateCourseTypes();
+    }
+
+    private void indicateCourseTypes() {
+        List<String> courseTypes = course.getCourseTypes();
+        for(String s : courseTypes) {
+            switch(s) {
+                case "Informationsteknik" :
+                    paintIndicator("#40E0D0");
+                    break;
+
+                case "Matematik" :
+                    paintIndicator("#DF3C3C");
+                    break;
+
+                case "Naturvetenskap" :
+                    paintIndicator("#3DC134");
+                    break;
+            }
+        }
+    }
+
+    private void paintIndicator(String colour) {
+        Pane typeIndicatorPane = new Pane();
+        typeIndicatorPane.setStyle("-fx-background-color: " + colour);
+        typeIndicatorPane.setPrefHeight(200);
+        typeIndicator.getChildren().add(typeIndicatorPane);
     }
 
     @FXML

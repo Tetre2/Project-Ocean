@@ -40,16 +40,16 @@ public class Student {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        currentStudyPlan.addCourseToSchedule(course, year, studyPeriod, slot);
+        currentStudyPlan.addCourse(course, year, studyPeriod, slot);
     }
 
     /**
      * Removes the given course in the given year and study period, in the study plan
-     * @param year the year to remove the course from
+     * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
      */
-    public void removeCourse(int year, int studyPeriod, int slot) {
-        currentStudyPlan.removeCourseFromSchedule(year, studyPeriod, slot);
+    public void removeCourse(int yearID, int studyPeriod, int slot) {
+        currentStudyPlan.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**
@@ -61,10 +61,10 @@ public class Student {
 
     /**
      * Removes the year specified by the index, in the study plan
-     * @param year the year to be removed
+     * @param id the year to be removed
      */
-    public void removeYear(int year){
-        currentStudyPlan.removeYear(year);
+    public void removeYear(int id){
+        currentStudyPlan.removeYear(id);
     }
 
     /**
