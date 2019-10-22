@@ -36,7 +36,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
         this.model = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(model, this, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this, this::relocateDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
-        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen);
+        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -80,7 +80,10 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
 
         Movable draggedObject = (Movable) event.getGestureSource();
         getChildren().remove(draggedObject);
-        model.update();
+        //TODO Find a solution which doesn't need to triple call update.
+        if (event.getTransferMode() == null){
+            model.update();
+        }
         event.consume();
 
     }

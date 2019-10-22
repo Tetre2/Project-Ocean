@@ -27,13 +27,17 @@ public class ScheduleController extends VBox implements Observer {
     private final List<YearController> yearControllers;
     private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
 
-    public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
+    public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
         this.model = model;
+        this.visualFeedback = visualFeedback;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanWindow.fxml"));
@@ -74,12 +78,17 @@ public class ScheduleController extends VBox implements Observer {
 
     private void updateControllerAccordingToModel() {
         years = model.getYears();
+        for (YearController yearController: yearControllers) {
+            yearController.deleteFromObserver();
+        }
+
         yearControllers.clear();
         int yearIndex = 0;
         for (IYear y :
                 years) {
             yearIndex++;
-            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex ));
+            //System.out.println("YEAR");
+            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
         }
 
     }

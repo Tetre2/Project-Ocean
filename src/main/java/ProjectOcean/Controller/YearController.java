@@ -30,17 +30,21 @@ public class YearController extends VBox implements Observer {
     private final IYear year;
     private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
     private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
     private ICourse courseTmp;
 
 
-    public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex) {
+    public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.model = model;
         this.year = year;
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.coursesInYear = new HashMap<>();
+        this.visualFeedback = visualFeedback;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/YearView.fxml"));
@@ -92,22 +96,29 @@ public class YearController extends VBox implements Observer {
         event.consume();
     }
 
+    /**
+     * Deletes the this from the observer list in the model.
+     */
+    public void deleteFromObserver(){
+        model.deleteObserver(this);
+    }
+
     public void setGreenBorderColorInSlots(String studyPeriod){
         //TODO gör sen
-        System.out.println("YEARGRID CHildren:" + yearGrid.getChildren());
+      //  System.out.println("YEARGRID CHildren:" + yearGrid.getChildren());
 
         List<Node> slots = yearGrid.getChildren();
 
         for (Node slot: slots) {
             //Make sure that the group that displays the gridlines are not counted.
             if(slots.indexOf(slot) != 0) {
-                System.out.println("SLOT: " + slot);
+               // System.out.println("SLOT: " + slot);
                 Integer column = 1 + GridPane.getColumnIndex(slot);
                 //int row = 1 +GridPane.getRowIndex(slot);
                 if (column == Integer.parseInt(studyPeriod)) {
-                    slot.setStyle("-fx-background-color: green");
+                    slot.setStyle("-fx-border-color: green;" + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 } else {
-                    slot.setStyle("-fx-background-color: red");
+                    slot.setStyle("-fx-border-color: red;"  + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 }
             }
         }
@@ -143,17 +154,19 @@ public class YearController extends VBox implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+       // System.out.println("UPDATE");
         updateCoursesInMap();
         displayAllCoursesInStudyPlan();
     }
 
     private void updateCoursesInMap(){
         //TODO erase comments
+
         coursesInYear.clear();
         //TODO Check with Fille that I use year.getID in the right way.
         IYear y = model.getStudent().getCurrentStudyPlan().getYear(year.getID());
 
-        System.out.println("----------------\n");
+        //System.out.println("----------------\n");
         if( y !=null){
             for (int studyPeriod = 1; studyPeriod <= y.getStudyPeriodsSize(); studyPeriod++) {
                 for (int slot = 1; slot <= 2; slot++) {
@@ -176,12 +189,12 @@ public class YearController extends VBox implements Observer {
                         coursesInYear.put( courseTmp , new Tuple<>(studyPeriod, slot));
 
 
-                        System.out.println("COURSE CODE: "
+                    /*    System.out.println("COURSE CODE: "
                                 + courseTmp.getCourseCode()
                                 + " SP: "
                                 + coursesInYear.get(courseTmp).getStudyPeriod()
                                 + " S: "
-                                + coursesInYear.get(courseTmp).getSlot());
+                                + coursesInYear.get(courseTmp).getSlot());*/
                     }
 
                 }
@@ -210,7 +223,7 @@ public class YearController extends VBox implements Observer {
     private void clearStudyPlanGridPane() {
         int nElements = yearGrid.getChildren().size() - 1;
         for (int i = 0; i < nElements; i++) {
-            System.out.print(yearGrid.getChildren().get(1));
+         //   System.out.print(yearGrid.getChildren().get(1));
             //TODO maybe do a check if the element is not a group instead?
             yearGrid.getChildren().remove(1);
         }
@@ -222,13 +235,12 @@ public class YearController extends VBox implements Observer {
             Tuple<Integer, Integer> location = entry.getValue();
 
             if(entry.getKey() != null) {
-                ScheduleCourseController course = new ScheduleCourseController(
-                        model,
+                CourseController course = new CourseController(
                         entry.getKey(),
-                        this.addIconToScreen,
-                        year.getID(),
-                        location.getStudyPeriod(),
-                        location.getSlot()
+                        model,
+                        visualFeedback,
+                        showDetailedInformationWindow,
+                        this.addIconToScreen
                 ) ;
                 yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
 
@@ -252,6 +264,8 @@ public class YearController extends VBox implements Observer {
                 }
             }
         }
+
+      //  System.out.println(yearGrid.getChildren());
 
     }
 

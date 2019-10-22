@@ -9,21 +9,18 @@ import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Represents the visual component of a course
  */
 
-public class CourseListIconController extends VBox implements Movable {
+public class CourseController extends VBox implements Movable {
 
     @FXML private Text courseCodeText;
     @FXML private Text courseNameText;
@@ -38,7 +35,7 @@ public class CourseListIconController extends VBox implements Movable {
     private final AddIconToScreen addIconToScreen;
     private final VisualFeedback visualFeedback;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
+    public CourseController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.course = course;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
@@ -109,7 +106,7 @@ public class CourseListIconController extends VBox implements Movable {
     }
 
     /**
-     * Relocates the CourseListIconController instance according to the point parameter
+     * Relocates the CourseController instance according to the point parameter
      * @param p the point representing the current mouse coordinates
      */
     public void relocateToPoint(Point2D p) {
@@ -127,7 +124,7 @@ public class CourseListIconController extends VBox implements Movable {
     private void dragDetected(MouseEvent event) {
 
 
-      //  CourseListIconController draggedObject = getICourse();
+      //  CourseController draggedObject = getICourse();
         owner = this.getParent();
         copyDraggedObjectToClipBoard(this);
 
@@ -138,14 +135,17 @@ public class CourseListIconController extends VBox implements Movable {
             case "workspaceContainer":
                 model.removeCourseFromWorkspace(course);
                 break;
+            case "yearGrid":
+                //TODO Come back and fix a better solution.
+                YearController yearController = (YearController) owner.getParent().getParent().getParent();
+                yearController.removeCourse(course);
+                //  model.removeCourse();
             default:
         }
 
-
-
          //MUST come after the above statement
         visualFeedback.showAvailablePlacementInSchedule(course);
-        CourseListIconController draggedObject = new CourseListIconController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
+        CourseController draggedObject = new CourseController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
         addIconToScreen.addIconToScreen(draggedObject);
 
 
@@ -155,7 +155,7 @@ public class CourseListIconController extends VBox implements Movable {
         event.consume();
     }
 
-    private void copyDraggedObjectToClipBoard(CourseListIconController icon){
+    private void copyDraggedObjectToClipBoard(CourseController icon){
 
         content = new ClipboardContent();
         content.putString(icon.toString());
