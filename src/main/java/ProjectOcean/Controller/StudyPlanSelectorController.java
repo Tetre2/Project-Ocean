@@ -48,7 +48,9 @@ public class StudyPlanSelectorController extends AnchorPane {
 
     @FXML
     private void onAddStudyPlanClicked(MouseEvent event) {
-        deactivateStudyPlanButton();
+        if (model.getAllStudyPlans().size() != 0) {
+            deactivateStudyPlanButton();
+        }
         model.addStudyPlan(); // Method also setting new studyPlan to current.
         displayAllStudyPlanButtons();
         showStudyPlan.showCurrentStudyPlan();
@@ -80,10 +82,9 @@ public class StudyPlanSelectorController extends AnchorPane {
         }
     }
 
-    // Premise: there is an active study plan button.
     private StudyPlanButtonController getCurrStudyPlansButtonController() {
-        for (Node listButton : studyPlanContainer.getChildren()) {
-            StudyPlanButtonController spButton = (StudyPlanButtonController) listButton;
+        for (Node nodeButton : studyPlanContainer.getChildren()) {
+            StudyPlanButtonController spButton = (StudyPlanButtonController) nodeButton;
             if (mapStudyPlanAndController.get(spButton).equals(model.getCurrentStudyPlan().getId())) {
                 return spButton;
             }
