@@ -27,10 +27,8 @@ public class ApplicationController extends AnchorPane {
     private final WorkspaceController workspaceController;
     private final StudyPlanController studyPlanController;
     private static DetailedController detailedController;
-    private final HostServices hostServices;
 
     public ApplicationController(HostServices hostServices) {
-        this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
@@ -115,14 +113,6 @@ public class ApplicationController extends AnchorPane {
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
     }
-
-    /**
-     * @return the hostServices instance
-     */
-    public HostServices getHostServices() {
-        return hostServices;
-    }
-
 
     /**
      * Method is called from the menubar in the view
