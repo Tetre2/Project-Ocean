@@ -17,7 +17,7 @@ public class StudyPlan {
     public StudyPlan(int id) {
         this.id = id;
         years = new ArrayList<>();
-        studyPlansCreatedDuringRuntime++;
+        studyPlansCreatedDuringRuntime = id + 1;
     }
 
     public StudyPlan() {

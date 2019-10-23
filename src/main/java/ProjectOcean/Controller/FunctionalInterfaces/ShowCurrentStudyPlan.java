@@ -1,4 +1,4 @@
-package ProjectOcean.Controller;
+package ProjectOcean.Controller.FunctionalInterfaces;
 
 @FunctionalInterface
 public interface ShowCurrentStudyPlan {

@@ -1,5 +1,6 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.ShowCurrentStudyPlan;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,8 +65,8 @@ public class StudyPlanSelectorController extends AnchorPane {
 
         for (Integer id : ids) {
             int nOfStudyPlans = studyPlanContainer.getChildren().size();
-            StudyPlanButtonController newButton = new StudyPlanButtonController(showStudyPlan, this::setCurrentStudyPlan,
-                    this::isThisStudyPlanCurrentStudyPlan, this::deactivateStudyPlanButton, nOfStudyPlans);
+            StudyPlanButtonController newButton = new StudyPlanButtonController(model, showStudyPlan,
+                    this::deactivateStudyPlanButton, id);
             studyPlanContainer.getChildren().add(nOfStudyPlans - 1, newButton);
             mapStudyPlanAndController.put(newButton, id);
 
@@ -118,14 +119,6 @@ public class StudyPlanSelectorController extends AnchorPane {
         if (studyPlanExists()) {
             model.setFirstStudyPlanAsCurrent();
         }
-    }
-
-    private void setCurrentStudyPlan(StudyPlanButtonController buttonController) {
-        model.setCurrentStudyPlan(mapStudyPlanAndController.get(buttonController));
-    }
-
-    private boolean isThisStudyPlanCurrentStudyPlan(StudyPlanButtonController buttonController) {
-        return model.getCurrentStudyPlan().getId() == mapStudyPlanAndController.get(buttonController);
     }
 
 }

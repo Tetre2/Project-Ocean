@@ -95,8 +95,8 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void showCurrentStudyPlan() {
-        if (isScheduleViewVisible()) {
-            removeCurrentScheduleController();
+        if (isStudyPlanViewVisible()) {
+            removeCurrentStudyPlanController();
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (studyPlanExists()) {
@@ -105,7 +105,7 @@ public class ApplicationController extends AnchorPane {
         }
     }
 
-    private boolean isScheduleViewVisible() {
+    private boolean isStudyPlanViewVisible() {
         return contentWindow.getChildren().size() == 2;
     }
 
@@ -114,9 +114,9 @@ public class ApplicationController extends AnchorPane {
     }
 
     /**
-     * Remove the active study plan in the content window: ScheduleController
+     * Remove the active study plan in the content window: StudyPlanController
      */
-    private void removeCurrentScheduleController() {
+    private void removeCurrentStudyPlanController() {
         contentWindow.getChildren().remove(1);
     }
 

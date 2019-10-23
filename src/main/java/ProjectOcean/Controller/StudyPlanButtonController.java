@@ -1,5 +1,8 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.DeactivateStudyPlanButton;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowCurrentStudyPlan;
+import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -14,20 +17,17 @@ public class StudyPlanButtonController extends Button {
 
     @FXML private Button studyPlanButton;
 
-    private final int nOfStudyPlans;
+    private final CoursePlanningSystem model;
     private final ShowCurrentStudyPlan showStudyPlan;
-    private final SetCurrentStudyPlan setCurrentStudyPlan;
-    private final IsThisStudyPlanCurrentStudyPlan isThisStudyPlanCurrentStudyPlan;
     private final DeactivateStudyPlanButton deactivateStudyPlanButton;
+    private final int studyPlanId;
 
-    public StudyPlanButtonController(ShowCurrentStudyPlan showStudyPlan, SetCurrentStudyPlan setCurrentStudyPlan,
-                                     IsThisStudyPlanCurrentStudyPlan isThisStudyPlanCurrentStudyPlan,
-                                     DeactivateStudyPlanButton deactivateStudyPlanButton, int nOfStudyPlans) {
-        this.nOfStudyPlans = nOfStudyPlans;
+    public StudyPlanButtonController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan,
+                                     DeactivateStudyPlanButton deactivateStudyPlanButton, int studyPlanId) {
+        this.model = model;
         this.showStudyPlan = showStudyPlan;
-        this.setCurrentStudyPlan = setCurrentStudyPlan;
-        this.isThisStudyPlanCurrentStudyPlan = isThisStudyPlanCurrentStudyPlan;
         this.deactivateStudyPlanButton = deactivateStudyPlanButton;
+        this.studyPlanId = studyPlanId;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanButtonView.fxml"));
@@ -44,18 +44,20 @@ public class StudyPlanButtonController extends Button {
     }
 
     private void initiateButtonName() {
-        studyPlanButton.setText("SPlan " + nOfStudyPlans);
+        studyPlanButton.setText("SPlan " + studyPlanId);
     }
 
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
-        if (!isThisStudyPlanCurrentStudyPlan.isThisStudyPlanCurrentStudyPlan(this)) {
-            this.deactivateStudyPlanButton.deactivateStudyPlanButton();
-            setCurrentStudyPlan.setCurrentStudyPlan(this);
-            studyPlanButton.setDefaultButton(true);
-            showStudyPlan.showCurrentStudyPlan();
-        }
+        this.deactivateStudyPlanButton.deactivateStudyPlanButton();
+        setCurrentStudyPlan();
+        studyPlanButton.setDefaultButton(true);
+        showStudyPlan.showCurrentStudyPlan();
         event.consume();
+    }
+
+    private void setCurrentStudyPlan() {
+        model.setCurrentStudyPlan(studyPlanId);
     }
 
     /**
