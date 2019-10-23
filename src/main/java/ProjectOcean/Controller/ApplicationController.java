@@ -60,7 +60,7 @@ public class ApplicationController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        instantiateChildControllers();
+        populateWithChildControllers();
         showCurrentStudyPlan();
     }
 
@@ -120,7 +120,7 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().remove(1);
     }
 
-    private void instantiateChildControllers() {
+    private void populateWithChildControllers() {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
         contentWindow.getChildren().add(1, studyPlanController);
