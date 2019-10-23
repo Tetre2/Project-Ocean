@@ -127,7 +127,7 @@ public class Student {
 
     /**
      * Returns a list of courses that exists currently in the workspace.
-     * @return
+     * @return all courses in the workspace
      */
     public List<Course> getAllCoursesInWorkspace(){
         return workspace.getAllCourses();

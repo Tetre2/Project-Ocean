@@ -46,8 +46,8 @@ public class CourseLoader implements ICourseLoader {
      * The method tha reads the file and creates the Map
      *
      * @return returns a <code>Map<UUID, Course></code>
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if the program cant find the json file
+     * @throws ParseException if the program cant parse the file
      */
     private List<ICourse> getCoursesFromJSON() throws IOException, ParseException {
         //Map to return when method is done

@@ -141,10 +141,12 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     }
 
     //--------------Load---------------
+
     /**
      * Loads a list of studyPlans from the users home dir if the file cant be find throws a exception
      * @return returns a list of the loaded studyPlanes
-     * @exception throws a exception if file cant be found
+     * @throws StudyPlanNotFoundException throws a exception if the file cant be found
+     * @throws OldFileException throws a exception if the file is of an older version
      */
     @Override
     public List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException {
@@ -162,7 +164,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     /**
      * Loads a studyPlan from the users home dir if the file cant be find throws a exception
      * @return returns a studyPlane
-     * @exception throws a exception if file cant be found
+     * @throws StudyPlanNotFoundException throws a exception if the file cant be found
+     * @throws OldFileException throws a exception if the file is of an older version
      */
     @Override
     public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
@@ -180,7 +183,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     /**
      * Loads a workspace from the users home dir if the file cant be find throws a exception
      * @return returns a workspace
-     * @exception throws a exception if file cant be found
+     * @throws StudyPlanNotFoundException throws a exception if the file cant be found
+     * @throws OldFileException throws a exception if the file is of an older version
      */
     @Override
     public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException {
@@ -282,8 +286,8 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     /**
      * Reads the file in the users home dir and creates a list from that
      * @return returns a list of studyPlans
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if the program cant find the json file
+     * @throws ParseException if the program cant parse the file
      */
     private static JSONObject readFromFile() throws IOException, ParseException {
         File file = new File(getHomeDirPath(), getFileName());

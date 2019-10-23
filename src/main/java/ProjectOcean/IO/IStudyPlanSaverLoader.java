@@ -19,21 +19,21 @@ public interface IStudyPlanSaverLoader {
     /**
      * tries to load all studyPlans saved in the JSON file
      * @return a list of studyPlans
-     * @throws StudyPlanNotFoundException
+     * @throws StudyPlanNotFoundException if the program cant find the studyplan.json file
      */
     List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException;
 
     /**
      * tries to load the current studyPlan saved in the JSON file
      * @return a studyPlan
-     * @throws StudyPlanNotFoundException
+     * @throws StudyPlanNotFoundException if the program cant find the studyplan.json file
      */
     StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException;
 
     /**
      * tries to load a workspace saved in the JSON file
      * @return a workspace
-     * @throws StudyPlanNotFoundException
+     * @throws StudyPlanNotFoundException if the program cant find the studyplan.json file
      */
     Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException;
 
