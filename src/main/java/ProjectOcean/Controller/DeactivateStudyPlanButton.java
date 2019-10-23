@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 @FunctionalInterface
-public interface DeactivateStudyPlanButton {
+interface DeactivateStudyPlanButton {
 
     /**
      * Method deactivate a study plans button

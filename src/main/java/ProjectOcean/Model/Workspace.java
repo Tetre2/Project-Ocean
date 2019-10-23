@@ -36,7 +36,7 @@ public class Workspace {
      * Removes all course from the workspace
      */
     public void removeAllCourses(){
-        while (courses.isEmpty() == false){
+        while ( !courses.isEmpty()){
             courses.remove(0);
         }
     }

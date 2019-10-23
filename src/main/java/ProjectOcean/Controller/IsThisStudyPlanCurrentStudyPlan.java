@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 @FunctionalInterface
-public interface IsThisStudyPlanCurrentStudyPlan {
+interface IsThisStudyPlanCurrentStudyPlan {
 
     boolean isThisStudyPlanCurrentStudyPlan(StudyPlanButtonController buttonController);
 

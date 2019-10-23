@@ -37,8 +37,8 @@ public class ApplicationController extends AnchorPane {
     private final StudyPlanController studyPlanController;
     private final StudyPlanSelectorController studyPlanSelectorController;
     private static DetailedController detailedController;
-    private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
-    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
+    private static final ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static final IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.model = CoursePlanningSystem.getInstance();
@@ -67,7 +67,7 @@ public class ApplicationController extends AnchorPane {
     /**
      * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
      */
-    public void showStudyPlanWorkspaceWindow() {
+    private void showStudyPlanWorkspaceWindow() {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
         contentWindow.getChildren().add(studyPlanController);
@@ -100,7 +100,7 @@ public class ApplicationController extends AnchorPane {
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (studyPlanExists()) {
-            StudyPlanController studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);;
+            StudyPlanController studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
             addNewStudyPlanController(studyPlanController);
         }
     }
@@ -220,7 +220,7 @@ public class ApplicationController extends AnchorPane {
      *
      * @param icon the movable icon to be added
      */
-    public void addIconToScreen(Movable icon) {
+    private void addIconToScreen(Movable icon) {
         dragFeature.getChildren().add((Node) icon);
     }
 
@@ -230,7 +230,7 @@ public class ApplicationController extends AnchorPane {
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
+    private void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -240,7 +240,7 @@ public class ApplicationController extends AnchorPane {
      *
      * @param course the ICourse representing the course from which the details will be taken from
      */
-    public void showDetailedInformationWindow(ICourse course) {
+    private void showDetailedInformationWindow(ICourse course) {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
@@ -265,7 +265,7 @@ public class ApplicationController extends AnchorPane {
      * Adds the study plan to be shown in the lower part of content window
      * @param StudyPlanController the study plan to be shown
      */
-    public void addNewStudyPlanController(StudyPlanController StudyPlanController) {
+    private void addNewStudyPlanController(StudyPlanController StudyPlanController) {
         contentWindow.getChildren().add(1, StudyPlanController);
     }
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Represents a graphical component of a study plan's button.
  */
-public class StudyPlanButtonController extends Button {
+class StudyPlanButtonController extends Button {
 
     @FXML private Button studyPlanButton;
 

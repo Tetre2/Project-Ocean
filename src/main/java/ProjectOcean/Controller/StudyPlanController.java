@@ -17,7 +17,7 @@ import java.util.Observer;
 /**
  * Represents a graphical component of a study plan.
  */
-public class StudyPlanController extends VBox implements Observer {
+class StudyPlanController extends VBox implements Observer {
 
     @FXML private VBox yearContentView;
     @FXML private Button addYearButton;

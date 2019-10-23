@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Represents a graphical component of a study plan.
  */
-public class StudyPlanSelectorController extends AnchorPane {
+class StudyPlanSelectorController extends AnchorPane {
 
     @FXML private VBox studyPlanContainer;
     @FXML private Button addButton;

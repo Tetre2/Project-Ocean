@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controls the workspace in the application
  */
-public class WorkspaceController extends VBox implements Observer {
+class WorkspaceController extends VBox implements Observer {
 
     @FXML private FlowPane workspaceContainer;
 

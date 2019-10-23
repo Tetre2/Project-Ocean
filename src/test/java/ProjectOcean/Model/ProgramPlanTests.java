@@ -1,4 +1,4 @@
 package ProjectOcean.Model;
 
-public class ProgramPlanTests {
+class ProgramPlanTests {
 }

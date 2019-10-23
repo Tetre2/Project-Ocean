@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 @FunctionalInterface
-public interface SetCurrentStudyPlan {
+interface SetCurrentStudyPlan {
 
     void setCurrentStudyPlan(StudyPlanButtonController buttonController);
 

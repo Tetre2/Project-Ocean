@@ -11,8 +11,8 @@ import java.util.Observable;
  */
 public class CoursePlanningSystem extends Observable {
 
-    private List<Course> courses;
-    private Student student;
+    private final List<Course> courses;
+    private final Student student;
     private static CoursePlanningSystem model;
 
     public static CoursePlanningSystem getInstance(){

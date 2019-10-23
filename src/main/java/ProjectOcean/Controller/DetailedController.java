@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the detailed view of a course
  */
-public class DetailedController extends VBox {
+class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
     @FXML private Label studyPeriod;

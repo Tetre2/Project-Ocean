@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Represents the visual graphic component of a year.
  */
-public class YearController extends VBox {
+class YearController extends VBox {
 
     @FXML private GridPane yearGrid;
     @FXML private Button removeYearButton;

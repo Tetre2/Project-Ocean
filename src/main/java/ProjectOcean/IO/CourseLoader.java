@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CourseLoader implements ICourseLoader {
 
-    private static String fileName = "courses.json";
+    private static final String fileName = "courses.json";
     private static final int VERSION = 2;
-    private static JSONParser parser = new JSONParser();
+    private static final JSONParser parser = new JSONParser();
 
     CourseLoader() {
     }
@@ -82,7 +82,7 @@ public class CourseLoader implements ICourseLoader {
             courseTypes.add((String) obj);
         }
 
-        ICourse course = CourseFactory.CreateCourse(
+        return CourseFactory.CreateCourse(
                 (String) jsonObject.get("courseCode"),
                 (String) jsonObject.get("courseName"),
                 (String) jsonObject.get("studyPoints"),
@@ -95,7 +95,6 @@ public class CourseLoader implements ICourseLoader {
                 (String) jsonObject.get("courseDescription"),
                 courseTypes
         );
-        return course;
     }
 
     private boolean checkIfCorrectVersion() throws CoursesNotFoundException{

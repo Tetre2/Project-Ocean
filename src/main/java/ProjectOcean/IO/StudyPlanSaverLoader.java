@@ -290,10 +290,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         FileReader fileReader = new FileReader(file);
         Object obj = parser.parse(fileReader);
-        JSONObject jsonObject = (JSONObject) obj;
-
-
-        return jsonObject;
+        return (JSONObject) obj;
     }
 
     //--------------Other---------------
@@ -333,14 +330,14 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     /**
      * @return returns the path to the users home dir
      */
-    static String getHomeDirPath() {
+    private static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
     }
 
     /**
      * @return returns the json file name
      */
-    static String getFileName() {
+    private static String getFileName() {
         return fileName;
     }
 

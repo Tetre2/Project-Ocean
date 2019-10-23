@@ -1,7 +1,7 @@
 package ProjectOcean.Controller;
 
 @FunctionalInterface
-public interface ShowCurrentStudyPlan {
+interface ShowCurrentStudyPlan {
 
     /**
      * Method displays a study plan

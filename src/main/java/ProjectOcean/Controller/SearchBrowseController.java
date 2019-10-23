@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Represents the visual component of the search bar and list of courses
  */
-public class SearchBrowseController extends AnchorPane {
+class SearchBrowseController extends AnchorPane {
 
     @FXML private VBox searchResultVBox;
     @FXML private TextField searchField;
