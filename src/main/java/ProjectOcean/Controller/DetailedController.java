@@ -31,8 +31,8 @@ class DetailedController extends VBox {
     @FXML private Label courseCodeNameStudyPoints;
     @FXML private Label courseTypeLabel;
 
-    private HostServices hostServices;
-    private GoBackToMainContent goBack;
+    private final HostServices hostServices;
+    private final GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.

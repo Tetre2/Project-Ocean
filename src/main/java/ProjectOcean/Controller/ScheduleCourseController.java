@@ -23,9 +23,9 @@ public class ScheduleCourseController extends VBox implements Movable {
     private final CoursePlanningSystem model;
 
     private final AddIconToScreen addIconToScreen;
-    private int year;
-    private int studyPeriod;
-    private int slot;
+    private final int year;
+    private final int studyPeriod;
+    private final int slot;
     private final ICourse course;
 
     public ScheduleCourseController(CoursePlanningSystem model, ICourse course, AddIconToScreen addIconToScreen, int year, int studyPeriod, int slot) {

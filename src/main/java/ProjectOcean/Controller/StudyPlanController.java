@@ -21,7 +21,7 @@ class StudyPlanController extends VBox implements Observer {
 
     @FXML private VBox yearContentView;
     @FXML private Button addYearButton;
-    private CoursePlanningSystem model;
+    private final CoursePlanningSystem model;
 
     private final List<YearController> yearControllers;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;

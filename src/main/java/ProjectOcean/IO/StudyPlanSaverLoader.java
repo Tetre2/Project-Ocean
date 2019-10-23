@@ -25,11 +25,11 @@ import java.util.List;
 
 public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
-    private static String fileName = "studyplans.json";
+    private static final String fileName = "studyplans.json";
     private static final int VERSION = 1;
-    private static JSONParser parser = new JSONParser();
-    private static CourseLoader courseSaverLoader = new CourseLoader();
-    private static List<ICourse> courses;
+    private static final JSONParser parser = new JSONParser();
+    private static final CourseLoader courseSaverLoader = new CourseLoader();
+    private static final List<ICourse> courses;
     //not nice but needed
     static {
         try {

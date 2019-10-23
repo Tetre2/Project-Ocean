@@ -25,7 +25,7 @@ class StudyPlanSelectorController extends AnchorPane {
 
     private final CoursePlanningSystem model;
     private final ShowCurrentStudyPlan showStudyPlan;
-    private Map<StudyPlanButtonController, Integer> mapStudyPlanAndController = new HashMap<>();
+    private final Map<StudyPlanButtonController, Integer> mapStudyPlanAndController = new HashMap<>();
 
     public StudyPlanSelectorController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan) {
 

@@ -12,7 +12,7 @@ public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
-    private int ID;
+    private final int ID;
     private static int yearsCreatedDuringRuntime = 0;
 
 
