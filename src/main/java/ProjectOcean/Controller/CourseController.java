@@ -135,12 +135,7 @@ public class CourseController extends VBox implements Movable {
                 model.removeCourseFromWorkspace(course);
                 break;
             case "yearGrid":
-                //TODO Come back and fix a better solution.
-            //    YearController yearController = (YearController) owner.getParent().getParent().getParent();
-              //  yearController.removeCourse(course);
-
                 removeYear.removeYear(course);
-
             default:
         }
 

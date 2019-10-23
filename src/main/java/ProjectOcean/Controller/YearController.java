@@ -233,7 +233,8 @@ public class YearController extends VBox implements Observer {
                 model,
                 visualFeedback,
                 showDetailedInformationWindow,
-                this.addIconToScreen, this::removeCourse
+                this.addIconToScreen,
+                this::removeCourse
         ) ;
         yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
 
