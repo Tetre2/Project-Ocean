@@ -84,7 +84,7 @@ public class WorkspaceController extends VBox implements Observer {
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
         for(ICourse course : model.getCoursesInWorkspace()) {
-            CourseController iconController = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen);
+            CourseController iconController = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen, null);
             workspaceContainer.getChildren().add(iconController);
         }
     }

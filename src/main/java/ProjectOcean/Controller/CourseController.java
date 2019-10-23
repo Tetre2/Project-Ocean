@@ -2,6 +2,8 @@ package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
+import ProjectOcean.Model.IYear;
+import ProjectOcean.Model.Year;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -33,13 +35,15 @@ public class CourseController extends VBox implements Movable {
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
     private final VisualFeedback visualFeedback;
+    private final RemoveYear removeYear;
 
-    public CourseController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
+    public CourseController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveYear removeYear) {
         CourseController.model = model;
         this.course = course;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
         this.visualFeedback = visualFeedback;
+        this.removeYear = removeYear;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/CourseView.fxml"));
@@ -132,14 +136,17 @@ public class CourseController extends VBox implements Movable {
                 break;
             case "yearGrid":
                 //TODO Come back and fix a better solution.
-                YearController yearController = (YearController) owner.getParent().getParent().getParent();
-                yearController.removeCourse(course);
+            //    YearController yearController = (YearController) owner.getParent().getParent().getParent();
+              //  yearController.removeCourse(course);
+
+                removeYear.removeYear(course);
+
             default:
         }
 
          //MUST come after the above statement
         visualFeedback.showAvailablePlacementInSchedule(course);
-        CourseController draggedObject = new CourseController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen);
+        CourseController draggedObject = new CourseController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen, removeYear);
         addIconToScreen.addIconToScreen(draggedObject);
 
         draggedObject.startDragAndDrop(TransferMode.MOVE).setContent(content);

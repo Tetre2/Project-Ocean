@@ -205,7 +205,7 @@ public class YearController extends VBox implements Observer {
      */
     private void displayAllCoursesInStudyPlan(){
         clearStudyPlanGridPane();
-        addCoursesFromMap();
+        addCoursesToGridPane();
     }
 
     private void clearStudyPlanGridPane() {
@@ -216,7 +216,7 @@ public class YearController extends VBox implements Observer {
         }
     }
 
-    private void addCoursesFromMap() {
+    private void addCoursesToGridPane() {
         for(Map.Entry<ICourse,Tuple<Integer,Integer>> entry : coursesInYear.entrySet()){
             Tuple<Integer, Integer> location = entry.getValue();
 
@@ -233,7 +233,7 @@ public class YearController extends VBox implements Observer {
                 model,
                 visualFeedback,
                 showDetailedInformationWindow,
-                this.addIconToScreen
+                this.addIconToScreen, this::removeCourse
         ) ;
         yearGrid.add(course, location.getStudyPeriod() - 1,location.getSlot() - 1);
 
