@@ -19,9 +19,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
@@ -324,7 +322,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         CoursePlanningSystem model = CoursePlanningSystem.getInstance();
         StudyPlan studyPlan = new StudyPlan();
-        model.setStudyPlans(Arrays.asList(studyPlan));
+        model.setStudyPlans( new ArrayList<StudyPlan>(){{add(studyPlan);}});
         model.setWorkspace(new Workspace());
         model.setCurrentStudyPlan(studyPlan);
 

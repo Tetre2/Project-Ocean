@@ -135,7 +135,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadCoursesFromJSON() {
-        Alert alert = null;
+        Alert alert;
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
             return;
@@ -153,7 +153,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadWorkspaceFromJSON(){
-        Alert alert = null;
+        Alert alert;
         try {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
@@ -174,7 +174,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadStudyPlansFromJSON() {
-        Alert alert = null;
+        Alert alert;
         try {
             model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
@@ -195,7 +195,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadCurrentStudyPlanFromJSON(){
-        Alert alert = null;
+        Alert alert;
         try {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;

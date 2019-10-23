@@ -1,10 +1,7 @@
 package ProjectOcean.Model;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Observable;
+import java.util.*;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -228,9 +225,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<ICourse> getCoursesInWorkspace(){
         List<ICourse> idList = new ArrayList<>();
-        for (Course c : student.getAllCoursesInWorkspace()) {
-            idList.add(c);
-        }
+        idList.addAll(student.getAllCoursesInWorkspace());
         return idList;
     }
 
@@ -263,9 +258,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<StudyPlan> getAllStudyPlans() {
         List<StudyPlan> studyPlans = new ArrayList<>();
-        for (StudyPlan sp : student.getAllStudyPlans()) {
-            studyPlans.add(sp);
-        }
+        studyPlans.addAll(student.getAllStudyPlans());
         return studyPlans;
     }
 
