@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="courseVBox" minHeight="50.0" onDragDetected="#dragDetected" onMouseClicked="#onMousedClicked" style="-fx-background-color: #EEEEEE; -fx-border-color: #CCCCCC;" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="courseVBox" minHeight="50.0" onDragDetected="#dragDetected" onMouseClicked="#onMousedClicked" prefWidth="250.0" style="-fx-background-color: #EEEEEE; -fx-border-color: #CCCCCC;" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane>
          <children>
