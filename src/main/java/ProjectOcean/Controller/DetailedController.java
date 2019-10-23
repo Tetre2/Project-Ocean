@@ -149,10 +149,10 @@ class DetailedController extends VBox {
         requiredCourses.getChildren().clear();
     }
 
-    @FXML
     /**
      * Opens the course-PM in a web browser
      */
+    @FXML
     private void setOnMouseClickedCoursePMLink(){
         String s = coursePM.getTooltip().getText();
         hostServices.showDocument(s);

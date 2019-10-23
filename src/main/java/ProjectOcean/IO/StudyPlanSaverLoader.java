@@ -29,7 +29,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static final int VERSION = 1;
     private static final JSONParser parser = new JSONParser();
     private static final CourseLoader courseSaverLoader = new CourseLoader();
-    private static final List<ICourse> courses;
+    private static List<ICourse> courses;
     //not nice but needed
     static {
         try {

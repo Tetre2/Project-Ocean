@@ -107,6 +107,7 @@ public class StudentTests {
         Assert.assertFalse(course2.equals(course1));
     }
 
+    @Test
     public void addStudyPlan() {
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
         student.addStudyPlanAsCurrent();

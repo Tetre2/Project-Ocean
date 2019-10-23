@@ -111,7 +111,7 @@ public class CourseLoader implements ICourseLoader {
 
     private JSONObject readFormFile() throws IOException, ParseException {
         //creates a file with the path to the courses.json
-        File file = new File(getClass().getClassLoader().getResource("courses.json").getFile());
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
 
         //Creates a fileReader which reads the courses.json and creates it as a jsonArray
         FileReader fileReader = new FileReader(file);

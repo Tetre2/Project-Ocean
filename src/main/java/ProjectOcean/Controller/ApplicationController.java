@@ -250,7 +250,7 @@ public class ApplicationController extends AnchorPane {
      * Method is called from the menubar in the view
      */
     @FXML
-    public void onSaveClicked() {
+    private void onSaveClicked() {
         saveModel();
     }
 

@@ -89,7 +89,7 @@ class SearchBrowseController extends AnchorPane {
     private void filterAndDisplayCourses() {
         searchResultVBox.getChildren().clear();
 
-        List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
+        List<ICourse> filteredSearchResult = new ArrayList<>(currentSearchResult);
         filterBasedOnStudyPeriod(filteredSearchResult);
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result
