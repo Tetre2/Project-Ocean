@@ -12,7 +12,7 @@ public interface Movable {
     ICourse getICourse();
 
     /**
-     * Relocates the CourseListIconController instance according to the point parameter
+     * Relocates the CourseController instance according to the point parameter
      * @param p the point representing the current mouse coordinates
      */
     void relocateToPoint(Point2D p);

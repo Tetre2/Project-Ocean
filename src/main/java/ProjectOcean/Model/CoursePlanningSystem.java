@@ -200,6 +200,14 @@ public class CoursePlanningSystem extends Observable {
             }
         }
     }
+
+    /**
+     * This method sends a message to all the views that they should update.
+     */
+    public void update(){
+        setChanged();
+        notifyObservers();
+    }
       
      /**
      * Adds a course to the workspace

@@ -17,7 +17,7 @@ public class CourseSaverLoaderTests {
         courseSaverLoader = new CourseLoader();
         courses = new ArrayList<>();
 
-        for (ICourse course : courseSaverLoader.generatePreDefinedCourses()) {
+        for (ICourse course : CourseLoader.generatePreDefinedCourses()) {
             courses.add(course);
         }
 
@@ -37,7 +37,7 @@ public class CourseSaverLoaderTests {
 
     @Test
     public void saveCourses(){
-        courseSaverLoader.savePreMadeCourses();
+        CourseLoader.savePreMadeCourses();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class CourseSaverLoaderTests {
     @Test
     public void saveIsSameAsLoad(){
 
-        courseSaverLoader.savePreMadeCourses();
+        CourseLoader.savePreMadeCourses();
 
         try {
             courses = courseSaverLoader.loadCoursesFile();

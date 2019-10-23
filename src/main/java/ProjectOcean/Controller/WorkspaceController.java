@@ -20,22 +20,25 @@ public class WorkspaceController extends VBox implements Observer {
     @FXML private FlowPane workspaceContainer;
 
     private final CoursePlanningSystem model;
-    private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
     private final RemoveMovableChild removeMovableChild;
+    private final VisualFeedback visualFeedback;
 
     public WorkspaceController(CoursePlanningSystem model,
-                               MoveDraggedObjectToCursor moveDraggedObjectToCursor,
+                               VisualFeedback visualFeedback,
+                               RelocateDraggedObjectToCursor relocateDraggedObjectToCursor,
                                ShowDetailedInformationWindow showDetailedInformationWindow,
                                AddIconToScreen addIconToScreen,
                                RemoveMovableChild removeMovableChild) {
 
-        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+        this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
         this.model = model;
         this.removeMovableChild = removeMovableChild;
+        this.visualFeedback = visualFeedback;
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -56,10 +59,13 @@ public class WorkspaceController extends VBox implements Observer {
     @FXML
     private void onDragOver(DragEvent event){
         event.acceptTransferModes(TransferMode.MOVE);
-        Movable icon = (Movable) event.getGestureSource();
-
-        moveDraggedObjectToCursor.moveDraggedObjectToCursor(icon,event);
+        relocateEventObjectToCursor(event);
         event.consume();
+    }
+
+    private void relocateEventObjectToCursor(DragEvent event){
+        Movable icon = (Movable) event.getGestureSource();
+        relocateDraggedObjectToCursor.relocateDraggedObjectToCursor(icon,event);
     }
 
     @FXML
@@ -78,7 +84,7 @@ public class WorkspaceController extends VBox implements Observer {
     private void displayAllCoursesInWorkspace() {
         workspaceContainer.getChildren().clear();
         for(ICourse course : model.getCoursesInWorkspace()) {
-            CourseListIconController iconController = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
+            CourseController iconController = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen, null);
             workspaceContainer.getChildren().add(iconController);
         }
     }

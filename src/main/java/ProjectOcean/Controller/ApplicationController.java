@@ -1,7 +1,6 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-
 import ProjectOcean.IO.*;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
@@ -20,7 +19,7 @@ import javafx.scene.layout.VBox;
  * Represents the root visual object, only contains empty containers
  */
 
-public class ApplicationController extends AnchorPane {
+public class ApplicationController extends AnchorPane implements VisualFeedback {
 
     @FXML private VBox contentWindow;
     @FXML private AnchorPane dragFeature;
@@ -31,7 +30,7 @@ public class ApplicationController extends AnchorPane {
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
     private final StudyPlanSelectorController studyPlanSelectorController;
-    private final ScheduleController scheduleController;
+    private ScheduleController scheduleController;
     private static DetailedController detailedController;
     private final HostServices hostServices;
     private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
@@ -40,13 +39,14 @@ public class ApplicationController extends AnchorPane {
     public ApplicationController(HostServices hostServices) {
         this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
-        initiateModel();
-        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
-        this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
-        this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
-        this.scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
-        this.detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
+        initiateModel();
+
+        this.searchBrowseController = new SearchBrowseController(model, this, this::showDetailedInformationWindow, this::addIconToScreen);
+        this.workspaceController = new WorkspaceController(model, this, this::relocateDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
+        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
+        detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
+        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/ApplicationWindow.fxml"));
@@ -75,14 +75,17 @@ public class ApplicationController extends AnchorPane {
     @FXML
     private void onDragOver(DragEvent event) {
         Movable draggedObject = (Movable) event.getGestureSource();
-        moveDraggedObjectToCursor(draggedObject, event);
+        relocateDraggedObjectToCursor(draggedObject, event);
         event.consume();
     }
 
     @FXML
     private void onDragDone(DragEvent event) {
         Movable draggedObject = (Movable) event.getGestureSource();
-        getChildren().remove(draggedObject);
+        this.getChildren().remove(draggedObject);
+        if (event.getTransferMode() == null){
+            model.update();
+        }
         event.consume();
     }
 
@@ -99,7 +102,7 @@ public class ApplicationController extends AnchorPane {
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (studyPlanExists()) {
-            ScheduleController scheduleController = new ScheduleController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
+            scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
             addNewStudyPlanController(scheduleController);
         }
     }
@@ -219,7 +222,7 @@ public class ApplicationController extends AnchorPane {
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
+    public void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -233,6 +236,23 @@ public class ApplicationController extends AnchorPane {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
+    }
+
+    /**
+     * Makes the course slots in schedule light up with a color responding to if the course can be placed or not.
+     */
+    public void showAvailablePlacementInSchedule(ICourse course){
+        scheduleController.setVisualFeedbackForCoursePlacement(course);
+    }
+
+    /**
+     * Removes a course from the model.
+     * @param yearID of the year that the course is placed.
+     * @param studyPeriod where the course is currently at.
+     * @param slot where the course is placed.
+     */
+    public void removeCourse(int yearID, int studyPeriod, int slot){
+        model.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**

@@ -1,6 +1,8 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Model.CoursePlanningSystem;
+
+import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +25,18 @@ public class ScheduleController extends VBox implements Observer {
 
     private List<IYear> years;
     private final List<YearController> yearControllers;
-    private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
-    public ScheduleController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
-        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+    public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
+        this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
         this.model = model;
+        this.visualFeedback = visualFeedback;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/StudyPlanWindow.fxml"));
@@ -63,16 +69,33 @@ public class ScheduleController extends VBox implements Observer {
         }
     }
 
+    /**
+     * Displays visual feedback depending on where the course is placed.
+     * @param course is the current object being drag and dropped.
+     */
+    public void setVisualFeedbackForCoursePlacement(ICourse course){
+        for (YearController yearController: yearControllers) {
+            yearController.setBorderColorInSlots(course.getStudyPeriod());
+        }
+    }
+
     private void updateControllerAccordingToModel() {
+        deleteObserversAndChildren();
+
         years = model.getYears();
-        yearControllers.clear();
         int yearIndex = 0;
 
-        for (IYear y :
-                years) {
+        for (IYear y : years) {
             yearIndex++;
-            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen, yearIndex ));
+            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
         }
+    }
+
+    private void deleteObserversAndChildren(){
+        for (YearController yearController: yearControllers) {
+            yearController.deleteFromObserver();
+        }
+        yearControllers.clear();
     }
 
     @FXML
