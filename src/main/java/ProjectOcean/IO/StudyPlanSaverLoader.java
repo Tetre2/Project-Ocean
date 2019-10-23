@@ -26,7 +26,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static final int VERSION = 1;
     private static JSONParser parser = new JSONParser();
     private static CourseLoader courseSaverLoader = new CourseLoader();
-    private static List<ICourse> courses = courseSaverLoader.generatePreDefinedCourses();
+    private static List<ICourse> courses = CourseLoader.generatePreDefinedCourses();
 
     StudyPlanSaverLoader() {
     }
@@ -197,7 +197,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         JSONArray jsonWorkspace = (JSONArray) jsonObject.get("workspace");
         for (Object object: jsonWorkspace) {
             for (ICourse c: courses) {
-                if(c.getCourseCode().equals((String) object))
+                if(c.getCourseCode().equals(object))
                     workspace.addCourse(c);
             }
         }

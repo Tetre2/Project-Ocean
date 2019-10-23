@@ -54,7 +54,7 @@ public class DetailedController extends VBox {
         }
 
         //sets the detailed view so it can grow vertically in its parents
-        detailedViewRoot.setVgrow(this, Priority.ALWAYS);
+        setVgrow(this, Priority.ALWAYS);
 
     }
 

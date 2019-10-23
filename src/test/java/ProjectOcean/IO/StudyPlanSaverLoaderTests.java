@@ -20,7 +20,7 @@ public class StudyPlanSaverLoaderTests {
     @Before
     public void setup(){
         studyPlans = new ArrayList<>();
-        courses = courseSaverLoader.generatePreDefinedCourses();
+        courses = CourseLoader.generatePreDefinedCourses();
         saverLoader.createNewStudentFile();
 
         //---- studyPlan 1 ----

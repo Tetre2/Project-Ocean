@@ -35,7 +35,7 @@ public class CourseController extends VBox implements Movable {
     private final VisualFeedback visualFeedback;
 
     public CourseController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
-        this.model = model;
+        CourseController.model = model;
         this.course = course;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
