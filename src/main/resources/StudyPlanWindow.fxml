@@ -18,7 +18,7 @@
          <content>
             <VBox style="-fx-border-radius: 0; -fx-border-color: purple;">
                <children>
-                  <VBox fx:id="yearContentView" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="yearContentView" />
                   <Button fx:id="addYearButton" mnemonicParsing="false" onAction="#addYear" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
                      <font>
                         <Font size="40.0" />
