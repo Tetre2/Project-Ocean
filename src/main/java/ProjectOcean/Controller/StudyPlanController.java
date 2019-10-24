@@ -1,8 +1,10 @@
 package ProjectOcean.Controller;
 
 import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
-import ProjectOcean.Controller.FunctionalInterfaces.MoveDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.RelocateDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
+import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,14 +28,18 @@ public class StudyPlanController extends VBox implements Observer {
 
     private CoursePlanningSystem model;
     private final List<YearController> yearControllers;
-    private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
+    private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
+    private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
-    public StudyPlanController(CoursePlanningSystem model, MoveDraggedObjectToCursor moveDraggedObjectToCursor, AddIconToScreen addIconToScreen) {
-        this.moveDraggedObjectToCursor = moveDraggedObjectToCursor;
+    public StudyPlanController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
+        this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
         this.model = model;
+        this.visualFeedback = visualFeedback;
+        this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/fxml/StudyPlanWindow.fxml"));
@@ -74,16 +80,33 @@ public class StudyPlanController extends VBox implements Observer {
         }
     }
 
+    /**
+     * Displays visual feedback depending on where the course is placed.
+     * @param course is the current object being drag and dropped.
+     */
+    public void setVisualFeedbackForCoursePlacement(ICourse course){
+        for (YearController yearController: yearControllers) {
+            yearController.setBorderColorInSlots(course.getStudyPeriod());
+        }
+    }
+
     private void updateControllerAccordingToModel() {
+        deleteObserversAndChildren();
+
         List<IYear> years = model.getYears();
-        yearControllers.clear();
         int yearIndex = 0;
 
-        for (IYear y :
-                years) {
+        for (IYear y : years) {
             yearIndex++;
-            yearControllers.add(new YearController(y, model, moveDraggedObjectToCursor, addIconToScreen, yearIndex ));
+            yearControllers.add(new YearController(y, model, relocateDraggedObjectToCursor, addIconToScreen, yearIndex, visualFeedback, showDetailedInformationWindow ));
         }
+    }
+
+    private void deleteObserversAndChildren(){
+        for (YearController yearController: yearControllers) {
+            yearController.deleteFromObserver();
+        }
+        yearControllers.clear();
     }
 
     @FXML

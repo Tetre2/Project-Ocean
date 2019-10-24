@@ -61,15 +61,7 @@ class StudyPlanButtonController extends AnchorPane {
      * Removing current study plan
      */
     private void deleteStudyPlan() {
-        if (!studyPlanExists()) {
-            new Alert(Alert.AlertType.ERROR, "Warning: you have no study plan to delete!").showAndWait();
-        } else {
-            model.removeStudyPlan(studyPlanId);
-        }
-    }
-
-    private boolean studyPlanExists() {
-        return model.getAllStudyPlans().size() > 0;
+        model.removeStudyPlan(studyPlanId);
     }
 
     private void setCurrentStudyPlan() {

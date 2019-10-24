@@ -77,7 +77,7 @@ public class CoursePlanningSystem extends Observable {
      * @param studyPlanID A study plan to assign as current.
      */
     public void setCurrentStudyPlan(Integer studyPlanID) {
-        student.setCurrentStudyPlan(studyPlanID);
+        student.setFirstStudyPlanAsCurrent(studyPlanID);
         setChanged();
         notifyObservers();
     }
@@ -208,6 +208,14 @@ public class CoursePlanningSystem extends Observable {
             }
         }
     }
+
+    /**
+     * This method sends a message to all the views that they should update.
+     */
+    public void update(){
+        setChanged();
+        notifyObservers();
+    }
       
      /**
      * Adds a course to the workspace
@@ -277,7 +285,6 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeStudyPlan(Integer studyPlanID) {
         student.removeStudyPlan(studyPlanID);
-        student.setCurrentStudyPlan();
         setChanged();
         notifyObservers();
     }
@@ -286,7 +293,7 @@ public class CoursePlanningSystem extends Observable {
      * @param currentStudyPlan is the studyPlan to be set as the current studyPlan in the model
      */
     public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
-        student.setCurrentStudyPlan(currentStudyPlan);
+        student.setFirstStudyPlanAsCurrent(currentStudyPlan);
     }
 
     /**

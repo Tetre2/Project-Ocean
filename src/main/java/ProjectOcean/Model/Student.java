@@ -68,15 +68,17 @@ public class Student {
      */
     public void removeStudyPlan(int studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
-            StudyPlan studyPlan = getStudyPlanByID(studyPlanID);
-            studyPlans.remove(studyPlan);
+            studyPlans.remove(getStudyPlanByID(studyPlanID));
+            if(studyPlanID == currentStudyPlan.getId()){
+                setFirstStudyPlanAsCurrent();
+            }
         }
     }
 
     /**
      * Set a given study plan as current.
      */
-    public void setCurrentStudyPlan(Integer studyPlanID) {
+    public void setFirstStudyPlanAsCurrent(Integer studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
             this.currentStudyPlan = getStudyPlanByID(studyPlanID);
         }
@@ -85,7 +87,7 @@ public class Student {
     /**
      * Set a first study plan in list as current.
      */
-    public void setCurrentStudyPlan() {
+    public void setFirstStudyPlanAsCurrent() {
         if (studyPlans.size() > 0) {
             this.currentStudyPlan = studyPlans.get(0);
         }
@@ -182,7 +184,7 @@ public class Student {
     /**
      * @param currentStudyPlan is the studyPlan to be set as the current studyplan in the model
      */
-    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+    public void setFirstStudyPlanAsCurrent(StudyPlan currentStudyPlan) {
         this.currentStudyPlan = currentStudyPlan;
     }
 

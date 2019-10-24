@@ -21,7 +21,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#onDeleteClicked" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -36,7 +36,7 @@
                   <AnchorPane fx:id="studyPlanWindow" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #61718c;" />
       
                   <VBox fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" HBox.hgrow="ALWAYS" />
-                  <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" style="-fx-background-color: #FF0000;" />
+                  <AnchorPane fx:id="searchBrowseWindow" minWidth="300.0" prefWidth="300.0" />
                </children>
             </HBox>
          </children>
