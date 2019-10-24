@@ -300,7 +300,9 @@ public class CoursePlanningSystem extends Observable {
      * @param courses the courses to be added
      */
     public void fillModelWithCourses(List<Course> courses){
-        courses.addAll(courses);
+        for (Course course: courses) {
+            this.courses.add(course);
+        }
     }
 
 }
