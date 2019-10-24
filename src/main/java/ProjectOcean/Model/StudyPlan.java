@@ -104,25 +104,23 @@ public class StudyPlan {
      */
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudyPlan studyPlan = (StudyPlan) o;
-        return studyPlan.getYears().equals(years);
+        return id == studyPlan.id &&
+                years.equals(studyPlan.years);
     }
 
-    /**
-     * @return a hash code
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(years);
+        return Objects.hash(years, id);
     }
 
     @Override
     public String toString() {
-        return "Schedule{" +
+        return "StudyPlan{" +
                 "years=" + years +
+                ", id=" + id +
                 '}';
     }
 }
