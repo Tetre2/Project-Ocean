@@ -48,7 +48,6 @@ class StudyPlanButtonController extends AnchorPane {
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
         setCurrentStudyPlan();
-        //toggleStudyPlanWindow.toggleStudyPlanWindow();
         event.consume();
     }
 

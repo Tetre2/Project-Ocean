@@ -53,6 +53,9 @@ public class StudyPlanController extends VBox implements Observer {
 
     }
 
+    /**
+     * Updates the view according to the model.
+     */
     @Override
     public void update(Observable o, Object arg) {
         updateControllerAccordingToModel();
