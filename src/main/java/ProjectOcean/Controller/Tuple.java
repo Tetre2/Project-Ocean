@@ -5,7 +5,7 @@ package ProjectOcean.Controller;
  * @param <X> is a generic value
  * @param <Y> is a generic value
  */
-public class Tuple<X,Y> {
+class Tuple<X,Y> {
     private final X studyPeriod;
     private final Y slot;
 

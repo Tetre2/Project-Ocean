@@ -5,7 +5,7 @@ import ProjectOcean.Model.ICourse;
 /**
  * An interface that handles callbacks regarding visual feedback.
  */
-public interface VisualFeedback {
+interface VisualFeedback {
 
     /**
      * Shows which slots is available for placing courses and color codes accordingly

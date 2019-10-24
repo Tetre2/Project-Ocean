@@ -229,7 +229,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
+    private void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -250,16 +250,6 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      */
     public void showAvailablePlacementInSchedule(ICourse course){
         studyPlanController.setVisualFeedbackForCoursePlacement(course);
-    }
-
-    /**
-     * Removes a course from the model.
-     * @param yearID of the year that the course is placed.
-     * @param studyPeriod where the course is currently at.
-     * @param slot where the course is placed.
-     */
-    public void removeCourse(int yearID, int studyPeriod, int slot){
-        model.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**
