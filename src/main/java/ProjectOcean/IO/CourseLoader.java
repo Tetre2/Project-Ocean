@@ -15,22 +15,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseLoader implements ICourseLoader {
+public class CourseLoader {
 
     private static final String fileName = "courses.json";
     private static final int VERSION = 2;
     private static final JSONParser parser = new JSONParser();
-
-    CourseLoader() {
-    }
 
     /**
      * Loads a Map from "courses.json" in user hom dir if it cant find the file it creates a new empty one
      *
      * @return returns a <code>Map<UUID, Course></code>
      */
-    @Override
-    public List<Course> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
+    public static List<Course> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -49,7 +45,7 @@ public class CourseLoader implements ICourseLoader {
      * @throws IOException if the program cant find the json file
      * @throws ParseException if the program cant parse the file
      */
-    private List<Course> getCoursesFromJSON() throws IOException, ParseException {
+    private static List<Course> getCoursesFromJSON() throws IOException, ParseException {
         //Map to return when method is done
         List<Course> courses = new ArrayList<>();
 
@@ -65,7 +61,7 @@ public class CourseLoader implements ICourseLoader {
         return courses;
     }
 
-    private Course createCourseFromJSONObject(Object object){
+    private static Course createCourseFromJSONObject(Object object){
         //casts the "course" to a jsonObject to be able to access the info
         JSONObject jsonObject = (JSONObject) object;
 
@@ -97,7 +93,7 @@ public class CourseLoader implements ICourseLoader {
         );
     }
 
-    private boolean checkIfCorrectVersion() throws CoursesNotFoundException{
+    private static boolean checkIfCorrectVersion() throws CoursesNotFoundException{
         try {
             JSONObject jsonObject = readFormFile();
             int version = (int)(long) jsonObject.get("version");
@@ -109,9 +105,9 @@ public class CourseLoader implements ICourseLoader {
         }
     }
 
-    private JSONObject readFormFile() throws IOException, ParseException {
+    private static JSONObject readFormFile() throws IOException, ParseException {
         //creates a file with the path to the courses.json
-        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+        File file = new File(CourseLoader.class.getClassLoader().getResource(fileName).getFile());
 
         //Creates a fileReader which reads the courses.json and creates it as a jsonArray
         FileReader fileReader = new FileReader(file);

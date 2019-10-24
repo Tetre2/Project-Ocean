@@ -2,12 +2,12 @@ package ProjectOcean.Controller;
 
 import java.io.IOException;
 
+import ProjectOcean.IO.CourseLoader;
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
-import ProjectOcean.IO.ICourseLoader;
-import ProjectOcean.IO.IStudyPlanSaverLoader;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.SaverLoaderFactory;
+import ProjectOcean.IO.StudyPlanSaverLoader;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -37,8 +37,8 @@ public class ApplicationController extends AnchorPane {
     private final StudyPlanController studyPlanController;
     private final StudyPlanSelectorController studyPlanSelectorController;
     private static DetailedController detailedController;
-    private static final ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
-    private static final IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
+    private static final CourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static final StudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.model = CoursePlanningSystem.getInstance();

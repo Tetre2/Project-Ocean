@@ -1,8 +1,8 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CourseLoader;
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
-import ProjectOcean.IO.ICourseLoader;
 import ProjectOcean.IO.SaverLoaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +14,7 @@ public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
     private List<Course> courses;
-    private ICourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private CourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
     private List<StudyPlan> studyPlans;
 
     private int studyPeriod;

@@ -1,8 +1,8 @@
 package ProjectOcean.Model;
 
+import ProjectOcean.IO.CourseLoader;
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
-import ProjectOcean.IO.ICourseLoader;
 import ProjectOcean.IO.SaverLoaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import java.util.List;
 public class StudyPeriodTests {
 
     private int slot;
-    ICourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
+    CourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
 
     @Before
     public void before() {

@@ -4,7 +4,6 @@ import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.CoursePlanningSystem;
-import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.Student;
 import ProjectOcean.Model.StudyPlan;
 import ProjectOcean.Model.Course;
@@ -21,7 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
+public class StudyPlanSaverLoader {
 
     private static final String fileName = "studyplans.json";
     private static final int VERSION = 1;
@@ -39,16 +38,12 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         }
     }
 
-    StudyPlanSaverLoader() {
-    }
-
     //--------------Save---------------
     /**
      * Saves the users studyPlans and workspace to the userHomeDir
      * @param model is what will being saved
      */
-    @Override
-    public void saveModel(CoursePlanningSystem model) {
+    public static void saveModel(CoursePlanningSystem model) {
 
         JSONObject jsonStudent = new JSONObject();
 
@@ -146,8 +141,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @throws StudyPlanNotFoundException throws a exception if the file cant be found
      * @throws OldFileException throws a exception if the file is of an older version
      */
-    @Override
-    public List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException {
+    public static List<StudyPlan> loadStudyPlans() throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -165,8 +159,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @throws StudyPlanNotFoundException throws a exception if the file cant be found
      * @throws OldFileException throws a exception if the file is of an older version
      */
-    @Override
-    public StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
+    public static StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -184,8 +177,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
      * @throws StudyPlanNotFoundException throws a exception if the file cant be found
      * @throws OldFileException throws a exception if the file is of an older version
      */
-    @Override
-    public Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException {
+    public static Workspace loadWorkspace() throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -312,8 +304,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     /**
      * Creates a empty student file and creates a new file if it does not exist
      */
-    @Override
-    public void createNewStudentFile(){
+    public static void createNewStudentFile(){
         File directory = new File(getHomeDirPath());
         File file = new File(directory, getFileName());
         file = new File(file.getParentFile().getAbsolutePath());
