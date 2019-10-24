@@ -13,7 +13,7 @@ import java.util.*;
 public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
-    private List<ICourse> courses;
+    private List<Course> courses;
     private ICourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
     private List<StudyPlan> studyPlans;
 
@@ -25,7 +25,7 @@ public class CoursePlanningSystemTests {
         model = CoursePlanningSystem.getInstance();
         courses = new ArrayList<>();
 
-        List<ICourse> loadedCourses = null;
+        List<Course> loadedCourses = null;
         try {
             loadedCourses = courseLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {
@@ -34,7 +34,7 @@ public class CoursePlanningSystemTests {
             e.printStackTrace();
         }
 
-        for (ICourse course : loadedCourses) {
+        for (Course course : loadedCourses) {
             courses.add(course);
         }
 
@@ -85,7 +85,8 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void getAllCoursesTest() {
-        List<ICourse> expected = courses;
+        List<ICourse> expected = new ArrayList<>();
+        expected.addAll(courses);
         List<ICourse> actual = model.getAllCourses();
 
         if(expected.size() == actual.size()){
@@ -178,16 +179,6 @@ public class CoursePlanningSystemTests {
 
         model.removeCourseFromWorkspace(courses.get(0));
         Assert.assertEquals(0, model.getCoursesInWorkspace().size());
-
-    }
-
-    @Test
-    public void getCourseTest() {
-
-        ICourse expected = courses.get(0);
-        ICourse actual = model.getCourse(courses.get(0));
-
-        Assert.assertEquals(expected, actual);
 
     }
 

@@ -40,7 +40,7 @@ public class StudyPlan {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int yearID, int studyPeriod, int slot) {
+    public void addCourse(Course course, int yearID, int studyPeriod, int slot) {
         getYear(yearID).addCourse(course, studyPeriod, slot);
     }
 

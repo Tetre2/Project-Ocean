@@ -48,7 +48,7 @@ public class ScheduleCourseController extends VBox implements Movable {
             throw new RuntimeException(exception);
         }
 
-        courseCodeLabel.setText(model.getCourse(course).getCourseCode());
+        courseCodeLabel.setText(course.getCourseCode());
     }
 
     /**

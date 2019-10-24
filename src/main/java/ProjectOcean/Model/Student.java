@@ -27,7 +27,7 @@ public class Student {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
         currentStudyPlan.addCourse(course, year, studyPeriod, slot);
     }
 

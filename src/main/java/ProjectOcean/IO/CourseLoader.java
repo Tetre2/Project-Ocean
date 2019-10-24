@@ -2,8 +2,8 @@ package ProjectOcean.IO;
 
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.Model.Course;
 import ProjectOcean.Model.CourseFactory;
-import ProjectOcean.Model.ICourse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,7 +30,7 @@ public class CourseLoader implements ICourseLoader {
      * @return returns a <code>Map<UUID, Course></code>
      */
     @Override
-    public List<ICourse> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
+    public List<Course> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
             throw new OldFileException();
         try {
@@ -49,15 +49,15 @@ public class CourseLoader implements ICourseLoader {
      * @throws IOException if the program cant find the json file
      * @throws ParseException if the program cant parse the file
      */
-    private List<ICourse> getCoursesFromJSON() throws IOException, ParseException {
+    private List<Course> getCoursesFromJSON() throws IOException, ParseException {
         //Map to return when method is done
-        List<ICourse> courses = new ArrayList<>();
+        List<Course> courses = new ArrayList<>();
 
         JSONArray studyPlans = (JSONArray) readFormFile().get("courses");
 
         //loops through all "courses"
         for (Object courseObject : studyPlans) {
-            ICourse course = createCourseFromJSONObject(courseObject);
+            Course course = createCourseFromJSONObject(courseObject);
             courses.add(course);
 
         }
@@ -65,7 +65,7 @@ public class CourseLoader implements ICourseLoader {
         return courses;
     }
 
-    private ICourse createCourseFromJSONObject(Object object){
+    private Course createCourseFromJSONObject(Object object){
         //casts the "course" to a jsonObject to be able to access the info
         JSONObject jsonObject = (JSONObject) object;
 

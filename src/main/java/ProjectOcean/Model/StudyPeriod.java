@@ -7,15 +7,15 @@ import java.util.Objects;
  */
 public class StudyPeriod {
 
-    private ICourse course1;
-    private ICourse course2;
+    private Course course1;
+    private Course course2;
 
     /**
      * Adds a course in a specific slot in study period
      * @param course the course to be added
      * @param slot the index representing which slot to add the course in
      */
-    public void addCourse(ICourse course, int slot){
+    public void addCourse(Course course, int slot){
         if(slot == 1)
             course1 = course;
         else if(slot == 2)
@@ -36,14 +36,14 @@ public class StudyPeriod {
     /**
      * @return Returns course in the first slot
      */
-    public ICourse getCourse1() {
+    public Course getCourse1() {
         return course1;
     }
 
     /**
      * @return Returns course in the second slot
      */
-    public ICourse getCourse2() {
+    public Course getCourse2() {
         return course2;
     }
 

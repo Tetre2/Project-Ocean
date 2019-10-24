@@ -16,7 +16,7 @@ public class StudyPlanSaverLoaderTests {
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
     private CourseLoader courseSaverLoader = new CourseLoader();
     private CoursePlanningSystem model;
-    private List<ICourse> courses;
+    private List<Course> courses;
 
     @Before
     public void setup(){

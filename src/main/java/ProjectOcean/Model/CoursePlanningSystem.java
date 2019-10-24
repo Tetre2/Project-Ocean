@@ -90,7 +90,7 @@ public class CoursePlanningSystem extends Observable {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        student.addCourse(course, year, studyPeriod,slot);
+        student.addCourse(courses.get(courses.indexOf(course)), year, studyPeriod,slot);
         setChanged();
         notifyObservers();
     }
@@ -123,14 +123,6 @@ public class CoursePlanningSystem extends Observable {
         student.removeCourse(yearID, studyPeriod, slot);
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * @param course is a ICourse for a specific course
-     * @return returns the Course corresponding to the given UUID
-     */
-    public Course getCourse(ICourse course) {
-        return (Course) course;
     }
 
     /**
@@ -295,9 +287,9 @@ public class CoursePlanningSystem extends Observable {
      * Fills the model with a list of courses
      * @param courses the courses to be added
      */
-    public void fillModelWithCourses(List<ICourse> courses){
-        for (ICourse course: courses) {
-            this.courses.add((Course) course);
+    public void fillModelWithCourses(List<Course> courses){
+        for (Course course: courses) {
+            this.courses.add(course);
         }
     }
 

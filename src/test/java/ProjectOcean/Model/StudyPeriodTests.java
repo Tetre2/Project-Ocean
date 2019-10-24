@@ -26,7 +26,7 @@ public class StudyPeriodTests {
     public void addCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
 
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",
@@ -49,7 +49,7 @@ public class StudyPeriodTests {
     public void removeCourseTest() {
         StudyPeriod studyPeriod = new StudyPeriod();
 
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",
@@ -67,7 +67,7 @@ public class StudyPeriodTests {
 
         Assert.assertTrue(course != studyPeriod.getCourse1());
 
-        ICourse course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
+        Course course2 = CourseFactory.CreateCourse("DAT017","Maskinorienterad programmering", "7.5", "1","Rolf Söderström", "Tenta", "Svenska", new ArrayList<>(), "www.google.com", "Lorem Ipsum", new ArrayList<>(Arrays.asList("Informationsteknik")));
         studyPeriod.addCourse(course, slot);
         studyPeriod.addCourse(course2, slot);
         studyPeriod.removeCourse(slot);
@@ -79,7 +79,7 @@ public class StudyPeriodTests {
     public void equalsTest(){
         StudyPeriod studyPeriod1 = new StudyPeriod();
         StudyPeriod studyPeriod2 = new StudyPeriod();
-        List<ICourse> courses = null;
+        List<Course> courses = null;
         try {
             courses = courseLoader.loadCoursesFile();
         } catch (CoursesNotFoundException e) {

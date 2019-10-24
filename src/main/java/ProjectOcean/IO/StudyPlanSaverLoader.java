@@ -27,7 +27,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static final int VERSION = 1;
     private static final JSONParser parser = new JSONParser();
     private static final CourseLoader courseSaverLoader = new CourseLoader();
-    private static List<ICourse> courses;
+    private static List<Course> courses;
     //not nice but needed
     static {
         try {
@@ -211,7 +211,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
         Workspace workspace = new Workspace();
         JSONArray jsonWorkspace = (JSONArray) jsonObject.get("workspace");
         for (Object object: jsonWorkspace) {
-            for (ICourse c: courses) {
+            for (Course c: courses) {
                 if(c.getCourseCode().equals((String) object))
                     workspace.addCourse(c);
             }
@@ -260,7 +260,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
     private static void addJSONCourseToStudyPeriodInStudyPlan(StudyPlan studyPlan, JSONObject jsonObjStudyPeriod, int year, int studyPeriod){
         String course1 = (String) jsonObjStudyPeriod.get("Course1");
         if( !course1.equals("null")) {
-            for (ICourse c: courses) {
+            for (Course c: courses) {
                 if(c.getCourseCode().equals(course1)) {
                     int yearID = studyPlan.getYearByOrder(year).getID();
                     studyPlan.addCourse(c, yearID, studyPeriod, 1);
@@ -271,7 +271,7 @@ public class StudyPlanSaverLoader implements IStudyPlanSaverLoader{
 
         String course2 = (String) jsonObjStudyPeriod.get("Course2");
         if( !course2.equals("null")) {
-            for (ICourse c: courses) {
+            for (Course c: courses) {
                 if(c.getCourseCode().equals(course2)){
                     int yearID = studyPlan.getYearByOrder(year).getID();
                     studyPlan.addCourse(c, yearID, studyPeriod, 2);

@@ -31,7 +31,7 @@ public class Year implements IYear{
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int studyPeriod, int slot) {
+    public void addCourse(Course course, int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).addCourse(course, slot);
     }
 
