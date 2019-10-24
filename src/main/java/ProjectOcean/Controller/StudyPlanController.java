@@ -7,6 +7,7 @@ import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ class StudyPlanController extends VBox implements Observer {
 
     @FXML private VBox yearContentView;
     @FXML private Button addYearButton;
-    private final CoursePlanningSystem model;
+    @FXML private ScrollPane scrollPane;
 
+    private CoursePlanningSystem model;
     private final List<YearController> yearControllers;
     private final MoveDraggedObjectToCursor moveDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
@@ -57,6 +59,11 @@ class StudyPlanController extends VBox implements Observer {
         displayAllYearsInSchedule();
     }
 
+    private void scrollDownScrollPane() {
+        scrollPane.layout();
+        scrollPane.setVvalue(1.0);
+    }
+
     private void displayAllYearsInSchedule() {
         yearContentView.getChildren().clear();
         for (YearController yearController: yearControllers) {
@@ -79,6 +86,6 @@ class StudyPlanController extends VBox implements Observer {
     @FXML
     private void addYear() {
         model.addYear();
+        scrollDownScrollPane();
     }
-
 }

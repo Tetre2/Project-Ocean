@@ -51,7 +51,7 @@ class StudyPlanSelectorController extends AnchorPane {
         if (model.getAllStudyPlans().size() != 0) {
             deactivateStudyPlanButton();
         }
-        model.addStudyPlan(); // Method also setting new studyPlan to current.
+        model.addStudyPlan(); // Method also sets new studyPlan to current.
         displayAllStudyPlanButtons();
         showStudyPlan.showCurrentStudyPlan();
         event.consume();
