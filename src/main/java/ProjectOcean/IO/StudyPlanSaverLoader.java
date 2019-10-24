@@ -158,6 +158,7 @@ public class StudyPlanSaverLoader {
      * @return returns a studyPlane
      * @throws StudyPlanNotFoundException throws a exception if the file cant be found
      * @throws OldFileException throws a exception if the file is of an older version
+     * @param studyPlans a list of studyPlan to be loaded to from file in home dir
      */
     public static StudyPlan loadCurrentStudyPlan(List<StudyPlan> studyPlans) throws StudyPlanNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())

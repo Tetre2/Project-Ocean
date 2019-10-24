@@ -40,6 +40,7 @@ class SearchBrowseController extends AnchorPane {
      * @param model: An instance of the course planning system
      * @param showDetailedInformationWindow callback to the showDetailedInformationWindow method
      * @param addIconToScreen callback to the addIconToScreen method
+     * @param visualFeedback callback to the method showAvailablePlacementInSchedule
      */
     public SearchBrowseController(CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;

@@ -38,6 +38,7 @@ public class Year implements IYear{
     /**
      * Removes a course from the given study period
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).removeCourse(slot);

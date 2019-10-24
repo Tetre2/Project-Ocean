@@ -14,7 +14,18 @@ public class CourseFactory {
 
     /**
      * Create a course with the current variable state of this class.
-     * @return A freshly created course of type ICourse
+     * @param courseCode course code of a Course
+     * @param courseName name of a Course
+     * @param studyPoints study points of a Course
+     * @param studyPeriod study period a Course is given
+     * @param examiner examiner of a course
+     * @param examinationMeans a Courses examination means
+     * @param language languages of a course
+     * @param requiredCourses required courses for a Course
+     * @param coursePMLink link to Courses PM
+     * @param courseDescription Courses description
+     * @param courseTypes type of the Course
+     * @return A freshly created course of type ICourse. courseCode
      */
     public static Course CreateCourse(
             String courseCode,

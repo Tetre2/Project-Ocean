@@ -35,6 +35,7 @@ public class Student {
      * Removes the given course in the given year and study period, in the study plan
      * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int yearID, int studyPeriod, int slot) {
         currentStudyPlan.removeCourse(yearID, studyPeriod, slot);
@@ -57,6 +58,7 @@ public class Student {
 
     /**
      * Adds a new study plan to last place in list studyPlans and set it to current
+     * @param studyPlan a studyPlan to add to the model
      */
     public void addStudyPlan(StudyPlan studyPlan) {
         studyPlans.add(studyPlan);
@@ -77,6 +79,7 @@ public class Student {
 
     /**
      * Set a given study plan as current.
+     * @param studyPlanID studyPlan to set as current in model
      */
     public void setFirstStudyPlanAsCurrent(Integer studyPlanID) {
         if (studyPlanExists(studyPlanID)) {

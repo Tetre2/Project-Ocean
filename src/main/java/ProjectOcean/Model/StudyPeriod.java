@@ -25,6 +25,7 @@ public class StudyPeriod {
 
     /**
      * Removes the given course from the study period
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int slot) {
         if(slot == 1)

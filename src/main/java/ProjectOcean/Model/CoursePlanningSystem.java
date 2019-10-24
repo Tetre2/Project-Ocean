@@ -126,6 +126,7 @@ public class CoursePlanningSystem extends Observable {
      * Removes the given course in the given year and study period, for the current student
      * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int yearID, int studyPeriod, int slot) {
         student.removeCourse(yearID, studyPeriod, slot);
@@ -136,7 +137,7 @@ public class CoursePlanningSystem extends Observable {
     /**
      *
      * @param searchText: A string of search terms separated by blank spaces
-     * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
+     * @return searchResult: A List of ICourses with the ICourse of each course that matches, in the order that they are matched
      */
     public List<ICourse> executeSearch(String searchText) {
         String[] searchTerms = trimString(searchText);

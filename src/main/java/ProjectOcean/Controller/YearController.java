@@ -263,7 +263,7 @@ public class YearController extends VBox implements Observer {
 
     /**
      * Removes a given course in the model.
-     * @param course
+     * @param course ICourse to remove
      */
     public void removeCourse(ICourse course){
         Tuple<Integer, Integer> location = coursesInYear.get(course);

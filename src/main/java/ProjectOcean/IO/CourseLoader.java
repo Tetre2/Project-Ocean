@@ -23,8 +23,9 @@ public class CourseLoader {
 
     /**
      * Loads a Map from "courses.json" in user hom dir if it cant find the file it creates a new empty one
-     *
-     * @return returns a <code>Map<UUID, Course></code>
+     * @throws CoursesNotFoundException throws a exception if the file cant be found
+     * @throws OldFileException throws a exception if the file is of an older version
+     * @return returns a <code>List of Course</code>
      */
     public static List<Course> loadCoursesFile() throws CoursesNotFoundException, OldFileException {
         if(!checkIfCorrectVersion())
@@ -41,7 +42,7 @@ public class CourseLoader {
     /**
      * The method tha reads the file and creates the Map
      *
-     * @return returns a <code>Map<UUID, Course></code>
+     * @return returns a <code>List of Course</code>
      * @throws IOException if the program cant find the json file
      * @throws ParseException if the program cant parse the file
      */
