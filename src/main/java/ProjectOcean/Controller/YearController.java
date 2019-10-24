@@ -36,7 +36,7 @@ class YearController extends VBox {
         this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/YearView.fxml"));
+                "/fxml/YearView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

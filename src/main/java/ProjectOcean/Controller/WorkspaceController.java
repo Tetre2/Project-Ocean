@@ -43,7 +43,7 @@ class WorkspaceController extends VBox implements Observer {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/WorkspaceWindow.fxml"));
+                "/fxml/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

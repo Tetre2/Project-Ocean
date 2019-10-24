@@ -37,7 +37,7 @@ public class ScheduleCourseController extends VBox implements Movable {
         this.studyPeriod = studyPeriod;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ScheduleCourseView.fxml"));
+                "/fxml/ScheduleCourseView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

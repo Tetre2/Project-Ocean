@@ -28,7 +28,7 @@ class StudyPlanButtonController extends AnchorPane {
         this.studyPlanId = studyPlanId;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/StudyPlanButtonView.fxml"));
+                "/fxml/StudyPlanButtonView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

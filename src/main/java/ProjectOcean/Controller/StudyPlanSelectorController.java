@@ -28,7 +28,7 @@ class StudyPlanSelectorController extends AnchorPane implements Observer {
         this.toggleStudyPlanWindow = toggleStudyPlanWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/StudyPlanSelectorWindow.fxml"));
+                "/fxml/StudyPlanSelectorWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

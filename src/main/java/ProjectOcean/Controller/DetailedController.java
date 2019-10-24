@@ -44,7 +44,7 @@ class DetailedController extends VBox {
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/DetailedWindow.fxml"), bundle);
+                "/fxml/DetailedWindow.fxml"), bundle);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

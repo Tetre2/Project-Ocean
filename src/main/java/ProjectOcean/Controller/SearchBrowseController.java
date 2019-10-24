@@ -46,7 +46,7 @@ class SearchBrowseController extends AnchorPane {
         this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/SearchBrowseWindow.fxml"));
+                "/fxml/SearchBrowseWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

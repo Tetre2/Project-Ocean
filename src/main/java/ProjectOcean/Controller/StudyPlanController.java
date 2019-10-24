@@ -36,7 +36,7 @@ public class StudyPlanController extends VBox implements Observer {
         this.model = model;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/StudyPlanWindow.fxml"));
+                "/fxml/StudyPlanWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

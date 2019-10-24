@@ -143,7 +143,7 @@
                      <graphic>
                         <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@searchIcon.png" />
+                              <Image url="@../Images/searchIcon.png" />
                            </image>
                         </ImageView>
                      </graphic>

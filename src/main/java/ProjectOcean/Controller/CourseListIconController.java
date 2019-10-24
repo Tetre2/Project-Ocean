@@ -38,7 +38,7 @@ public class CourseListIconController extends VBox implements Movable {
         this.addIconToScreen = addIconToScreen;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/CourseView.fxml"));
+                "/fxml/CourseView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

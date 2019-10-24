@@ -50,7 +50,7 @@ public class ApplicationController extends AnchorPane {
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ApplicationWindow.fxml"));
+                "/fxml/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
