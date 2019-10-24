@@ -1,9 +1,5 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.Model.Course;
-import ProjectOcean.Model.CourseFactory;
-import ProjectOcean.Model.ICourse;
-import ProjectOcean.Model.Workspace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
