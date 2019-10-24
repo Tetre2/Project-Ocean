@@ -161,7 +161,7 @@ public class CoursePlanningSystem extends Observable {
         // to search result.
         for(String s : searchTerms) {
             for(ICourse c : courses) {
-                if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c)) {
+                if(c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c)) {
                     searchResult.add(c);
                 }
             }
