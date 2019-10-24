@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
-
-<fx:root fx:id="studyPlanButton" mnemonicParsing="false" onMouseClicked="#onStudyPlanClicked" prefHeight="82.0" prefWidth="122.0" type="Button" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" />
+<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="studyPlanButton" mnemonicParsing="false" onMouseClicked="#onStudyPlanClicked" prefHeight="82.0" prefWidth="122.0" />
+      <Circle fill="#ff1f1f" layoutX="108.0" layoutY="14.0" onMouseClicked="#onDeleteStudyPlanClicked" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</fx:root>
