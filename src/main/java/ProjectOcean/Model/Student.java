@@ -12,7 +12,7 @@ public class Student {
     private Workspace workspace;
 
     public Student() {
-        //if CoursePlaningSystem does not set the instance variables they should be defaulted
+        //if CoursePlaningSystem does not set the instance variables they default to this
         //these will be overwritten if we set these from CoursePlaningSystem
         this.currentStudyPlan = new StudyPlan();
         studyPlans = new ArrayList<>();
