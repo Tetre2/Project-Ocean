@@ -7,12 +7,12 @@ import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class CourseListIconController extends VBox implements Movable {
 
-    @FXML private Text courseCodeText;
-    @FXML private Text courseNameText;
-    @FXML private Text studyPointsText;
+    @FXML private Label courseCodeText;
+    @FXML private Label courseNameText;
+    @FXML private Label studyPointsText;
     @FXML private VBox typeIndicator;
 
     private static CoursePlanningSystem model;
@@ -60,7 +60,7 @@ public class CourseListIconController extends VBox implements Movable {
         }
         this.courseNameText.setText(courseName);
         this.courseCodeText.setText(course.getCourseCode());
-        this.studyPointsText.setText(course.getStudyPoints() + " hp");
+        this.studyPointsText.setText(course.getStudyPoints());
         indicateCourseTypes();
     }
 
@@ -86,7 +86,7 @@ public class CourseListIconController extends VBox implements Movable {
     private void paintIndicator(String colour) {
         Pane typeIndicatorPane = new Pane();
         typeIndicatorPane.setStyle("-fx-background-color: " + colour);
-        typeIndicatorPane.setPrefHeight(200);
+        typeIndicatorPane.setPrefHeight(50);
         typeIndicator.getChildren().add(typeIndicatorPane);
     }
 

@@ -21,9 +21,7 @@ public class StudyPlan {
     }
 
     public StudyPlan() {
-        this.id = studyPlansCreatedDuringRuntime;
-        years = new ArrayList<>();
-        studyPlansCreatedDuringRuntime++;
+        this(studyPlansCreatedDuringRuntime);
     }
 
     /**
