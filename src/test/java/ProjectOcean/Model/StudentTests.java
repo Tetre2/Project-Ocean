@@ -131,8 +131,12 @@ public class StudentTests {
         Assert.assertTrue(student.getAllStudyPlans().size() == 3);
 
         int spId = student.getAllStudyPlans().get(1).getId();
+        for (StudyPlan studyplan : student.getAllStudyPlans()) {
+            if(studyplan.getId() == spId){
+                list.remove(spId);
+            }
+        }
         student.removeStudyPlan(spId);
-        list.remove(spId);
         Assert.assertTrue(student.getAllStudyPlans().size() == 2);
 
         List<Integer> ids = student.getStudyPlanIds();
