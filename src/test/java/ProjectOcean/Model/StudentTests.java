@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class StudentTests {
 
@@ -107,20 +108,77 @@ public class StudentTests {
         Assert.assertFalse(course2.equals(course1));
     }
 
+    @Test
     public void addStudyPlan() {
         Assert.assertTrue(student.getAllStudyPlans().size() == 1);
-        student.addStudyPlanAsCurrent();
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
         Assert.assertTrue(student.getAllStudyPlans().size() == 2);
     }
 
     @Test
     public void removeStudyPlan() {
-        student.addStudyPlanAsCurrent();
+        List<Integer> list = new ArrayList<>();
+        list.add(student.getAllStudyPlans().get(0).getId());
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+        list.add(studyPlan.getId());
         Assert.assertTrue(student.getAllStudyPlans().size() == 2);
 
-        int spId = student.getAllStudyPlans().get(0).getId();
+        StudyPlan studyPlan2 = new StudyPlan();
+        student.addStudyPlan(studyPlan2);
+        list.add(studyPlan2.getId());
+        Assert.assertTrue(student.getAllStudyPlans().size() == 3);
+
+        int spId = student.getAllStudyPlans().get(1).getId();
         student.removeStudyPlan(spId);
-        Assert.assertTrue(student.getAllStudyPlans().size() == 1);
+        list.remove(spId);
+        Assert.assertTrue(student.getAllStudyPlans().size() == 2);
+
+        List<Integer> ids = student.getStudyPlanIds();
+
+        System.out.println(list);
+        System.out.println(ids);
+
+        Assert.assertFalse(student.getStudyPlanIds().contains(spId));
+    }
+
+    @Test
+    public void getStudyPlanIds() {
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+
+        StudyPlan studyPlan2 = new StudyPlan();
+        student.addStudyPlan(studyPlan2);
+
+        StudyPlan studyPlan3 = new StudyPlan();
+        student.addStudyPlan(studyPlan3);
+
+        List<Integer> ids = student.getStudyPlanIds();
+
+        Assert.assertEquals(ids.size(), 4);
+    }
+
+    @Test
+    public void setCurrentStudyPlan() {
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+
+        StudyPlan studyPlan2 = new StudyPlan();
+        student.addStudyPlan(studyPlan2);
+
+        Assert.assertNotEquals(studyPlan.getId(), student.getCurrentStudyPlan().getId());
+
+        student.setCurrentStudyPlan(studyPlan);
+        Assert.assertEquals(studyPlan.getId(), student.getCurrentStudyPlan().getId());
+
+        student.setCurrentStudyPlan(studyPlan2);
+        student.setCurrentStudyPlan();
+        Assert.assertEquals(student.getAllStudyPlans().get(0).getId(), student.getCurrentStudyPlan().getId());
+
+        Assert.assertNotEquals(studyPlan2.getId(), student.getCurrentStudyPlan().getId());
+        student.setCurrentStudyPlan(studyPlan2.getId());
+        Assert.assertEquals(studyPlan2.getId(), student.getCurrentStudyPlan().getId());
     }
 
 }

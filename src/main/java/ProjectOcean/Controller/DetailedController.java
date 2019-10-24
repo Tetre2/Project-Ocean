@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the detailed view of a course
  */
-public class DetailedController extends VBox {
+class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
     @FXML private Label studyPeriod;
@@ -31,8 +31,8 @@ public class DetailedController extends VBox {
     @FXML private Label courseCodeNameStudyPoints;
     @FXML private Label courseTypeLabel;
 
-    private HostServices hostServices;
-    private GoBackToMainContent goBack;
+    private final HostServices hostServices;
+    private final GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.
@@ -149,10 +149,10 @@ public class DetailedController extends VBox {
         requiredCourses.getChildren().clear();
     }
 
-    @FXML
     /**
      * Opens the course-PM in a web browser
      */
+    @FXML
     private void setOnMouseClickedCoursePMLink(){
         String s = coursePM.getTooltip().getText();
         hostServices.showDocument(s);

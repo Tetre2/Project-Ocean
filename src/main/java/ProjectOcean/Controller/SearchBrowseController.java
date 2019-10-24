@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Represents the visual component of the search bar and list of courses
  */
-public class SearchBrowseController extends AnchorPane {
+class SearchBrowseController extends AnchorPane {
 
     @FXML private VBox searchResultVBox;
     @FXML private TextField searchField;
@@ -89,7 +89,7 @@ public class SearchBrowseController extends AnchorPane {
     private void filterAndDisplayCourses() {
         searchResultVBox.getChildren().clear();
 
-        List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
+        List<ICourse> filteredSearchResult = new ArrayList<>(currentSearchResult);
         filterBasedOnStudyPeriod(filteredSearchResult);
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result

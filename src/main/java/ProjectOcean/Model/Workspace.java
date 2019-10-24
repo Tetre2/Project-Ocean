@@ -27,16 +27,14 @@ public class Workspace {
      * @param course the course instance to be removed
      */
     public void removeCourse(ICourse course){
-        if(courses.contains(course)){
-            courses.remove(course);
-        }
+        courses.remove(course);
     }
 
     /**
      * Removes all course from the workspace
      */
     public void removeAllCourses(){
-        while (courses.isEmpty() == false){
+        while ( !courses.isEmpty()){
             courses.remove(0);
         }
     }

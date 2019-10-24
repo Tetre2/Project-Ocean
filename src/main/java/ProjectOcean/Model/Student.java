@@ -1,10 +1,6 @@
 package ProjectOcean.Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class representing a student profile
@@ -62,10 +58,8 @@ public class Student {
     /**
      * Adds a new study plan to last place in list studyPlans and set it to current
      */
-    public void addStudyPlanAsCurrent() {
-        StudyPlan studyPlan = new StudyPlan();
+    public void addStudyPlan(StudyPlan studyPlan) {
         studyPlans.add(studyPlan);
-        setCurrentStudyPlan(studyPlan.getId());
     }
 
     /**
@@ -74,30 +68,36 @@ public class Student {
      */
     public void removeStudyPlan(int studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
-            studyPlans.remove(getStudyPlanByID(studyPlanID));
+            StudyPlan studyPlan = getStudyPlanByID(studyPlanID);
+            studyPlans.remove(studyPlan);
         }
     }
 
     /**
-     * Set a given study plan as current, active.
-     * @param studyPlanID A study plan to assign as current.
+     * Set a given study plan as current.
      */
-    public void setCurrentStudyPlan(int studyPlanID) {
+    public void setCurrentStudyPlan(Integer studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
             this.currentStudyPlan = getStudyPlanByID(studyPlanID);
         }
     }
 
+    /**
+     * Set a first study plan in list as current.
+     */
+    public void setCurrentStudyPlan() {
+        if (studyPlans.size() > 0) {
+            this.currentStudyPlan = studyPlans.get(0);
+        }
+    }
+
     private StudyPlan getStudyPlanByID(int studyPlanID) {
-        StudyPlan studyPlan = null;
-        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
-            StudyPlan sp = it.next();
+        for (StudyPlan sp : studyPlans) {
             if (sp.getId() == studyPlanID) {
-                studyPlan = sp;
-                break;
+                return sp;
             }
         }
-        return studyPlan;
+        return null;
     }
 
     /**
@@ -131,7 +131,7 @@ public class Student {
 
     /**
      * Returns a list of courses that exists currently in the workspace.
-     * @return
+     * @return all courses in the workspace
      */
     public List<Course> getAllCoursesInWorkspace(){
         return workspace.getAllCourses();
@@ -170,14 +170,6 @@ public class Student {
             ids.add(id);
         }
         return ids;
-    }
-
-    /**
-     * Set first study plan as current.
-     */
-    public void setFirstStudyPlanAsCurrent() {
-        StudyPlan sp = studyPlans.get(0);
-        setCurrentStudyPlan(sp.getId());
     }
 
     /**

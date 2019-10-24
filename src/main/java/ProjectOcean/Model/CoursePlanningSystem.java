@@ -11,8 +11,8 @@ import java.util.Observable;
  */
 public class CoursePlanningSystem extends Observable {
 
-    private List<Course> courses;
-    private Student student;
+    private final List<Course> courses;
+    private final Student student;
     private static CoursePlanningSystem model;
 
     public static CoursePlanningSystem getInstance(){
@@ -67,7 +67,9 @@ public class CoursePlanningSystem extends Observable {
      * Adds a study plan
      */
     public void addStudyPlan() {
-        student.addStudyPlanAsCurrent();
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+        setCurrentStudyPlan(studyPlan.getId());
     }
 
     /**
@@ -76,13 +78,16 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setCurrentStudyPlan(Integer studyPlanID) {
         student.setCurrentStudyPlan(studyPlanID);
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Set first study plan as current.
+     * Notify all listeners when user has clicked on study plan
      */
-    public void setFirstStudyPlanAsCurrent() {
-        student.setFirstStudyPlanAsCurrent();
+    public void updateOnStudyPlanClicked() {
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -228,9 +233,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<ICourse> getCoursesInWorkspace(){
         List<ICourse> idList = new ArrayList<>();
-        for (Course c : student.getAllCoursesInWorkspace()) {
-            idList.add(c);
-        }
+        idList.addAll(student.getAllCoursesInWorkspace());
         return idList;
     }
 
@@ -256,6 +259,8 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         student.setStudyPlans(studyPlans);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -263,9 +268,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public List<StudyPlan> getAllStudyPlans() {
         List<StudyPlan> studyPlans = new ArrayList<>();
-        for (StudyPlan sp : student.getAllStudyPlans()) {
-            studyPlans.add(sp);
-        }
+        studyPlans.addAll(student.getAllStudyPlans());
         return studyPlans;
     }
 
@@ -277,11 +280,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * Method removes a given study plan if it exists.
+     * Method removes a given study plan.
      * @param studyPlanID Study plan of users decision to delete.
      */
     public void removeStudyPlan(Integer studyPlanID) {
         student.removeStudyPlan(studyPlanID);
+        student.setCurrentStudyPlan();
+        setChanged();
+        notifyObservers();
     }
 
     /**

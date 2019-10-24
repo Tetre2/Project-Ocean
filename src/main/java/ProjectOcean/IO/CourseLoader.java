@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CourseLoader implements ICourseLoader {
 
-    private static String fileName = "courses.json";
+    private static final String fileName = "courses.json";
     private static final int VERSION = 2;
-    private static JSONParser parser = new JSONParser();
+    private static final JSONParser parser = new JSONParser();
 
     CourseLoader() {
     }
@@ -46,8 +46,8 @@ public class CourseLoader implements ICourseLoader {
      * The method tha reads the file and creates the Map
      *
      * @return returns a <code>Map<UUID, Course></code>
-     * @throws IOException
-     * @throws ParseException
+     * @throws IOException if the program cant find the json file
+     * @throws ParseException if the program cant parse the file
      */
     private List<ICourse> getCoursesFromJSON() throws IOException, ParseException {
         //Map to return when method is done
@@ -82,7 +82,7 @@ public class CourseLoader implements ICourseLoader {
             courseTypes.add((String) obj);
         }
 
-        ICourse course = CourseFactory.CreateCourse(
+        return CourseFactory.CreateCourse(
                 (String) jsonObject.get("courseCode"),
                 (String) jsonObject.get("courseName"),
                 (String) jsonObject.get("studyPoints"),
@@ -95,7 +95,6 @@ public class CourseLoader implements ICourseLoader {
                 (String) jsonObject.get("courseDescription"),
                 courseTypes
         );
-        return course;
     }
 
     private boolean checkIfCorrectVersion() throws CoursesNotFoundException{
@@ -112,7 +111,7 @@ public class CourseLoader implements ICourseLoader {
 
     private JSONObject readFormFile() throws IOException, ParseException {
         //creates a file with the path to the courses.json
-        File file = new File(getClass().getClassLoader().getResource("courses.json").getFile());
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
 
         //Creates a fileReader which reads the courses.json and creates it as a jsonArray
         FileReader fileReader = new FileReader(file);

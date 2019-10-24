@@ -1,11 +1,11 @@
 package ProjectOcean.Controller.FunctionalInterfaces;
 
 @FunctionalInterface
-public interface ShowCurrentStudyPlan {
+public interface ToggleStudyPlanWindow {
 
     /**
      * Method displays a study plan
      */
-    void showCurrentStudyPlan();
+    void toggleStudyPlanWindow();
 
 }

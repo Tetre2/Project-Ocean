@@ -37,13 +37,13 @@ public class ApplicationController extends AnchorPane {
     private final StudyPlanController studyPlanController;
     private final StudyPlanSelectorController studyPlanSelectorController;
     private static DetailedController detailedController;
-    private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
-    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
+    private static final ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static final IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
         this.model = CoursePlanningSystem.getInstance();
         initiateModel();
-        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
+        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::toggleStudyPlanWindow);
         this.searchBrowseController = new SearchBrowseController(model, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this::moveDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
         this.studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
@@ -61,13 +61,13 @@ public class ApplicationController extends AnchorPane {
         }
 
         instantiateChildControllers();
-        showCurrentStudyPlan();
+        toggleStudyPlanWindow();
     }
 
     /**
      * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
      */
-    public void showStudyPlanWorkspaceWindow() {
+    private void showStudyPlanWorkspaceWindow() {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
         contentWindow.getChildren().add(studyPlanController);
@@ -87,25 +87,19 @@ public class ApplicationController extends AnchorPane {
         event.consume();
     }
 
-    @FXML
-    private void onDeleteClicked() {
-        studyPlanSelectorController.deleteCurrentStudyPlan();
-        studyPlanSelectorController.showAllStudyPlanButtons();
-        showCurrentStudyPlan();
-    }
-
-    private void showCurrentStudyPlan() {
-        if (isStudyPlanViewVisible()) {
+    private void toggleStudyPlanWindow() {
+        if (isStudyPlanWindowVisible()) {
             removeCurrentStudyPlanController();
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (studyPlanExists()) {
-            StudyPlanController studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);;
+            StudyPlanController studyPlanController = new StudyPlanController(model, this::moveDraggedObjectToCursor, this::addIconToScreen);
             addNewStudyPlanController(studyPlanController);
+            model.updateOnStudyPlanClicked();
         }
     }
 
-    private boolean isStudyPlanViewVisible() {
+    private boolean isStudyPlanWindowVisible() {
         return contentWindow.getChildren().size() == 2;
     }
 
@@ -135,7 +129,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadCoursesFromJSON() {
-        Alert alert = null;
+        Alert alert;
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
             return;
@@ -153,7 +147,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadWorkspaceFromJSON(){
-        Alert alert = null;
+        Alert alert;
         try {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
@@ -174,7 +168,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadStudyPlansFromJSON() {
-        Alert alert = null;
+        Alert alert;
         try {
             model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
@@ -195,7 +189,7 @@ public class ApplicationController extends AnchorPane {
     }
 
     private void tryLoadCurrentStudyPlanFromJSON(){
-        Alert alert = null;
+        Alert alert;
         try {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
@@ -220,7 +214,7 @@ public class ApplicationController extends AnchorPane {
      *
      * @param icon the movable icon to be added
      */
-    public void addIconToScreen(Movable icon) {
+    private void addIconToScreen(Movable icon) {
         dragFeature.getChildren().add((Node) icon);
     }
 
@@ -230,7 +224,7 @@ public class ApplicationController extends AnchorPane {
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
+    private void moveDraggedObjectToCursor(Movable icon, DragEvent event) {
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -240,7 +234,7 @@ public class ApplicationController extends AnchorPane {
      *
      * @param course the ICourse representing the course from which the details will be taken from
      */
-    public void showDetailedInformationWindow(ICourse course) {
+    private void showDetailedInformationWindow(ICourse course) {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
@@ -250,7 +244,7 @@ public class ApplicationController extends AnchorPane {
      * Method is called from the menubar in the view
      */
     @FXML
-    public void onSaveClicked() {
+    private void onSaveClicked() {
         saveModel();
     }
 
@@ -265,7 +259,7 @@ public class ApplicationController extends AnchorPane {
      * Adds the study plan to be shown in the lower part of content window
      * @param StudyPlanController the study plan to be shown
      */
-    public void addNewStudyPlanController(StudyPlanController StudyPlanController) {
+    private void addNewStudyPlanController(StudyPlanController StudyPlanController) {
         contentWindow.getChildren().add(1, StudyPlanController);
     }
 

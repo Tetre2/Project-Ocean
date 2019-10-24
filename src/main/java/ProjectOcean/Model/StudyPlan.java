@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class StudyPlan {
 
-    private List<Year> years;
+    private final List<Year> years;
     private final int id;
     private static int studyPlansCreatedDuringRuntime = 0;
 

@@ -1,32 +1,30 @@
 package ProjectOcean.Controller;
 
-import ProjectOcean.Controller.FunctionalInterfaces.DeactivateStudyPlanButton;
-import ProjectOcean.Controller.FunctionalInterfaces.ShowCurrentStudyPlan;
+import ProjectOcean.Controller.FunctionalInterfaces.ToggleStudyPlanWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
 /**
  * Represents a graphical component of a study plan's button.
  */
-public class StudyPlanButtonController extends Button {
+class StudyPlanButtonController extends AnchorPane {
 
     @FXML private Button studyPlanButton;
 
     private final CoursePlanningSystem model;
-    private final ShowCurrentStudyPlan showStudyPlan;
-    private final DeactivateStudyPlanButton deactivateStudyPlanButton;
+    private final ToggleStudyPlanWindow toggleStudyPlanWindow;
     private final int studyPlanId;
 
-    public StudyPlanButtonController(CoursePlanningSystem model, ShowCurrentStudyPlan showStudyPlan,
-                                     DeactivateStudyPlanButton deactivateStudyPlanButton, int studyPlanId) {
+    public StudyPlanButtonController(CoursePlanningSystem model, ToggleStudyPlanWindow toggleStudyPlanWindow, int studyPlanId) {
         this.model = model;
-        this.showStudyPlan = showStudyPlan;
-        this.deactivateStudyPlanButton = deactivateStudyPlanButton;
+        this.toggleStudyPlanWindow = toggleStudyPlanWindow;
         this.studyPlanId = studyPlanId;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -49,22 +47,34 @@ public class StudyPlanButtonController extends Button {
 
     @FXML
     private void onStudyPlanClicked(MouseEvent event) {
-        this.deactivateStudyPlanButton.deactivateStudyPlanButton();
         setCurrentStudyPlan();
-        studyPlanButton.setDefaultButton(true);
-        showStudyPlan.showCurrentStudyPlan();
+        //toggleStudyPlanWindow.toggleStudyPlanWindow();
         event.consume();
+    }
+
+    @FXML
+    private void onDeleteStudyPlanClicked() {
+        deleteStudyPlan();
+        toggleStudyPlanWindow.toggleStudyPlanWindow();
+    }
+
+    /**
+     * Removing current study plan
+     */
+    private void deleteStudyPlan() {
+        if (!studyPlanExists()) {
+            new Alert(Alert.AlertType.ERROR, "Warning: you have no study plan to delete!").showAndWait();
+        } else {
+            model.removeStudyPlan(studyPlanId);
+        }
+    }
+
+    private boolean studyPlanExists() {
+        return model.getAllStudyPlans().size() > 0;
     }
 
     private void setCurrentStudyPlan() {
         model.setCurrentStudyPlan(studyPlanId);
-    }
-
-    /**
-     * Set active button to non-active
-     */
-    public void deactivateButton() {
-        studyPlanButton.setDefaultButton(false);
     }
 
     /**

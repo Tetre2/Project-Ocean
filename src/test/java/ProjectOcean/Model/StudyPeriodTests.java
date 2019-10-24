@@ -1,6 +1,5 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.CourseLoader;
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.IO.ICourseLoader;
