@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -19,23 +20,30 @@ import java.util.List;
 /**
  * Represents the visual component of a course
  */
-public class CourseListIconController extends VBox implements Movable {
+
+public class CourseController extends VBox implements Movable {
+
 
     @FXML private Label courseCodeText;
     @FXML private Label courseNameText;
     @FXML private Label studyPointsText;
     @FXML private VBox typeIndicator;
 
+    private ClipboardContent content;
     private static CoursePlanningSystem model;
     private final ICourse course;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
+    private final RemoveYear removeYear;
 
-    public CourseListIconController(ICourse course, CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
-        this.model = model;
+    public CourseController(ICourse course, CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen, RemoveYear removeYear) {
+        CourseController.model = model;
         this.course = course;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
+        this.visualFeedback = visualFeedback;
+        this.removeYear = removeYear;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/fxml/CourseView.fxml"));
@@ -101,7 +109,7 @@ public class CourseListIconController extends VBox implements Movable {
     }
 
     /**
-     * Relocates the CourseListIconController instance according to the point parameter
+     * Relocates the CourseController instance according to the point parameter
      * @param p the point representing the current mouse coordinates
      */
     public void relocateToPoint(Point2D p) {
@@ -117,27 +125,33 @@ public class CourseListIconController extends VBox implements Movable {
 
     @FXML
     private void dragDetected(MouseEvent event) {
-        //Put a copy of the object that was dragged in the Clipboard to enable drag and drop.
-        CourseListIconController icon = (CourseListIconController) event.getSource();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(icon.toString());
 
+        Node owner = this.getParent();
+        copyDraggedObjectToClipBoard(this);
 
-        //Check from which parent the object started in.
-        switch (icon.getParent().getId()){
+        //Check from which parent the object started in and delete from the model.
+        switch (owner.getId()){
             case "workspaceContainer":
-                model.removeCourseFromWorkspace(icon.getICourse());
+                model.removeCourseFromWorkspace(course);
                 break;
+            case "yearGrid":
+                removeYear.removeYear(course);
             default:
         }
 
          //MUST come after the above statement
-        icon = new CourseListIconController(icon.getICourse(), model, this.showDetailedInformationWindow, this.addIconToScreen);
-        addIconToScreen.addIconToScreen(icon);
+        visualFeedback.showAvailablePlacementInSchedule(course);
+        CourseController draggedObject = new CourseController(course, model,this.visualFeedback, this.showDetailedInformationWindow, this.addIconToScreen, removeYear);
+        addIconToScreen.addIconToScreen(draggedObject);
 
-        icon.startDragAndDrop(TransferMode.MOVE).setContent(content);
-        icon.setVisible(true);
-        icon.setMouseTransparent(true);
+        draggedObject.startDragAndDrop(TransferMode.MOVE).setContent(content);
+        draggedObject.setVisible(true);
+        draggedObject.setMouseTransparent(true);
         event.consume();
+    }
+
+    private void copyDraggedObjectToClipBoard(CourseController icon){
+        content = new ClipboardContent();
+        content.putString(icon.toString());
     }
 }

@@ -131,8 +131,12 @@ public class StudentTests {
         Assert.assertTrue(student.getAllStudyPlans().size() == 3);
 
         int spId = student.getAllStudyPlans().get(1).getId();
+        for (StudyPlan studyplan : student.getAllStudyPlans()) {
+            if(studyplan.getId() == spId){
+                list.remove(studyplan);
+            }
+        }
         student.removeStudyPlan(spId);
-        list.remove(spId);
         Assert.assertTrue(student.getAllStudyPlans().size() == 2);
 
         List<Integer> ids = student.getStudyPlanIds();
@@ -169,15 +173,15 @@ public class StudentTests {
 
         Assert.assertNotEquals(studyPlan.getId(), student.getCurrentStudyPlan().getId());
 
-        student.setCurrentStudyPlan(studyPlan);
+        student.setFirstStudyPlanAsCurrent(studyPlan);
         Assert.assertEquals(studyPlan.getId(), student.getCurrentStudyPlan().getId());
 
-        student.setCurrentStudyPlan(studyPlan2);
-        student.setCurrentStudyPlan();
+        student.setFirstStudyPlanAsCurrent(studyPlan2);
+        student.setFirstStudyPlanAsCurrent();
         Assert.assertEquals(student.getAllStudyPlans().get(0).getId(), student.getCurrentStudyPlan().getId());
 
         Assert.assertNotEquals(studyPlan2.getId(), student.getCurrentStudyPlan().getId());
-        student.setCurrentStudyPlan(studyPlan2.getId());
+        student.setFirstStudyPlanAsCurrent(studyPlan2.getId());
         Assert.assertEquals(studyPlan2.getId(), student.getCurrentStudyPlan().getId());
     }
 
