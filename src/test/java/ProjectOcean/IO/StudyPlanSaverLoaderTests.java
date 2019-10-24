@@ -1,5 +1,8 @@
 package ProjectOcean.IO;
 
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
 import ProjectOcean.Model.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,15 +15,19 @@ public class StudyPlanSaverLoaderTests {
 
     private StudyPlanSaverLoader saverLoader = new StudyPlanSaverLoader();
     private CourseLoader courseSaverLoader = new CourseLoader();
-    private List<StudyPlan> studyPlans;
-    private Student student = new Student();
     private CoursePlanningSystem model;
-    private List<ICourse> courses;
+    private List<Course> courses;
 
     @Before
     public void setup(){
-        studyPlans = new ArrayList<>();
-        courses = CourseLoader.generatePreDefinedCourses();
+        List<StudyPlan> studyPlans = new ArrayList<>();
+        try {
+            courses = courseSaverLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
         saverLoader.createNewStudentFile();
 
         //---- studyPlan 1 ----
@@ -52,7 +59,7 @@ public class StudyPlanSaverLoaderTests {
     }
 
     @Test
-    public void saveStudyplansTest(){
+    public void saveStudyPlansTest(){
         saverLoader.saveModel(model);
 
     }
@@ -61,7 +68,7 @@ public class StudyPlanSaverLoaderTests {
     public void loadWorkspace(){
         try {
 
-            List<Course> expected = student.getAllCoursesInWorkspace();
+            List<Course> expected = model.getStudent().getAllCoursesInWorkspace();
             List<Course> actual = saverLoader.loadWorkspace().getAllCourses();
 
             if(expected.size()== actual.size()){
@@ -80,11 +87,11 @@ public class StudyPlanSaverLoaderTests {
     }
 
     @Test
-    public void loadStudyplans(){
+    public void loadStudyPlans(){
         try {
 
-            List<StudyPlan> expected = student.getAllStudyPlans();
-            List<StudyPlan> actual = saverLoader.loadStudyplans();
+            List<StudyPlan> expected = model.getStudent().getAllStudyPlans();
+            List<StudyPlan> actual = saverLoader.loadStudyPlans();
 
             if(expected.size()== actual.size()){
                 for (StudyPlan studyPlan : expected) {
@@ -104,8 +111,8 @@ public class StudyPlanSaverLoaderTests {
     @Test
     public void loadCurrentStudyPlanTest(){
         try {
-            StudyPlan expected = student.getCurrentStudyPlan();
-            StudyPlan actual = saverLoader.loadCurrentStudyPlan(student.getAllStudyPlans());
+            StudyPlan expected = model.getStudent().getCurrentStudyPlan();
+            StudyPlan actual = saverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans());
 
             Assert.assertTrue(expected.equals(actual));
 

@@ -1,7 +1,13 @@
 package ProjectOcean.Controller;
 
 import java.io.IOException;
-import ProjectOcean.IO.*;
+
+import ProjectOcean.IO.CourseLoader;
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.StudyPlanNotFoundException;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.SaverLoaderFactory;
+import ProjectOcean.IO.StudyPlanSaverLoader;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
@@ -18,9 +24,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents the root visual object, only contains empty containers
  */
-
 public class ApplicationController extends AnchorPane implements VisualFeedback {
-
     @FXML private VBox contentWindow;
     @FXML private AnchorPane dragFeature;
     @FXML private AnchorPane searchBrowseWindow;
@@ -29,27 +33,26 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
     private final CoursePlanningSystem model;
     private final SearchBrowseController searchBrowseController;
     private final WorkspaceController workspaceController;
+    private StudyPlanController studyPlanController;
     private final StudyPlanSelectorController studyPlanSelectorController;
-    private ScheduleController scheduleController;
     private static DetailedController detailedController;
-    private final HostServices hostServices;
-    private static ICourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
-    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
+    private static final CourseLoader courseSaveLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private static final StudyPlanSaverLoader studyPlanSaverLoader = SaverLoaderFactory.createIStudyPlanSaverLoader();
 
     public ApplicationController(HostServices hostServices) {
-        this.hostServices = hostServices;
         this.model = CoursePlanningSystem.getInstance();
 
         initiateModel();
 
+        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::toggleStudyPlanWindow);
         this.searchBrowseController = new SearchBrowseController(model, this, this::showDetailedInformationWindow, this::addIconToScreen);
         this.workspaceController = new WorkspaceController(model, this, this::relocateDraggedObjectToCursor, this::showDetailedInformationWindow, this::addIconToScreen, this::removeMovableChild);
-        this.scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
+        this.studyPlanController = new StudyPlanController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
         detailedController = new DetailedController(this::showStudyPlanWorkspaceWindow, hostServices);
-        this.studyPlanSelectorController = new StudyPlanSelectorController(model, this::showCurrentStudyPlan);
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/ApplicationWindow.fxml"));
+                "/fxml/ApplicationWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -59,17 +62,17 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
             throw new RuntimeException(exception);
         }
 
-        instantiateChildControllers();
-        showCurrentStudyPlan();
+        populateWithChildControllers();
+        toggleStudyPlanWindow();
     }
 
     /**
      * Clears contentWindow's current window and implicitly shows StudyPlan and Workspace
      */
-    public void showStudyPlanWorkspaceWindow() {
+    private void showStudyPlanWorkspaceWindow() {
         contentWindow.getChildren().clear();
         contentWindow.getChildren().add(workspaceController);
-        contentWindow.getChildren().add(scheduleController);
+        contentWindow.getChildren().add(studyPlanController);
     }
 
     @FXML
@@ -89,25 +92,19 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
         event.consume();
     }
 
-    @FXML
-    private void onDeleteClicked() {
-        studyPlanSelectorController.deleteCurrentStudyPlan();
-        studyPlanSelectorController.showAllStudyPlanButtons();
-        showCurrentStudyPlan();
-    }
-
-    private void showCurrentStudyPlan() {
-        if (isScheduleViewVisible()) {
-            removeCurrentScheduleController();
+    private void toggleStudyPlanWindow() {
+        if (isStudyPlanWindowVisible()) {
+            removeCurrentStudyPlanController();
         }
         // Create and show a new Controller based on currentStudyPlan, if there is some study plan
         if (studyPlanExists()) {
-            scheduleController = new ScheduleController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
-            addNewStudyPlanController(scheduleController);
+
+            studyPlanController = new StudyPlanController(model, this::relocateDraggedObjectToCursor, this::addIconToScreen, this, this::showDetailedInformationWindow);
+            addNewStudyPlanController(studyPlanController);
         }
     }
 
-    private boolean isScheduleViewVisible() {
+    private boolean isStudyPlanWindowVisible() {
         return contentWindow.getChildren().size() == 2;
     }
 
@@ -116,52 +113,58 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
     }
 
     /**
-     * Remove the active study plan in the content window: ScheduleController
+     * Remove the active study plan in the content window: StudyPlanController
      */
-    private void removeCurrentScheduleController() {
+    private void removeCurrentStudyPlanController() {
         contentWindow.getChildren().remove(1);
     }
 
-    private void instantiateChildControllers() {
+    private void populateWithChildControllers() {
         contentWindow.getChildren().add(0, workspaceController);
         searchBrowseWindow.getChildren().add(searchBrowseController);
+        contentWindow.getChildren().add(1, studyPlanController);
         studyPlanWindow.getChildren().add(studyPlanSelectorController);
-        contentWindow.getChildren().add(1, scheduleController);
     }
 
     private void initiateModel() {
         tryLoadCoursesFromJSON();
         tryLoadWorkspaceFromJSON();
-        tryLoadStudyplansFromJSON();
-        tryLoadCurrentStudyplanFromJSON();
+        tryLoadStudyPlansFromJSON();
+        tryLoadCurrentStudyPlanFromJSON();
     }
 
     private void tryLoadCoursesFromJSON() {
+        Alert alert;
         try {
             model.fillModelWithCourses(courseSaveLoader.loadCoursesFile());
             return;
         } catch (CoursesNotFoundException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Could not find/load courses!\n" + "You have probably removed/moved the courses.json file from its origin\n" + "Try to download the program again", ButtonType.CLOSE);
+            alert.showAndWait();
         }catch (OldFileException e) {
+            alert = new Alert(Alert.AlertType.WARNING, "Old courses!\n" + "Update the program", ButtonType.CLOSE);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
-            courseSaveLoader.createCoursesFile();
-            tryLoadCoursesFromJSON();
-        } else {
+        if (alert.getResult() == ButtonType.CLOSE) {
             System.exit(0);
         }
 
     }
 
     private void tryLoadWorkspaceFromJSON(){
+        Alert alert;
         try {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
         } catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
             tryLoadWorkspaceFromJSON();
         } else {
@@ -169,42 +172,46 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
         }
     }
 
-    private void tryLoadStudyplansFromJSON() {
+    private void tryLoadStudyPlansFromJSON() {
+        Alert alert;
         try {
-            model.setStudyPlans(studyPlanSaverLoader.loadStudyplans());
+            model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
-        } catch (StudyPlanNotFoundException e) {
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
-            tryLoadStudyplansFromJSON();
+            tryLoadWorkspaceFromJSON();
         } else {
             System.exit(0);
         }
     }
 
-    private void tryLoadCurrentStudyplanFromJSON(){
+    private void tryLoadCurrentStudyPlanFromJSON(){
+        Alert alert;
         try {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
-        } catch (StudyPlanNotFoundException e) {
+        }  catch (StudyPlanNotFoundException e) {
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         } catch (OldFileException oldFileException) {
+            alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
         }
-        ButtonType buttonType = showAndGetResultFromDialogBox();
-        if (buttonType == ButtonType.YES) {
+
+        if (alert.getResult() == ButtonType.YES) {
             studyPlanSaverLoader.createNewStudentFile();
-            tryLoadCurrentStudyplanFromJSON();
+            tryLoadWorkspaceFromJSON();
         } else {
             System.exit(0);
         }
-    }
-
-    private ButtonType showAndGetResultFromDialogBox(){
-        Alert alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-        return alert.getResult();
     }
 
     /**
@@ -212,7 +219,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      *
      * @param icon the movable icon to be added
      */
-    public void addIconToScreen(Movable icon) {
+    private void addIconToScreen(Movable icon) {
         dragFeature.getChildren().add((Node) icon);
     }
 
@@ -222,7 +229,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
+    private void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -232,7 +239,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      *
      * @param course the ICourse representing the course from which the details will be taken from
      */
-    public void showDetailedInformationWindow(ICourse course) {
+    private void showDetailedInformationWindow(ICourse course) {
         contentWindow.getChildren().clear();
         detailedController.setDetailedInfo(course);
         contentWindow.getChildren().add(detailedController);
@@ -242,32 +249,21 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      * Makes the course slots in schedule light up with a color responding to if the course can be placed or not.
      */
     public void showAvailablePlacementInSchedule(ICourse course){
-        scheduleController.setVisualFeedbackForCoursePlacement(course);
-    }
-
-    /**
-     * Removes a course from the model.
-     * @param yearID of the year that the course is placed.
-     * @param studyPeriod where the course is currently at.
-     * @param slot where the course is placed.
-     */
-    public void removeCourse(int yearID, int studyPeriod, int slot){
-        model.removeCourse(yearID, studyPeriod, slot);
-    }
-
-    /**
-     * @return the hostServices instance
-     */
-    public HostServices getHostServices() {
-        return hostServices;
+        studyPlanController.setVisualFeedbackForCoursePlacement(course);
     }
 
     /**
      * Method is called from the menubar in the view
      */
     @FXML
-    public void onSaveClicked() {
+    private void onSaveClicked() {
         saveModel();
+    }
+
+    @FXML
+    private void onDeleteClicked(){
+        model.removeStudyPlan(model.getCurrentStudyPlan().getId());
+        toggleStudyPlanWindow();
     }
 
     /**
@@ -279,10 +275,10 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
 
     /**
      * Adds the study plan to be shown in the lower part of content window
-     * @param scheduleController the study plan to be shown
+     * @param StudyPlanController the study plan to be shown
      */
-    public void addNewStudyPlanController(ScheduleController scheduleController) {
-        contentWindow.getChildren().add(1, scheduleController);
+    private void addNewStudyPlanController(StudyPlanController StudyPlanController) {
+        contentWindow.getChildren().add(1, StudyPlanController);
     }
 
     private void removeMovableChild(Movable course) {

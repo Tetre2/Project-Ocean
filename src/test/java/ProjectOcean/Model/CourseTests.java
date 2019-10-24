@@ -22,6 +22,7 @@ public class CourseTests {
     String language;
     List<String> courseTypes;
     ICourse course;
+    Course course2;
 
     @Before
     public void init() {
@@ -39,6 +40,7 @@ public class CourseTests {
 
         course = CourseFactory.CreateCourse(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription, courseTypes);
 
+        course2 = CourseFactory.CreateCourse("TDA123","Datorteknologi","7.5","2","Joseph Gunnarson","Tenta","Svenska", new ArrayList<>(),"www.google.com","ingen",new ArrayList<>());
 
     }
 
@@ -194,4 +196,13 @@ public class CourseTests {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void hashCodeTest(){
+
+        Assert.assertFalse(course.hashCode() == course2.hashCode());
+        Assert.assertTrue(course.hashCode() == course.hashCode());
+
+    }
+
 }

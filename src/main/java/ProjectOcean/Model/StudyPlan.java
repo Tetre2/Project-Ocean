@@ -10,26 +10,25 @@ import java.util.Objects;
  */
 public class StudyPlan {
 
-    private List<Year> years;
+    private final List<Year> years;
     private final int id;
     private static int studyPlansCreatedDuringRuntime = 0;
 
     public StudyPlan(int id) {
         this.id = id;
         years = new ArrayList<>();
-        studyPlansCreatedDuringRuntime++;
+        studyPlansCreatedDuringRuntime = id + 1;
     }
 
     public StudyPlan() {
-        this.id = studyPlansCreatedDuringRuntime;
-        years = new ArrayList<>();
-        studyPlansCreatedDuringRuntime++;
+        this(studyPlansCreatedDuringRuntime);
     }
 
     /**
      * Removes the given course in the given year and study period
      * @param year the year to remove the course from
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int year, int studyPeriod, int slot) {
         getYear(year).removeCourse(studyPeriod, slot);
@@ -42,7 +41,7 @@ public class StudyPlan {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int yearID, int studyPeriod, int slot) {
+    public void addCourse(Course course, int yearID, int studyPeriod, int slot) {
         getYear(yearID).addCourse(course, studyPeriod, slot);
     }
 
@@ -93,7 +92,7 @@ public class StudyPlan {
     }
 
     /**
-     * @return the id of a studyplan
+     * @return the id of a studyPlan
      */
     public int getId() {
         return id;
@@ -106,25 +105,23 @@ public class StudyPlan {
      */
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudyPlan studyPlan = (StudyPlan) o;
-        return studyPlan.getYears().equals(years);
+        return id == studyPlan.id &&
+                years.equals(studyPlan.years);
     }
 
-    /**
-     * @return a hash code
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(years);
+        return Objects.hash(years, id);
     }
 
     @Override
     public String toString() {
-        return "Schedule{" +
+        return "StudyPlan{" +
                 "years=" + years +
+                ", id=" + id +
                 '}';
     }
 }

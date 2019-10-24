@@ -1,6 +1,9 @@
 package ProjectOcean.Model;
 
 import ProjectOcean.IO.CourseLoader;
+import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
+import ProjectOcean.IO.Exceptions.OldFileException;
+import ProjectOcean.IO.SaverLoaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +13,9 @@ import java.util.*;
 public class CoursePlanningSystemTests {
 
     private CoursePlanningSystem model;
-    private List<ICourse> courses;
+    private List<Course> courses;
+    private CourseLoader courseLoader = SaverLoaderFactory.createICourseSaveLoader();
+    private List<StudyPlan> studyPlans;
 
     private int studyPeriod;
     private int slot;
@@ -19,20 +24,31 @@ public class CoursePlanningSystemTests {
     public void init(){
         model = CoursePlanningSystem.getInstance();
         courses = new ArrayList<>();
-        List<StudyPlan> studyPlans = new ArrayList<>();
 
-        for (ICourse course : CourseLoader.generatePreDefinedCourses()) {
+        List<Course> loadedCourses = null;
+        try {
+            loadedCourses = courseLoader.loadCoursesFile();
+        } catch (CoursesNotFoundException e) {
+            e.printStackTrace();
+        } catch (OldFileException e) {
+            e.printStackTrace();
+        }
+
+        for (Course course : loadedCourses) {
             courses.add(course);
         }
 
+        studyPlans = new ArrayList<>();
+        StudyPlan studyPlan1 = new StudyPlan(1);
+        StudyPlan studyPlan2 = new StudyPlan(2);
+        StudyPlan studyPlan3 = new StudyPlan(3);
+        StudyPlan studyPlan4 = new StudyPlan(4);
+        studyPlans.add(studyPlan1);
+        studyPlans.add(studyPlan2);
+        studyPlans.add(studyPlan3);
+        studyPlans.add(studyPlan4);
+
         model.fillModelWithCourses(courses);
-
-        StudyPlan studyPlan = new StudyPlan(1);
-        studyPlans.add(studyPlan);
-
-        model.setStudyPlans(studyPlans);
-        model.setCurrentStudyPlan(studyPlan);
-        model.setWorkspace(new Workspace());
 
         studyPeriod = 1;
         slot = 1;
@@ -40,8 +56,37 @@ public class CoursePlanningSystemTests {
     }
 
     @Test
+    public void setStudyPlansTest(){
+        Assert.assertFalse(model.getStudent().getAllStudyPlans().equals(studyPlans));
+        model.setStudyPlans(studyPlans);
+        Assert.assertTrue(model.getStudent().getAllStudyPlans().equals(studyPlans));
+    }
+
+    @Test
+    public void setCurrentStudyPlanTest(){
+        StudyPlan currentStudyPlan = studyPlans.get(0);
+
+        Assert.assertFalse(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
+        currentStudyPlan = studyPlans.get(1);
+        model.setCurrentStudyPlan(currentStudyPlan);
+        Assert.assertTrue(model.getStudent().getCurrentStudyPlan().equals(currentStudyPlan));
+    }
+
+    @Test
+    public void setWorkspaceTest(){
+
+        Workspace workspace = new Workspace();
+
+        Assert.assertFalse(model.getStudent().getAllCoursesInWorkspace().equals(workspace));
+        model.setWorkspace(workspace);
+        Assert.assertTrue(model.getCoursesInWorkspace().equals(workspace.getAllCourses()));
+
+    }
+
+    @Test
     public void getAllCoursesTest() {
-        List<ICourse> expected = courses;
+        List<ICourse> expected = new ArrayList<>();
+        expected.addAll(courses);
         List<ICourse> actual = model.getAllCourses();
 
         if(expected.size() == actual.size()){
@@ -138,16 +183,6 @@ public class CoursePlanningSystemTests {
     }
 
     @Test
-    public void getCourseTest() {
-
-        ICourse expected = courses.get(0);
-        ICourse actual = model.getCourse(courses.get(0));
-
-        Assert.assertEquals(expected, actual);
-
-    }
-
-    @Test
     public void getStudentTest() {
         Student student = model.getStudent();
 
@@ -156,7 +191,7 @@ public class CoursePlanningSystemTests {
 
     @Test
     public void executeSearchTest() {
-        //Test searching for examinor
+        //Test searching for examiner
         String searchText = "sÖDerStrÖM Rolf";
         List<ICourse> searchResult;
         searchResult = model.executeSearch(searchText);
@@ -226,4 +261,43 @@ public class CoursePlanningSystemTests {
         yearSizeAfter = model.getYears().size();
         Assert.assertEquals(yearSizeBefore, yearSizeAfter);
     }
+
+    @Test
+    public void addStudyPlanTest() {
+        int sizeBefore = model.getStudent().getAllStudyPlans().size();
+        StudyPlan currStudyPlan = model.getCurrentStudyPlan();
+        model.addStudyPlan();
+        int sizeAfter = model.getStudent().getAllStudyPlans().size();
+        Assert.assertEquals(1, sizeAfter - sizeBefore);
+        Assert.assertNotEquals(currStudyPlan.getId(), model.getCurrentStudyPlan().getId());
+    }
+
+    @Test
+    public void getAllStudyPlans() {
+        List<StudyPlan> studyPlans = model.getAllStudyPlans();
+        List<StudyPlan> studyPlans2 = model.getStudent().getAllStudyPlans();
+
+        Assert.assertTrue(studyPlans.equals(studyPlans2));
+    }
+
+    @Test
+    public void getStudyPlanIdsTest() {
+        List<Integer> ids = model.getStudyPlanIds();
+        for (StudyPlan sp : model.getStudent().getAllStudyPlans()) {
+            int spId = sp.getId();
+            Assert.assertTrue(ids.contains(spId));
+        }
+    }
+
+    @Test
+    public void removeStudyPlan() {
+        model.addStudyPlan();
+        int id = model.getStudent().getAllStudyPlans().get(0).getId();
+        model.removeStudyPlan(id);
+        for (StudyPlan sp : model.getStudent().getAllStudyPlans()) {
+            int spId = sp.getId();
+            Assert.assertFalse(id == spId);
+        }
+    }
+
 }

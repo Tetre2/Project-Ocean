@@ -23,7 +23,7 @@ public class YearTests {
     @Test
     public void addCourseTest() {
         Year year = new Year();
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",
@@ -43,7 +43,7 @@ public class YearTests {
     @Test
     public void getCourseInStudyPeriodTest() {
         Year year = new Year();
-        ICourse expectedCourse = CourseFactory.CreateCourse("BAT123",
+        Course expectedCourse = CourseFactory.CreateCourse("BAT123",
                 "Beroendespecifika paradigmer",
                 "7.5",
                 "3",
@@ -71,7 +71,7 @@ public class YearTests {
     @Test
     public void removeCourseTest() {
         Year year = new Year();
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",

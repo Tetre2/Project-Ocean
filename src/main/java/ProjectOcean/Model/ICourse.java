@@ -24,7 +24,7 @@ public interface ICourse {
     String getStudyPeriod();
 
     /**
-     * @return this course's examinator
+     * @return this course's examiner
      */
     String getExaminer();
 

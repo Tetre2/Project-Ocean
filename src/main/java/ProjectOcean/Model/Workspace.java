@@ -10,13 +10,13 @@ import java.util.Objects;
  */
 public class Workspace {
 
-    private final List courses = new LinkedList<ICourse>();
+    private final List<Course> courses = new LinkedList<>();
 
     /**
      * Adds a specific course to the workspace
      * @param course the course instance to be added
      */
-    public void addCourse(ICourse course){
+    public void addCourse(Course course){
         if(!courses.contains(course)){
             courses.add(course);
         }
@@ -26,7 +26,7 @@ public class Workspace {
      * Remove a specific course to the workspace
      * @param course the course instance to be removed
      */
-    public void removeCourse(ICourse course){
+    public void removeCourse(Course course){
         courses.remove(course);
     }
 
@@ -34,7 +34,7 @@ public class Workspace {
      * Removes all course from the workspace
      */
     public void removeAllCourses(){
-        while (courses.isEmpty() == false){
+        while ( !courses.isEmpty()){
             courses.remove(0);
         }
     }

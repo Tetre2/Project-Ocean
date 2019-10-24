@@ -21,7 +21,7 @@ public class StudyPlanTests {
     public void addCourseTest() {
         StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",
@@ -46,7 +46,7 @@ public class StudyPlanTests {
     public void removeCourseTest() {
         StudyPlan studyPlan = new StudyPlan(1);
         studyPlan.addYear();
-        ICourse course = CourseFactory.CreateCourse(
+        Course course = CourseFactory.CreateCourse(
                 "DAT017",
                 "Maskinorienterad programmering",
                 "7.5",

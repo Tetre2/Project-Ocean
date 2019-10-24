@@ -1,5 +1,7 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
@@ -16,7 +18,7 @@ import java.util.List;
 /**
  * Represents the visual component of the search bar and list of courses
  */
-public class SearchBrowseController extends AnchorPane {
+class SearchBrowseController extends AnchorPane {
 
     @FXML private VBox searchResultVBox;
     @FXML private TextField searchField;
@@ -38,6 +40,7 @@ public class SearchBrowseController extends AnchorPane {
      * @param model: An instance of the course planning system
      * @param showDetailedInformationWindow callback to the showDetailedInformationWindow method
      * @param addIconToScreen callback to the addIconToScreen method
+     * @param visualFeedback callback to the method showAvailablePlacementInSchedule
      */
     public SearchBrowseController(CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
@@ -46,7 +49,7 @@ public class SearchBrowseController extends AnchorPane {
         this.visualFeedback = visualFeedback;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/SearchBrowseWindow.fxml"));
+                "/fxml/SearchBrowseWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -89,7 +92,7 @@ public class SearchBrowseController extends AnchorPane {
     private void filterAndDisplayCourses() {
         searchResultVBox.getChildren().clear();
 
-        List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
+        List<ICourse> filteredSearchResult = new ArrayList<>(currentSearchResult);
         filterBasedOnStudyPeriod(filteredSearchResult);
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result

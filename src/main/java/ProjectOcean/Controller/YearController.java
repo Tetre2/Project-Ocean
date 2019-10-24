@@ -1,6 +1,8 @@
 package ProjectOcean.Controller;
 
-
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.RelocateDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,8 +27,7 @@ import java.util.Observable;
 /**
  * Represents the visual graphic component of a year.
  */
-public class YearController extends VBox implements Observer {
-
+class YearController extends VBox implements Observer {
     @FXML private GridPane yearGrid;
     @FXML private Button removeYearButton;
     @FXML private Label yearLabel;
@@ -37,8 +38,7 @@ public class YearController extends VBox implements Observer {
     private final AddIconToScreen addIconToScreen;
     private final VisualFeedback visualFeedback;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
-
-    private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
+    private final Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
 
     public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.model = model;
@@ -50,7 +50,7 @@ public class YearController extends VBox implements Observer {
         this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/YearView.fxml"));
+                "/fxml/YearView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -117,7 +117,7 @@ public class YearController extends VBox implements Observer {
         for (Node slot: slots) {
             //Makes sure that the first element (a group) that displays the gridlines is not counted.
             if(slots.indexOf(slot) != 0) {
-                Integer column = 1 + GridPane.getColumnIndex(slot);
+                int column = 1 + GridPane.getColumnIndex(slot);
                 if (column == Integer.parseInt(studyPeriod)) {
                    slot.setStyle("-fx-border-color: green;" + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 } else {
@@ -262,7 +262,7 @@ public class YearController extends VBox implements Observer {
 
     /**
      * Removes a given course in the model.
-     * @param course
+     * @param course ICourse to remove
      */
     public void removeCourse(ICourse course){
         Tuple<Integer, Integer> location = coursesInYear.get(course);
@@ -272,7 +272,8 @@ public class YearController extends VBox implements Observer {
     }
 
     @FXML
-    public void removeYear() {
+    private void removeYear() {
         model.removeYear(year.getID());
     }
+
 }

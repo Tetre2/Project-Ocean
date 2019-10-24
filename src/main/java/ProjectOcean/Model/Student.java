@@ -12,7 +12,7 @@ public class Student {
     private Workspace workspace;
 
     public Student() {
-        //if CoursePlaningSystem does not set the instance variables they should be defaulted
+        //if CoursePlaningSystem does not set the instance variables they default to this
         //these will be overwritten if we set these from CoursePlaningSystem
         this.currentStudyPlan = new StudyPlan();
         studyPlans = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Student {
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
+    public void addCourse(Course course, int year, int studyPeriod, int slot) {
         currentStudyPlan.addCourse(course, year, studyPeriod, slot);
     }
 
@@ -35,6 +35,7 @@ public class Student {
      * Removes the given course in the given year and study period, in the study plan
      * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int yearID, int studyPeriod, int slot) {
         currentStudyPlan.removeCourse(yearID, studyPeriod, slot);
@@ -57,11 +58,10 @@ public class Student {
 
     /**
      * Adds a new study plan to last place in list studyPlans and set it to current
+     * @param studyPlan a studyPlan to add to the model
      */
-    public void addStudyPlanAsCurrent() {
-        StudyPlan studyPlan = new StudyPlan();
+    public void addStudyPlan(StudyPlan studyPlan) {
         studyPlans.add(studyPlan);
-        setCurrentStudyPlan(studyPlan.getId());
     }
 
     /**
@@ -71,29 +71,38 @@ public class Student {
     public void removeStudyPlan(int studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
             studyPlans.remove(getStudyPlanByID(studyPlanID));
+            if(studyPlanID == currentStudyPlan.getId()){
+                setFirstStudyPlanAsCurrent();
+            }
         }
     }
 
     /**
-     * Set a given study plan as current, active.
-     * @param studyPlanID A study plan to assign as current.
+     * Set a given study plan as current.
+     * @param studyPlanID studyPlan to set as current in model
      */
-    public void setCurrentStudyPlan(int studyPlanID) {
+    public void setFirstStudyPlanAsCurrent(Integer studyPlanID) {
         if (studyPlanExists(studyPlanID)) {
             this.currentStudyPlan = getStudyPlanByID(studyPlanID);
         }
     }
 
+    /**
+     * Set a first study plan in list as current.
+     */
+    public void setFirstStudyPlanAsCurrent() {
+        if (studyPlans.size() > 0) {
+            this.currentStudyPlan = studyPlans.get(0);
+        }
+    }
+
     private StudyPlan getStudyPlanByID(int studyPlanID) {
-        StudyPlan studyPlan = null;
-        for (Iterator<StudyPlan> it = studyPlans.iterator(); it.hasNext(); ) {
-            StudyPlan sp = it.next();
+        for (StudyPlan sp : studyPlans) {
             if (sp.getId() == studyPlanID) {
-                studyPlan = sp;
-                break;
+                return sp;
             }
         }
-        return studyPlan;
+        return null;
     }
 
     /**
@@ -119,7 +128,7 @@ public class Student {
     }
 
     /**
-     * @return all studyplans
+     * @return all studyPlans
      */
     public List<StudyPlan> getAllStudyPlans() {
         return Collections.unmodifiableList(studyPlans);
@@ -127,7 +136,7 @@ public class Student {
 
     /**
      * Returns a list of courses that exists currently in the workspace.
-     * @return
+     * @return all courses in the workspace
      */
     public List<Course> getAllCoursesInWorkspace(){
         return workspace.getAllCourses();
@@ -169,24 +178,16 @@ public class Student {
     }
 
     /**
-     * Set first study plan as current.
-     */
-    public void setFirstStudyPlanAsCurrent() {
-        StudyPlan sp = studyPlans.get(0);
-        setCurrentStudyPlan(sp.getId());
-    }
-
-    /**
-     * @param studyPlans is the list of studyplans to be set in the model
+     * @param studyPlans is the list of studyPlans to be set in the model
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         this.studyPlans = studyPlans;
     }
 
     /**
-     * @param currentStudyPlan is the studyplan to be set as the current studyplan in the model
+     * @param currentStudyPlan is the studyPlan to be set as the current studyplan in the model
      */
-    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+    public void setFirstStudyPlanAsCurrent(StudyPlan currentStudyPlan) {
         this.currentStudyPlan = currentStudyPlan;
     }
 

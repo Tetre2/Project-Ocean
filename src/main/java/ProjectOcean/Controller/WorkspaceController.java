@@ -3,6 +3,10 @@ package ProjectOcean.Controller;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.RelocateDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.RemoveMovableChild;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
@@ -15,7 +19,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controls the workspace in the application
  */
-public class WorkspaceController extends VBox implements Observer {
+class WorkspaceController extends VBox implements Observer {
 
     @FXML private FlowPane workspaceContainer;
 
@@ -42,7 +46,7 @@ public class WorkspaceController extends VBox implements Observer {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/WorkspaceWindow.fxml"));
+                "/fxml/WorkspaceWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

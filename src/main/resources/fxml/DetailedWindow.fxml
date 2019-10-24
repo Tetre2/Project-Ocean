@@ -30,7 +30,7 @@
                      <graphic>
                         <ImageView fitHeight="29.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@Images/BackArrow.png" />
+                              <Image url="@../Images/BackArrow.png" />
                            </image>
                         </ImageView>
                      </graphic>

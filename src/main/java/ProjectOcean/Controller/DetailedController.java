@@ -1,5 +1,6 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.GoBackToMainContent;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the detailed view of a course
  */
-public class DetailedController extends VBox {
+class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
     @FXML private Label studyPeriod;
@@ -30,12 +31,13 @@ public class DetailedController extends VBox {
     @FXML private Label courseCodeNameStudyPoints;
     @FXML private Label courseTypeLabel;
 
-    private HostServices hostServices;
-    private GoBackToMainContent goBack;
+    private final HostServices hostServices;
+    private final GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.
      * @param goBack is a callback to the showStudyPlanWorkspaceWindow method in applicationController.
+     * @param hostServices used for ability to open link to Course PM in program.
      */
     public DetailedController(GoBackToMainContent goBack, HostServices hostServices) {
         this.goBack = goBack;
@@ -43,7 +45,7 @@ public class DetailedController extends VBox {
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/DetailedWindow.fxml"), bundle);
+                "/fxml/DetailedWindow.fxml"), bundle);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -148,10 +150,10 @@ public class DetailedController extends VBox {
         requiredCourses.getChildren().clear();
     }
 
-    @FXML
     /**
      * Opens the course-PM in a web browser
      */
+    @FXML
     private void setOnMouseClickedCoursePMLink(){
         String s = coursePM.getTooltip().getText();
         hostServices.showDocument(s);

@@ -1,12 +1,15 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.RelocateDraggedObjectToCursor;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
-
 import ProjectOcean.Model.ICourse;
 import ProjectOcean.Model.IYear;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,20 +20,20 @@ import java.util.Observer;
 /**
  * Represents a graphical component of a study plan.
  */
-public class ScheduleController extends VBox implements Observer {
+class StudyPlanController extends VBox implements Observer {
 
     @FXML private VBox yearContentView;
     @FXML private Button addYearButton;
-    private CoursePlanningSystem model;
+    @FXML private ScrollPane scrollPane;
 
-    private List<IYear> years;
+    private final CoursePlanningSystem model;
     private final List<YearController> yearControllers;
     private final RelocateDraggedObjectToCursor relocateDraggedObjectToCursor;
     private final AddIconToScreen addIconToScreen;
     private final VisualFeedback visualFeedback;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
 
-    public ScheduleController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
+    public StudyPlanController(CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.relocateDraggedObjectToCursor = relocateDraggedObjectToCursor;
         this.addIconToScreen = addIconToScreen;
         this.yearControllers = new ArrayList<>();
@@ -39,7 +42,7 @@ public class ScheduleController extends VBox implements Observer {
         this.showDetailedInformationWindow = showDetailedInformationWindow;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/StudyPlanWindow.fxml"));
+                "/fxml/StudyPlanWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -56,10 +59,18 @@ public class ScheduleController extends VBox implements Observer {
 
     }
 
+    /**
+     * Updates the view according to the model.
+     */
     @Override
     public void update(Observable o, Object arg) {
         updateControllerAccordingToModel();
         displayAllYearsInSchedule();
+    }
+
+    private void scrollDownScrollPane() {
+        scrollPane.layout();
+        scrollPane.setVvalue(1.0);
     }
 
     private void displayAllYearsInSchedule() {
@@ -82,7 +93,7 @@ public class ScheduleController extends VBox implements Observer {
     private void updateControllerAccordingToModel() {
         deleteObserversAndChildren();
 
-        years = model.getYears();
+        List<IYear> years = model.getYears();
         int yearIndex = 0;
 
         for (IYear y : years) {
@@ -99,7 +110,8 @@ public class ScheduleController extends VBox implements Observer {
     }
 
     @FXML
-    public void addYear() {
+    private void addYear() {
         model.addYear();
+        scrollDownScrollPane();
     }
 }
