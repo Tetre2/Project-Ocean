@@ -9,7 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.SortedMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /**
  * Represents a graphical component of a study plan.

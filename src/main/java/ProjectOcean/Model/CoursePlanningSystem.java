@@ -83,14 +83,6 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * Notify all listeners when user has clicked on study plan
-     */
-    public void updateOnStudyPlanClicked() {
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param course the course to be added
      * @param year the year to add the course to
