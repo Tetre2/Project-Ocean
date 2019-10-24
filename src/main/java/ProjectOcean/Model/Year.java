@@ -12,7 +12,14 @@ public class Year implements IYear{
 
     private final List<StudyPeriod> studyPeriods = new ArrayList<>();
 
+    private final int ID;
+    private static int yearsCreatedDuringRuntime = 0;
+
+
     public Year() {
+        this.ID = yearsCreatedDuringRuntime;
+        yearsCreatedDuringRuntime++;
+
         for (int i = 0; i < 4; i++) {
             studyPeriods.add(new StudyPeriod());
         }
@@ -24,13 +31,14 @@ public class Year implements IYear{
      * @param studyPeriod the study period to add the course to
      * @param slot the slot in which the course will be added
      */
-    public void addCourse(ICourse course, int studyPeriod, int slot) {
+    public void addCourse(Course course, int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).addCourse(course, slot);
     }
 
     /**
      * Removes a course from the given study period
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
     public void removeCourse(int studyPeriod, int slot) {
         studyPeriods.get(studyPeriod - 1).removeCourse(slot);
@@ -45,7 +53,7 @@ public class Year implements IYear{
     }
 
     /**
-     * @return returns all studyperiods
+     * @return returns all studyPeriods
      */
     public List<StudyPeriod> getStudyPeriods() {
         return Collections.unmodifiableList(studyPeriods);
@@ -100,4 +108,10 @@ public class Year implements IYear{
     public int getStudyPeriodsSize() {
         return studyPeriods.size();
     }
+
+    @Override
+    public int getID() {
+        return ID;
+    }
+
 }

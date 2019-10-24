@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="contentWindow" minWidth="500.0" style="-fx-background-color: #DEDEDE;" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="contentWindow" maxHeight="600.0" minWidth="500.0" style="-fx-background-color: #DEDEDE;" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #DEDEDE;">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #DEDEDE;" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -16,9 +16,10 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <content>
-            <VBox fx:id="yearContentView" style="-fx-border-radius: 0; -fx-border-color: purple;">
+            <VBox style="-fx-border-radius: 0; -fx-border-color: purple;">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
+                  <VBox fx:id="yearContentView" />
+                  <Button fx:id="addYearButton" mnemonicParsing="false" onAction="#addYear" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #EDEDED; -fx-border-color: black; -fx-border-style: dotted; -fx-border-radius: 10;" text="+">
                      <font>
                         <Font size="40.0" />
                      </font>

@@ -1,7 +1,7 @@
 package ProjectOcean.Model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Represents a course in the model
@@ -18,8 +18,19 @@ public class Course implements ICourse {
     private final List<String> requiredCourses;
     private final String coursePMLink;
     private final String courseDescription;
+    private final List<String> courseTypes;
 
-    public Course(String courseCode, String courseName, String studyPoints, String studyPeriod, String examiner, String examinationMeans, String language, List<String> requiredCourses, String coursePMLink, String courseDescription) {
+    public Course(String courseCode,
+                  String courseName,
+                  String studyPoints,
+                  String studyPeriod,
+                  String examiner,
+                  String examinationMeans,
+                  String language,
+                  List<String> requiredCourses,
+                  String coursePMLink,
+                  String courseDescription,
+                  List<String> courseTypes) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.studyPoints = studyPoints;
@@ -30,6 +41,7 @@ public class Course implements ICourse {
         this.requiredCourses = requiredCourses;
         this.coursePMLink = coursePMLink;
         this.courseDescription = courseDescription;
+        this.courseTypes = courseTypes;
     }
 
     @Override
@@ -73,6 +85,14 @@ public class Course implements ICourse {
     }
 
     /**
+     * @return this course's course types
+     */
+    @Override
+    public List<String> getCourseTypes() {
+        return new ArrayList<>(courseTypes);
+    }
+
+    /**
      * @return this course's name
      */
     @Override
@@ -104,7 +124,7 @@ public class Course implements ICourse {
     }
 
     /**
-     * @return this course's examinator
+     * @return this course's examiner
      */
     @Override
     public String getExaminer() {
@@ -147,14 +167,6 @@ public class Course implements ICourse {
                 requiredCourses.equals(course.requiredCourses) &&
                 coursePMLink.equals(course.coursePMLink) &&
                 courseDescription.equals(course.courseDescription);
-    }
-
-    /**
-     * @return a hash code
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(courseCode, courseName, studyPoints, studyPeriod, examiner, examinationMeans, language, requiredCourses, coursePMLink, courseDescription);
     }
 }
 

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="searchBrowsePane" prefHeight="0.0" prefWidth="300.0" style="-fx-background-color: #EEEEEE;" type="AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="searchPanel" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <GridPane prefWidth="300.0" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="188.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="112.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints prefHeight="0.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" percentWidth="100.0" prefWidth="114.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Study period:" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="1.0" left="1.0" top="1.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <GridPane GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <CheckBox fx:id="studyPeriodCheckbox1" mnemonicParsing="false" onAction="#onActionCheckbox" text="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="studyPeriodCheckbox2" mnemonicParsing="false" onAction="#onActionCheckbox" text="2" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="studyPeriodCheckbox3" mnemonicParsing="false" onAction="#onActionCheckbox" text="3" GridPane.columnIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="studyPeriodCheckbox4" mnemonicParsing="false" onAction="#onActionCheckbox" text="4" GridPane.columnIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.halignment="RIGHT" />
+                  <GridPane GridPane.columnIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <CheckBox fx:id="studyPointCheckBox7_5" mnemonicParsing="false" onAction="#onActionCheckbox" text="7,5">
+                                 <padding>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </padding>
+                              </CheckBox>
+                              <CheckBox fx:id="studyPointCheckBox15" mnemonicParsing="false" onAction="#onActionCheckbox" text="15" GridPane.columnIndex="1">
+                                 <padding>
+                                    <Insets bottom="1.0" top="1.0" />
+                                 </padding>
+                              </CheckBox>
+                           </children>
+                        </GridPane>
+                        <Label text="Study points:" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets bottom="1.0" left="1.0" top="1.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="271.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="29.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextField fx:id="searchField" maxHeight="30.0" minHeight="30.0" onAction="#onActionSearchField" prefHeight="30.0" promptText="Search here, seperate terms with blankspace">
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="1.0" top="2.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onActionSearchButton" prefHeight="30.0" prefWidth="30.0" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/searchIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="1.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+      <ScrollPane fx:id="resultPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="0.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <content>
+            <VBox fx:id="searchResultVBox" AnchorPane.bottomAnchor="0" />
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

@@ -1,5 +1,6 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.GoBackToMainContent;
 import ProjectOcean.Model.ICourse;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -10,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the detailed view of a course
  */
-public class DetailedController extends VBox {
+class DetailedController extends VBox {
 
     @FXML private VBox detailedViewRoot;
     @FXML private Label studyPeriod;
@@ -29,13 +29,15 @@ public class DetailedController extends VBox {
     @FXML private VBox requiredCourses;
     @FXML private Hyperlink coursePM;
     @FXML private Label courseCodeNameStudyPoints;
+    @FXML private Label courseTypeLabel;
 
-    private HostServices hostServices;
-    private GoBackToMainContent goBack;
+    private final HostServices hostServices;
+    private final GoBackToMainContent goBack;
 
     /**
      * Creates the view for the detailed view without any info in it.
      * @param goBack is a callback to the showStudyPlanWorkspaceWindow method in applicationController.
+     * @param hostServices used for ability to open link to Course PM in program.
      */
     public DetailedController(GoBackToMainContent goBack, HostServices hostServices) {
         this.goBack = goBack;
@@ -43,7 +45,7 @@ public class DetailedController extends VBox {
 
         ResourceBundle bundle = java.util.ResourceBundle.getBundle("Internationalization/Lang_sv");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/DetailedWindow.fxml"), bundle);
+                "/fxml/DetailedWindow.fxml"), bundle);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -54,7 +56,7 @@ public class DetailedController extends VBox {
         }
 
         //sets the detailed view so it can grow vertically in its parents
-        detailedViewRoot.setVgrow(this, Priority.ALWAYS);
+        setVgrow(this, Priority.ALWAYS);
 
     }
 
@@ -80,6 +82,8 @@ public class DetailedController extends VBox {
         setCoursePMLink(course.getCoursePMLink());
 
         setCourseDescription(course.getCourseDescription());
+
+        setCourseType(course.getCourseTypes());
     }
 
     private void setHeader(String header){
@@ -100,6 +104,18 @@ public class DetailedController extends VBox {
 
     private void setLanguage(String language) {
         this.language.setText(language);
+    }
+
+    private void setCourseType(List<String> courseTypes) {
+        if(courseTypes.isEmpty()) {
+            courseTypeLabel.setText("Allmän");
+        } else {
+            String courseTypesString = courseTypes.toString();
+            //Trims the brackets from List.toString
+            courseTypesString = courseTypesString.substring(1, courseTypesString.length()-1);
+            this.courseTypeLabel.setText(courseTypesString);
+        }
+
     }
 
     private void setRequiredCourses(List<String> courses) {
@@ -134,10 +150,10 @@ public class DetailedController extends VBox {
         requiredCourses.getChildren().clear();
     }
 
-    @FXML
     /**
      * Opens the course-PM in a web browser
      */
+    @FXML
     private void setOnMouseClickedCoursePMLink(){
         String s = coursePM.getTooltip().getText();
         hostServices.showDocument(s);
@@ -146,9 +162,6 @@ public class DetailedController extends VBox {
     @FXML
     private void setOnBackClicked(){
         goBack.goBack();
-        //applicationController.showStudyPlanWorkspaceWindow();
     }
-
-
 
 }

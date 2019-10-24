@@ -1,36 +1,44 @@
 package ProjectOcean.Model;
 
-import ProjectOcean.IO.*;
 
-import java.util.Collections;
-import java.util.Observable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
  */
 public class CoursePlanningSystem extends Observable {
 
-    private List<Course> courses;
-    private Student student;
+    private final List<Course> courses;
+    private final Student student;
     private static CoursePlanningSystem model;
-    private static ICourseSaveLoader courseSaveLoader = SaveloaderFactory.createICourseSaveLoader();
-    private static IStudyPlanSaverLoader studyPlanSaverLoader = SaveloaderFactory.createIStudyPlanSaverLoader();
 
     public static CoursePlanningSystem getInstance(){
         if(model == null){
 
-            return model = new CoursePlanningSystem(getStudentFromStudyPlanSaverLoader(), getCoursesFromCourseLoader());
+            return model = new CoursePlanningSystem();
         }
         return model;
     }
 
-    private CoursePlanningSystem(Student student, List<Course> courses) {
-        this.courses = courses;
-        this.student = student;
-        setChanged();
-        notifyObservers();
+    private CoursePlanningSystem() {
+        this.courses = new ArrayList<>();
+        this.student = new Student();
+        update();
+    }
+
+    /**
+     * @return all years in the student's current study plan as IYears.
+     * Instead returns a list of null if current study plan doesn't exist.
+     */
+    public List<IYear> getYears(){
+        if(student.getCurrentStudyPlan() == null)
+            return Collections.unmodifiableList(new ArrayList<Year>());
+        List<Year> years = student.getCurrentStudyPlan().getYears();
+
+        return Collections.unmodifiableList(new ArrayList<>(years));
     }
 
     /**
@@ -48,6 +56,31 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
+     * @return A list of id:s of all study plans
+     */
+    public List<Integer> getStudyPlanIds() {
+        return student.getStudyPlanIds();
+    }
+
+    /**
+     * Adds a study plan
+     */
+    public void addStudyPlan() {
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+        setCurrentStudyPlan(studyPlan.getId());
+    }
+
+    /**
+     * Set a given study plan as current, active.
+     * @param studyPlanID A study plan to assign as current.
+     */
+    public void setCurrentStudyPlan(Integer studyPlanID) {
+        student.setFirstStudyPlanAsCurrent(studyPlanID);
+        update();
+    }
+
+    /**
      * Attempts to add the given course to the given year, study period and slot for the current student
      * @param course the course to be added
      * @param year the year to add the course to
@@ -55,44 +88,42 @@ public class CoursePlanningSystem extends Observable {
      * @param slot the slot in which the course will be added
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
-        student.addCourse(course, year, studyPeriod,slot);
-        setChanged();
-        notifyObservers();
+        student.addCourse(courses.get(courses.indexOf(course)), year, studyPeriod,slot);
+        update();
     }
 
     /**
-     * Attempts to add the given course to the given year, study period and slot for the current student
-     * @param year the year to add the course to
-     * @param studyPeriod the study period to add the course to
-     * @param slot the slot in which the course will be added
+     * Creates a new year instance and adds it to the list of years, in the study plan
      */
-    public void addCourse(int year, int studyPeriod, int slot){
-        addCourse(year, studyPeriod, slot);
+    public void addYear() {
+        student.addYear();
+        update();
+    }
+
+    /**
+     * Removes the year specified by the index, in the study plan
+     * @param id the year to be removed
+     */
+    public void removeYear(int id) {
+        student.removeYear(id);
+        update();
     }
 
     /**
      * Removes the given course in the given year and study period, for the current student
-     * @param year the year to remove the course from
+     * @param yearID the year to remove the course from
      * @param studyPeriod the study period to remove the course from
+     * @param slot the slot to remove the course from
      */
-    public void removeCourse(int year, int studyPeriod, int slot) {
-        student.removeCourse(year, studyPeriod, slot);
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * @param course is a Icourse for a specific course
-     * @return returns the Course corresponding to the given UUID
-     */
-    public Course getCourse(ICourse course) {
-        return (Course) course;
+    public void removeCourse(int yearID, int studyPeriod, int slot) {
+        student.removeCourse(yearID, studyPeriod, slot);
+        update();
     }
 
     /**
      *
-     * @param searchText: A string of search terms seperated by blankspaces
-     * @return searchResult: A List<UUID> with the id of each course that matches, in the order that they are matched
+     * @param searchText: A string of search terms separated by blank spaces
+     * @return searchResult: A List of ICourses with the ICourse of each course that matches, in the order that they are matched
      */
     public List<ICourse> executeSearch(String searchText) {
         String[] searchTerms = trimString(searchText);
@@ -100,11 +131,12 @@ public class CoursePlanningSystem extends Observable {
         matchCourseNameAndAddCourse(searchTerms, searchResult);
         matchCourseCodeAndAddCourse(searchTerms, searchResult);
         matchExaminerAndAddCourse(searchTerms, searchResult);
+        matchCourseTypeAndAddCourse(searchTerms, searchResult);
         return searchResult;
     }
 
     private String[] trimString(String searchText) {
-        //Trims away unnecessary blankspaces, makes them lowercase and splits the terms into a array.
+        //Trims away unnecessary blank spaces, makes them lowercase and splits the terms into a array.
         searchText = searchText.trim();
         searchText = searchText.toLowerCase();
         searchText = searchText.trim().replaceAll(" +", " ");
@@ -116,7 +148,24 @@ public class CoursePlanningSystem extends Observable {
         // to search result.
         for(String s : searchTerms) {
             for(ICourse c : courses) {
-                if(!(s.length()< 3) && c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c)) {
+                if(c.getCourseName().toLowerCase().contains(s) && !searchResult.contains(c)) {
+                    searchResult.add(c);
+                }
+            }
+        }
+    }
+
+    private void matchCourseTypeAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
+        for (ICourse c : courses) {
+            //Makes a list of course types that is lower case for this course c.
+            List<String> courseTypesLowerString = new ArrayList<>();
+            for(String courseType : c.getCourseTypes()) {
+                courseTypesLowerString.add(courseType.toLowerCase());
+            }
+            //Goes through the search terms and see if they match the lower-case course type list
+            //for this course
+            for(String s : searchTerms) {
+                if(courseTypesLowerString.contains(s)&& !searchResult.contains(c)) {
                     searchResult.add(c);
                 }
             }
@@ -136,7 +185,7 @@ public class CoursePlanningSystem extends Observable {
     }
 
     private void matchExaminerAndAddCourse(String[] searchTerms, List<ICourse> searchResult) {
-        //For each search term, searches through each courses examinor for matches and
+        //For each search term, searches through each courses examiner for matches and
         // if found adds the course to search result.
         for(String s : searchTerms) {
             for(ICourse c : courses) {
@@ -146,6 +195,14 @@ public class CoursePlanningSystem extends Observable {
             }
         }
     }
+
+    /**
+     * This method sends a message to all the views that they should update.
+     */
+    public void update(){
+        setChanged();
+        notifyObservers();
+    }
       
      /**
      * Adds a course to the workspace
@@ -153,18 +210,16 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourseToWorkspace(ICourse course){
         student.addCourseToWorkspace((Course) course);
-        setChanged();
-        notifyObservers();
+        update();
     }
+
     /**
      * Gets a list of all courses in the workspace.
      * @return a list of ICourses in workspace.
      */
     public List<ICourse> getCoursesInWorkspace(){
         List<ICourse> idList = new ArrayList<>();
-        for (Course c : student.getAllCoursesInWorkspace()) {
-            idList.add(c);
-        }
+        idList.addAll(student.getAllCoursesInWorkspace());
         return idList;
     }
 
@@ -174,56 +229,71 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeCourseFromWorkspace(ICourse course) {
         student.removeCourseFromWorkspace((Course) course);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
      * Removes all courses
      */
-    public void removeAllCoursesInWorkscpace(){
-        student.removeAllCoursesInWorkscpace();
-    }
-
-    private static List<Course> getCoursesFromCourseLoader(){
-        List<Course> courses = null;
-        try {
-            courses = courseSaveLoader.loadCoursesFile();
-        } catch (CoursesNotFoundException e) {
-            courseSaveLoader.createCoursesFile();
-        }
-
-        try {
-            courses = courseSaveLoader.loadCoursesFile();
-        } catch (CoursesNotFoundException e) {
-            e.printStackTrace();
-        }
-        return courses;
-    }
-
-    private static Student getStudentFromStudyPlanSaverLoader(){
-        Student student = null;
-
-        try {
-            student = studyPlanSaverLoader.loadStudent();
-        } catch (StudyPlanNotFoundException e) {
-            studyPlanSaverLoader.createNewStudentFile();
-        }
-
-        try {
-            student = studyPlanSaverLoader.loadStudent();
-        } catch (StudyPlanNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return student;
+    public void removeAllCoursesInWorkspace(){
+        student.removeAllCoursesInWorkspace();
     }
 
     /**
-     * Saves the student and its contents
+     * @param studyPlans is the list of studyPlans to be set in the model
      */
-    public void saveStudentToJSON(){
-        studyPlanSaverLoader.saveStudyplans(student);
+    public void setStudyPlans(List<StudyPlan> studyPlans) {
+        student.setStudyPlans(studyPlans);
+        update();
+    }
+
+    /**
+     * @return all studyPlans
+     */
+    public List<StudyPlan> getAllStudyPlans() {
+        List<StudyPlan> studyPlans = new ArrayList<>();
+        studyPlans.addAll(student.getAllStudyPlans());
+        return studyPlans;
+    }
+
+    /**
+     * @return the student's current active study plan
+     */
+    public StudyPlan getCurrentStudyPlan() {
+        return student.getCurrentStudyPlan();
+    }
+
+    /**
+     * Method removes a given study plan.
+     * @param studyPlanID Study plan of users decision to delete.
+     */
+    public void removeStudyPlan(Integer studyPlanID) {
+        student.removeStudyPlan(studyPlanID);
+        update();
+    }
+
+    /**
+     * @param currentStudyPlan is the studyPlan to be set as the current studyPlan in the model
+     */
+    public void setCurrentStudyPlan(StudyPlan currentStudyPlan) {
+        student.setFirstStudyPlanAsCurrent(currentStudyPlan);
+    }
+
+    /**
+     * @param workspace is the workspace to be set as the workspace in the model
+     */
+    public void setWorkspace(Workspace workspace) {
+        student.setWorkspace(workspace);
+    }
+
+    /**
+     * Fills the model with a list of courses
+     * @param courses the courses to be added
+     */
+    public void fillModelWithCourses(List<Course> courses){
+        for (Course course: courses) {
+            this.courses.add(course);
+        }
     }
 
 }

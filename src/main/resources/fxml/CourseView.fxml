@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="courseVBox" minHeight="50.0" onDragDetected="#dragDetected" onMouseClicked="#onMousedClicked" prefWidth="250.0" style="-fx-background-color: #EEEEEE; -fx-border-color: #CCCCCC;" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane>
+         <children>
+            <HBox>
+               <children>
+                  <VBox fx:id="typeIndicator" minWidth="20.0" prefHeight="50.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="courseCodeText" text="Label">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="courseNameText" text="Label" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="studyPointsText" alignment="TOP_RIGHT" contentDisplay="TOP" text="Label" StackPane.alignment="TOP_RIGHT">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="5.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+   </children>
+</fx:root>

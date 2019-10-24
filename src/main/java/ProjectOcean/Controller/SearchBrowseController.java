@@ -1,5 +1,7 @@
 package ProjectOcean.Controller;
 
+import ProjectOcean.Controller.FunctionalInterfaces.AddIconToScreen;
+import ProjectOcean.Controller.FunctionalInterfaces.ShowDetailedInformationWindow;
 import ProjectOcean.Model.CoursePlanningSystem;
 import ProjectOcean.Model.ICourse;
 import javafx.fxml.FXML;
@@ -9,7 +11,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Represents the visual component of the search bar and list of courses
  */
-public class SearchBrowseController extends AnchorPane {
+class SearchBrowseController extends AnchorPane {
 
     @FXML private VBox searchResultVBox;
     @FXML private TextField searchField;
@@ -33,19 +34,22 @@ public class SearchBrowseController extends AnchorPane {
     private List<ICourse> currentSearchResult;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
     private final AddIconToScreen addIconToScreen;
+    private final VisualFeedback visualFeedback;
 
     /**
      * @param model: An instance of the course planning system
      * @param showDetailedInformationWindow callback to the showDetailedInformationWindow method
      * @param addIconToScreen callback to the addIconToScreen method
+     * @param visualFeedback callback to the method showAvailablePlacementInSchedule
      */
-    public SearchBrowseController(CoursePlanningSystem model, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
+    public SearchBrowseController(CoursePlanningSystem model, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow, AddIconToScreen addIconToScreen) {
         this.model = model;
         this.showDetailedInformationWindow = showDetailedInformationWindow;
         this.addIconToScreen = addIconToScreen;
+        this.visualFeedback = visualFeedback;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/SearchBrowseWindow.fxml"));
+                "/fxml/SearchBrowseWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -88,13 +92,13 @@ public class SearchBrowseController extends AnchorPane {
     private void filterAndDisplayCourses() {
         searchResultVBox.getChildren().clear();
 
-        List<ICourse> filteredSearchResult = new ArrayList<ICourse>(currentSearchResult);
+        List<ICourse> filteredSearchResult = new ArrayList<>(currentSearchResult);
         filterBasedOnStudyPeriod(filteredSearchResult);
         filterBasedOnStudyPoints(filteredSearchResult);
         //Displays filtered result
         for(ICourse course : filteredSearchResult) {
-            CourseListIconController courseListIcon = new CourseListIconController(course, model, showDetailedInformationWindow, addIconToScreen);
-            searchResultVBox.getChildren().add(courseListIcon);
+            CourseController courseController = new CourseController(course, model, visualFeedback, showDetailedInformationWindow, addIconToScreen, null);
+            searchResultVBox.getChildren().add(courseController);
         }
     }
 
@@ -134,6 +138,5 @@ public class SearchBrowseController extends AnchorPane {
                 filteredSearchResult.add(course);
             }
         }
-
     }
 }
