@@ -1,7 +1,10 @@
 package ProjectOcean.Model;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
 
 /**
  * The model's main aggregate class acting like an interface for the views and controllers
@@ -64,7 +67,9 @@ public class CoursePlanningSystem extends Observable {
      * Adds a study plan
      */
     public void addStudyPlan() {
-        student.addStudyPlanAsCurrent();
+        StudyPlan studyPlan = new StudyPlan();
+        student.addStudyPlan(studyPlan);
+        setCurrentStudyPlan(studyPlan.getId());
     }
 
     /**
@@ -73,13 +78,16 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setCurrentStudyPlan(Integer studyPlanID) {
         student.setCurrentStudyPlan(studyPlanID);
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Set first study plan as current.
+     * Notify all listeners when user has clicked on study plan
      */
-    public void setFirstStudyPlanAsCurrent() {
-        student.setFirstStudyPlanAsCurrent();
+    public void updateOnStudyPlanClicked() {
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -243,6 +251,8 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         student.setStudyPlans(studyPlans);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -262,11 +272,14 @@ public class CoursePlanningSystem extends Observable {
     }
 
     /**
-     * Method removes a given study plan if it exists.
+     * Method removes a given study plan.
      * @param studyPlanID Study plan of users decision to delete.
      */
     public void removeStudyPlan(Integer studyPlanID) {
         student.removeStudyPlan(studyPlanID);
+        student.setCurrentStudyPlan();
+        setChanged();
+        notifyObservers();
     }
 
     /**

@@ -18,10 +18,9 @@ import java.io.IOException;
  */
 public class ScheduleCourseController extends VBox implements Movable {
 
-    @FXML
-    private Label courseCodeLabel;
-    private final CoursePlanningSystem model;
+    @FXML private Label courseCodeLabel;
 
+    private final CoursePlanningSystem model;
     private final AddIconToScreen addIconToScreen;
     private final int year;
     private final int studyPeriod;

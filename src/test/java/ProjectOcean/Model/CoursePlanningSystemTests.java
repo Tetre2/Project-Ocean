@@ -262,4 +262,47 @@ public class CoursePlanningSystemTests {
         Assert.assertEquals(yearSizeBefore, yearSizeAfter);
     }
 
+    @Test
+    public void addStudyPlanTest() {
+        int sizeBefore = model.getStudent().getAllStudyPlans().size();
+        StudyPlan currStudyPlan = model.getCurrentStudyPlan();
+        model.addStudyPlan();
+        int sizeAfter = model.getStudent().getAllStudyPlans().size();
+        Assert.assertEquals(1, sizeAfter - sizeBefore);
+        Assert.assertNotEquals(currStudyPlan.getId(), model.getCurrentStudyPlan().getId());
+    }
+
+    @Test
+    public void getAllStudyPlans() {
+        List<StudyPlan> studyPlans = model.getAllStudyPlans();
+        List<StudyPlan> studyPlans2 = model.getStudent().getAllStudyPlans();
+
+        Assert.assertTrue(studyPlans.equals(studyPlans2));
+    }
+
+    @Test
+    public void getStudyPlanIdsTest() {
+        List<Integer> ids = model.getStudyPlanIds();
+        for (StudyPlan sp : model.getStudent().getAllStudyPlans()) {
+            int spId = sp.getId();
+            Assert.assertTrue(ids.contains(spId));
+        }
+    }
+
+    @Test
+    public void updateOnStudyPlanClickedTest() {
+        model.updateOnStudyPlanClicked();
+    }
+
+    @Test
+    public void removeStudyPlan() {
+        model.addStudyPlan();
+        int id = model.getStudent().getAllStudyPlans().get(0).getId();
+        model.removeStudyPlan(id);
+        for (StudyPlan sp : model.getStudent().getAllStudyPlans()) {
+            int spId = sp.getId();
+            Assert.assertFalse(id == spId);
+        }
+    }
+
 }
