@@ -93,7 +93,6 @@ public class StudyPeriodTests {
 
         Assert.assertTrue(studyPeriod1.equals(studyPeriod2));
 
-        //----
         studyPeriod1.addCourse(courses.get(2), 2);
         Assert.assertFalse(studyPeriod1.equals(studyPeriod2));
 

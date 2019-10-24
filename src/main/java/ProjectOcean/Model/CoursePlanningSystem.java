@@ -26,8 +26,7 @@ public class CoursePlanningSystem extends Observable {
     private CoursePlanningSystem() {
         this.courses = new ArrayList<>();
         this.student = new Student();
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -78,16 +77,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setCurrentStudyPlan(Integer studyPlanID) {
         student.setFirstStudyPlanAsCurrent(studyPlanID);
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * Notify all listeners when user has clicked on study plan
-     */
-    public void updateOnStudyPlanClicked() {
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -99,8 +89,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourse(ICourse course, int year, int studyPeriod, int slot) {
         student.addCourse(courses.get(courses.indexOf(course)), year, studyPeriod,slot);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -108,8 +97,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addYear() {
         student.addYear();
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -118,8 +106,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeYear(int id) {
         student.removeYear(id);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -130,8 +117,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeCourse(int yearID, int studyPeriod, int slot) {
         student.removeCourse(yearID, studyPeriod, slot);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -224,8 +210,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void addCourseToWorkspace(ICourse course){
         student.addCourseToWorkspace((Course) course);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -244,8 +229,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeCourseFromWorkspace(ICourse course) {
         student.removeCourseFromWorkspace((Course) course);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -260,8 +244,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         student.setStudyPlans(studyPlans);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**
@@ -286,8 +269,7 @@ public class CoursePlanningSystem extends Observable {
      */
     public void removeStudyPlan(Integer studyPlanID) {
         student.removeStudyPlan(studyPlanID);
-        setChanged();
-        notifyObservers();
+        update();
     }
 
     /**

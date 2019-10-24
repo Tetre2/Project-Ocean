@@ -290,11 +290,6 @@ public class CoursePlanningSystemTests {
     }
 
     @Test
-    public void updateOnStudyPlanClickedTest() {
-        model.updateOnStudyPlanClicked();
-    }
-
-    @Test
     public void removeStudyPlan() {
         model.addStudyPlan();
         int id = model.getStudent().getAllStudyPlans().get(0).getId();

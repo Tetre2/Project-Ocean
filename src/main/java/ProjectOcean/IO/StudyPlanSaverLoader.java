@@ -281,7 +281,7 @@ public class StudyPlanSaverLoader {
      * @throws ParseException if the program cant parse the file
      */
     private static JSONObject readFromFile() throws IOException, ParseException {
-        File file = new File(getHomeDirPath(), getFileName());
+        File file = new File(getHomeDirPath(), fileName);
 
         FileReader fileReader = new FileReader(file);
         Object obj = parser.parse(fileReader);
@@ -307,7 +307,7 @@ public class StudyPlanSaverLoader {
      */
     public static void createNewStudentFile(){
         File directory = new File(getHomeDirPath());
-        File file = new File(directory, getFileName());
+        File file = new File(directory, fileName);
         file = new File(file.getParentFile().getAbsolutePath());
         if (!file.exists())
             file.mkdirs();
@@ -326,13 +326,6 @@ public class StudyPlanSaverLoader {
      */
     private static String getHomeDirPath() {
         return System.getProperty("user.home") + File.separatorChar + ".CoursePlanningSystem";
-    }
-
-    /**
-     * @return returns the json file name
-     */
-    private static String getFileName() {
-        return fileName;
     }
 
 }

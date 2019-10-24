@@ -3,7 +3,6 @@ package ProjectOcean.IO;
 import ProjectOcean.IO.Exceptions.CoursesNotFoundException;
 import ProjectOcean.IO.Exceptions.OldFileException;
 import ProjectOcean.Model.Course;
-import ProjectOcean.Model.ICourse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

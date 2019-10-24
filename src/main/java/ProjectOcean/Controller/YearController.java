@@ -27,7 +27,7 @@ import java.util.Observable;
 /**
  * Represents the visual graphic component of a year.
  */
-public class YearController extends VBox implements Observer {
+class YearController extends VBox implements Observer {
     @FXML private GridPane yearGrid;
     @FXML private Button removeYearButton;
     @FXML private Label yearLabel;
@@ -38,8 +38,7 @@ public class YearController extends VBox implements Observer {
     private final AddIconToScreen addIconToScreen;
     private final VisualFeedback visualFeedback;
     private final ShowDetailedInformationWindow showDetailedInformationWindow;
-
-    private Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
+    private final Map<ICourse, Tuple<Integer,Integer>> coursesInYear;
 
     public YearController(IYear year, CoursePlanningSystem model, RelocateDraggedObjectToCursor relocateDraggedObjectToCursor, AddIconToScreen addIconToScreen, int yearIndex, VisualFeedback visualFeedback, ShowDetailedInformationWindow showDetailedInformationWindow) {
         this.model = model;
@@ -118,7 +117,7 @@ public class YearController extends VBox implements Observer {
         for (Node slot: slots) {
             //Makes sure that the first element (a group) that displays the gridlines is not counted.
             if(slots.indexOf(slot) != 0) {
-                Integer column = 1 + GridPane.getColumnIndex(slot);
+                int column = 1 + GridPane.getColumnIndex(slot);
                 if (column == Integer.parseInt(studyPeriod)) {
                    slot.setStyle("-fx-border-color: green;" + "-fx-border-width: 3;" + "-fx-border-radius: 3");
                 } else {

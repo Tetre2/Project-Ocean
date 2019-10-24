@@ -157,7 +157,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
         } catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
@@ -178,7 +178,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
             model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
         }  catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
@@ -199,7 +199,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
         }  catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
@@ -229,7 +229,7 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      * @param icon  the icon to be moved
      * @param event the event representing the mouse drag
      */
-    public void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
+    private void relocateDraggedObjectToCursor(Movable icon, DragEvent event){
         Point2D mousePosition = new Point2D(event.getSceneX(), event.getSceneY());
         icon.relocateToPoint(mousePosition);
     }
@@ -250,16 +250,6 @@ public class ApplicationController extends AnchorPane implements VisualFeedback 
      */
     public void showAvailablePlacementInSchedule(ICourse course){
         studyPlanController.setVisualFeedbackForCoursePlacement(course);
-    }
-
-    /**
-     * Removes a course from the model.
-     * @param yearID of the year that the course is placed.
-     * @param studyPeriod where the course is currently at.
-     * @param slot where the course is placed.
-     */
-    public void removeCourse(int yearID, int studyPeriod, int slot){
-        model.removeCourse(yearID, studyPeriod, slot);
     }
 
     /**
