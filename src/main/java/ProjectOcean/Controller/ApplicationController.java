@@ -152,7 +152,7 @@ public class ApplicationController extends AnchorPane {
             model.setWorkspace(studyPlanSaverLoader.loadWorkspace());
             return;
         } catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
@@ -173,7 +173,7 @@ public class ApplicationController extends AnchorPane {
             model.setStudyPlans(studyPlanSaverLoader.loadStudyPlans());
             return;
         }  catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
@@ -194,7 +194,7 @@ public class ApplicationController extends AnchorPane {
             model.setCurrentStudyPlan(studyPlanSaverLoader.loadCurrentStudyPlan(model.getStudent().getAllStudyPlans()));
             return;
         }  catch (StudyPlanNotFoundException e) {
-            alert = new Alert(Alert.AlertType.NONE, "Could not find file!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
+            alert = new Alert(Alert.AlertType.NONE, "Could not find studyplan.json!\n" + "Do you want to create a new file", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
         } catch (OldFileException oldFileException) {
             alert = new Alert(Alert.AlertType.NONE, "Old version of study plan found!\n" + "Do you want to create a new with the right version", ButtonType.YES, ButtonType.NO);
